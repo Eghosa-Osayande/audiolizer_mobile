@@ -1,0 +1,115 @@
+name: solpha
+description: A new Flutter project.
+
+publish_to: 'none' 
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.17.6 <3.0.0"
+
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+  audioplayers: ^1.0.1
+
+  file_picker: ^4.5.1
+  permission_handler: ^9.2.0
+
+  # state management
+  flutter_bloc: ^8.0.1
+  equatable: ^2.0.3
+
+  # code generation
+  freezed_annotation: ^2.1.0
+  json_annotation: ^4.4.0
+
+  # windows specific
+  window_manager: ^0.2.1
+
+  #fonts
+  google_fonts: ^2.3.2
+
+  #svg support
+  flutter_svg:
+
+  #forms
+  flutter_form_builder: ^7.1.1
+  form_builder_validators: ^8.1.1
+  flutter_multi_formatter: ^2.5.1
+
+  # http requests
+  dio: ^4.0.6
+
+  #share to other apps
+  share_plus: ^4.0.4
+
+  #database
+  hive: ^2.1.0
+
+  #get paths for OS
+  path_provider: ^2.0.10
+  
+  file: ^6.1.2
+  rxdart: ^0.27.3
+  fluttertoast: ^8.0.9
+
+  infinite_scroll_pagination: 3.1.0
+
+  midi_util:
+    path: ../midi_util
+  
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  
+  flutter_lints: ^2.0.0
+
+  
+  bloc_test: ^9.0.2
+  mocktail: ^0.3.0
+
+  build_runner:
+  freezed: 2.1.0 
+  json_serializable:
+  hive_generator: ^1.1.2
+  analyzer: ^4.6.0
+
+
+
+flutter:  
+  uses-material-design: true
+
+  
+  
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
