@@ -1,10 +1,16 @@
 import 'dart:io';
 
 import 'package:audioplayers/audioplayers.dart';
-import 'package:file/file.dart' as file;
 import 'package:file/memory.dart';
 import 'package:flutter/material.dart';
 import 'package:midi_util/midi_util.dart';
+import 'package:solpha/modules/models/notes/enums/duration_markers.dart';
+import 'package:solpha/modules/models/notes/enums/solfege.dart';
+import 'package:solpha/modules/models/notes/note.dart';
+import 'package:solpha/modules/models/score/key_signature.dart';
+import 'package:solpha/modules/models/score/score.dart';
+import 'package:solpha/modules/models/score/score_settings.dart';
+import 'package:solpha/modules/models/score/time_signature.dart';
 
 void main() {
   runApp(const MyApp());
@@ -54,6 +60,356 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _incrementCounter() async {
+    ScoreSettings intialSettings = ScoreSettings(
+      bpm: 240,
+      timeSignature: TimeSignature.t_4_4,
+      keySignature: KeySignature.cmajor,
+    );
+    Score score = Score(intialSettings: intialSettings);
+
+    score.createTrack(volume: 100, program: 0);
+    score.createTrack(volume: 80, program: 48);
+
+    List.generate(score.tracks.length, (index) {
+      var first = score.tracks[index];
+
+      Note.duration(first, marker: DurationMarker.full);
+      Note.music(first, solfa: Solfege.ti, octave: 1);
+      Note.duration(first, marker: DurationMarker.full);
+
+      Note.duration(first, marker: DurationMarker.full);
+      Note.music(first, solfa: Solfege.sustain, octave: 0);
+      Note.duration(first, marker: DurationMarker.full);
+
+      Note.duration(first, marker: DurationMarker.full);
+      Note.music(first, solfa: Solfege.sustain, octave: 0);
+      Note.duration(first, marker: DurationMarker.full);
+
+      Note.duration(first, marker: DurationMarker.full);
+      Note.music(first, solfa: Solfege.doh, octave: 2);
+      Note.duration(first, marker: DurationMarker.full);
+
+      Note.duration(first, marker: DurationMarker.full);
+      Note.music(first, solfa: Solfege.sustain, octave: 0);
+      Note.duration(first, marker: DurationMarker.full);
+
+      Note.duration(first, marker: DurationMarker.full);
+      Note.music(first, solfa: Solfege.sustain, octave: 0);
+      Note.duration(first, marker: DurationMarker.full);
+
+      Note.duration(first, marker: DurationMarker.full);
+      Note.music(first, solfa: Solfege.lah, octave: 1);
+      Note.duration(first, marker: DurationMarker.full);
+
+      Note.duration(first, marker: DurationMarker.full);
+      Note.music(first, solfa: Solfege.sustain, octave: 0);
+      Note.duration(first, marker: DurationMarker.full);
+
+      Note.duration(first, marker: DurationMarker.full);
+      Note.music(first, solfa: Solfege.sustain, octave: 0);
+      Note.duration(first, marker: DurationMarker.full);
+
+      Note.duration(first, marker: DurationMarker.full);
+      Note.music(first, solfa: Solfege.ti, octave: 2);
+      Note.duration(first, marker: DurationMarker.full);
+
+      List.generate(7, (index) {
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.ti, octave: 0);
+        Note.duration(first, marker: DurationMarker.half);
+
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.doh, octave: 1);
+        Note.duration(first, marker: DurationMarker.half);
+
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.lah, octave: 0);
+        Note.duration(first, marker: DurationMarker.half);
+
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.ti, octave: 0);
+        Note.duration(first, marker: DurationMarker.half);
+
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.me, octave: 0);
+        Note.duration(first, marker: DurationMarker.half);
+
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.sustain, octave: 0);
+        Note.duration(first, marker: DurationMarker.half);
+      });
+      List.generate(5, (index) {
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.doh, octave: 1);
+        Note.duration(first, marker: DurationMarker.half);
+
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.ray, octave: 1);
+        Note.duration(first, marker: DurationMarker.half);
+
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.ti, octave: 0);
+        Note.duration(first, marker: DurationMarker.half);
+
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.doh, octave: 1);
+        Note.duration(first, marker: DurationMarker.half);
+
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.fah, octave: 0);
+        Note.duration(first, marker: DurationMarker.half);
+
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.sustain, octave: 0);
+        Note.duration(first, marker: DurationMarker.half);
+      });
+
+      List.generate(3, (index) {
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.ti, octave: 0);
+        Note.duration(first, marker: DurationMarker.half);
+
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.doh, octave: 1);
+        Note.duration(first, marker: DurationMarker.half);
+
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.lah, octave: 0);
+        Note.duration(first, marker: DurationMarker.half);
+
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.ti, octave: 0);
+        Note.duration(first, marker: DurationMarker.half);
+
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.me, octave: 0);
+        Note.duration(first, marker: DurationMarker.half);
+
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.sustain, octave: 0);
+        Note.duration(first, marker: DurationMarker.half);
+      });
+
+      Note.duration(first, marker: DurationMarker.full);
+      Note.music(first, solfa: Solfege.ti, octave: 1);
+      Note.duration(first, marker: DurationMarker.half);
+
+      Note.duration(first, marker: DurationMarker.full);
+      Note.music(first, solfa: Solfege.doh, octave: 2);
+      Note.duration(first, marker: DurationMarker.half);
+
+      Note.duration(first, marker: DurationMarker.full);
+      Note.music(first, solfa: Solfege.ti, octave: 1);
+      Note.duration(first, marker: DurationMarker.half);
+
+      Note.duration(first, marker: DurationMarker.full);
+      Note.music(first, solfa: Solfege.lah, octave: 1);
+      Note.duration(first, marker: DurationMarker.half);
+
+      Note.duration(first, marker: DurationMarker.full);
+      Note.music(first, solfa: Solfege.soh, octave: 1);
+      Note.duration(first, marker: DurationMarker.half);
+
+      Note.duration(first, marker: DurationMarker.full);
+      Note.music(first, solfa: Solfege.fah, octave: 1);
+      Note.duration(first, marker: DurationMarker.half);
+
+      Note.duration(first, marker: DurationMarker.full);
+      Note.music(first, solfa: Solfege.me, octave: 1);
+      Note.duration(first, marker: DurationMarker.half);
+
+      Note.duration(first, marker: DurationMarker.full);
+      Note.music(first, solfa: Solfege.ray, octave: 1);
+      Note.duration(first, marker: DurationMarker.half);
+
+      Note.duration(first, marker: DurationMarker.full);
+      Note.music(first, solfa: Solfege.doh, octave: 1);
+      Note.duration(first, marker: DurationMarker.half);
+
+      Note.duration(first, marker: DurationMarker.full);
+      Note.music(first, solfa: Solfege.ti, octave: 0);
+      Note.duration(first, marker: DurationMarker.half);
+
+      Note.duration(first, marker: DurationMarker.full);
+      Note.music(first, solfa: Solfege.lah, octave: 0);
+      Note.duration(first, marker: DurationMarker.half);
+
+      Note.duration(first, marker: DurationMarker.full);
+      Note.music(first, solfa: Solfege.soh, octave: 0);
+      Note.duration(first, marker: DurationMarker.half);
+
+      Note.duration(first, marker: DurationMarker.full);
+      Note.music(first, solfa: Solfege.fah, octave: 0);
+      Note.duration(first, marker: DurationMarker.half);
+
+      Note.duration(first, marker: DurationMarker.full);
+      Note.music(first, solfa: Solfege.lah, octave: 0);
+      Note.duration(first, marker: DurationMarker.half);
+// chorus
+
+      List.generate(5, (index) {
+        int ex = index > 1 ? 1 : 0;
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.doh, octave: ex + -1);
+        Note.duration(first, marker: DurationMarker.quarter);
+
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.ray, octave: ex + 0);
+        Note.duration(first, marker: DurationMarker.half);
+
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.me, octave: ex + 0);
+        Note.duration(first, marker: DurationMarker.half);
+
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.lah, octave: ex + 0);
+        Note.duration(first, marker: DurationMarker.half);
+
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.soh, octave: ex + 0);
+        Note.duration(first, marker: DurationMarker.half);
+
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.lah, octave: ex + 0);
+        Note.duration(first, marker: DurationMarker.half);
+
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.doh, octave: ex + -1);
+        Note.duration(first, marker: DurationMarker.half);
+
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.ray, octave: ex + 0);
+        Note.duration(first, marker: DurationMarker.half);
+
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.me, octave: ex + 0);
+        Note.duration(first, marker: DurationMarker.half);
+
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.fah, octave: ex + 0);
+        Note.duration(first, marker: DurationMarker.half);
+
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.lah, octave: ex + 0);
+        Note.duration(first, marker: DurationMarker.half);
+
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.soh, octave: ex + 0);
+        Note.duration(first, marker: DurationMarker.half);
+
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.doh, octave: ex + -1);
+        Note.duration(first, marker: DurationMarker.half);
+
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.ray, octave: ex + 0);
+        Note.duration(first, marker: DurationMarker.half);
+
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.me, octave: ex + 0);
+        Note.duration(first, marker: DurationMarker.half);
+
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.fah, octave: ex + 0);
+        Note.duration(first, marker: DurationMarker.half);
+
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.soh, octave: ex + 0);
+        Note.duration(first, marker: DurationMarker.half);
+
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.lah, octave: ex + 0);
+        Note.duration(first, marker: DurationMarker.half);
+
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.ray, octave: ex + -1);
+        Note.duration(first, marker: DurationMarker.half);
+
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.me, octave: ex + 0);
+        Note.duration(first, marker: DurationMarker.half);
+
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.fah, octave: ex + 0);
+        Note.duration(first, marker: DurationMarker.half);
+
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.soh, octave: ex + 0);
+        Note.duration(first, marker: DurationMarker.half);
+
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.lah, octave: ex + 0);
+        Note.duration(first, marker: DurationMarker.half);
+
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.doh, octave: ex + 1);
+        Note.duration(first, marker: DurationMarker.full);
+
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.soh, octave: ex + 0);
+        Note.duration(first, marker: DurationMarker.half);
+
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.me, octave: ex + 0);
+        Note.duration(first, marker: DurationMarker.half);
+
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.doh, octave: ex + 1);
+        Note.duration(first, marker: DurationMarker.half);
+
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.ti, octave: ex + 0);
+        Note.duration(first, marker: DurationMarker.half);
+
+        Note.duration(first, marker: DurationMarker.full);
+        Note.music(first, solfa: Solfege.lah, octave: ex + 0);
+        Note.duration(first, marker: DurationMarker.half);
+      });
+      Note.duration(first, marker: DurationMarker.full);
+      Note.music(first, solfa: Solfege.sustain, octave: 0);
+      Note.duration(first, marker: DurationMarker.full);
+      Note.duration(first, marker: DurationMarker.full);
+      Note.music(first, solfa: Solfege.sustain, octave: 0);
+      Note.duration(first, marker: DurationMarker.full);
+    });
+
+    score.computeTracks();
+
+    print(score.tracks);
+    for (var v in score.tracks) {
+      for (var t in v) {
+        t.map(
+          music: (musicNote) {
+            print([
+              musicNote.duration,
+              musicNote.position
+            ]);
+          },
+          duration: (durationNote) {},
+        );
+      }
+    }
+
+    File outputFile = MemoryFileSystem().file('test_c_scale.mid');
+    await score.midiFile.writeFile(outputFile);
+    var f = outputFile;
+
+    print([
+      f.readAsBytesSync(),
+    ]);
+
+    await player.setSourceBytes(f.readAsBytesSync());
+    await player.resume();
+    // await player.seek(Duration(seconds: 14));
+
+    // print(first);
+
+    setState(() {
+      _counter++;
+    });
+  }
+
+  Future<void> tt() async {
     var f = await c();
 
     print([
@@ -62,9 +418,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
     await player.setSourceBytes(f.readAsBytesSync());
     await player.resume();
-    setState(() {
-      _counter++;
-    });
   }
 
   @override

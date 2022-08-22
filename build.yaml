@@ -1,0 +1,19 @@
+
+targets:
+  $default:
+    builders:
+      # Typically the builder key is just the package name, run
+      # dart run build_runner doctor to check your config.
+      freezed:freezed:
+        enabled: true
+        # generate_for:
+        #   - lib/modules/models
+      
+      hive_generator:hive_generator:
+        enabled: false
+        generate_for:
+          - lib/modules/models
+      json_serializable:json_serializable:
+        enabled: false
+        generate_for:
+          - lib/modules/models
