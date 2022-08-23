@@ -1,42 +1,49 @@
+import 'dart:async';
 import 'dart:collection';
 
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:flutter/foundation.dart';
 import 'package:result_type/result_type.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:solpha/modules/exceptions/exceptions.dart';
-import 'package:solpha/modules/models/midi_actions/add_note.dart';
+import 'package:solpha/modules/models/notes/decoration_notes.dart';
 import 'package:solpha/modules/models/notes/enums/duration_markers.dart';
 import 'package:solpha/modules/models/notes/enums/solfege.dart';
 import 'package:solpha/modules/models/track/track.dart';
 
-part 'duration_note.dart';
-part 'music_note.dart';
+import 'duration_note.dart';
+import 'music_note.dart';
 
-class NoteChangeNotifierMixin extends ChangeNotifier {
-  GenericException? _error;
+mixin ErrorStreamMixin<T> on ChangeNotifier {
+  T? _error;
+  T? get error => _error;
 
-  setError(GenericException error) {
+  setError(T error) {
     _error = error;
+    notifyListeners();
   }
 
   clearError() {
     _error = null;
+    notifyListeners();
   }
 
   bool get hasError => _error != null;
-
-  String? get errorMessage => _error?.reason;
 }
 
-class Note extends NoteChangeNotifierMixin with LinkedListEntry<Note> {
-  final Track track;
-  Note._(this.track) {
-    if (this.list != null) {
-      unlink();
-    }
-    track.add(this);
+extension TrackX on Note {
+  Result<bool, GenericException> addToTrack() {
+    return track.add(this);
   }
+}
+
+class Note with LinkedListEntry<Note>, EquatableMixin, ChangeNotifier, ErrorStreamMixin<GenericException> {
+  final Track track;
+  final int createdAt = DateTime.now().microsecondsSinceEpoch;
+
+  double? position;
+
+  Note(this.track);
 
   factory Note.music(
     Track track, {
@@ -56,11 +63,34 @@ class Note extends NoteChangeNotifierMixin with LinkedListEntry<Note> {
   TResult map<TResult extends Object?>({
     required TResult Function(MusicNote musicNote) music,
     required TResult Function(DurationNote durationNote) duration,
+    required TResult Function(Note note) Else,
   }) {
     if (this is MusicNote) {
       return music.call(this as MusicNote);
-    } else {
+    } else if (this is DurationNote) {
       return duration.call(this as DurationNote);
     }
+    return Else.call(this);
   }
+
+  bool get isDuration => this is DurationNote;
+  bool get isMusic => this is MusicNote;
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [
+        createdAt
+      ];
+
+  @override
+  void insertAfter(Note entry) {
+    if (entry.list != null) {
+      entry.unlink();
+    }
+    if (list != null) {
+      super.insertAfter(entry);
+    }
+  }
+
+  Future<void> commit() async {}
 }

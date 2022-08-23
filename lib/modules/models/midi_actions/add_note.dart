@@ -1,6 +1,7 @@
 import 'package:midi_util/src/midi_file.dart';
 import 'package:solpha/modules/exceptions/exceptions.dart';
 import 'package:solpha/modules/models/midi_actions/midi_action.dart';
+import 'package:solpha/modules/models/notes/music_note.dart';
 import 'package:solpha/modules/models/notes/note.dart';
 
 class AddNote implements MidiAction {
@@ -12,11 +13,12 @@ class AddNote implements MidiAction {
       note.setError(GenericException('Compute this note'));
       return;
     }
-    var duration = note.duration;
-    if (duration.isFailure) {
-      note.setError(duration.failure);
+    if (note.isSustained) {
       return;
     }
+
+    var duration = note.duration;
+
     var track = note.track;
     var position = note.position!;
     var pitch = note.computeMidiNoteNumber();
@@ -26,7 +28,7 @@ class AddNote implements MidiAction {
       channel: track.trackNumber,
       pitch: note.isSilent ? 0 : pitch,
       time: position,
-      duration: duration.success,
+      duration: duration,
       volume: note.isSilent ? 0 : (note.volume ?? track.volume),
     );
   }

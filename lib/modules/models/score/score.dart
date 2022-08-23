@@ -1,9 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:midi_util/midi_util.dart';
+import 'package:solpha/modules/models/notes/note.dart';
 import 'package:solpha/modules/models/track/track.dart';
 
 import 'score_settings.dart';
 
-class Score {
+class Score with ChangeNotifier, ErrorStreamMixin<Track> {
   final ScoreSettings intialSettings;
 
   final Map<int, Track> _tracks = {};
@@ -14,7 +16,7 @@ class Score {
   MIDIFile get midiFile => _midiFile;
 
   void _resetMidiFile() {
-    _midiFile == MIDIFile(numTracks: _tracksLimit);
+    _midiFile = MIDIFile(numTracks: _tracksLimit);
   }
 
   Score({required this.intialSettings});
@@ -22,15 +24,20 @@ class Score {
   bool createTrack({
     int program = 48,
     int volume = 100,
+    int? trackNumber,
   }) {
     if (_tracks.length < _tracksLimit) {
-      var trackNumber = _tracks.length;
-      _tracks[trackNumber] = Track(
-        score: this,
-        trackNumber: trackNumber,
-        program: program,
-        volume: volume,
+      var _trackNumber = trackNumber ?? _tracks.length;
+      _tracks.putIfAbsent(
+        _trackNumber,
+        () => Track(
+          score: this,
+          trackNumber: _trackNumber,
+          program: program,
+          volume: volume,
+        ),
       );
+
       return true;
     }
     return false;
@@ -38,10 +45,24 @@ class Score {
 
   List<Track> get tracks => _tracks.values.toList();
 
-  void computeTracks() {
+  Future<void> commit() async {
     _resetMidiFile();
+    clearError();
     for (var track in _tracks.values) {
-      track.computeNotes();
+      var result = track.computeNotes();
+      if (result.isSuccess) {
+        continue;
+      } else {
+        
+        setError(track);
+        return;
+      }
     }
+
+    for (var track in _tracks.values) {
+      await track.commit();
+    }
+
+    notifyListeners();
   }
 }
