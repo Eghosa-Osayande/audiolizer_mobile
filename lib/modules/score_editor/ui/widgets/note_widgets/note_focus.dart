@@ -22,6 +22,11 @@ class NoteFocus extends StatelessWidget {
     return BlocBuilder<TrackCubit, TrackState>(
       builder: (context, state) {
         bool isFocused = state.currentNote == note;
+        if (isFocused) {
+          SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+            Scrollable.ensureVisible(context,alignmentPolicy: ScrollPositionAlignmentPolicy .keepVisibleAtEnd);
+          });
+        }
         return GestureDetector(
           onTap: () {
             context.read<TrackCubit>().setCurrentNote(note);
