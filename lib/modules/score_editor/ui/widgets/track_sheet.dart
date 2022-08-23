@@ -1,3 +1,5 @@
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:solpha/modules/score_editor/cubit/track/track_cubit.dart';
@@ -14,15 +16,14 @@ class TrackSheet extends StatelessWidget {
     return BlocBuilder<TrackCubit, TrackState>(
       builder: (context, state) {
         var notes = state.track.toList();
-        return SingleChildScrollView(
+
+   return SingleChildScrollView(
           child: Text.rich(
             TextSpan(
               children: List.generate(
                 notes.length,
                 (index) => WidgetSpan(
-
                   child: NoteBuilder(
-                  
                     note: notes[index],
                   ),
                 ),

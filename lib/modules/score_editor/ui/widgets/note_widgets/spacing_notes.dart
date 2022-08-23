@@ -13,7 +13,7 @@ class WhiteSpaceNote extends StatelessWidget {
         note: note,
         builder: (context, hasFocus) {
           return Container(
-            color: hasFocus ? Colors.red : Colors.black,
+            color: Colors.transparent,
             child: SizedBox(
               width: kNoteWidth,
               height: kNoteHeight,
@@ -33,14 +33,15 @@ class NewLineNote extends StatelessWidget {
         note: note,
         builder: (context, hasFocus) {
           return Container(
-            color: hasFocus ? Colors.red : Colors.black,
+             color: Colors.transparent,
             child: Row(
               mainAxisSize: MainAxisSize.max,
               children: [
                 Expanded(
-                    child: SizedBox(
-                  height: kNoteHeight,
-                ))
+                  child: SizedBox(
+                    height: kNoteHeight,
+                  ),
+                )
               ],
             ),
           );

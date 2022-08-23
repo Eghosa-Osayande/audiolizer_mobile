@@ -26,13 +26,11 @@ class ScoreEditorBody extends StatelessWidget {
             length: noOfTracks,
             child: Scaffold(
               backgroundColor: Colors.white54,
-              floatingActionButton: FloatingActionButton(
-                onPressed: () {
-                  context.read<ScoreCubit>().play();
-                },
-              ),
               appBar: PreferredSize(
                   child: TabBar(
+                    onTap: (value) {
+                      context.read<ScoreCubit>().play();
+                    },
                     tabs: List.generate(
                       noOfTracks,
                       (index) => Tab(

@@ -18,7 +18,7 @@ class NoteContainer extends StatelessWidget {
         note: note,
         builder: (context, hasFocus) {
           return Container(
-            color: hasFocus ? Colors.red : Colors.black38,
+            color:  Colors.black38,
             child: SizedBox(
               width: kNoteWidth,
               height: kNoteHeight,

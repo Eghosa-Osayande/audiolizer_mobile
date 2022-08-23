@@ -83,6 +83,6 @@ class TrackCubit extends Cubit<TrackState> {
     }
 
     _currentNote = newNote;
-    addSpace();
+   emit(TrackState.random(track, currentNote: _currentNote));
   }
 }
