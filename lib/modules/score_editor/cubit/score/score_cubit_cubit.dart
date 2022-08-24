@@ -10,31 +10,36 @@ part 'score_cubit_state.dart';
 
 class ScoreCubit extends Cubit<ScoreCubitState> {
   final Score score;
-  ScoreCubit({required this.score}) : super(ScoreCubitState.random(score)) {
-    score.addListener(scoreListener);
-  }
+  File? outputFile;
 
-  void scoreListener() {
-    emit(ScoreCubitState.random(score));
-  }
-
+  ScoreCubit({required this.score}) : super(ScoreCubitState.random(score));
   void play() async {
-    emit(ScoreCubitState.random(score));
-    await score.commit();   
+    if (AudioPlayerService.instance.isPlaying) {
+      AudioPlayerService.instance.pause();
+    } else {
+      emit(ScoreCubitState.random(score));
 
-    File outputFile = MemoryFileSystem().file('${DateTime.now().millisecondsSinceEpoch}.mid');
-    await score.midiFile.writeFile(outputFile);
+      var result = await score.commit();
 
+      if (result != null) {
+        if (result.isSuccess) {
+          await AudioPlayerService.instance.setSourceBytes(await result.success.readAsBytes());
+          await AudioPlayerService.instance.seek(Duration(seconds: 0));
+          AudioPlayerService.instance.resume();
+          return;
+        } else {
+          return;
+        }
+      }
 
-    await AudioPlayerService.instance.setSourceBytes(await outputFile.readAsBytes());
-    AudioPlayerService.instance.resume();
+      AudioPlayerService.instance.resume();
 
-    emit(ScoreCubitState.random(score));
+      emit(ScoreCubitState.random(score));
+    }
   }
 
   @override
   Future<void> close() {
-    score.removeListener(scoreListener);
     return super.close();
   }
 }

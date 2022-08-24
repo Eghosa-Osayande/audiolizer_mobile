@@ -38,18 +38,31 @@ class AudioPlayerService {
         resume();
         break;
     }
-    ;
   }
+
+  bool get isPlaying => _player.state == PlayerState.playing;
 
   Future<void> resume() async {
     playCount++;
     _player.resume();
   }
 
+  Future<void> pause() async {
+    playCount++;
+    _player.pause();
+  }
+
   Future<void> seek(Duration position) async {
+     playCount++;
     await _player.seek(position);
   }
 
+  Future<Duration?> getCurrentFileDuration() {
+    return _player.getDuration();
+  }
+
   Stream<PlayerState> get onPlayerStateChanged => __player.onPlayerStateChanged;
+  Stream<void> get onPlayerComplete => __player.onPlayerComplete;
   Stream<Duration> get onPositionChanged => __player.onPositionChanged;
+  Stream<Duration> get onDurationChanged => __player.onDurationChanged;
 }

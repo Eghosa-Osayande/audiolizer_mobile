@@ -16,8 +16,11 @@ class PlaybackProgress extends StatelessWidget {
       builder: (context, snapshot) {
         int? position = snapshot.data?.inSeconds;
         if (position != null) {
-          if (position >= note.startAtInSeconds()) {
-            color = Colors.green;
+          var startAtInSeconds = note.startAtInSeconds();
+          if (startAtInSeconds != null) {
+            color = (position >= startAtInSeconds) ? Colors.green : null;
+          } else {
+            color = null;
           }
         }
         // print('du=>${}<==>${note.convertBeatPositionToSeconds()}');

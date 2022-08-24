@@ -4,7 +4,10 @@ import 'package:solpha/modules/models/score/key_signature.dart';
 import 'package:solpha/modules/models/score/score.dart';
 import 'package:solpha/modules/models/score/score_settings.dart';
 import 'package:solpha/modules/models/score/time_signature.dart';
+import 'package:solpha/modules/score_editor/cubit/current_track/current_track_cubit.dart';
 import 'package:solpha/modules/score_editor/cubit/score/score_cubit_cubit.dart';
+import 'package:solpha/modules/score_editor/cubit/toggle_edit_play_mode/toggle_edit_play_mode_cubit.dart';
+import 'package:solpha/modules/score_editor/cubit/toggle_keyboard_visibility.dart/toggle_keyboard_visibility_cubit.dart';
 import 'package:solpha/modules/score_editor/ui/widgets/score_editor_body.dart';
 
 class ScoreEditorPage extends StatelessWidget {
@@ -22,15 +25,23 @@ class ScoreEditorPage extends StatelessWidget {
       intialSettings: intialSettings,
     );
     score.createTrack(trackNumber: 0);
-    // score.createTrack(trackNumber: 1);
+    score.createTrack(trackNumber: 1);
     return MultiBlocProvider(
       providers: [
         BlocProvider(
           create: (context) => ScoreCubit(score: score),
         ),
+        BlocProvider(
+          create: (context) => ToggleEditPlayModeCubit(),
+        ),
+        BlocProvider(
+          create: (context) => CurrentTrackCubit(0),
+        ),
+        BlocProvider(
+          create: (context) => ToggleKeyboardVisibilityCubit(),
+        ),
       ],
-      child:ScoreEditorBody(),
-      
+      child: ScoreEditorBody(),
     );
   }
 }

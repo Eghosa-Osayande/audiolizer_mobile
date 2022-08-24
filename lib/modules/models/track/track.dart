@@ -14,7 +14,7 @@ import 'package:solpha/modules/models/notes/music_note.dart';
 import 'package:solpha/modules/models/notes/note.dart';
 import 'package:solpha/modules/models/score/score.dart';
 
-class Track extends LinkedList<Note> with ChangeNotifier, ErrorStreamMixin<Note> {
+class Track extends LinkedList<Note> with  ErrorStreamMixin<Note> {
   final Score score;
   final int trackNumber;
   final int volume;
@@ -33,7 +33,7 @@ class Track extends LinkedList<Note> with ChangeNotifier, ErrorStreamMixin<Note>
       entry.unlink();
     }
     super.add(entry);
-
+    this.score.hasUpdates=true;
     return Success(true);
   }
 
@@ -49,7 +49,7 @@ class Track extends LinkedList<Note> with ChangeNotifier, ErrorStreamMixin<Note>
   }
 
   void addMetronemeTrack() {
-     var metro = Track(
+    var metro = Track(
       score: this.score,
       trackNumber: 5,
       program: 115,

@@ -39,9 +39,9 @@ class MusicNoteWidget extends StatelessWidget {
                   note: note,
                   child: Center(
                     child: Text(
-                        displayString(note),
-                        style: noteStyle,
-                      ),
+                      displayString(note),
+                      style: noteStyle,
+                    ),
                   ),
                 ),
               ),
@@ -65,37 +65,32 @@ class NoteErrorIndicator extends StatefulWidget {
 }
 
 class _NoteErrorIndicatorState extends State<NoteErrorIndicator> {
-  @override
-  void initState() {
-    super.initState();
-    widget.note.addListener(onStatusChanged);
-  }
-
-  @override
-  void dispose() {
-    widget.note.addListener(onStatusChanged);
-    super.dispose();
-  }
-
   void onStatusChanged() {
     if (mounted) setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.note.hasError) {
-      return Tooltip(
-        message: '${widget.note.error?.reason ?? ""}',
-        preferBelow: false,
-        child: Container(
-          decoration: BoxDecoration(color: Colors.red),
-          child: Container(
-            // margin: EdgeInsets.all(2),
-            child: widget.child,
-          ),
-        ),
-      );
-    }
-    return widget.child;
+    return StreamBuilder(
+      stream: widget.note.errorStream,
+      builder: (context, snapshot) {
+        var data = snapshot.data;
+        if (data != null) {
+          return Tooltip(
+            message: '${widget.note.error?.reason ?? ""}',
+            preferBelow: false,
+            child: Container(
+              decoration: BoxDecoration(color: Colors.red),
+              child: Container(
+                // margin: EdgeInsets.all(2),
+                child: widget.child,
+              ),
+            ),
+          );
+        } else {
+           return widget.child;
+        }
+      },
+    );
   }
 }

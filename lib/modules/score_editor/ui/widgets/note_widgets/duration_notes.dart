@@ -37,14 +37,18 @@ class DurationNoteWidget extends StatelessWidget {
                   Else: (note) => kNoteWidth,
                 ),
                 height: kNoteHeight,
-                child: Center(
-                  child: Text(
-                      note.marker.symbol,
-                      style: GoogleFonts.inter(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    )
+                child: PlaybackProgress(
+                  note: note,
+                  child: Center(
+                    child: Text(
+                        note.marker.symbol,
+                        style: GoogleFonts.inter(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                          fontSize: 20
+                        ),
+                      )
+                  ),
                 ),
               ),
             );

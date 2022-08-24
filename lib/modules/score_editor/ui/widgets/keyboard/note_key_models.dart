@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:solpha/modules/models/notes/enums/duration_markers.dart';
 import 'package:solpha/modules/models/notes/enums/solfege.dart';
-import 'package:solpha/modules/score_editor/cubit/track/track_cubit.dart';
+import 'package:solpha/modules/score_editor/cubit/edit_track_notes/edit_track_note_cubit.dart';
+import 'package:solpha/modules/score_editor/cubit/edit_track_notes/edit_track_note_cubit.dart';
 
 class NoteKeyModel {
   const NoteKeyModel();
@@ -34,7 +35,7 @@ class MusicNoteButton implements NoteKeyModel {
 
   @override
   void action(BuildContext context) {
-    context.read<TrackCubit>().addMusicNote(this);
+    context.read<EditTrackNotesCubit>().addMusicNote(this);
   }
 
   @override
@@ -55,7 +56,7 @@ class DurationNoteButton implements NoteKeyModel {
 
   @override
   void action(BuildContext context) {
-    context.read<TrackCubit>().addDurationNote(this);
+    context.read<EditTrackNotesCubit>().addDurationNote(this);
   }
 
   @override
@@ -72,12 +73,17 @@ class DeleteNoteButton implements NoteKeyModel {
 
   @override
   void action(BuildContext context) {
-    context.read<TrackCubit>().deleteNote();
+    context.read<EditTrackNotesCubit>().deleteNote();
   }
 
   @override
   Widget? icon() {
-    return Center(child: Icon(Icons.backspace_outlined,size: 16,),);
+    return Center(
+      child: Icon(
+        Icons.backspace_outlined,
+        size: 16,
+      ),
+    );
   }
 }
 
@@ -91,7 +97,7 @@ class SpaceBarButton implements NoteKeyModel {
 
   @override
   void action(BuildContext context) {
-    context.read<TrackCubit>().addSpace();
+    context.read<EditTrackNotesCubit>().addSpace();
   }
 
   @override
@@ -108,7 +114,7 @@ class NewLineButton implements NoteKeyModel {
 
   @override
   void action(BuildContext context) {
-    context.read<TrackCubit>().addNewLine();
+    context.read<EditTrackNotesCubit>().addNewLine();
   }
 
   @override

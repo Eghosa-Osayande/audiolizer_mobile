@@ -9,23 +9,41 @@ import 'package:solpha/modules/exceptions/exceptions.dart';
 import 'package:solpha/modules/models/notes/decoration_notes.dart';
 import 'package:solpha/modules/models/notes/enums/duration_markers.dart';
 import 'package:solpha/modules/models/notes/enums/solfege.dart';
+import 'package:solpha/modules/models/score/score.dart';
 import 'package:solpha/modules/models/track/track.dart';
 
 import 'duration_note.dart';
 import 'music_note.dart';
 
-mixin ErrorStreamMixin<T> on ChangeNotifier {
+mixin ErrorStreamMixin<T> {
   T? _error;
   T? get error => _error;
 
+  BehaviorSubject<T?> _errorController = BehaviorSubject<T?>();
+  Stream<T?> get errorStream => _errorController.stream;
+
   setError(T error) {
     _error = error;
-    notifyListeners();
+    _errorController.add(error);
+    // if (this is Note) {
+    //   var errorNote = this as Note;
+    //   errorNote.track.setError(errorNote);
+    // } else if (this is Track) {
+    //   var errorTrack = this as Track;
+    //   errorTrack.score.setError(errorTrack);
+    // } else if (this is Score) {}
   }
 
   clearError() {
     _error = null;
-    notifyListeners();
+    _errorController.add(_error);
+    if (this is Note) {
+      var errorNote = this as Note;
+      errorNote.track.clearError();
+    } else if (this is Track) {
+      var errorTrack = this as Track;
+      errorTrack.score.clearError();
+    } else if (this is Score) {}
   }
 
   bool get hasError => _error != null;
@@ -37,7 +55,7 @@ extension TrackX on Note {
   }
 }
 
-class Note with LinkedListEntry<Note>, EquatableMixin, ChangeNotifier, ErrorStreamMixin<GenericException> {
+class Note with LinkedListEntry<Note>, EquatableMixin, ErrorStreamMixin<GenericException> {
   final Track track;
   final int createdAt = DateTime.now().microsecondsSinceEpoch;
 
@@ -90,18 +108,25 @@ class Note with LinkedListEntry<Note>, EquatableMixin, ChangeNotifier, ErrorStre
       entry.unlink();
     }
     if (list != null) {
+      this.track.score.hasUpdates = true;
       super.insertAfter(entry);
     }
   }
 
+  @override
+  unlink() {
+    this.track.score.hasUpdates = true;
+    super.unlink();
+  }
+
   Future<void> commit() async {
     num bpm = track.score.intialSettings.bpm;
-    _startAtInSeconds = (60 / bpm) * (startAt ?? 0)-1;
+    _startAtInSeconds = (60 / bpm) * (startAt ?? 0);
   }
 
   double? _startAtInSeconds;
 
-  double startAtInSeconds() {
-    return _startAtInSeconds ?? 0;
+  double? startAtInSeconds() {
+    return (_startAtInSeconds ?? 0) - 0.5;
   }
 }

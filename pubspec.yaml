@@ -19,6 +19,7 @@ dependencies:
   permission_handler: ^9.2.0
 
   # state management
+  flutter_riverpod: ^2.0.0-dev.9
   flutter_bloc: ^8.0.1
   equatable: ^2.0.3
 

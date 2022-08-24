@@ -5,12 +5,12 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:solpha/modules/models/notes/enums/duration_markers.dart';
 import 'package:solpha/modules/models/notes/enums/solfege.dart';
-import 'package:solpha/modules/score_editor/cubit/track/track_cubit.dart';
+import 'package:solpha/modules/score_editor/cubit/edit_track_notes/edit_track_note_cubit.dart';
 
 import 'note_key_models.dart';
 import 'note_key_widget.dart';
 
- double kNoteHeight=37;
+double kNoteHeight = 37;
 
 class OctaveBoard extends StatelessWidget {
   final int octave;
@@ -44,7 +44,7 @@ class OctaveBoard extends StatelessWidget {
                 ),
               );
             }
-           
+
             return Expanded(
                 flex: 2,
                 child: NoteKey(

@@ -9,12 +9,12 @@ import 'package:solpha/modules/models/track/track.dart';
 import 'package:solpha/modules/score_editor/ui/widgets/keyboard/note_key_models.dart';
 import 'package:solpha/modules/score_editor/ui/widgets/keyboard/solfa_keyboard.dart';
 
-part 'track_state.dart';
+part 'edit_track_note_state.dart';
 
-class TrackCubit extends Cubit<TrackState> {
+class EditTrackNotesCubit extends Cubit<EditTrackNotesState> {
   final Track track;
 
-  TrackCubit(this.track) : super(TrackState.random(track));
+  EditTrackNotesCubit(this.track) : super(EditTrackNotesState.random(track));
 
   Note? _currentNote;
 
@@ -28,7 +28,7 @@ class TrackCubit extends Cubit<TrackState> {
     print(track.length);
     _currentNote = newNote;
 
-    emit(TrackState.random(track, currentNote: _currentNote));
+    emit(EditTrackNotesState.random(track, currentNote: _currentNote));
   }
 
   void addDurationNote(DurationNoteButton data) {
@@ -40,21 +40,21 @@ class TrackCubit extends Cubit<TrackState> {
     }
 
     _currentNote = newNote;
-    emit(TrackState.random(track, currentNote: _currentNote));
+    emit(EditTrackNotesState.random(track, currentNote: _currentNote));
   }
 
   void deleteNote() {
     if (_currentNote == null) {
       if (track.isNotEmpty) {
         _currentNote = track.last;
-        emit(TrackState.random(track, currentNote: _currentNote));
+        emit(EditTrackNotesState.random(track, currentNote: _currentNote));
       }
     }
     var oldNote = _currentNote;
     _currentNote = _currentNote?.previous;
     oldNote?.unlink();
 
-    emit(TrackState.random(track, currentNote: _currentNote));
+    emit(EditTrackNotesState.random(track, currentNote: _currentNote));
   }
 
   void addSpace() {
@@ -66,12 +66,12 @@ class TrackCubit extends Cubit<TrackState> {
     }
 
     _currentNote = newNote;
-    emit(TrackState.random(track, currentNote: _currentNote));
+    emit(EditTrackNotesState.random(track, currentNote: _currentNote));
   }
 
   void setCurrentNote(Note note) {
     _currentNote = note;
-    emit(TrackState.random(track, currentNote: _currentNote));
+    emit(EditTrackNotesState.random(track, currentNote: _currentNote));
   }
 
   void addNewLine() {
@@ -83,6 +83,6 @@ class TrackCubit extends Cubit<TrackState> {
     }
 
     _currentNote = newNote;
-   emit(TrackState.random(track, currentNote: _currentNote));
+    emit(EditTrackNotesState.random(track, currentNote: _currentNote));
   }
 }

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:solpha/modules/models/notes/note.dart';
-import 'package:solpha/modules/score_editor/cubit/track/track_cubit.dart';
+import 'package:solpha/modules/score_editor/cubit/edit_track_notes/edit_track_note_cubit.dart';
 import 'package:solpha/modules/score_editor/ui/widgets/note_widgets/note_dimensions.dart';
 
 class NoteCursor extends StatelessWidget {
@@ -19,7 +19,7 @@ class NoteCursor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TrackCubit, TrackState>(
+    return BlocBuilder<EditTrackNotesCubit, EditTrackNotesState>(
       builder: (context, state) {
         bool isFocused = state.currentNote == note;
         if (isFocused) {
@@ -29,7 +29,7 @@ class NoteCursor extends StatelessWidget {
         }
         return GestureDetector(
           onTap: () {
-            context.read<TrackCubit>().setCurrentNote(note);
+            context.read<EditTrackNotesCubit>().setCurrentNote(note);
           },
           child: Stack(
             children: [
