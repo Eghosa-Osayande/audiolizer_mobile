@@ -13,6 +13,8 @@ class NoteKeyModel {
     return '';
   }
 
+  Widget? icon() {}
+
   void action(BuildContext context) {}
 }
 
@@ -34,6 +36,9 @@ class MusicNoteButton implements NoteKeyModel {
   void action(BuildContext context) {
     context.read<TrackCubit>().addMusicNote(this);
   }
+
+  @override
+  Widget? icon() {}
 }
 
 class DurationNoteButton implements NoteKeyModel {
@@ -52,6 +57,9 @@ class DurationNoteButton implements NoteKeyModel {
   void action(BuildContext context) {
     context.read<TrackCubit>().addDurationNote(this);
   }
+
+  @override
+  Widget? icon() {}
 }
 
 class DeleteNoteButton implements NoteKeyModel {
@@ -59,12 +67,17 @@ class DeleteNoteButton implements NoteKeyModel {
 
   @override
   String displayString() {
-    return 'DEL';
+    return "⇐";
   }
 
   @override
   void action(BuildContext context) {
     context.read<TrackCubit>().deleteNote();
+  }
+
+  @override
+  Widget? icon() {
+    return Center(child: Icon(Icons.backspace_outlined,size: 16,),);
   }
 }
 
@@ -78,8 +91,11 @@ class SpaceBarButton implements NoteKeyModel {
 
   @override
   void action(BuildContext context) {
-   context.read<TrackCubit>().addSpace();
+    context.read<TrackCubit>().addSpace();
   }
+
+  @override
+  Widget? icon() {}
 }
 
 class NewLineButton implements NoteKeyModel {
@@ -87,11 +103,21 @@ class NewLineButton implements NoteKeyModel {
 
   @override
   String displayString() {
-    return 'NEW';
+    return '↵';
   }
 
   @override
   void action(BuildContext context) {
     context.read<TrackCubit>().addNewLine();
+  }
+
+  @override
+  Widget? icon() {
+    return Center(
+      child: Icon(
+        Icons.subdirectory_arrow_left_outlined,
+        size: 16,
+      ),
+    );
   }
 }

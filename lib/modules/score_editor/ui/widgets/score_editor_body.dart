@@ -9,7 +9,7 @@ import 'package:solpha/modules/models/score/time_signature.dart';
 import 'package:solpha/modules/score_editor/cubit/score/score_cubit_cubit.dart';
 import 'package:solpha/modules/score_editor/cubit/track/track_cubit.dart';
 import 'package:solpha/modules/score_editor/ui/widgets/track_sheet.dart';
-import 'package:solpha/modules/score_editor/ui/widgets/note_widgets/note_container.dart';
+import 'package:solpha/modules/score_editor/ui/widgets/note_widgets/music_note.dart';
 import 'package:solpha/modules/score_editor/ui/widgets/keyboard/solfa_keyboard.dart';
 
 class ScoreEditorBody extends StatelessWidget {

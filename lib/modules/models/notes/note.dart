@@ -41,7 +41,9 @@ class Note with LinkedListEntry<Note>, EquatableMixin, ChangeNotifier, ErrorStre
   final Track track;
   final int createdAt = DateTime.now().microsecondsSinceEpoch;
 
-  double? position;
+  double? startAt;
+  double? endAt;
+  double duration = 0;
 
   Note(this.track);
 
@@ -92,5 +94,14 @@ class Note with LinkedListEntry<Note>, EquatableMixin, ChangeNotifier, ErrorStre
     }
   }
 
-  Future<void> commit() async {}
+  Future<void> commit() async {
+    num bpm = track.score.intialSettings.bpm;
+    _startAtInSeconds = (60 / bpm) * (startAt ?? 0)-1;
+  }
+
+  double? _startAtInSeconds;
+
+  double startAtInSeconds() {
+    return _startAtInSeconds ?? 0;
+  }
 }

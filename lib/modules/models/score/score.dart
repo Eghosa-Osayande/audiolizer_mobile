@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:midi_util/midi_util.dart';
+import 'package:solpha/modules/models/notes/enums/duration_markers.dart';
+import 'package:solpha/modules/models/notes/enums/solfege.dart';
 import 'package:solpha/modules/models/notes/note.dart';
 import 'package:solpha/modules/models/track/track.dart';
 
@@ -35,7 +37,7 @@ class Score with ChangeNotifier, ErrorStreamMixin<Track> {
           trackNumber: _trackNumber,
           program: program,
           volume: volume,
-        ),
+        )..addStartSeperator(),
       );
 
       return true;
@@ -51,18 +53,21 @@ class Score with ChangeNotifier, ErrorStreamMixin<Track> {
     for (var track in _tracks.values) {
       var result = track.computeNotes();
       if (result.isSuccess) {
+        track.addMetronemeTrack();
         continue;
       } else {
-        
         setError(track);
         return;
       }
     }
 
+    
     for (var track in _tracks.values) {
       await track.commit();
     }
 
     notifyListeners();
   }
+
+  
 }

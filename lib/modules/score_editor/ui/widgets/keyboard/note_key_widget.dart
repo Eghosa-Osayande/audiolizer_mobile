@@ -1,10 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:solpha/modules/score_editor/ui/widgets/keyboard/note_key_models.dart';
-
-
-
+import 'package:charcode/charcode.dart';
 
 class NoteKey extends StatefulWidget {
   final NoteKeyModel data;
@@ -67,8 +66,9 @@ class _NoteKeyState extends State<NoteKey> {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Center(
-          child: Text(
+          child:widget.data.icon()??Text(
             widget.data.displayString(),
+            style: GoogleFonts.zillaSlab(fontSize: 16),
           ),
         ),
       ),

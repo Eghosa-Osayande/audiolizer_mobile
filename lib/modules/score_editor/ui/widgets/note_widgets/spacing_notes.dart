@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:solpha/modules/models/notes/note.dart';
 import 'package:solpha/modules/score_editor/ui/widgets/note_widgets/note_dimensions.dart';
-import 'package:solpha/modules/score_editor/ui/widgets/note_widgets/note_focus.dart';
+import 'package:solpha/modules/score_editor/ui/widgets/note_widgets/note_cursor.dart';
 
 class WhiteSpaceNote extends StatelessWidget {
   final Note note;
@@ -9,7 +9,7 @@ class WhiteSpaceNote extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return NoteFocus(
+    return NoteCursor(
         note: note,
         builder: (context, hasFocus) {
           return Container(
@@ -29,11 +29,11 @@ class NewLineNote extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return NoteFocus(
+    return NoteCursor(
         note: note,
         builder: (context, hasFocus) {
           return Container(
-             color: Colors.transparent,
+            color: hasFocus? Colors.white38: Colors.transparent,
             child: Row(
               mainAxisSize: MainAxisSize.max,
               children: [

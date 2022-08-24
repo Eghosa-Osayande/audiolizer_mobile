@@ -10,7 +10,7 @@ import 'package:solpha/modules/score_editor/cubit/track/track_cubit.dart';
 import 'note_key_models.dart';
 import 'note_key_widget.dart';
 
-
+ double kNoteHeight=37;
 
 class OctaveBoard extends StatelessWidget {
   final int octave;
@@ -44,10 +44,12 @@ class OctaveBoard extends StatelessWidget {
                 ),
               );
             }
+           
             return Expanded(
                 flex: 2,
                 child: NoteKey(
                   data: sharps[index],
+                  height: kNoteHeight,
                 ));
           }),
         ),
@@ -60,7 +62,7 @@ class OctaveBoard extends StatelessWidget {
                     flex: 2,
                     child: NoteKey(
                       data: note,
-                      height: 45,
+                      height: kNoteHeight,
                     ));
               },
             ).toList(),
@@ -83,7 +85,13 @@ class OctaveBoard extends StatelessWidget {
                 ),
               );
             }
-            return Expanded(flex: 2, child: NoteKey(data: flat[index]));
+            return Expanded(
+              flex: 2,
+              child: NoteKey(
+                data: flat[index],
+                height: kNoteHeight,
+              ),
+            );
           }),
         ),
       ],

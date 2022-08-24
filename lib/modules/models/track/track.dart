@@ -9,6 +9,7 @@ import 'package:solpha/modules/models/midi_actions/add_tempo.dart';
 import 'package:solpha/modules/models/midi_actions/add_time_signature.dart';
 import 'package:solpha/modules/models/notes/duration_note.dart';
 import 'package:solpha/modules/models/notes/enums/duration_markers.dart';
+import 'package:solpha/modules/models/notes/enums/solfege.dart';
 import 'package:solpha/modules/models/notes/music_note.dart';
 import 'package:solpha/modules/models/notes/note.dart';
 import 'package:solpha/modules/models/score/score.dart';
@@ -24,9 +25,7 @@ class Track extends LinkedList<Note> with ChangeNotifier, ErrorStreamMixin<Note>
     required this.trackNumber,
     required this.program,
     required this.volume,
-  }) {
-    add(Note.duration(this, marker: DurationMarker.full));
-  }
+  }) {}
 
   @override
   Result<bool, GenericException> add(Note entry) {
@@ -38,6 +37,33 @@ class Track extends LinkedList<Note> with ChangeNotifier, ErrorStreamMixin<Note>
     return Success(true);
   }
 
+  void addStartSeperator() {
+    add(Note.duration(this, marker: DurationMarker.seperator));
+  }
+
+  double get trackLengthInBeats {
+    if (isNotEmpty) {
+      return last.endAt ?? 0;
+    }
+    return 0;
+  }
+
+  void addMetronemeTrack() {
+     var metro = Track(
+      score: this.score,
+      trackNumber: 5,
+      program: 115,
+      volume: 100,
+    );
+    metro.add(Note.duration(metro, marker: DurationMarker.full));
+    List.generate(trackLengthInBeats.ceil(), (index) {
+      metro.add(Note.music(metro, solfa: Solfege.d, octave: 0));
+      metro.add(Note.duration(metro, marker: DurationMarker.full));
+    });
+    metro.computeNotes();
+    metro.commit();
+  }
+
   Result<bool, Note> computeNotes() {
     double accumulatedTime = 0;
     DurationNote? start, end;
@@ -47,6 +73,7 @@ class Track extends LinkedList<Note> with ChangeNotifier, ErrorStreamMixin<Note>
     print(this.length);
 
     for (var note in this) {
+      note.clearError();
       if ((note.isDuration) || (note.isMusic)) {
         if (start == null) {
           if (note.isDuration) {
@@ -73,8 +100,14 @@ class Track extends LinkedList<Note> with ChangeNotifier, ErrorStreamMixin<Note>
             var result = start.beatsBetween(end);
             if (result.isSuccess) {
               double duration = result.success;
+              mid.startAt = accumulatedTime;
+              start.startAt = accumulatedTime;
+              end.startAt = accumulatedTime;
               accumulatedTime = accumulatedTime + duration;
-              mid.position = accumulatedTime;
+              mid.endAt = accumulatedTime;
+              start.endAt = accumulatedTime;
+              end.endAt = accumulatedTime;
+
               if (mid.isSustained) {
                 if (previousNote == null) {
                   mid.setError(GenericException('Invalid suspension'));
@@ -136,9 +169,8 @@ class Track extends LinkedList<Note> with ChangeNotifier, ErrorStreamMixin<Note>
     AddProgramChange(track: this, program: program).run(midiFile);
     AddTimeSignature(track: this, timeSignature: timeSignature).run(midiFile);
     AddKeySignature(track: this, keySignature: keySignature).run(midiFile);
-    
+
     for (var note in this) {
-      
       await note.commit();
     }
   }

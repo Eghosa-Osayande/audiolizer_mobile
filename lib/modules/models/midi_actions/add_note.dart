@@ -9,7 +9,7 @@ class AddNote implements MidiAction {
   const AddNote(this.note);
   @override
   void run(MIDIFile midiFile) {
-    if (note.position == null) {
+    if (note.startAt == null) {
       note.setError(GenericException('Compute this note'));
       return;
     }
@@ -20,9 +20,13 @@ class AddNote implements MidiAction {
     var duration = note.duration;
 
     var track = note.track;
-    var position = note.position!;
+    var position = note.startAt!;
     var pitch = note.computeMidiNoteNumber();
-
+    print([
+      note.solfa.symbol + '${note.octave}',
+      position,
+      duration
+    ]);
     midiFile.addNote(
       track: track.trackNumber,
       channel: track.trackNumber,

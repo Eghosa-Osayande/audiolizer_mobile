@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:solpha/modules/score_editor/cubit/track/track_cubit.dart';
 import 'package:solpha/modules/score_editor/ui/widgets/note_widgets/note_builder.dart';
-import 'package:solpha/modules/score_editor/ui/widgets/note_widgets/note_container.dart';
+import 'package:solpha/modules/score_editor/ui/widgets/note_widgets/music_note.dart';
 
 class TrackSheet extends StatelessWidget {
   const TrackSheet({
@@ -17,20 +17,24 @@ class TrackSheet extends StatelessWidget {
       builder: (context, state) {
         var notes = state.track.toList();
 
-   return SingleChildScrollView(
-          child: Text.rich(
-            TextSpan(
-              children: List.generate(
-                notes.length,
-                (index) => WidgetSpan(
-                  child: NoteBuilder(
-                    note: notes[index],
+   return Align(
+    alignment: Alignment.topLeft,
+     child: SingleChildScrollView(
+            child: Text.rich(
+              TextSpan(
+                children: List.generate(
+                  notes.length,
+                  (index) => WidgetSpan(
+                    child: NoteBuilder(
+                      note: notes[index],
+                    ),
                   ),
                 ),
               ),
+              textAlign: TextAlign.justify,
             ),
           ),
-        );
+   );
       },
     );
   }

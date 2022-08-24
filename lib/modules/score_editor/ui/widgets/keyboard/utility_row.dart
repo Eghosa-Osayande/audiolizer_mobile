@@ -12,23 +12,26 @@ class BottomRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Expanded(flex: 1, child: NoteKey(data: NewLineButton(),)),
-        Expanded(
-            flex: 1,
-            child: NoteKey(
-              data: MusicNoteButton(octave: 0, solfa: Solfege.silent),
-            )),
-        Expanded(flex: 3, child: NoteKey(data: SpaceBarButton(),)),
-        Expanded(
-            flex: 1,
-            child: NoteKey(
-              data: MusicNoteButton(octave: 0, solfa: Solfege.sustain),
-            )),
-        Expanded(flex: 1, child: NoteKey(data: DeleteNoteButton(),)),
-      ],
+    return Container(
+      color: Colors.red.shade900,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Expanded(flex: 1, child: NoteKey(data: NewLineButton(),)),
+          Expanded(
+              flex: 1,
+              child: NoteKey(
+                data: MusicNoteButton(octave: 0, solfa: Solfege.silent),
+              )),
+          Expanded(flex: 3, child: NoteKey(data: SpaceBarButton(),)),
+          Expanded(
+              flex: 1,
+              child: NoteKey(
+                data: MusicNoteButton(octave: 0, solfa: Solfege.sustain),
+              )),
+          Expanded(flex: 1, child: NoteKey(data: DeleteNoteButton(),)),
+        ],
+      ),
     );
   }
 }
@@ -44,9 +47,12 @@ class TopRow extends StatelessWidget {
       DurationNoteButton(marker: DurationMarker.quarter),
       DurationNoteButton(marker: DurationMarker.seperator),
     ];
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: markers.map((e) => Expanded(child: NoteKey(data: e))).toList(),
+    return Container(
+      color: Colors.red.shade900,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: markers.map((e) => Expanded(child: NoteKey(data: e))).toList(),
+      ),
     );
   }
 }

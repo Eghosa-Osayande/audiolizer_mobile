@@ -7,11 +7,11 @@ import 'package:solpha/modules/models/notes/note.dart';
 import 'package:solpha/modules/score_editor/cubit/track/track_cubit.dart';
 import 'package:solpha/modules/score_editor/ui/widgets/note_widgets/note_dimensions.dart';
 
-class NoteFocus extends StatelessWidget {
+class NoteCursor extends StatelessWidget {
   final Note note;
   final Widget Function(BuildContext context, bool isFocused) builder;
 
-  const NoteFocus({
+  const NoteCursor({
     Key? key,
     required this.note,
     required this.builder,
@@ -24,7 +24,7 @@ class NoteFocus extends StatelessWidget {
         bool isFocused = state.currentNote == note;
         if (isFocused) {
           SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-            Scrollable.ensureVisible(context,alignmentPolicy: ScrollPositionAlignmentPolicy .keepVisibleAtEnd);
+            Scrollable.ensureVisible(context, alignmentPolicy: ScrollPositionAlignmentPolicy.keepVisibleAtEnd);
           });
         }
         return GestureDetector(

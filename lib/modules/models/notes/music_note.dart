@@ -16,7 +16,7 @@ class MusicNote extends Note with EquatableMixin {
 
   final int? volume;
 
-  double duration=0;
+
 
   MusicNote(
     Track track, {
@@ -47,6 +47,7 @@ class MusicNote extends Note with EquatableMixin {
 
   @override
   Future<void> commit() async {
+    super.commit();
     AddNote(this).run(track.score.midiFile);
   }
 }
