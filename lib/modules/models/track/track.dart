@@ -13,19 +13,23 @@ import 'package:solpha/modules/models/notes/enums/solfege.dart';
 import 'package:solpha/modules/models/notes/music_note.dart';
 import 'package:solpha/modules/models/notes/note.dart';
 import 'package:solpha/modules/models/score/score.dart';
+import 'package:solpha/modules/score_editor/cubit/edit_track_notes/edit_history.dart';
 
-class Track extends LinkedList<Note> with  ErrorStreamMixin<Note> {
+class Track extends LinkedList<Note> with ErrorStreamMixin<Note> {
+  
   final Score score;
   final int trackNumber;
   final int volume;
   final int program;
+  
+ 
 
   Track({
     required this.score,
     required this.trackNumber,
     required this.program,
     required this.volume,
-  }) {}
+  });
 
   @override
   Result<bool, GenericException> add(Note entry) {
@@ -33,7 +37,8 @@ class Track extends LinkedList<Note> with  ErrorStreamMixin<Note> {
       entry.unlink();
     }
     super.add(entry);
-    this.score.hasUpdates=true;
+    this.score.hasUpdates = true;
+   
     return Success(true);
   }
 

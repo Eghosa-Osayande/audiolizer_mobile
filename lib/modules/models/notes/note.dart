@@ -10,6 +10,7 @@ import 'package:solpha/modules/models/notes/decoration_notes.dart';
 import 'package:solpha/modules/models/notes/enums/duration_markers.dart';
 import 'package:solpha/modules/models/notes/enums/solfege.dart';
 import 'package:solpha/modules/models/score/score.dart';
+import 'package:solpha/modules/score_editor/cubit/edit_track_notes/edit_history.dart';
 import 'package:solpha/modules/models/track/track.dart';
 
 import 'duration_note.dart';
@@ -116,17 +117,22 @@ class Note with LinkedListEntry<Note>, EquatableMixin, ErrorStreamMixin<GenericE
   @override
   unlink() {
     this.track.score.hasUpdates = true;
+
     super.unlink();
   }
 
   Future<void> commit() async {
     num bpm = track.score.intialSettings.bpm;
-    _startAtInSeconds = (60 / bpm) * (startAt ?? 0);
+    if (startAt != null) {
+      _startAtInSeconds = (60 / bpm) * (startAt!);
+    }
   }
 
   double? _startAtInSeconds;
 
   double? startAtInSeconds() {
-    return (_startAtInSeconds ?? 0) - 0.5;
+    if (_startAtInSeconds != null) {
+      return (_startAtInSeconds!) - 0.5;
+    }
   }
 }

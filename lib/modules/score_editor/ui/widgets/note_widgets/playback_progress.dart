@@ -14,14 +14,18 @@ class PlaybackProgress extends StatelessWidget {
       key: ValueKey(AudioPlayerService.instance.playCount),
       stream: AudioPlayerService.instance.onPositionChanged,
       builder: (context, snapshot) {
-        int? position = snapshot.data?.inSeconds;
-        if (position != null) {
-          var startAtInSeconds = note.startAtInSeconds();
-          if (startAtInSeconds != null) {
-            color = (position >= startAtInSeconds) ? Colors.green : null;
-          } else {
-            color = null;
+        if (!note.hasError) {
+          int? position = snapshot.data?.inSeconds;
+          if (position != null) {
+            var startAtInSeconds = note.startAtInSeconds();
+            if (startAtInSeconds != null) {
+              color = (position >= startAtInSeconds) ? Colors.green : null;
+            } else {
+              color = null;
+            }
           }
+        } else {
+          color = null;
         }
         // print('du=>${}<==>${note.convertBeatPositionToSeconds()}');
 

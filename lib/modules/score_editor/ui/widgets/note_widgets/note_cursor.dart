@@ -7,7 +7,7 @@ import 'package:solpha/modules/models/notes/note.dart';
 import 'package:solpha/modules/score_editor/cubit/edit_track_notes/edit_track_note_cubit.dart';
 import 'package:solpha/modules/score_editor/ui/widgets/note_widgets/note_dimensions.dart';
 
-class NoteCursor extends StatelessWidget {
+class NoteCursor extends StatefulWidget {
   final Note note;
   final Widget Function(BuildContext context, bool isFocused) builder;
 
@@ -18,22 +18,37 @@ class NoteCursor extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<NoteCursor> createState() => _NoteCursorState();
+}
+
+class _NoteCursorState extends State<NoteCursor> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  
+
+  @override
   Widget build(BuildContext context) {
-    return BlocBuilder<EditTrackNotesCubit, EditTrackNotesState>(
-      builder: (context, state) {
-        bool isFocused = state.currentNote == note;
+    return BlocConsumer<EditTrackNotesCubit, EditTrackNotesState>(
+      listenWhen: (previous, current) => previous.currentNote != current.currentNote,
+      listener: (context, state) {
+        bool isFocused = state.currentNote == widget.note;
         if (isFocused) {
-          SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-            Scrollable.ensureVisible(context, alignmentPolicy: ScrollPositionAlignmentPolicy.keepVisibleAtEnd);
-          });
+          Scrollable.ensureVisible(context, alignmentPolicy: ScrollPositionAlignmentPolicy.keepVisibleAtEnd);
         }
+      },
+      builder: (context, state) {
+        bool isFocused = state.currentNote == widget.note;
+
         return GestureDetector(
           onTap: () {
-            context.read<EditTrackNotesCubit>().setCurrentNote(note);
+            context.read<EditTrackNotesCubit>().setCurrentNote(widget.note);
           },
           child: Stack(
             children: [
-              builder.call(
+              widget.builder.call(
                 context,
                 isFocused,
               ),

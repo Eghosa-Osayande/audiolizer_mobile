@@ -34,8 +34,9 @@ class SolfaKeyboard extends StatelessWidget {
                     children: [
                       TopRow(),
                       Expanded(
-                        child: CupertinoScrollbar(
+                        child: Scrollbar(
                           thumbVisibility: true,
+interactive: false,
                           controller: scrollController,
                           child: CustomScrollView(
                             controller: scrollController,

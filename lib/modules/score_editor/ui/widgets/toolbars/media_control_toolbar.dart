@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:solpha/modules/models/track/track.dart';
 import 'package:solpha/modules/score_editor/cubit/current_track/current_track_cubit.dart';
+import 'package:solpha/modules/score_editor/cubit/edit_track_notes/edit_track_note_cubit.dart';
 import 'package:solpha/modules/score_editor/cubit/score/score_cubit_cubit.dart';
 
 import 'package:flutter/material.dart';
@@ -25,6 +27,19 @@ class MediaControlToolbar extends StatelessWidget implements PreferredSizeWidget
             return AppBar(
               title: Text('Track ${currentIndex + 1}'),
               actions: [
+                IconButton(
+                  onPressed: () {
+                   BlocProvider.of<EditTrackNotesCubit>(context).undo();
+                    
+                  },
+                  icon: Icon(Icons.undo),
+                ),
+                IconButton(
+                  onPressed: () {
+                     BlocProvider.of<EditTrackNotesCubit>(context).redo();
+                  },
+                  icon: Icon(Icons.redo),
+                ),
                 IconButton(
                   onPressed: () {
                     BlocProvider.of<ScoreCubit>(context).play();
@@ -59,7 +74,6 @@ class MediaControlToolbar extends StatelessWidget implements PreferredSizeWidget
                   ),
                 ),
               ],
-              flexibleSpace: ToolbarPlaybackProgress(),
             );
           },
         );
@@ -69,7 +83,7 @@ class MediaControlToolbar extends StatelessWidget implements PreferredSizeWidget
 
   @override
   Size get preferredSize {
-    return Size.fromHeight(80);
+    return Size.fromHeight(kToolbarHeight);
   }
 }
 
@@ -164,5 +178,33 @@ class _ToolbarPlaybackProgressState extends State<ToolbarPlaybackProgress> {
         ),
       ],
     );
+  }
+}
+
+class CustomBoxHeaderDelegate extends SliverPersistentHeaderDelegate {
+  final Widget child;
+  final double maxHeight;
+  final double minHeight;
+
+  const CustomBoxHeaderDelegate({
+    required this.child,
+    required this.maxHeight,
+    required this.minHeight,
+  });
+
+  @override
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return child;
+  }
+
+  @override
+  double get maxExtent => maxHeight;
+
+  @override
+  double get minExtent => minHeight;
+
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
+    return true;
   }
 }

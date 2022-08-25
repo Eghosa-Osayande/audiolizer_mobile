@@ -2,8 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:solpha/modules/models/notes/decoration_notes.dart';
 import 'package:solpha/modules/models/notes/enums/duration_markers.dart';
 import 'package:solpha/modules/models/notes/enums/solfege.dart';
+import 'package:solpha/modules/models/notes/note.dart';
 import 'package:solpha/modules/score_editor/cubit/edit_track_notes/edit_track_note_cubit.dart';
 import 'package:solpha/modules/score_editor/cubit/edit_track_notes/edit_track_note_cubit.dart';
 
@@ -35,7 +37,9 @@ class MusicNoteButton implements NoteKeyModel {
 
   @override
   void action(BuildContext context) {
-    context.read<EditTrackNotesCubit>().addMusicNote(this);
+    var track = context.read<EditTrackNotesCubit>().track;
+    var newNote = Note.music(track, solfa: solfa, octave: octave);
+    context.read<EditTrackNotesCubit>().addNote(newNote);
   }
 
   @override
@@ -56,7 +60,9 @@ class DurationNoteButton implements NoteKeyModel {
 
   @override
   void action(BuildContext context) {
-    context.read<EditTrackNotesCubit>().addDurationNote(this);
+    var track = context.read<EditTrackNotesCubit>().track;
+    var newNote = Note.duration(track, marker: marker);
+    context.read<EditTrackNotesCubit>().addNote(newNote);
   }
 
   @override
@@ -97,7 +103,9 @@ class SpaceBarButton implements NoteKeyModel {
 
   @override
   void action(BuildContext context) {
-    context.read<EditTrackNotesCubit>().addSpace();
+    var track = context.read<EditTrackNotesCubit>().track;
+    var newNote = SpacingNote(track, NoteSpacing.whiteSpace);
+    context.read<EditTrackNotesCubit>().addNote(newNote);
   }
 
   @override
@@ -114,7 +122,9 @@ class NewLineButton implements NoteKeyModel {
 
   @override
   void action(BuildContext context) {
-    context.read<EditTrackNotesCubit>().addNewLine();
+    var track = context.read<EditTrackNotesCubit>().track;
+    var newNote = SpacingNote(track, NoteSpacing.newLine);
+    context.read<EditTrackNotesCubit>().addNote(newNote);
   }
 
   @override

@@ -3,8 +3,12 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:solpha/modules/score_editor/cubit/edit_track_notes/edit_track_note_cubit.dart';
+import 'package:solpha/modules/score_editor/ui/widgets/keyboard/solfa_keyboard.dart';
 import 'package:solpha/modules/score_editor/ui/widgets/note_widgets/note_builder.dart';
 import 'package:solpha/modules/score_editor/ui/widgets/note_widgets/music_note.dart';
+import 'package:solpha/modules/score_editor/ui/widgets/side_drawer.dart';
+import 'package:solpha/modules/score_editor/ui/widgets/toolbars/media_control_toolbar.dart';
+import 'package:solpha/modules/score_editor/ui/widgets/toolbars/playback_slider.dart';
 
 class TrackSheet extends StatelessWidget {
   const TrackSheet({
@@ -17,22 +21,50 @@ class TrackSheet extends StatelessWidget {
       builder: (context, state) {
         var notes = state.track.toList();
 
-        return Align(
-          alignment: Alignment.topLeft,
-          child: SingleChildScrollView(
-            child: Text.rich(
-              TextSpan(
-                children: List.generate(
-                  notes.length,
-                  (index) => WidgetSpan(
-                    child: NoteBuilder(
-                      note: notes[index],
-                    ),
+        return Scaffold(
+          drawer: SideDrawer(),
+          appBar: MediaControlToolbar(),
+          body: Column(
+            children: [
+              Expanded(
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: CustomScrollView(
+                    slivers: [
+                      SliverPersistentHeader(
+                        delegate: ToolbarPlaybackProgressHeaderDelegate(),
+                        floating: true,
+                      ),
+                      SliverList(
+                        delegate: SliverChildListDelegate.fixed(
+                          [
+                            Text.rich(
+                              TextSpan(
+                                children: List.generate(
+                                  notes.length,
+                                  (index) => WidgetSpan(
+                                    child: NoteBuilder(
+                                      note: notes[index],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              textAlign: TextAlign.justify,
+                            ),
+                          ],
+                        ),
+                      ),
+                      SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: 200,
+                        ),
+                      )
+                    ],
                   ),
                 ),
               ),
-              textAlign: TextAlign.justify,
-            ),
+              SolfaKeyboard(),
+            ],
           ),
         );
       },
