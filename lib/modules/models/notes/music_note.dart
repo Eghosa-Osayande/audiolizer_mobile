@@ -50,4 +50,10 @@ class MusicNote extends Note with EquatableMixin {
     super.commit();
     AddNote(this).run(track.score.midiFile);
   }
+
+  @override
+  Note makeCopy([Track? track]) {
+    // TODO: implement makeCopy
+    return MusicNote(track??this.track, solfa: solfa, octave: octave);
+  }
 }

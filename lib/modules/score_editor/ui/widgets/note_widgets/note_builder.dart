@@ -1,3 +1,7 @@
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+
 import 'package:flutter/material.dart';
 import 'package:solpha/modules/models/notes/decoration_notes.dart';
 import 'package:solpha/modules/models/notes/duration_note.dart';
@@ -15,8 +19,7 @@ class NoteBuilder extends StatelessWidget {
     required this.note,
   }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
+  Widget buildNote(BuildContext context) {
     if (note is SpacingNote) {
       switch ((note as SpacingNote).type) {
         case NoteSpacing.whiteSpace:
@@ -31,11 +34,38 @@ class NoteBuilder extends StatelessWidget {
       }
     }
     if (note is MusicNote) {
-      return MusicNoteWidget(note:  (note as MusicNote));
+      return MusicNoteWidget(note: (note as MusicNote));
     }
     if (note is DurationNote) {
       return DurationNoteWidget(note: (note as DurationNote));
     }
     return SizedBox();
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return buildNote(context);
+    // return SelectNoteRenderWidget(child: buildNote(context), note: note);
+  }
 }
+
+// class SelectNoteRenderWidget extends SingleChildRenderObjectWidget {
+//   final Note note;
+
+//   SelectNoteRenderWidget({required Widget child, required this.note, Key? key}) : super(child: child, key: key);
+
+//   @override
+//   SelectNoteRenderProxy createRenderObject(BuildContext context) {
+//     return SelectNoteRenderProxy(note);
+//   }
+
+//   @override
+//   void updateRenderObject(BuildContext context, SelectNoteRenderProxy renderObject) {
+//     renderObject..note = note;
+//   }
+// }
+
+// class SelectNoteRenderProxy extends RenderProxyBox {
+//   Note note;
+//   SelectNoteRenderProxy(this.note);
+// }

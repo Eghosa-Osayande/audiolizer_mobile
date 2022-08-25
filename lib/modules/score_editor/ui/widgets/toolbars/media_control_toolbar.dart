@@ -9,6 +9,7 @@ import 'package:solpha/modules/score_editor/cubit/score/score_cubit_cubit.dart';
 
 import 'package:flutter/material.dart';
 import 'package:solpha/modules/models/notes/note.dart';
+import 'package:solpha/modules/score_editor/cubit/selected_notes/selected_notes_cubit.dart';
 import 'package:solpha/modules/score_editor/cubit/toggle_edit_play_mode/toggle_edit_play_mode_cubit.dart';
 import 'package:solpha/modules/score_editor/cubit/toggle_keyboard_visibility.dart/toggle_keyboard_visibility_cubit.dart';
 import 'package:solpha/modules/score_editor/service/audio_player_service.dart';
@@ -27,19 +28,6 @@ class MediaControlToolbar extends StatelessWidget implements PreferredSizeWidget
             return AppBar(
               title: Text('Track ${currentIndex + 1}'),
               actions: [
-                IconButton(
-                  onPressed: () {
-                   BlocProvider.of<EditTrackNotesCubit>(context).undo();
-                    
-                  },
-                  icon: Icon(Icons.undo),
-                ),
-                IconButton(
-                  onPressed: () {
-                     BlocProvider.of<EditTrackNotesCubit>(context).redo();
-                  },
-                  icon: Icon(Icons.redo),
-                ),
                 IconButton(
                   onPressed: () {
                     BlocProvider.of<ScoreCubit>(context).play();
@@ -71,6 +59,54 @@ class MediaControlToolbar extends StatelessWidget implements PreferredSizeWidget
                           return Icon(Icons.keyboard_alt_outlined);
                       }
                     },
+                  ),
+                ),
+                PopupMenuButton(
+                  itemBuilder: (context) {
+                    return [
+                      PopupMenuItem(
+                        child: ListTile(
+                          title: Text('Undo'),
+                          onTap: () {
+                            BlocProvider.of<EditTrackNotesCubit>(context).undo();
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ),
+                      PopupMenuItem(
+                        child: ListTile(
+                          title: Text('Redo'),
+                          onTap: () {
+                            BlocProvider.of<EditTrackNotesCubit>(context).redo();
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ),
+                      PopupMenuItem(
+                        child: ListTile(
+                          title: Text('Select'),
+                          onTap: () {
+                            var note = context.read<EditTrackNotesCubit>().getCurrentNote();
+                            if (note != null) {
+                              context.read<SelectedNotesCubit>().toggleSelection(note);
+                              Navigator.of(context).pop();
+                            }
+                          },
+                        ),
+                      ),
+                      PopupMenuItem(
+                        child: ListTile(
+                          title: Text('Paste'),
+                          onTap: () {
+                             var copied = context.read<SelectedNotesCubit>().copiedNotesList;
+            context.read<EditTrackNotesCubit>().pasteNotes(copied);
+                          },
+                        ),
+                      ),
+                    ];
+                  },
+                  icon: Icon(
+                    Icons.more_vert,
                   ),
                 ),
               ],

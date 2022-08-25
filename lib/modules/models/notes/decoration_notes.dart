@@ -30,6 +30,11 @@ class SpacingNote extends Note with EquatableMixin {
         );
     }
   }
+   @override
+  Note makeCopy([Track? track]) {
+    // TODO: implement makeCopy
+    return SpacingNote(track??this.track, type);
+  }
 }
 
 enum NoteSpacing {

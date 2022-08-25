@@ -135,4 +135,8 @@ class Note with LinkedListEntry<Note>, EquatableMixin, ErrorStreamMixin<GenericE
       return (_startAtInSeconds!) - 0.5;
     }
   }
+
+  Note makeCopy([Track? track]) {
+    return Note(track??this.track);
+  }
 }

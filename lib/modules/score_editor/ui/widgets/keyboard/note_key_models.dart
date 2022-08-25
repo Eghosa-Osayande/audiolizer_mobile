@@ -8,6 +8,7 @@ import 'package:solpha/modules/models/notes/enums/solfege.dart';
 import 'package:solpha/modules/models/notes/note.dart';
 import 'package:solpha/modules/score_editor/cubit/edit_track_notes/edit_track_note_cubit.dart';
 import 'package:solpha/modules/score_editor/cubit/edit_track_notes/edit_track_note_cubit.dart';
+import 'package:solpha/modules/score_editor/cubit/selected_notes/selected_notes_cubit.dart';
 
 class NoteKeyModel {
   const NoteKeyModel();
@@ -18,7 +19,9 @@ class NoteKeyModel {
 
   Widget? icon() {}
 
-  void action(BuildContext context) {}
+  void action(BuildContext context) {
+     
+  }
 }
 
 class MusicNoteButton implements NoteKeyModel {
@@ -39,6 +42,7 @@ class MusicNoteButton implements NoteKeyModel {
   void action(BuildContext context) {
     var track = context.read<EditTrackNotesCubit>().track;
     var newNote = Note.music(track, solfa: solfa, octave: octave);
+   context.read<SelectedNotesCubit>().deselectAll();
     context.read<EditTrackNotesCubit>().addNote(newNote);
   }
 
@@ -62,6 +66,7 @@ class DurationNoteButton implements NoteKeyModel {
   void action(BuildContext context) {
     var track = context.read<EditTrackNotesCubit>().track;
     var newNote = Note.duration(track, marker: marker);
+    context.read<SelectedNotesCubit>().deselectAll();
     context.read<EditTrackNotesCubit>().addNote(newNote);
   }
 
@@ -79,11 +84,13 @@ class DeleteNoteButton implements NoteKeyModel {
 
   @override
   void action(BuildContext context) {
+    context.read<SelectedNotesCubit>().deselectAll();
     context.read<EditTrackNotesCubit>().deleteNote();
   }
 
   @override
   Widget? icon() {
+    
     return Center(
       child: Icon(
         Icons.backspace_outlined,
@@ -105,6 +112,7 @@ class SpaceBarButton implements NoteKeyModel {
   void action(BuildContext context) {
     var track = context.read<EditTrackNotesCubit>().track;
     var newNote = SpacingNote(track, NoteSpacing.whiteSpace);
+    context.read<SelectedNotesCubit>().deselectAll();
     context.read<EditTrackNotesCubit>().addNote(newNote);
   }
 
@@ -124,6 +132,7 @@ class NewLineButton implements NoteKeyModel {
   void action(BuildContext context) {
     var track = context.read<EditTrackNotesCubit>().track;
     var newNote = SpacingNote(track, NoteSpacing.newLine);
+    context.read<SelectedNotesCubit>().deselectAll();
     context.read<EditTrackNotesCubit>().addNote(newNote);
   }
 

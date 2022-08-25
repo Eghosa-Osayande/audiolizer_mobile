@@ -109,6 +109,15 @@ class EditTrackNotesCubit extends Cubit<EditTrackNotesState> {
     ));
   }
 
+  Note? getCurrentNote() {
+    if (_currentNote != null) {
+      return _currentNote;
+    } else if (track.isNotEmpty) {
+      setCurrentNote(track.first);
+    }
+    return _currentNote;
+  }
+
   undo() {
     _editHistory.undo();
 
@@ -130,4 +139,13 @@ class EditTrackNotesCubit extends Cubit<EditTrackNotesState> {
       undoCount: _editHistory.undoCount,
     ));
   }
+
+  void pasteNotes(List<Note> copied) {
+    copied.sort((a, b) => a.createdAt.compareTo(b.createdAt));
+    for (var note in copied) {
+      addNote(note);
+    }
+  }
+
+
 }

@@ -30,4 +30,9 @@ class DurationNote extends Note with EquatableMixin {
     }
     return Success(result.abs());
   }
+  @override
+  Note makeCopy([Track? track]) {
+
+    return DurationNote(track??this.track, marker: marker);
+  }
 }

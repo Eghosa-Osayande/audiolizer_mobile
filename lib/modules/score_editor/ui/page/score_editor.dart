@@ -6,6 +6,7 @@ import 'package:solpha/modules/models/score/score_settings.dart';
 import 'package:solpha/modules/models/score/time_signature.dart';
 import 'package:solpha/modules/score_editor/cubit/current_track/current_track_cubit.dart';
 import 'package:solpha/modules/score_editor/cubit/score/score_cubit_cubit.dart';
+import 'package:solpha/modules/score_editor/cubit/selected_notes/selected_notes_cubit.dart';
 import 'package:solpha/modules/score_editor/cubit/toggle_edit_play_mode/toggle_edit_play_mode_cubit.dart';
 import 'package:solpha/modules/score_editor/cubit/toggle_keyboard_visibility.dart/toggle_keyboard_visibility_cubit.dart';
 import 'package:solpha/modules/score_editor/ui/widgets/score_editor_body.dart';
@@ -39,6 +40,9 @@ class ScoreEditorPage extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => ToggleKeyboardVisibilityCubit(),
+        ),
+        BlocProvider(
+          create: (context) => SelectedNotesCubit(),
         ),
       ],
       child: ScoreEditorBody(),
