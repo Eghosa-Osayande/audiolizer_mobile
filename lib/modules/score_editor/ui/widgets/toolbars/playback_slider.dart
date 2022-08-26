@@ -5,13 +5,16 @@ import 'package:solpha/modules/score_editor/service/audio_player_service.dart';
 
 
 
-class ToolbarPlaybackProgress extends StatefulWidget {
+class ToolbarPlaybackProgress extends StatefulWidget implements PreferredSizeWidget  {
   ToolbarPlaybackProgress({
     Key? key,
   }) : super(key: key);
 
   @override
   State<ToolbarPlaybackProgress> createState() => _ToolbarPlaybackProgressState();
+  
+  @override
+  Size get preferredSize => Size.fromHeight(30);
 }
 
 class _ToolbarPlaybackProgressState extends State<ToolbarPlaybackProgress> {
@@ -95,23 +98,3 @@ class _ToolbarPlaybackProgressState extends State<ToolbarPlaybackProgress> {
 }
 
 
-class ToolbarPlaybackProgressHeaderDelegate extends SliverPersistentHeaderDelegate {
- 
-  const ToolbarPlaybackProgressHeaderDelegate();
-
-  @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return ToolbarPlaybackProgress();
-  }
-
-  @override
-  double get maxExtent => 32;
-
-  @override
-  double get minExtent => 30;
-
-  @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
-    return true;
-  }
-}

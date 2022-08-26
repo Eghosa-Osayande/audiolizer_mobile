@@ -9,10 +9,9 @@ import 'note.dart';
 class DurationNote extends Note with EquatableMixin {
   final DurationMarker marker;
 
-  DurationNote(
-    Track track, {
+  DurationNote({
     required this.marker,
-  }) : super(track);
+  }) : super();
 
   @override
   List<Object?> get props => [
@@ -30,9 +29,14 @@ class DurationNote extends Note with EquatableMixin {
     }
     return Success(result.abs());
   }
-  @override
-  Note makeCopy([Track? track]) {
 
-    return DurationNote(track??this.track, marker: marker);
+  @override
+  Note makeCopy() {
+    return DurationNote(marker: marker);
+  }
+
+  @override
+  String displayString() {
+    return marker.symbol;
   }
 }

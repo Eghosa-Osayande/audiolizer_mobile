@@ -1,61 +1,44 @@
 import 'dart:collection';
 
 import 'package:equatable/equatable.dart';
+import 'package:equatable/equatable.dart';
 import 'package:midi_util/midi_util.dart';
 import 'package:result_type/result_type.dart';
-import 'package:solpha/modules/models/bar/bar.dart';
+import 'package:result_type/result_type.dart';
 import 'package:solpha/modules/models/notes/config_notes.dart';
 import 'package:solpha/modules/models/notes/duration_note.dart';
 import 'package:solpha/modules/models/notes/enums/duration_markers.dart';
 import 'package:solpha/modules/models/notes/enums/solfege.dart';
 import 'package:solpha/modules/models/notes/music_note.dart';
 import 'package:solpha/modules/models/notes/note.dart';
+import 'package:solpha/modules/models/track/track.dart';
+import 'package:solpha/modules/score_editor/ui/widgets/solfa_text_field/solfa_input_controller.dart';
 import 'package:solpha/modules/score_editor/ui/widgets/solfa_text_field/solfa_input_controller.dart';
 
-typedef Bars = Map<int, SolfaEditingController>;
+class Bar extends LinkedListEntry<Bar> with EquatableMixin {
+  final DateTime createdAt = DateTime.now();
+  final SolfaEditingController solfaEditingController = SolfaEditingController();
 
-class Track {
-  final LinkedList<Bar> bars = LinkedList()..add(Bar());
-
-  final int trackNumber;
-
-  final ScoreConfigNote intialScoreConfigNote;
-  final TrackConfigNote intialTrackConfigNote;
-
-  List<Note> get notes => [
-        ...(bars.fold<List<Note>>(
-          [],
-          (previousValue, bar) => previousValue
-            ..addAll(
-              bar.notes,
-            ),
-        ))
-      ];
+  List<Note> get notes => solfaEditingController.notes;
 
   List<Note> get notesForCommit => [
-        intialScoreConfigNote,
-        intialTrackConfigNote,
-        ...notes
+        _intialScoreConfigNote!,
+        _intialTrackConfigNote!,
+        ...solfaEditingController.notes
       ];
 
-  Track._({
-    required this.trackNumber,
-    required this.intialScoreConfigNote,
-    required this.intialTrackConfigNote,
-  });
+  double? startAt;
+  double? endAt;
+  double duration = 0;
+  ScoreConfigNote? _intialScoreConfigNote;
+  TrackConfigNote? _intialTrackConfigNote;
 
-  factory Track({
-    required int trackNumber,
-    required int volume,
-    required int program,
-    required ScoreConfigNote intialScoreConfigNote,
-  }) {
-    return Track._(
-      trackNumber: trackNumber,
-      intialScoreConfigNote: intialScoreConfigNote,
-      intialTrackConfigNote: TrackConfigNote(volume, program),
-    );
-  }
+  Bar();
+
+  @override
+  List<Object?> get props => [
+        createdAt
+      ];
 
   double get trackLengthInBeats {
     if (notes.isNotEmpty) {
@@ -64,49 +47,24 @@ class Track {
     return 0;
   }
 
-  void addMetronemeTrack(MIDIFile midiFile) {
-    var metro = Track(
-      trackNumber: 5,
-      program: 115,
-      volume: 100,
-      intialScoreConfigNote: intialScoreConfigNote,
-    );
-    metro.notes.add(Note.duration(marker: DurationMarker.full));
-    List.generate(trackLengthInBeats.ceil(), (index) {
-      metro.notes.add(Note.music(solfa: Solfege.d, octave: 0));
-      metro.notes.add(Note.duration(marker: DurationMarker.full));
-    });
-    metro.computeNotes();
-    metro.commit(midiFile);
-  }
+  Result<double, Note> computeNotes({
+    required ScoreConfigNote intialScoreConfigNote,
+    required TrackConfigNote intialTrackConfigNote,
+    required double accumulatedTime,
+  }) {
+    _intialScoreConfigNote = intialScoreConfigNote;
+    _intialTrackConfigNote = intialTrackConfigNote;
 
-  Result<bool, int> computeNotes() {
-    int count = 0;
-    double accumulatedTime = 0;
-
-    for (var bar in bars) {
-      var result = bar.computeNotes(
-        intialScoreConfigNote: intialScoreConfigNote,
-        intialTrackConfigNote: intialTrackConfigNote,
-        accumulatedTime: accumulatedTime,
-      );
-      if (result.isFailure) {
-        return Failure(count);
-      } else {
-        accumulatedTime = result.success;
-      }
-      count = count + 1;
-    }
-    return Success(true);
-  }
-
-  Result<bool, Note> computeNote() {
-    double accumulatedTime = 0;
     DurationNote? start, end;
     MusicNote? previousNote, mid;
 
     Note? errorNote;
 
+    var notesForCommit = [
+      intialScoreConfigNote,
+      intialTrackConfigNote,
+      ...solfaEditingController.notes
+    ];
     for (var note in notesForCommit) {
       note.intialScoreConfigNote = intialScoreConfigNote;
       note.intialTrackConfigNote = intialTrackConfigNote;
@@ -181,16 +139,13 @@ class Track {
     if (errorNote != null) {
       return Failure(errorNote);
     } else {
-      return Success(true);
+      return Success(accumulatedTime);
     }
   }
 
-  Future<void> commit(MIDIFile midiFile) async {
-    for (var bar in bars) {
-      await bar.commit(this, midiFile);
+  Future<void> commit(Track track, MIDIFile midiFile) async {
+    for (var note in notesForCommit) {
+      await note.commit(track, midiFile);
     }
-    // for (var note in notesForCommit) {
-    //   await note.commit(this, midiFile);
-    // }
   }
 }

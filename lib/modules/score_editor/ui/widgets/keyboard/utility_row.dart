@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:solpha/modules/models/notes/enums/duration_markers.dart';
 import 'package:solpha/modules/models/notes/enums/solfege.dart';
 
-import 'note_key_models.dart';
-import 'note_key_widget.dart';
+import 'button_models.dart';
+import 'button_widget.dart';
 
 class BottomRow extends StatelessWidget {
   const BottomRow({Key? key}) : super(key: key);
@@ -17,19 +17,31 @@ class BottomRow extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Expanded(flex: 1, child: NoteKey(data: NewLineButton(),)),
           Expanded(
               flex: 1,
-              child: NoteKey(
+              child: ButtonWidget(
+                data: NewLineButton(),
+              )),
+          Expanded(
+              flex: 1,
+              child: ButtonWidget(
                 data: MusicNoteButton(octave: 0, solfa: Solfege.silent),
               )),
-          Expanded(flex: 3, child: NoteKey(data: SpaceBarButton(),)),
+          Expanded(
+              flex: 3,
+              child: ButtonWidget(
+                data: SpaceBarButton(),
+              )),
           Expanded(
               flex: 1,
-              child: NoteKey(
+              child: ButtonWidget(
                 data: MusicNoteButton(octave: 0, solfa: Solfege.sustain),
               )),
-          Expanded(flex: 1, child: NoteKey(data: DeleteNoteButton(),)),
+          Expanded(
+              flex: 1,
+              child: ButtonWidget(
+                data: DeleteNoteButton(),
+              )),
         ],
       ),
     );
@@ -51,7 +63,7 @@ class TopRow extends StatelessWidget {
       color: Colors.red.shade900,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: markers.map((e) => Expanded(child: NoteKey(data: e))).toList(),
+        children: markers.map((e) => Expanded(child: ButtonWidget(data: e))).toList(),
       ),
     );
   }

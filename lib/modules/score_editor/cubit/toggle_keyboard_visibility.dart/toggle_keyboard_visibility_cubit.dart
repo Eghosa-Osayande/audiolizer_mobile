@@ -16,4 +16,8 @@ class ToggleKeyboardVisibilityCubit extends Cubit<KeyboardVisibility> {
         break;
     }
   }
+
+  void open() {
+    emit(KeyboardVisibility.visible);
+  }
 }

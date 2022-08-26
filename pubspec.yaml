@@ -65,9 +65,11 @@ dependencies:
   auto_size_text: ^3.0.0
 
   sliding_up_panel: ^2.0.0+1
+  selectable: ^0.2.4
 
   midi_util:
     path: ../midi_util
+  auto_size_text_field: ^2.1.0
   
 
 dev_dependencies:

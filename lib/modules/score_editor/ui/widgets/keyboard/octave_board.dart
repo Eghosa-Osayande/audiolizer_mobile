@@ -1,14 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:solpha/modules/models/notes/enums/duration_markers.dart';
 import 'package:solpha/modules/models/notes/enums/solfege.dart';
-import 'package:solpha/modules/score_editor/cubit/edit_track_notes/edit_track_note_cubit.dart';
 
-import 'note_key_models.dart';
-import 'note_key_widget.dart';
+import 'button_models.dart';
+import 'button_widget.dart';
 
 double kNoteHeight = 37;
 
@@ -21,7 +17,7 @@ class OctaveBoard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var noteKey = NoteKey();
+    var noteKey = ButtonWidget();
     var sharps = generateSharpOctave();
     var flat = generateFlatOctave();
     return Column(
@@ -47,7 +43,7 @@ class OctaveBoard extends StatelessWidget {
 
             return Expanded(
                 flex: 2,
-                child: NoteKey(
+                child: ButtonWidget(
                   data: sharps[index],
                   height: kNoteHeight,
                 ));
@@ -60,7 +56,7 @@ class OctaveBoard extends StatelessWidget {
               (note) {
                 return Expanded(
                     flex: 2,
-                    child: NoteKey(
+                    child: ButtonWidget(
                       data: note,
                       height: kNoteHeight,
                     ));
@@ -87,7 +83,7 @@ class OctaveBoard extends StatelessWidget {
             }
             return Expanded(
               flex: 2,
-              child: NoteKey(
+              child: ButtonWidget(
                 data: flat[index],
                 height: kNoteHeight,
               ),

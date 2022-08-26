@@ -85,6 +85,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.0"
+  auto_size_text_field:
+    dependency: "direct main"
+    description:
+      name: auto_size_text_field
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.0"
   base58check:
     dependency: transitive
     description:
@@ -309,6 +316,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
+  float_column:
+    dependency: transitive
+    description:
+      name: float_column
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.3.0"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -777,6 +791,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.2"
+  selectable:
+    dependency: "direct main"
+    description:
+      name: selectable
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.4"
   share_plus:
     dependency: "direct main"
     description:

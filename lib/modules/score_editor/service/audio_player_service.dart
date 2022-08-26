@@ -2,13 +2,15 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:audioplayers/audioplayers.dart';
+import 'package:solpha/modules/app_services_controller/services_config.dart';
 
 class AudioPlayerService {
-  static final AudioPlayerService _instance = AudioPlayerService._();
+  static AudioPlayerService? _instance;
 
   AudioPlayerService._();
   factory AudioPlayerService.__() {
-    return _instance;
+    _instance ??= (AppServicesConfig.isTest) ? AudioPlayerService._() : AudioPlayerService._();
+    return _instance!;
   }
 
   static AudioPlayerService get instance => AudioPlayerService.__();
@@ -53,7 +55,7 @@ class AudioPlayerService {
   }
 
   Future<void> seek(Duration position) async {
-     playCount++;
+    playCount++;
     await _player.seek(position);
   }
 

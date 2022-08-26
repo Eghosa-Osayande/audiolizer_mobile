@@ -2,16 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:solpha/modules/models/notes/decoration_notes.dart';
+import 'package:solpha/modules/models/notes/white_space_note.dart';
 import 'package:solpha/modules/models/notes/enums/duration_markers.dart';
 import 'package:solpha/modules/models/notes/enums/solfege.dart';
 import 'package:solpha/modules/models/notes/note.dart';
-import 'package:solpha/modules/score_editor/cubit/edit_track_notes/edit_track_note_cubit.dart';
-import 'package:solpha/modules/score_editor/cubit/edit_track_notes/edit_track_note_cubit.dart';
-import 'package:solpha/modules/score_editor/cubit/selected_notes/selected_notes_cubit.dart';
+import 'package:solpha/modules/score_editor/cubit/current_bar_key/current_bar_cubit.dart';
 
-class NoteKeyModel {
-  const NoteKeyModel();
+class ButtonModel {
+  const ButtonModel();
 
   String displayString() {
     return '';
@@ -19,12 +17,10 @@ class NoteKeyModel {
 
   Widget? icon() {}
 
-  void action(BuildContext context) {
-     
-  }
+  void action(BuildContext context) {}
 }
 
-class MusicNoteButton implements NoteKeyModel {
+class MusicNoteButton implements ButtonModel {
   final Solfege solfa;
   final int octave;
   const MusicNoteButton({
@@ -40,17 +36,17 @@ class MusicNoteButton implements NoteKeyModel {
 
   @override
   void action(BuildContext context) {
-    var track = context.read<EditTrackNotesCubit>().track;
-    var newNote = Note.music(track, solfa: solfa, octave: octave);
-   context.read<SelectedNotesCubit>().deselectAll();
-    context.read<EditTrackNotesCubit>().addNote(newNote);
+    Note note = Note.music(solfa: solfa, octave: octave);
+    BlocProvider.of<CurrentBarCubit>(context).state.solfaEditingController.insertNotes([
+      note
+    ]);
   }
 
   @override
   Widget? icon() {}
 }
 
-class DurationNoteButton implements NoteKeyModel {
+class DurationNoteButton implements ButtonModel {
   final DurationMarker marker;
 
   const DurationNoteButton({
@@ -64,17 +60,17 @@ class DurationNoteButton implements NoteKeyModel {
 
   @override
   void action(BuildContext context) {
-    var track = context.read<EditTrackNotesCubit>().track;
-    var newNote = Note.duration(track, marker: marker);
-    context.read<SelectedNotesCubit>().deselectAll();
-    context.read<EditTrackNotesCubit>().addNote(newNote);
+    Note note = Note.duration(marker: marker);
+    BlocProvider.of<CurrentBarCubit>(context).state.solfaEditingController.insertNotes([
+      note
+    ]);
   }
 
   @override
   Widget? icon() {}
 }
 
-class DeleteNoteButton implements NoteKeyModel {
+class DeleteNoteButton implements ButtonModel {
   const DeleteNoteButton();
 
   @override
@@ -84,13 +80,22 @@ class DeleteNoteButton implements NoteKeyModel {
 
   @override
   void action(BuildContext context) {
-    context.read<SelectedNotesCubit>().deselectAll();
-    context.read<EditTrackNotesCubit>().deleteNote();
+    var solfaEditingController2 = BlocProvider.of<CurrentBarCubit>(context).state.solfaEditingController;
+
+    if (solfaEditingController2.notes.isEmpty) {
+      var currentBar = BlocProvider.of<CurrentBarCubit>(context).state;
+      if (currentBar.previous != null) {
+        var prev = currentBar.previous!;
+        currentBar.unlink();
+        BlocProvider.of<CurrentBarCubit>(context).setKey(prev);
+      }
+    } else {
+      solfaEditingController2.backSpace();
+    }
   }
 
   @override
   Widget? icon() {
-    
     return Center(
       child: Icon(
         Icons.backspace_outlined,
@@ -100,7 +105,7 @@ class DeleteNoteButton implements NoteKeyModel {
   }
 }
 
-class SpaceBarButton implements NoteKeyModel {
+class SpaceBarButton implements ButtonModel {
   const SpaceBarButton();
 
   @override
@@ -110,17 +115,17 @@ class SpaceBarButton implements NoteKeyModel {
 
   @override
   void action(BuildContext context) {
-    var track = context.read<EditTrackNotesCubit>().track;
-    var newNote = SpacingNote(track, NoteSpacing.whiteSpace);
-    context.read<SelectedNotesCubit>().deselectAll();
-    context.read<EditTrackNotesCubit>().addNote(newNote);
+    Note note = WhiteSpaceNote();
+    BlocProvider.of<CurrentBarCubit>(context).state.solfaEditingController.insertNotes([
+      note
+    ]);
   }
 
   @override
   Widget? icon() {}
 }
 
-class NewLineButton implements NoteKeyModel {
+class NewLineButton implements ButtonModel {
   const NewLineButton();
 
   @override
@@ -130,10 +135,7 @@ class NewLineButton implements NoteKeyModel {
 
   @override
   void action(BuildContext context) {
-    var track = context.read<EditTrackNotesCubit>().track;
-    var newNote = SpacingNote(track, NoteSpacing.newLine);
-    context.read<SelectedNotesCubit>().deselectAll();
-    context.read<EditTrackNotesCubit>().addNote(newNote);
+    BlocProvider.of<CurrentBarCubit>(context).addNewBar();
   }
 
   @override

@@ -4,80 +4,66 @@ import 'package:file/memory.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:midi_util/midi_util.dart';
 import 'package:result_type/result_type.dart';
+import 'package:solpha/modules/models/notes/config_notes.dart';
 import 'package:solpha/modules/models/notes/enums/duration_markers.dart';
 import 'package:solpha/modules/models/notes/enums/solfege.dart';
 import 'package:solpha/modules/models/notes/note.dart';
 import 'package:solpha/modules/models/track/track.dart';
 
-import 'score_settings.dart';
+class Score {
+  final ScoreConfigNote intialConfigNote;
 
-class Score with ErrorStreamMixin<Track> {
-  final ScoreSettings intialSettings;
+  final List<Track> tracks = [];
 
-  final Map<int, Track> _tracksMap = {};
-
-  static const int _tracksLimit = 10;
-
-  MIDIFile _midiFile = MIDIFile(numTracks: _tracksLimit);
-
-  MIDIFile get midiFile => _midiFile;
-
-  bool hasUpdates = true;
+  MIDIFile midiFile = MIDIFile(numTracks: 10);
 
   void _resetMidiFile() {
-    _midiFile = MIDIFile(numTracks: _tracksLimit);
+    midiFile = MIDIFile(numTracks: 10);
   }
 
-  Score({required this.intialSettings});
+  Score({required this.intialConfigNote});
 
   bool createTrack({
     int program = 48,
     int volume = 100,
     int? trackNumber,
   }) {
-    if (_tracksMap.length < _tracksLimit) {
-      var _trackNumber = trackNumber ?? _tracksMap.length;
-      _tracksMap.putIfAbsent(
-        _trackNumber,
-        () => Track(
-          score: this,
-          trackNumber: _trackNumber,
-          program: program,
-          volume: volume,
-        )..addStartSeperator(),
-      );
+    if (tracks.length < 10) {
+      tracks.add(Track(
+        intialScoreConfigNote: intialConfigNote,
+        trackNumber: tracks.length,
+        program: program,
+        volume: volume,
+      ));
 
       return true;
     }
     return false;
   }
 
-  List<Track> get tracks => _tracksMap.values.toList();
-  Iterable<Track> get trackIterable => _tracksMap.values;
+  Future<Result<File, Track>?> commit() async {
+    _resetMidiFile();
 
-  Future<Result<File,Track>?> commit() async {
-    if (hasUpdates) {
-      _resetMidiFile();
-      clearError();
-      for (var track in _tracksMap.values) {
-        var result = track.computeNotes();
-        if (result.isSuccess) {
-          track.addMetronemeTrack();
-          continue;
-        } else {
-          setError(track);
-          return Failure(track);
-        }
+    for (var track in tracks) {
+      
+      var result = track.computeNotes();
+     
+      if (result.isSuccess) {
+        // track.addMetronemeTrack(midiFile);
+        continue;
+      } else {
+        return Failure(track);
       }
-
-      for (var track in _tracksMap.values) {
-        await track.commit();
-      }
-
-      File outputFile = MemoryFileSystem().file('${DateTime.now().millisecondsSinceEpoch}.mid');
-      await _midiFile.writeFile(outputFile);
-      hasUpdates = false;
-      return Success(outputFile);
     }
+
+    for (var track in tracks) {
+      await track.commit(midiFile);
+    }
+
+    File outputFile = MemoryFileSystem().file('${DateTime.now().millisecondsSinceEpoch}.mid');
+    await midiFile.writeFile(outputFile);
+   
+
+    return Success(outputFile);
   }
 }

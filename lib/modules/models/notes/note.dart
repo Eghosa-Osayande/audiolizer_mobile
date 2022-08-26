@@ -1,84 +1,39 @@
 import 'dart:async';
-import 'dart:collection';
 
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
-import 'package:result_type/result_type.dart';
+import 'package:midi_util/midi_util.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:solpha/modules/exceptions/exceptions.dart';
-import 'package:solpha/modules/models/notes/decoration_notes.dart';
+import 'package:solpha/modules/models/notes/config_notes.dart';
 import 'package:solpha/modules/models/notes/enums/duration_markers.dart';
 import 'package:solpha/modules/models/notes/enums/solfege.dart';
-import 'package:solpha/modules/models/score/score.dart';
-import 'package:solpha/modules/score_editor/cubit/edit_track_notes/edit_history.dart';
 import 'package:solpha/modules/models/track/track.dart';
 
 import 'duration_note.dart';
 import 'music_note.dart';
 
-mixin ErrorStreamMixin<T> {
-  T? _error;
-  T? get error => _error;
-
-  BehaviorSubject<T?> _errorController = BehaviorSubject<T?>();
-  Stream<T?> get errorStream => _errorController.stream;
-
-  setError(T error) {
-    _error = error;
-    _errorController.add(error);
-    // if (this is Note) {
-    //   var errorNote = this as Note;
-    //   errorNote.track.setError(errorNote);
-    // } else if (this is Track) {
-    //   var errorTrack = this as Track;
-    //   errorTrack.score.setError(errorTrack);
-    // } else if (this is Score) {}
-  }
-
-  clearError() {
-    _error = null;
-    _errorController.add(_error);
-    if (this is Note) {
-      var errorNote = this as Note;
-      errorNote.track.clearError();
-    } else if (this is Track) {
-      var errorTrack = this as Track;
-      errorTrack.score.clearError();
-    } else if (this is Score) {}
-  }
-
-  bool get hasError => _error != null;
-}
-
-extension TrackX on Note {
-  Result<bool, GenericException> addToTrack() {
-    return track.add(this);
-  }
-}
-
-class Note with LinkedListEntry<Note>, EquatableMixin, ErrorStreamMixin<GenericException> {
-  final Track track;
+abstract class Note implements EquatableMixin {
   final int createdAt = DateTime.now().microsecondsSinceEpoch;
 
   double? startAt;
   double? endAt;
   double duration = 0;
+  ScoreConfigNote? intialScoreConfigNote;
+  TrackConfigNote? intialTrackConfigNote;
 
-  Note(this.track);
+  Note();
 
-  factory Note.music(
-    Track track, {
+  factory Note.music({
     required Solfege solfa,
     required int octave,
   }) {
-    return MusicNote(track, solfa: solfa, octave: octave);
+    return MusicNote(solfa: solfa, octave: octave);
   }
 
-  factory Note.duration(
-    Track track, {
+  factory Note.duration({
     required DurationMarker marker,
   }) {
-    return DurationNote(track, marker: marker);
+    return DurationNote(marker: marker);
   }
 
   TResult map<TResult extends Object?>({
@@ -98,31 +53,18 @@ class Note with LinkedListEntry<Note>, EquatableMixin, ErrorStreamMixin<GenericE
   bool get isMusic => this is MusicNote;
 
   @override
-  // TODO: implement props
   List<Object?> get props => [
         createdAt
       ];
 
   @override
-  void insertAfter(Note entry) {
-    if (entry.list != null) {
-      entry.unlink();
-    }
-    if (list != null) {
-      this.track.score.hasUpdates = true;
-      super.insertAfter(entry);
-    }
-  }
+  bool? get stringify => true;
 
-  @override
-  unlink() {
-    this.track.score.hasUpdates = true;
-
-    super.unlink();
-  }
-
-  Future<void> commit() async {
-    num bpm = track.score.intialSettings.bpm;
+  Future<void> commit(
+    Track track,
+    MIDIFile midiFile,
+  ) async {
+    num bpm = intialScoreConfigNote!.bpm;
     if (startAt != null) {
       _startAtInSeconds = (60 / bpm) * (startAt!);
     }
@@ -136,7 +78,6 @@ class Note with LinkedListEntry<Note>, EquatableMixin, ErrorStreamMixin<GenericE
     }
   }
 
-  Note makeCopy([Track? track]) {
-    return Note(track??this.track);
-  }
+  Note makeCopy();
+  String displayString();
 }

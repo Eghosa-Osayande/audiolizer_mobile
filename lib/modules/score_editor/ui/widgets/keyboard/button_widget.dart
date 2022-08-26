@@ -2,23 +2,23 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:solpha/modules/score_editor/ui/widgets/keyboard/note_key_models.dart';
+import 'package:solpha/modules/score_editor/ui/widgets/keyboard/button_models.dart';
 import 'package:charcode/charcode.dart';
 
-class NoteKey extends StatefulWidget {
-  final NoteKeyModel data;
+class ButtonWidget extends StatefulWidget {
+  final ButtonModel data;
   final double? height;
-  const NoteKey({
+  const ButtonWidget({
     Key? key,
-    this.data = const NoteKeyModel(),
+    this.data = const ButtonModel(),
     this.height,
   }) : super(key: key);
 
   @override
-  State<NoteKey> createState() => _NoteKeyState();
+  State<ButtonWidget> createState() => _ButtonWidgetState();
 }
 
-class _NoteKeyState extends State<NoteKey> {
+class _ButtonWidgetState extends State<ButtonWidget> {
   GlobalKey<TooltipState> tooltipKey = GlobalKey<TooltipState>();
 
   double initialWidth = 30;
@@ -66,10 +66,11 @@ class _NoteKeyState extends State<NoteKey> {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Center(
-          child:widget.data.icon()??Text(
-            widget.data.displayString(),
-            style: GoogleFonts.zillaSlab(fontSize: 16),
-          ),
+          child: widget.data.icon() ??
+              Text(
+                widget.data.displayString(),
+                style: GoogleFonts.zillaSlab(fontSize: 16),
+              ),
         ),
       ),
     );
