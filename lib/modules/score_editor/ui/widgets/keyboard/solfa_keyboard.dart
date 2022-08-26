@@ -20,7 +20,7 @@ class SolfaKeyboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ToggleKeyboardVisibilityCubit, KeyboardVisibility>(
       builder: (context, state) {
-        if (state == KeyboardVisibility.hidden) {
+        if (state == KeyboardVisibility.hidden||state == KeyboardVisibility.hiddenForSytemUI) {
           return SizedBox();
         }
         return LayoutBuilder(builder: (context, box) {

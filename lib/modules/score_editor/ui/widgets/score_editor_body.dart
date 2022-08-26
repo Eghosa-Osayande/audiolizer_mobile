@@ -19,6 +19,8 @@ class ScoreEditorBody extends StatelessWidget {
             BlocProvider.of<ToggleKeyboardVisibilityCubit>(context).toggle();
             return false;
           case KeyboardVisibility.hidden:
+
+          case KeyboardVisibility.hiddenForSytemUI:
             return true;
         }
       },

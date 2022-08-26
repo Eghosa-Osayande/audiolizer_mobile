@@ -5,7 +5,6 @@ import 'package:midi_util/midi_util.dart';
 import 'package:result_type/result_type.dart';
 import 'package:solpha/modules/models/notes/config_notes.dart';
 import 'package:solpha/modules/models/notes/duration_note.dart';
-import 'package:solpha/modules/models/notes/lyrics_note.dart';
 import 'package:solpha/modules/models/notes/music_note.dart';
 import 'package:solpha/modules/models/notes/note.dart';
 import 'package:solpha/modules/models/track/track.dart';
@@ -23,7 +22,9 @@ class Bar extends LinkedListEntry<Bar> with EquatableMixin {
         ...solfaEditingController.notes
       ];
 
-  List<LyricsNote> lyrics = [];
+  String _lyrics = '';
+  String get lyrics => _lyrics;
+  set lyrics(String value) => _lyrics=value.trim();
 
   double? startAt;
   double? endAt;
