@@ -105,8 +105,8 @@ class _SolfaTextFieldState extends State<SolfaTextField> {
   Widget _buildTextField() {
     return BlocBuilder<NoteThemeProvider, NoteTheme>(
       builder: (context, noteTheme) {
-        return  Container(
-      width:(1==2) ? double.infinity : max(noteTheme.fontSize, _textSpanWidth * MediaQuery.of(context).textScaleFactor),
+        return Container(
+          width: (1 == 1) ? double.infinity : max(noteTheme.fontSize, _textSpanWidth * MediaQuery.of(context).textScaleFactor),
           child: TextField(
             minLines: 1,
             maxLines: null,
@@ -128,6 +128,9 @@ class _SolfaTextFieldState extends State<SolfaTextField> {
               },
               onPaste: (value) {
                 widget.controller.pasteNotes();
+                SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+                  setState(() {});
+                });
               },
             ),
             toolbarOptions: ToolbarOptions(

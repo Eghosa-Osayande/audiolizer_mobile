@@ -12,15 +12,9 @@ class NoteTheme {
   double get musicDurationSize => fontSize - 2;
   double get musicWhiteSpaceSize => fontSize - 2;
 
-  Size get computeSize {
-    double c() => 10 - ((20 - fontSize) / 20);
-    ;
-
-    return Size(8, 24);
-  }
 
   TextStyle get constantStyle {
-    return style;
+    // return style;
     return GoogleFonts.inter(fontSize: 20);
   }
 

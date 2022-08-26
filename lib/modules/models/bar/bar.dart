@@ -1,18 +1,14 @@
 import 'dart:collection';
 
 import 'package:equatable/equatable.dart';
-import 'package:equatable/equatable.dart';
 import 'package:midi_util/midi_util.dart';
-import 'package:result_type/result_type.dart';
 import 'package:result_type/result_type.dart';
 import 'package:solpha/modules/models/notes/config_notes.dart';
 import 'package:solpha/modules/models/notes/duration_note.dart';
-import 'package:solpha/modules/models/notes/enums/duration_markers.dart';
-import 'package:solpha/modules/models/notes/enums/solfege.dart';
+import 'package:solpha/modules/models/notes/lyrics_note.dart';
 import 'package:solpha/modules/models/notes/music_note.dart';
 import 'package:solpha/modules/models/notes/note.dart';
 import 'package:solpha/modules/models/track/track.dart';
-import 'package:solpha/modules/score_editor/ui/widgets/solfa_text_field/solfa_input_controller.dart';
 import 'package:solpha/modules/score_editor/ui/widgets/solfa_text_field/solfa_input_controller.dart';
 
 class Bar extends LinkedListEntry<Bar> with EquatableMixin {
@@ -26,6 +22,8 @@ class Bar extends LinkedListEntry<Bar> with EquatableMixin {
         _intialTrackConfigNote!,
         ...solfaEditingController.notes
       ];
+
+  List<LyricsNote> lyrics = [];
 
   double? startAt;
   double? endAt;

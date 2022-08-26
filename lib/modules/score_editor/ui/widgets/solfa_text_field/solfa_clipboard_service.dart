@@ -19,9 +19,9 @@ class SolfaClipboardService {
     PlatformToastService.instance.showToast(msg: 'Notes copied');
   }
 
- List<Note>? popCopiedNotes() {
+  List<Note>? getCopiedNotes() {
     var copies = _notes;
-    _notes = null;
+    // _notes = null;
     return copies;
   }
 }

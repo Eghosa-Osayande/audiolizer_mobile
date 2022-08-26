@@ -42,8 +42,6 @@ class SolfaEditingController extends TextEditingController {
     );
   }
 
-
-
   void insertNotes(List<Note> newNotes) {
     String myText = newNotes.map((e) => '-').toList().join();
 
@@ -127,6 +125,8 @@ class SolfaEditingController extends TextEditingController {
         .map((e) => e.makeCopy())
         .toList();
     SolfaClipboardService.instance.copyNotes(copies);
+    selection = TextSelection.collapsed(offset: selection.end);
+    notifyListeners();
   }
 
   void cutSelectedNotes() {
@@ -142,7 +142,7 @@ class SolfaEditingController extends TextEditingController {
   }
 
   void pasteNotes() {
-    var copies = SolfaClipboardService.instance.popCopiedNotes();
+    var copies = SolfaClipboardService.instance.getCopiedNotes();
     if (copies != null) {
       insertNotes(copies);
     }

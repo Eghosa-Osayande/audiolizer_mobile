@@ -52,21 +52,21 @@ class SolfaTextFieldSelectionControls extends MaterialTextSelectionControls {
         TextButton(
           onPressed: () {
             onCut?.call(delegate);
-            super.handleCut(delegate);
+           delegate.hideToolbar();
           },
           child: Text('Cut'),
         ),
         TextButton(
           onPressed: () {
             onCopy?.call(delegate);
-            super.handleCopy(delegate);
+          delegate.hideToolbar();
           },
           child: Text('Copy'),
         ),
         TextButton(
           onPressed: () {
             onPaste?.call(delegate);
-            super.handlePaste(delegate);
+            delegate.hideToolbar();
           },
           child: Text('Paste'),
         ),

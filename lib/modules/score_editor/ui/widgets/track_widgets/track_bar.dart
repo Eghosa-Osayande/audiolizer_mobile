@@ -31,9 +31,14 @@ class TrackBarWidget extends StatelessWidget {
                 create: (context) => NoteThemeProvider(),
               ),
             ],
-            child: SolfaTextField(
-              key: ObjectKey(bar),
-              bar: bar,
+            child: Column(
+              children: [
+                SolfaTextField(
+                  key: ObjectKey(bar),
+                  bar: bar,
+                ),
+                Text('data '*20),
+              ],
             ),
           ),
         ),
