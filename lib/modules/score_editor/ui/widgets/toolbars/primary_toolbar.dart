@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/hive.dart';
+import 'package:solpha/modules/models/score/score.dart';
 import 'package:solpha/modules/score_editor/cubit/current_track_index/current_track_index_cubit.dart';
 import 'package:solpha/modules/score_editor/cubit/score/score_cubit_cubit.dart';
 import 'package:solpha/modules/score_editor/cubit/toggle_edit_lyrics/toggle_can_see_lyrics_cubit.dart';
@@ -43,7 +45,9 @@ class PrimaryToolbar extends StatelessWidget implements PreferredSizeWidget {
                     return [
                       PopupMenuItem(
                         child: ToolbarOption(title: 'Undo'),
-                        onTap: () {},
+                        onTap: () async {
+                        
+                        },
                       ),
                       PopupMenuItem(
                         child: ToolbarOption(title: 'Redo'),
@@ -59,7 +63,7 @@ class PrimaryToolbar extends StatelessWidget implements PreferredSizeWidget {
                             return BlocBuilder<CanSeeLyricsCubit, LyricsViewMode>(
                               builder: (context, state) {
                                 return ToolbarOption(
-                                  title: state.isVisible?'Hide lyrics': 'Show Lyrics',
+                                  title: state.isVisible ? 'Hide lyrics' : 'Show Lyrics',
                                 );
                               },
                             );

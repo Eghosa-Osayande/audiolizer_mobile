@@ -8,8 +8,8 @@ part of 'bar.dart';
 
 _$Bard _$$BardFromJson(Map<String, dynamic> json) => _$Bard(
       createdAt: DateTime.parse(json['createdAt'] as String),
-      solfaEditingController: solfaEditingControllerFromJson(
-          json['solfaEditingController'] as List<Note>),
+      solfaEditingController:
+          solfaEditingControllerFromJson(json['solfaEditingController']),
       lyrics: json['lyrics'] as String? ?? '',
       startAt: (json['startAt'] as num?)?.toDouble(),
       endAt: (json['endAt'] as num?)?.toDouble(),

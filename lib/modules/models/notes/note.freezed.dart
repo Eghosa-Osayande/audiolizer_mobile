@@ -43,12 +43,16 @@ mixin _$Note {
   set endAt(double? value) => throw _privateConstructorUsedError;
   double get duration => throw _privateConstructorUsedError;
   set duration(double value) => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
   ScoreConfigNote? get intialScoreConfigNote =>
       throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
   set intialScoreConfigNote(ScoreConfigNote? value) =>
       throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
   TrackConfigNote? get intialTrackConfigNote =>
       throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
   set intialTrackConfigNote(TrackConfigNote? value) =>
       throw _privateConstructorUsedError;
   double? get startAtInSeconds => throw _privateConstructorUsedError;
@@ -62,8 +66,8 @@ mixin _$Note {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)
         music,
     required TResult Function(
@@ -72,8 +76,8 @@ mixin _$Note {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)
         duration,
     required TResult Function(
@@ -81,8 +85,8 @@ mixin _$Note {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)
         whiteSpace,
     required TResult Function(
@@ -92,8 +96,8 @@ mixin _$Note {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)
         trackConfig,
     required TResult Function(
@@ -106,8 +110,8 @@ mixin _$Note {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)
         scoreConfig,
   }) =>
@@ -121,8 +125,8 @@ mixin _$Note {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         music,
     TResult Function(
@@ -131,8 +135,8 @@ mixin _$Note {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         duration,
     TResult Function(
@@ -140,8 +144,8 @@ mixin _$Note {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         whiteSpace,
     TResult Function(
@@ -151,8 +155,8 @@ mixin _$Note {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         trackConfig,
     TResult Function(
@@ -165,8 +169,8 @@ mixin _$Note {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         scoreConfig,
   }) =>
@@ -180,8 +184,8 @@ mixin _$Note {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         music,
     TResult Function(
@@ -190,8 +194,8 @@ mixin _$Note {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         duration,
     TResult Function(
@@ -199,8 +203,8 @@ mixin _$Note {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         whiteSpace,
     TResult Function(
@@ -210,8 +214,8 @@ mixin _$Note {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         trackConfig,
     TResult Function(
@@ -224,8 +228,8 @@ mixin _$Note {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         scoreConfig,
     required TResult orElse(),
@@ -273,8 +277,8 @@ abstract class $NoteCopyWith<$Res> {
       double? startAt,
       double? endAt,
       double duration,
-      ScoreConfigNote? intialScoreConfigNote,
-      TrackConfigNote? intialTrackConfigNote,
+      @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+      @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
       double? startAtInSeconds});
 }
 
@@ -342,8 +346,8 @@ abstract class _$$MusicNoteCopyWith<$Res> implements $NoteCopyWith<$Res> {
       double? startAt,
       double? endAt,
       double duration,
-      ScoreConfigNote? intialScoreConfigNote,
-      TrackConfigNote? intialTrackConfigNote,
+      @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+      @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
       double? startAtInSeconds});
 }
 
@@ -421,8 +425,8 @@ class _$MusicNote extends MusicNote {
       this.startAt,
       this.endAt,
       this.duration = 0,
-      this.intialScoreConfigNote,
-      this.intialTrackConfigNote,
+      @JsonKey(ignore: true) this.intialScoreConfigNote,
+      @JsonKey(ignore: true) this.intialTrackConfigNote,
       this.startAtInSeconds,
       final String? $type})
       : $type = $type ?? 'music',
@@ -445,8 +449,10 @@ class _$MusicNote extends MusicNote {
   @JsonKey()
   double duration;
   @override
+  @JsonKey(ignore: true)
   ScoreConfigNote? intialScoreConfigNote;
   @override
+  @JsonKey(ignore: true)
   TrackConfigNote? intialTrackConfigNote;
   @override
   double? startAtInSeconds;
@@ -469,8 +475,8 @@ class _$MusicNote extends MusicNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)
         music,
     required TResult Function(
@@ -479,8 +485,8 @@ class _$MusicNote extends MusicNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)
         duration,
     required TResult Function(
@@ -488,8 +494,8 @@ class _$MusicNote extends MusicNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)
         whiteSpace,
     required TResult Function(
@@ -499,8 +505,8 @@ class _$MusicNote extends MusicNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)
         trackConfig,
     required TResult Function(
@@ -513,8 +519,8 @@ class _$MusicNote extends MusicNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)
         scoreConfig,
   }) {
@@ -532,8 +538,8 @@ class _$MusicNote extends MusicNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         music,
     TResult Function(
@@ -542,8 +548,8 @@ class _$MusicNote extends MusicNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         duration,
     TResult Function(
@@ -551,8 +557,8 @@ class _$MusicNote extends MusicNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         whiteSpace,
     TResult Function(
@@ -562,8 +568,8 @@ class _$MusicNote extends MusicNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         trackConfig,
     TResult Function(
@@ -576,8 +582,8 @@ class _$MusicNote extends MusicNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         scoreConfig,
   }) {
@@ -595,8 +601,8 @@ class _$MusicNote extends MusicNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         music,
     TResult Function(
@@ -605,8 +611,8 @@ class _$MusicNote extends MusicNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         duration,
     TResult Function(
@@ -614,8 +620,8 @@ class _$MusicNote extends MusicNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         whiteSpace,
     TResult Function(
@@ -625,8 +631,8 @@ class _$MusicNote extends MusicNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         trackConfig,
     TResult Function(
@@ -639,8 +645,8 @@ class _$MusicNote extends MusicNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         scoreConfig,
     required TResult orElse(),
@@ -708,8 +714,8 @@ abstract class MusicNote extends Note {
       double? startAt,
       double? endAt,
       double duration,
-      ScoreConfigNote? intialScoreConfigNote,
-      TrackConfigNote? intialTrackConfigNote,
+      @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+      @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
       double? startAtInSeconds}) = _$MusicNote;
   MusicNote._() : super._();
 
@@ -732,10 +738,14 @@ abstract class MusicNote extends Note {
   double get duration;
   set duration(double value);
   @override
+  @JsonKey(ignore: true)
   ScoreConfigNote? get intialScoreConfigNote;
+  @JsonKey(ignore: true)
   set intialScoreConfigNote(ScoreConfigNote? value);
   @override
+  @JsonKey(ignore: true)
   TrackConfigNote? get intialTrackConfigNote;
+  @JsonKey(ignore: true)
   set intialTrackConfigNote(TrackConfigNote? value);
   @override
   double? get startAtInSeconds;
@@ -758,8 +768,8 @@ abstract class _$$DurationNoteCopyWith<$Res> implements $NoteCopyWith<$Res> {
       double? startAt,
       double? endAt,
       double duration,
-      ScoreConfigNote? intialScoreConfigNote,
-      TrackConfigNote? intialTrackConfigNote,
+      @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+      @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
       double? startAtInSeconds});
 }
 
@@ -831,8 +841,8 @@ class _$DurationNote extends DurationNote {
       this.startAt,
       this.endAt,
       this.duration = 0,
-      this.intialScoreConfigNote,
-      this.intialTrackConfigNote,
+      @JsonKey(ignore: true) this.intialScoreConfigNote,
+      @JsonKey(ignore: true) this.intialTrackConfigNote,
       this.startAtInSeconds,
       final String? $type})
       : $type = $type ?? 'duration',
@@ -853,8 +863,10 @@ class _$DurationNote extends DurationNote {
   @JsonKey()
   double duration;
   @override
+  @JsonKey(ignore: true)
   ScoreConfigNote? intialScoreConfigNote;
   @override
+  @JsonKey(ignore: true)
   TrackConfigNote? intialTrackConfigNote;
   @override
   double? startAtInSeconds;
@@ -877,8 +889,8 @@ class _$DurationNote extends DurationNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)
         music,
     required TResult Function(
@@ -887,8 +899,8 @@ class _$DurationNote extends DurationNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)
         duration,
     required TResult Function(
@@ -896,8 +908,8 @@ class _$DurationNote extends DurationNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)
         whiteSpace,
     required TResult Function(
@@ -907,8 +919,8 @@ class _$DurationNote extends DurationNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)
         trackConfig,
     required TResult Function(
@@ -921,8 +933,8 @@ class _$DurationNote extends DurationNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)
         scoreConfig,
   }) {
@@ -940,8 +952,8 @@ class _$DurationNote extends DurationNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         music,
     TResult Function(
@@ -950,8 +962,8 @@ class _$DurationNote extends DurationNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         duration,
     TResult Function(
@@ -959,8 +971,8 @@ class _$DurationNote extends DurationNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         whiteSpace,
     TResult Function(
@@ -970,8 +982,8 @@ class _$DurationNote extends DurationNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         trackConfig,
     TResult Function(
@@ -984,8 +996,8 @@ class _$DurationNote extends DurationNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         scoreConfig,
   }) {
@@ -1003,8 +1015,8 @@ class _$DurationNote extends DurationNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         music,
     TResult Function(
@@ -1013,8 +1025,8 @@ class _$DurationNote extends DurationNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         duration,
     TResult Function(
@@ -1022,8 +1034,8 @@ class _$DurationNote extends DurationNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         whiteSpace,
     TResult Function(
@@ -1033,8 +1045,8 @@ class _$DurationNote extends DurationNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         trackConfig,
     TResult Function(
@@ -1047,8 +1059,8 @@ class _$DurationNote extends DurationNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         scoreConfig,
     required TResult orElse(),
@@ -1115,8 +1127,8 @@ abstract class DurationNote extends Note {
       double? startAt,
       double? endAt,
       double duration,
-      ScoreConfigNote? intialScoreConfigNote,
-      TrackConfigNote? intialTrackConfigNote,
+      @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+      @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
       double? startAtInSeconds}) = _$DurationNote;
   DurationNote._() : super._();
 
@@ -1138,10 +1150,14 @@ abstract class DurationNote extends Note {
   double get duration;
   set duration(double value);
   @override
+  @JsonKey(ignore: true)
   ScoreConfigNote? get intialScoreConfigNote;
+  @JsonKey(ignore: true)
   set intialScoreConfigNote(ScoreConfigNote? value);
   @override
+  @JsonKey(ignore: true)
   TrackConfigNote? get intialTrackConfigNote;
+  @JsonKey(ignore: true)
   set intialTrackConfigNote(TrackConfigNote? value);
   @override
   double? get startAtInSeconds;
@@ -1163,8 +1179,8 @@ abstract class _$$WhiteSpaceNoteCopyWith<$Res> implements $NoteCopyWith<$Res> {
       double? startAt,
       double? endAt,
       double duration,
-      ScoreConfigNote? intialScoreConfigNote,
-      TrackConfigNote? intialTrackConfigNote,
+      @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+      @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
       double? startAtInSeconds});
 }
 
@@ -1230,8 +1246,8 @@ class _$WhiteSpaceNote extends WhiteSpaceNote {
       this.startAt,
       this.endAt,
       this.duration = 0,
-      this.intialScoreConfigNote,
-      this.intialTrackConfigNote,
+      @JsonKey(ignore: true) this.intialScoreConfigNote,
+      @JsonKey(ignore: true) this.intialTrackConfigNote,
       this.startAtInSeconds,
       final String? $type})
       : $type = $type ?? 'whiteSpace',
@@ -1250,8 +1266,10 @@ class _$WhiteSpaceNote extends WhiteSpaceNote {
   @JsonKey()
   double duration;
   @override
+  @JsonKey(ignore: true)
   ScoreConfigNote? intialScoreConfigNote;
   @override
+  @JsonKey(ignore: true)
   TrackConfigNote? intialTrackConfigNote;
   @override
   double? startAtInSeconds;
@@ -1274,8 +1292,8 @@ class _$WhiteSpaceNote extends WhiteSpaceNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)
         music,
     required TResult Function(
@@ -1284,8 +1302,8 @@ class _$WhiteSpaceNote extends WhiteSpaceNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)
         duration,
     required TResult Function(
@@ -1293,8 +1311,8 @@ class _$WhiteSpaceNote extends WhiteSpaceNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)
         whiteSpace,
     required TResult Function(
@@ -1304,8 +1322,8 @@ class _$WhiteSpaceNote extends WhiteSpaceNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)
         trackConfig,
     required TResult Function(
@@ -1318,8 +1336,8 @@ class _$WhiteSpaceNote extends WhiteSpaceNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)
         scoreConfig,
   }) {
@@ -1337,8 +1355,8 @@ class _$WhiteSpaceNote extends WhiteSpaceNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         music,
     TResult Function(
@@ -1347,8 +1365,8 @@ class _$WhiteSpaceNote extends WhiteSpaceNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         duration,
     TResult Function(
@@ -1356,8 +1374,8 @@ class _$WhiteSpaceNote extends WhiteSpaceNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         whiteSpace,
     TResult Function(
@@ -1367,8 +1385,8 @@ class _$WhiteSpaceNote extends WhiteSpaceNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         trackConfig,
     TResult Function(
@@ -1381,8 +1399,8 @@ class _$WhiteSpaceNote extends WhiteSpaceNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         scoreConfig,
   }) {
@@ -1400,8 +1418,8 @@ class _$WhiteSpaceNote extends WhiteSpaceNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         music,
     TResult Function(
@@ -1410,8 +1428,8 @@ class _$WhiteSpaceNote extends WhiteSpaceNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         duration,
     TResult Function(
@@ -1419,8 +1437,8 @@ class _$WhiteSpaceNote extends WhiteSpaceNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         whiteSpace,
     TResult Function(
@@ -1430,8 +1448,8 @@ class _$WhiteSpaceNote extends WhiteSpaceNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         trackConfig,
     TResult Function(
@@ -1444,8 +1462,8 @@ class _$WhiteSpaceNote extends WhiteSpaceNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         scoreConfig,
     required TResult orElse(),
@@ -1511,8 +1529,8 @@ abstract class WhiteSpaceNote extends Note {
       double? startAt,
       double? endAt,
       double duration,
-      ScoreConfigNote? intialScoreConfigNote,
-      TrackConfigNote? intialTrackConfigNote,
+      @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+      @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
       double? startAtInSeconds}) = _$WhiteSpaceNote;
   WhiteSpaceNote._() : super._();
 
@@ -1532,10 +1550,14 @@ abstract class WhiteSpaceNote extends Note {
   double get duration;
   set duration(double value);
   @override
+  @JsonKey(ignore: true)
   ScoreConfigNote? get intialScoreConfigNote;
+  @JsonKey(ignore: true)
   set intialScoreConfigNote(ScoreConfigNote? value);
   @override
+  @JsonKey(ignore: true)
   TrackConfigNote? get intialTrackConfigNote;
+  @JsonKey(ignore: true)
   set intialTrackConfigNote(TrackConfigNote? value);
   @override
   double? get startAtInSeconds;
@@ -1559,8 +1581,8 @@ abstract class _$$TrackConfigNoteCopyWith<$Res> implements $NoteCopyWith<$Res> {
       double? startAt,
       double? endAt,
       double duration,
-      ScoreConfigNote? intialScoreConfigNote,
-      TrackConfigNote? intialTrackConfigNote,
+      @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+      @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
       double? startAtInSeconds});
 }
 
@@ -1636,8 +1658,8 @@ class _$TrackConfigNote extends TrackConfigNote {
       this.startAt,
       this.endAt,
       this.duration = 0,
-      this.intialScoreConfigNote,
-      this.intialTrackConfigNote,
+      @JsonKey(ignore: true) this.intialScoreConfigNote,
+      @JsonKey(ignore: true) this.intialTrackConfigNote,
       this.startAtInSeconds,
       final String? $type})
       : $type = $type ?? 'trackConfig',
@@ -1660,8 +1682,10 @@ class _$TrackConfigNote extends TrackConfigNote {
   @JsonKey()
   double duration;
   @override
+  @JsonKey(ignore: true)
   ScoreConfigNote? intialScoreConfigNote;
   @override
+  @JsonKey(ignore: true)
   TrackConfigNote? intialTrackConfigNote;
   @override
   double? startAtInSeconds;
@@ -1684,8 +1708,8 @@ class _$TrackConfigNote extends TrackConfigNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)
         music,
     required TResult Function(
@@ -1694,8 +1718,8 @@ class _$TrackConfigNote extends TrackConfigNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)
         duration,
     required TResult Function(
@@ -1703,8 +1727,8 @@ class _$TrackConfigNote extends TrackConfigNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)
         whiteSpace,
     required TResult Function(
@@ -1714,8 +1738,8 @@ class _$TrackConfigNote extends TrackConfigNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)
         trackConfig,
     required TResult Function(
@@ -1728,8 +1752,8 @@ class _$TrackConfigNote extends TrackConfigNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)
         scoreConfig,
   }) {
@@ -1755,8 +1779,8 @@ class _$TrackConfigNote extends TrackConfigNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         music,
     TResult Function(
@@ -1765,8 +1789,8 @@ class _$TrackConfigNote extends TrackConfigNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         duration,
     TResult Function(
@@ -1774,8 +1798,8 @@ class _$TrackConfigNote extends TrackConfigNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         whiteSpace,
     TResult Function(
@@ -1785,8 +1809,8 @@ class _$TrackConfigNote extends TrackConfigNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         trackConfig,
     TResult Function(
@@ -1799,8 +1823,8 @@ class _$TrackConfigNote extends TrackConfigNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         scoreConfig,
   }) {
@@ -1826,8 +1850,8 @@ class _$TrackConfigNote extends TrackConfigNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         music,
     TResult Function(
@@ -1836,8 +1860,8 @@ class _$TrackConfigNote extends TrackConfigNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         duration,
     TResult Function(
@@ -1845,8 +1869,8 @@ class _$TrackConfigNote extends TrackConfigNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         whiteSpace,
     TResult Function(
@@ -1856,8 +1880,8 @@ class _$TrackConfigNote extends TrackConfigNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         trackConfig,
     TResult Function(
@@ -1870,8 +1894,8 @@ class _$TrackConfigNote extends TrackConfigNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         scoreConfig,
     required TResult orElse(),
@@ -1945,8 +1969,8 @@ abstract class TrackConfigNote extends Note {
       double? startAt,
       double? endAt,
       double duration,
-      ScoreConfigNote? intialScoreConfigNote,
-      TrackConfigNote? intialTrackConfigNote,
+      @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+      @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
       double? startAtInSeconds}) = _$TrackConfigNote;
   TrackConfigNote._() : super._();
 
@@ -1970,10 +1994,14 @@ abstract class TrackConfigNote extends Note {
   double get duration;
   set duration(double value);
   @override
+  @JsonKey(ignore: true)
   ScoreConfigNote? get intialScoreConfigNote;
+  @JsonKey(ignore: true)
   set intialScoreConfigNote(ScoreConfigNote? value);
   @override
+  @JsonKey(ignore: true)
   TrackConfigNote? get intialTrackConfigNote;
+  @JsonKey(ignore: true)
   set intialTrackConfigNote(TrackConfigNote? value);
   @override
   double? get startAtInSeconds;
@@ -2000,8 +2028,8 @@ abstract class _$$ScoreConfigNoteCopyWith<$Res> implements $NoteCopyWith<$Res> {
       double? startAt,
       double? endAt,
       double duration,
-      ScoreConfigNote? intialScoreConfigNote,
-      TrackConfigNote? intialTrackConfigNote,
+      @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+      @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
       double? startAtInSeconds});
 }
 
@@ -2097,8 +2125,8 @@ class _$ScoreConfigNote extends ScoreConfigNote {
       this.startAt,
       this.endAt,
       this.duration = 0,
-      this.intialScoreConfigNote,
-      this.intialTrackConfigNote,
+      @JsonKey(ignore: true) this.intialScoreConfigNote,
+      @JsonKey(ignore: true) this.intialTrackConfigNote,
       this.startAtInSeconds,
       final String? $type})
       : $type = $type ?? 'scoreConfig',
@@ -2127,8 +2155,10 @@ class _$ScoreConfigNote extends ScoreConfigNote {
   @JsonKey()
   double duration;
   @override
+  @JsonKey(ignore: true)
   ScoreConfigNote? intialScoreConfigNote;
   @override
+  @JsonKey(ignore: true)
   TrackConfigNote? intialTrackConfigNote;
   @override
   double? startAtInSeconds;
@@ -2151,8 +2181,8 @@ class _$ScoreConfigNote extends ScoreConfigNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)
         music,
     required TResult Function(
@@ -2161,8 +2191,8 @@ class _$ScoreConfigNote extends ScoreConfigNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)
         duration,
     required TResult Function(
@@ -2170,8 +2200,8 @@ class _$ScoreConfigNote extends ScoreConfigNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)
         whiteSpace,
     required TResult Function(
@@ -2181,8 +2211,8 @@ class _$ScoreConfigNote extends ScoreConfigNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)
         trackConfig,
     required TResult Function(
@@ -2195,8 +2225,8 @@ class _$ScoreConfigNote extends ScoreConfigNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)
         scoreConfig,
   }) {
@@ -2225,8 +2255,8 @@ class _$ScoreConfigNote extends ScoreConfigNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         music,
     TResult Function(
@@ -2235,8 +2265,8 @@ class _$ScoreConfigNote extends ScoreConfigNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         duration,
     TResult Function(
@@ -2244,8 +2274,8 @@ class _$ScoreConfigNote extends ScoreConfigNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         whiteSpace,
     TResult Function(
@@ -2255,8 +2285,8 @@ class _$ScoreConfigNote extends ScoreConfigNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         trackConfig,
     TResult Function(
@@ -2269,8 +2299,8 @@ class _$ScoreConfigNote extends ScoreConfigNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         scoreConfig,
   }) {
@@ -2299,8 +2329,8 @@ class _$ScoreConfigNote extends ScoreConfigNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         music,
     TResult Function(
@@ -2309,8 +2339,8 @@ class _$ScoreConfigNote extends ScoreConfigNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         duration,
     TResult Function(
@@ -2318,8 +2348,8 @@ class _$ScoreConfigNote extends ScoreConfigNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         whiteSpace,
     TResult Function(
@@ -2329,8 +2359,8 @@ class _$ScoreConfigNote extends ScoreConfigNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         trackConfig,
     TResult Function(
@@ -2343,8 +2373,8 @@ class _$ScoreConfigNote extends ScoreConfigNote {
             double? startAt,
             double? endAt,
             double duration,
-            ScoreConfigNote? intialScoreConfigNote,
-            TrackConfigNote? intialTrackConfigNote,
+            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         scoreConfig,
     required TResult orElse(),
@@ -2426,8 +2456,8 @@ abstract class ScoreConfigNote extends Note {
       double? startAt,
       double? endAt,
       double duration,
-      ScoreConfigNote? intialScoreConfigNote,
-      TrackConfigNote? intialTrackConfigNote,
+      @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+      @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
       double? startAtInSeconds}) = _$ScoreConfigNote;
   ScoreConfigNote._() : super._();
 
@@ -2457,10 +2487,14 @@ abstract class ScoreConfigNote extends Note {
   double get duration;
   set duration(double value);
   @override
+  @JsonKey(ignore: true)
   ScoreConfigNote? get intialScoreConfigNote;
+  @JsonKey(ignore: true)
   set intialScoreConfigNote(ScoreConfigNote? value);
   @override
+  @JsonKey(ignore: true)
   TrackConfigNote? get intialTrackConfigNote;
+  @JsonKey(ignore: true)
   set intialTrackConfigNote(TrackConfigNote? value);
   @override
   double? get startAtInSeconds;

@@ -24,20 +24,17 @@ String midifileToJson(MIDIFile value) {
   return '';
 }
 
-MIDIFile midifilefromJson(List<Bar> value) {
+MIDIFile midifilefromJson(String value) {
   return MIDIFile(numTracks: 10);
 }
 
 @unfreezed
-class Score with _$Score {
+class Score extends HiveObject with _$Score {
   @JsonSerializable(explicitToJson: true)
   Score._();
   @JsonSerializable(explicitToJson: true)
-  // @HiveType(typeId: AppHiveIds.score, adapterName: 'ScoreModelAdapter')
   factory Score({
-    // @HiveField(0) 
     required ScoreConfigNote intialConfigNote,
-    // @HiveField(1)
     required List<Track> tracks,
     @JsonKey(toJson: midifileToJson, fromJson: midifilefromJson) required MIDIFile midiFile,
   }) = _Score;

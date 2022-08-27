@@ -50,6 +50,8 @@ class ScoreEditorPage extends StatelessWidget {
       midiFile: MIDIFile(),
     );
 
+    
+
     return MultiBlocProvider(
       providers: [
         BlocProvider(

@@ -42,8 +42,8 @@ abstract class Note with _$Note, EquatableMixin {
     double? startAt,
     double? endAt,
     @Default(0) double duration,
-    ScoreConfigNote? intialScoreConfigNote,
-    TrackConfigNote? intialTrackConfigNote,
+    @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+    @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
     double? startAtInSeconds,
   }) = MusicNote;
   @JsonSerializable(explicitToJson: true)
@@ -53,8 +53,8 @@ abstract class Note with _$Note, EquatableMixin {
     double? startAt,
     double? endAt,
     @Default(0) double duration,
-    ScoreConfigNote? intialScoreConfigNote,
-    TrackConfigNote? intialTrackConfigNote,
+    @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+    @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
     double? startAtInSeconds,
   }) = DurationNote;
   @JsonSerializable(explicitToJson: true)
@@ -63,8 +63,8 @@ abstract class Note with _$Note, EquatableMixin {
     double? startAt,
     double? endAt,
     @Default(0) double duration,
-    ScoreConfigNote? intialScoreConfigNote,
-    TrackConfigNote? intialTrackConfigNote,
+    @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+    @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
     double? startAtInSeconds,
   }) = WhiteSpaceNote;
   @JsonSerializable(explicitToJson: true)
@@ -75,8 +75,8 @@ abstract class Note with _$Note, EquatableMixin {
     double? startAt,
     double? endAt,
     @Default(0) double duration,
-    ScoreConfigNote? intialScoreConfigNote,
-    TrackConfigNote? intialTrackConfigNote,
+    @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+    @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
     double? startAtInSeconds,
   }) = TrackConfigNote;
   @JsonSerializable(explicitToJson: true)
@@ -90,8 +90,8 @@ abstract class Note with _$Note, EquatableMixin {
     double? startAt,
     double? endAt,
     @Default(0) double duration,
-    ScoreConfigNote? intialScoreConfigNote,
-    TrackConfigNote? intialTrackConfigNote,
+    @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
+    @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
     double? startAtInSeconds,
   }) = ScoreConfigNote;
 
@@ -177,5 +177,5 @@ abstract class Note with _$Note, EquatableMixin {
   }
 
   @override
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props =>[createdAt];
 }

@@ -20,12 +20,10 @@ Score _$ScoreFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Score {
-// @HiveField(0)
-  ScoreConfigNote get intialConfigNote =>
-      throw _privateConstructorUsedError; // @HiveField(0)
+  ScoreConfigNote get intialConfigNote => throw _privateConstructorUsedError;
   set intialConfigNote(ScoreConfigNote value) =>
-      throw _privateConstructorUsedError; // @HiveField(1)
-  List<Track> get tracks => throw _privateConstructorUsedError; // @HiveField(1)
+      throw _privateConstructorUsedError;
+  List<Track> get tracks => throw _privateConstructorUsedError;
   set tracks(List<Track> value) => throw _privateConstructorUsedError;
   @JsonKey(toJson: midifileToJson, fromJson: midifilefromJson)
   MIDIFile get midiFile => throw _privateConstructorUsedError;
@@ -137,10 +135,8 @@ class _$_Score extends _Score {
   factory _$_Score.fromJson(Map<String, dynamic> json) =>
       _$$_ScoreFromJson(json);
 
-// @HiveField(0)
   @override
   ScoreConfigNote intialConfigNote;
-// @HiveField(1)
   @override
   List<Track> tracks;
   @override
@@ -175,11 +171,11 @@ abstract class _Score extends Score {
 
   factory _Score.fromJson(Map<String, dynamic> json) = _$_Score.fromJson;
 
-  @override // @HiveField(0)
-  ScoreConfigNote get intialConfigNote; // @HiveField(0)
+  @override
+  ScoreConfigNote get intialConfigNote;
   set intialConfigNote(ScoreConfigNote value);
-  @override // @HiveField(1)
-  List<Track> get tracks; // @HiveField(1)
+  @override
+  List<Track> get tracks;
   set tracks(List<Track> value);
   @override
   @JsonKey(toJson: midifileToJson, fromJson: midifilefromJson)

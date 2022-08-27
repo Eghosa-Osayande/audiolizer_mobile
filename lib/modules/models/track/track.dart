@@ -18,8 +18,9 @@ List<Bar> linkedListToJson(BarsLinkedlist value) {
   return value.toList();
 }
 
-BarsLinkedlist linkedListfromJson(List<Bar> value) {
-  return BarsLinkedlist(value);
+BarsLinkedlist linkedListfromJson(dynamic value) {
+  List<Bar> list = List.from(value.map((e)=>Bar.fromJson(e)).toList());
+  return BarsLinkedlist(list);
 }
 
 @unfreezed

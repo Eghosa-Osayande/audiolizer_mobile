@@ -11,7 +11,7 @@ targets:
           - lib/modules/models/**/**.dart
       
       hive_generator:hive_generator:
-        enabled: true
+        enabled: false
         generate_for:
           - lib/modules/models/**.dart
           - lib/modules/models/**/**.dart

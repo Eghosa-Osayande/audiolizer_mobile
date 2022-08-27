@@ -13,14 +13,6 @@ _$MusicNote _$$MusicNoteFromJson(Map<String, dynamic> json) => _$MusicNote(
       startAt: (json['startAt'] as num?)?.toDouble(),
       endAt: (json['endAt'] as num?)?.toDouble(),
       duration: (json['duration'] as num?)?.toDouble() ?? 0,
-      intialScoreConfigNote: json['intialScoreConfigNote'] == null
-          ? null
-          : ScoreConfigNote.fromJson(
-              json['intialScoreConfigNote'] as Map<String, dynamic>),
-      intialTrackConfigNote: json['intialTrackConfigNote'] == null
-          ? null
-          : TrackConfigNote.fromJson(
-              json['intialTrackConfigNote'] as Map<String, dynamic>),
       startAtInSeconds: (json['startAtInSeconds'] as num?)?.toDouble(),
       $type: json['runtimeType'] as String?,
     );
@@ -33,8 +25,6 @@ Map<String, dynamic> _$$MusicNoteToJson(_$MusicNote instance) =>
       'startAt': instance.startAt,
       'endAt': instance.endAt,
       'duration': instance.duration,
-      'intialScoreConfigNote': instance.intialScoreConfigNote?.toJson(),
-      'intialTrackConfigNote': instance.intialTrackConfigNote?.toJson(),
       'startAtInSeconds': instance.startAtInSeconds,
       'runtimeType': instance.$type,
     };
@@ -68,14 +58,6 @@ _$DurationNote _$$DurationNoteFromJson(Map<String, dynamic> json) =>
       startAt: (json['startAt'] as num?)?.toDouble(),
       endAt: (json['endAt'] as num?)?.toDouble(),
       duration: (json['duration'] as num?)?.toDouble() ?? 0,
-      intialScoreConfigNote: json['intialScoreConfigNote'] == null
-          ? null
-          : ScoreConfigNote.fromJson(
-              json['intialScoreConfigNote'] as Map<String, dynamic>),
-      intialTrackConfigNote: json['intialTrackConfigNote'] == null
-          ? null
-          : TrackConfigNote.fromJson(
-              json['intialTrackConfigNote'] as Map<String, dynamic>),
       startAtInSeconds: (json['startAtInSeconds'] as num?)?.toDouble(),
       $type: json['runtimeType'] as String?,
     );
@@ -87,8 +69,6 @@ Map<String, dynamic> _$$DurationNoteToJson(_$DurationNote instance) =>
       'startAt': instance.startAt,
       'endAt': instance.endAt,
       'duration': instance.duration,
-      'intialScoreConfigNote': instance.intialScoreConfigNote?.toJson(),
-      'intialTrackConfigNote': instance.intialTrackConfigNote?.toJson(),
       'startAtInSeconds': instance.startAtInSeconds,
       'runtimeType': instance.$type,
     };
@@ -106,14 +86,6 @@ _$WhiteSpaceNote _$$WhiteSpaceNoteFromJson(Map<String, dynamic> json) =>
       startAt: (json['startAt'] as num?)?.toDouble(),
       endAt: (json['endAt'] as num?)?.toDouble(),
       duration: (json['duration'] as num?)?.toDouble() ?? 0,
-      intialScoreConfigNote: json['intialScoreConfigNote'] == null
-          ? null
-          : ScoreConfigNote.fromJson(
-              json['intialScoreConfigNote'] as Map<String, dynamic>),
-      intialTrackConfigNote: json['intialTrackConfigNote'] == null
-          ? null
-          : TrackConfigNote.fromJson(
-              json['intialTrackConfigNote'] as Map<String, dynamic>),
       startAtInSeconds: (json['startAtInSeconds'] as num?)?.toDouble(),
       $type: json['runtimeType'] as String?,
     );
@@ -124,8 +96,6 @@ Map<String, dynamic> _$$WhiteSpaceNoteToJson(_$WhiteSpaceNote instance) =>
       'startAt': instance.startAt,
       'endAt': instance.endAt,
       'duration': instance.duration,
-      'intialScoreConfigNote': instance.intialScoreConfigNote?.toJson(),
-      'intialTrackConfigNote': instance.intialTrackConfigNote?.toJson(),
       'startAtInSeconds': instance.startAtInSeconds,
       'runtimeType': instance.$type,
     };
@@ -138,14 +108,6 @@ _$TrackConfigNote _$$TrackConfigNoteFromJson(Map<String, dynamic> json) =>
       startAt: (json['startAt'] as num?)?.toDouble(),
       endAt: (json['endAt'] as num?)?.toDouble(),
       duration: (json['duration'] as num?)?.toDouble() ?? 0,
-      intialScoreConfigNote: json['intialScoreConfigNote'] == null
-          ? null
-          : ScoreConfigNote.fromJson(
-              json['intialScoreConfigNote'] as Map<String, dynamic>),
-      intialTrackConfigNote: json['intialTrackConfigNote'] == null
-          ? null
-          : TrackConfigNote.fromJson(
-              json['intialTrackConfigNote'] as Map<String, dynamic>),
       startAtInSeconds: (json['startAtInSeconds'] as num?)?.toDouble(),
       $type: json['runtimeType'] as String?,
     );
@@ -158,8 +120,6 @@ Map<String, dynamic> _$$TrackConfigNoteToJson(_$TrackConfigNote instance) =>
       'startAt': instance.startAt,
       'endAt': instance.endAt,
       'duration': instance.duration,
-      'intialScoreConfigNote': instance.intialScoreConfigNote?.toJson(),
-      'intialTrackConfigNote': instance.intialTrackConfigNote?.toJson(),
       'startAtInSeconds': instance.startAtInSeconds,
       'runtimeType': instance.$type,
     };
@@ -175,14 +135,6 @@ _$ScoreConfigNote _$$ScoreConfigNoteFromJson(Map<String, dynamic> json) =>
       startAt: (json['startAt'] as num?)?.toDouble(),
       endAt: (json['endAt'] as num?)?.toDouble(),
       duration: (json['duration'] as num?)?.toDouble() ?? 0,
-      intialScoreConfigNote: json['intialScoreConfigNote'] == null
-          ? null
-          : ScoreConfigNote.fromJson(
-              json['intialScoreConfigNote'] as Map<String, dynamic>),
-      intialTrackConfigNote: json['intialTrackConfigNote'] == null
-          ? null
-          : TrackConfigNote.fromJson(
-              json['intialTrackConfigNote'] as Map<String, dynamic>),
       startAtInSeconds: (json['startAtInSeconds'] as num?)?.toDouble(),
       $type: json['runtimeType'] as String?,
     );
@@ -198,8 +150,6 @@ Map<String, dynamic> _$$ScoreConfigNoteToJson(_$ScoreConfigNote instance) =>
       'startAt': instance.startAt,
       'endAt': instance.endAt,
       'duration': instance.duration,
-      'intialScoreConfigNote': instance.intialScoreConfigNote?.toJson(),
-      'intialTrackConfigNote': instance.intialTrackConfigNote?.toJson(),
       'startAtInSeconds': instance.startAtInSeconds,
       'runtimeType': instance.$type,
     };

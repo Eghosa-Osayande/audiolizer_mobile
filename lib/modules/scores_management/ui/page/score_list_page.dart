@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:solpha/modules/models/score/score.dart';
 import 'package:solpha/modules/scores_management/ui/page/manage_score_settings.dart';
 
@@ -12,8 +13,10 @@ class ScorelistPage extends StatelessWidget {
         title: Text('Solpha'),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).push<Score>(CreateScorePage.route());
+        onPressed: () async {
+          
+          var score = await Navigator.of(context).push(CreateScorePage.route());
+        
         },
         child: Center(
           child: Icon(Icons.add),

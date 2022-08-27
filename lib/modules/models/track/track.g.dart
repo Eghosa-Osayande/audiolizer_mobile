@@ -10,7 +10,7 @@ _$_Track _$$_TrackFromJson(Map<String, dynamic> json) => _$_Track(
       trackNumber: json['trackNumber'] as int,
       volume: json['volume'] as int,
       program: json['program'] as int,
-      bars: linkedListfromJson(json['bars'] as List<Bar>),
+      bars: linkedListfromJson(json['bars']),
       intialScoreConfigNote: ScoreConfigNote.fromJson(
           json['intialScoreConfigNote'] as Map<String, dynamic>),
     );

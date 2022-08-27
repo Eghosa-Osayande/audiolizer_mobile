@@ -12,7 +12,7 @@ _$_Score _$$_ScoreFromJson(Map<String, dynamic> json) => _$_Score(
       tracks: (json['tracks'] as List<dynamic>)
           .map((e) => Track.fromJson(e as Map<String, dynamic>))
           .toList(),
-      midiFile: midifilefromJson(json['midiFile'] as List<Bar>),
+      midiFile: midifilefromJson(json['midiFile'] as String),
     );
 
 Map<String, dynamic> _$$_ScoreToJson(_$_Score instance) => <String, dynamic>{
