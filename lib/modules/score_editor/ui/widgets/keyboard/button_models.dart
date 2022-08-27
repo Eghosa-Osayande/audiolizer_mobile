@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:solpha/modules/models/notes/white_space_note.dart';
 import 'package:solpha/modules/models/notes/enums/duration_markers.dart';
 import 'package:solpha/modules/models/notes/enums/solfege.dart';
 import 'package:solpha/modules/models/notes/note.dart';
@@ -36,7 +35,11 @@ class MusicNoteButton implements ButtonModel {
 
   @override
   void action(BuildContext context) {
-    Note note = Note.music(solfa: solfa, octave: octave);
+    Note note = Note.music(
+      solfa: solfa,
+      octave: octave,
+      createdAt: DateTime.now().toUtc(),
+    );
     BlocProvider.of<CurrentBarCubit>(context).state.solfaEditingController.insertNotes([
       note
     ]);
@@ -60,7 +63,10 @@ class DurationNoteButton implements ButtonModel {
 
   @override
   void action(BuildContext context) {
-    Note note = Note.duration(marker: marker);
+    Note note = Note.duration(
+      marker: marker,
+      createdAt: DateTime.now().toUtc(),
+    );
     BlocProvider.of<CurrentBarCubit>(context).state.solfaEditingController.insertNotes([
       note
     ]);
@@ -115,7 +121,9 @@ class SpaceBarButton implements ButtonModel {
 
   @override
   void action(BuildContext context) {
-    Note note = WhiteSpaceNote();
+    Note note = WhiteSpaceNote(
+      createdAt: DateTime.now().toUtc(),
+    );
     BlocProvider.of<CurrentBarCubit>(context).state.solfaEditingController.insertNotes([
       note
     ]);

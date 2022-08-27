@@ -1,43 +1,39 @@
 import 'dart:collection';
 
-import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:midi_util/midi_util.dart';
 import 'package:result_type/result_type.dart';
-import 'package:solpha/modules/models/notes/config_notes.dart';
-import 'package:solpha/modules/models/notes/duration_note.dart';
-import 'package:solpha/modules/models/notes/music_note.dart';
 import 'package:solpha/modules/models/notes/note.dart';
 import 'package:solpha/modules/models/track/track.dart';
 import 'package:solpha/modules/score_editor/ui/widgets/solfa_text_field/solfa_input_controller.dart';
 
-class Bar extends LinkedListEntry<Bar> with EquatableMixin {
-  final DateTime createdAt = DateTime.now();
-  final SolfaEditingController solfaEditingController = SolfaEditingController();
+part 'bar.freezed.dart';
+part 'bar.g.dart';
 
-  List<Note> get notes => solfaEditingController.notes;
+List<Note> solfaEditingControllerToJson(SolfaEditingController value) {
+  return value.notes;
+}
 
-  List<Note> get notesForCommit => [
-        _intialScoreConfigNote!,
-        _intialTrackConfigNote!,
-        ...solfaEditingController.notes
-      ];
+SolfaEditingController solfaEditingControllerFromJson(List<Note> value) {
+  return SolfaEditingController()..notes.addAll(value);
+}
 
-  String _lyrics = '';
-  String get lyrics => _lyrics;
-  set lyrics(String value) => _lyrics=value.trim();
+@unfreezed
+class Bar extends LinkedListEntry<Bar> with _$Bar {
+  Bar._();
+  @JsonSerializable(explicitToJson: true)
+  factory Bar({
+    required DateTime createdAt,
+    @JsonKey(toJson: solfaEditingControllerToJson, fromJson: solfaEditingControllerFromJson) required SolfaEditingController solfaEditingController,
+    @Default('') String lyrics,
+    double? startAt,
+    double? endAt,
+    @Default(0) double duration,
+    ScoreConfigNote? intialScoreConfigNote,
+    TrackConfigNote? intialTrackConfigNote,
+  }) = Bard;
 
-  double? startAt;
-  double? endAt;
-  double duration = 0;
-  ScoreConfigNote? _intialScoreConfigNote;
-  TrackConfigNote? _intialTrackConfigNote;
-
-  Bar();
-
-  @override
-  List<Object?> get props => [
-        createdAt
-      ];
+  factory Bar.fromJson(Map<String, dynamic> json) => _$BarFromJson(json);
 
   double get trackLengthInBeats {
     if (notes.isNotEmpty) {
@@ -46,24 +42,28 @@ class Bar extends LinkedListEntry<Bar> with EquatableMixin {
     return 0;
   }
 
+  List<Note> get notes => solfaEditingController.notes;
+
+  List<Note> get notesForCommit => [
+        intialScoreConfigNote!,
+        intialTrackConfigNote!,
+        ...solfaEditingController.notes
+      ];
+
   Result<double, Note> computeNotes({
-    required ScoreConfigNote intialScoreConfigNote,
-    required TrackConfigNote intialTrackConfigNote,
+    required ScoreConfigNote intialScoreConfigNoteX,
+    required TrackConfigNote intialTrackConfigNoteX,
     required double accumulatedTime,
   }) {
-    _intialScoreConfigNote = intialScoreConfigNote;
-    _intialTrackConfigNote = intialTrackConfigNote;
+    intialScoreConfigNote = intialScoreConfigNoteX;
+    intialTrackConfigNote = intialTrackConfigNoteX;
 
     DurationNote? start, end;
     MusicNote? previousNote, mid;
 
     Note? errorNote;
 
-    var notesForCommit = [
-      intialScoreConfigNote,
-      intialTrackConfigNote,
-      ...solfaEditingController.notes
-    ];
+  
     for (var note in notesForCommit) {
       note.intialScoreConfigNote = intialScoreConfigNote;
       note.intialTrackConfigNote = intialTrackConfigNote;

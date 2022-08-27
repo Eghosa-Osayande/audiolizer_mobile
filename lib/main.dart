@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:form_builder_validators/localization/l10n.dart';
+import 'package:solpha/modules/hive_db/util/hive_initializer.dart';
 import 'package:solpha/modules/score_editor/ui/page/score_editor.dart';
+import 'package:solpha/modules/scores_management/ui/page/score_list_page.dart';
 
-void main() {
+void main()async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await HiveInitializer.init();
   runApp(const MyApp());
 }
 
@@ -11,11 +16,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Solpha',
       debugShowCheckedModeBanner: false,
+      localizationsDelegates: const [
+        FormBuilderLocalizations.delegate,
+      ],
       theme: ThemeData(
         primarySwatch: Colors.red,
-        brightness:Brightness.dark, 
+        primaryColor: Colors.red.shade900,
+        brightness: Brightness.dark,
       ),
       home: const ScoreEditorPage(),
     );

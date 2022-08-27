@@ -1,26 +1,47 @@
-import 'dart:collection';
-
-import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:midi_util/midi_util.dart';
 import 'package:result_type/result_type.dart';
 import 'package:solpha/modules/models/bar/bar.dart';
-import 'package:solpha/modules/models/notes/config_notes.dart';
-import 'package:solpha/modules/models/notes/duration_note.dart';
 import 'package:solpha/modules/models/notes/enums/duration_markers.dart';
 import 'package:solpha/modules/models/notes/enums/solfege.dart';
-import 'package:solpha/modules/models/notes/music_note.dart';
 import 'package:solpha/modules/models/notes/note.dart';
 import 'package:solpha/modules/score_editor/ui/widgets/solfa_text_field/solfa_input_controller.dart';
 
+import '../bar/bars_linked_list.dart';
+
+part 'track.freezed.dart';
+part 'track.g.dart';
+
 typedef Bars = Map<int, SolfaEditingController>;
 
-class Track {
-  final LinkedList<Bar> bars = LinkedList()..add(Bar());
+List<Bar> linkedListToJson(BarsLinkedlist value) {
+  return value.toList();
+}
 
-  final int trackNumber;
+BarsLinkedlist linkedListfromJson(List<Bar> value) {
+  return BarsLinkedlist(value);
+}
 
-  final ScoreConfigNote intialScoreConfigNote;
-  final TrackConfigNote intialTrackConfigNote;
+@unfreezed
+class Track with _$Track {
+  const Track._();
+
+  @JsonSerializable(explicitToJson: true)
+  factory Track({
+    required int trackNumber,
+    required int volume,
+    required int program,
+    @JsonKey(toJson: linkedListToJson, fromJson: linkedListfromJson) required BarsLinkedlist bars,
+    required ScoreConfigNote intialScoreConfigNote,
+  }) = _Track;
+
+  factory Track.fromJson(Map<String, dynamic> json) => _$TrackFromJson(json);
+
+  TrackConfigNote get intialTrackConfigNote => TrackConfigNote(
+        volume,
+        program,
+        createdAt: DateTime.now().toUtc(),
+      );
 
   List<Note> get notes => [
         ...(bars.fold<List<Note>>(
@@ -38,25 +59,6 @@ class Track {
         ...notes
       ];
 
-  Track._({
-    required this.trackNumber,
-    required this.intialScoreConfigNote,
-    required this.intialTrackConfigNote,
-  });
-
-  factory Track({
-    required int trackNumber,
-    required int volume,
-    required int program,
-    required ScoreConfigNote intialScoreConfigNote,
-  }) {
-    return Track._(
-      trackNumber: trackNumber,
-      intialScoreConfigNote: intialScoreConfigNote,
-      intialTrackConfigNote: TrackConfigNote(volume, program),
-    );
-  }
-
   double get trackLengthInBeats {
     if (notes.isNotEmpty) {
       return notes.last.endAt ?? 0;
@@ -70,11 +72,28 @@ class Track {
       program: 115,
       volume: 100,
       intialScoreConfigNote: intialScoreConfigNote,
+      bars: BarsLinkedlist(),
     );
-    metro.notes.add(Note.duration(marker: DurationMarker.full));
+    metro.notes.add(
+      DurationNote(
+        marker: DurationMarker.full,
+        createdAt: DateTime.now().toUtc(),
+      ),
+    );
     List.generate(trackLengthInBeats.ceil(), (index) {
-      metro.notes.add(Note.music(solfa: Solfege.d, octave: 0));
-      metro.notes.add(Note.duration(marker: DurationMarker.full));
+      metro.notes.add(
+        MusicNote(
+          solfa: Solfege.d,
+          octave: 0,
+          createdAt: DateTime.now().toUtc(),
+        ),
+      );
+      metro.notes.add(
+        DurationNote(
+          marker: DurationMarker.full,
+          createdAt: DateTime.now().toUtc(),
+        ),
+      );
     });
     metro.computeNotes();
     metro.commit(midiFile);
@@ -86,8 +105,8 @@ class Track {
 
     for (var bar in bars) {
       var result = bar.computeNotes(
-        intialScoreConfigNote: intialScoreConfigNote,
-        intialTrackConfigNote: intialTrackConfigNote,
+        intialScoreConfigNoteX: intialScoreConfigNote,
+        intialTrackConfigNoteX: intialTrackConfigNote,
         accumulatedTime: accumulatedTime,
       );
       if (result.isFailure) {

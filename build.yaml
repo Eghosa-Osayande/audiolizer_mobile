@@ -6,14 +6,17 @@ targets:
       # dart run build_runner doctor to check your config.
       freezed:freezed:
         enabled: true
-        # generate_for:
-        #   - lib/modules/models
+        generate_for:
+          - lib/modules/models/**.dart
+          - lib/modules/models/**/**.dart
       
       hive_generator:hive_generator:
-        enabled: false
+        enabled: true
         generate_for:
-          - lib/modules/models
+          - lib/modules/models/**.dart
+          - lib/modules/models/**/**.dart
       json_serializable:json_serializable:
-        enabled: false
+        enabled: true
         generate_for:
-          - lib/modules/models
+          - lib/modules/models/**.dart
+          - lib/modules/models/**/**.dart

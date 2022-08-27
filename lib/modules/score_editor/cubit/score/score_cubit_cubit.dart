@@ -16,13 +16,13 @@ class ScoreCubit extends Cubit<ScoreCubitState> {
 
   
 
-  ScoreCubit({required this.score}) : super(ScoreCubitState.random(score));
+  ScoreCubit({required this.score}) : super(ScoreCubitState(score));
 
   void play() async {
     if (AudioPlayerService.instance.isPlaying) {
       AudioPlayerService.instance.pause();
     } else {
-      emit(ScoreCubitState.random(score));
+      emit(ScoreCubitState(score));
 
       var result = await score.commit();
 
@@ -40,7 +40,7 @@ class ScoreCubit extends Cubit<ScoreCubitState> {
       }
       AudioPlayerService.instance.resume();
 
-      emit(ScoreCubitState.random(score));
+      emit(ScoreCubitState(score));
     }
   }
 

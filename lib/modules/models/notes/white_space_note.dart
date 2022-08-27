@@ -1,20 +1,14 @@
-import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
-import 'package:solpha/modules/models/track/track.dart';
-
-import 'note.dart';
-
-class WhiteSpaceNote extends Note with EquatableMixin {
+part of 'note.dart';
+extension WhiteSpaceNoteX on WhiteSpaceNote {
   
 
 
 
-  @override
-  Note makeCopy([Track? track]) {
-    return WhiteSpaceNote();
+  WhiteSpaceNote _makeCopyX([Track? track]) {
+    return WhiteSpaceNote(createdAt: DateTime.now().toUtc());
   }
-   @override
-  String displayString() {
+   
+  String _displayStringX() {
     return ' ';
   }
 }

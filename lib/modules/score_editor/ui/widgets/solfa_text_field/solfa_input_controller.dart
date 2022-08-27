@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:solpha/modules/models/notes/white_space_note.dart';
 import 'package:solpha/modules/models/notes/enums/duration_markers.dart';
 import 'package:solpha/modules/models/notes/enums/solfege.dart';
 import 'package:solpha/modules/models/notes/note.dart';
