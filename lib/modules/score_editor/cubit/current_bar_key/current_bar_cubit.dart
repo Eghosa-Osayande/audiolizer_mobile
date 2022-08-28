@@ -16,7 +16,7 @@ class CurrentBarCubit extends Cubit<Bar?> {
     // } else {
     var nextBar = Bar(
       createdAt: DateTime.now(),
-      solfaEditingController: SolfaEditingController(),
+      solfaEditingController: SolfaEditingController([]),
     );
     state?.insertAfter(nextBar);
     emit(nextBar);

@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:solpha/modules/models/bar/bar.dart';
 import 'package:solpha/modules/score_editor/cubit/current_bar_key/current_bar_cubit.dart';
@@ -23,7 +24,24 @@ class SolfaTextField extends StatefulWidget {
 }
 
 class _SolfaTextFieldState extends State<SolfaTextField> with AutoSizeTextMixin {
-  final FocusNode focus = FocusNode();
+  late final FocusNode focus = FocusNode(
+    onKey: volumeKeyOveride,
+  );
+
+  KeyEventResult volumeKeyOveride(data, event) {
+    // if (event.isKeyPressed(LogicalKeyboardKey.audioVolumeUp)) {
+    //   print("Volume up");
+    //   BlocProvider.of<CurrentBarCubit>(context).state?.solfaEditingController.moveCursorLeft();
+    //   return KeyEventResult.handled;
+    // }
+    // if (event.isKeyPressed(LogicalKeyboardKey.audioVolumeDown)) {
+    //   print("Volume down");
+    //   BlocProvider.of<CurrentBarCubit>(context).state?.solfaEditingController.moveCursorRight();
+    //   return KeyEventResult.handled;
+    // }
+    // return KeyEventResult.ignored;
+    return KeyEventResult.ignored;
+  }
 
   @override
   void initState() {

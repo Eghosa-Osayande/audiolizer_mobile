@@ -10,6 +10,7 @@ import 'package:solpha/modules/models/score/key_signature.dart';
 import 'package:solpha/modules/models/score/score.dart';
 import 'package:solpha/modules/models/score/time_signature.dart';
 import 'package:solpha/modules/models/track/track.dart';
+import 'package:solpha/modules/scores_management/repo/scores_repo.dart';
 
 class CreateScorePage extends StatefulWidget {
   final Score? score;
@@ -147,7 +148,7 @@ class _CreateScorePageState extends State<CreateScorePage> {
     );
   }
 
-  void onDone() {
+  void onDone()async {
     var isValidated = formKey.currentState?.saveAndValidate();
     if (isValidated == true) {
       var value = formKey.currentState?.value;
@@ -161,6 +162,7 @@ class _CreateScorePageState extends State<CreateScorePage> {
             tonicPitchNumber: value['pitch'],
             createdAt: DateTime.now().toUtc(),
           );
+          widget.score?.save();
           Navigator.pop<Score>(context, widget.score);
         } else {
           var scoreConfigNote = ScoreConfigNote(
@@ -184,6 +186,7 @@ class _CreateScorePageState extends State<CreateScorePage> {
               )
             ],
           );
+          await scoreRepo.addNewScore(score);
           Navigator.pop<Score>(context, score);
         }
       }

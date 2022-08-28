@@ -7,11 +7,11 @@ import 'package:solpha/modules/score_editor/ui/widgets/solfa_text_field/solfa_in
 class SingleTrackCubit extends Cubit<Track> {
   final Track track;
   SingleTrackCubit(this.track) : super(track) {
-    if (track.notes.isEmpty) {
+    if (track.bars.isEmpty) {
       track.bars.addFirst(
         Bar(
           createdAt: DateTime.now().toUtc(),
-          solfaEditingController: SolfaEditingController(),
+          solfaEditingController: SolfaEditingController([]),
         ),
       );
       emit(track);

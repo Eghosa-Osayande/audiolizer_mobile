@@ -9,9 +9,9 @@ import 'package:solpha/modules/score_editor/ui/widgets/note_widgets/note_theme.d
 import 'package:solpha/modules/score_editor/ui/widgets/solfa_text_field/solfa_clipboard_service.dart';
 
 class SolfaEditingController extends TextEditingController {
-  final List<Note> notes = [];
+  final List<Note> notes;
 
-  SolfaEditingController()
+  SolfaEditingController(this.notes)
       : super.fromValue(
           TextEditingValue.empty,
         ) {
@@ -144,6 +144,22 @@ class SolfaEditingController extends TextEditingController {
     var copies = SolfaClipboardService.instance.getCopiedNotes();
     if (copies != null) {
       insertNotes(copies);
+    }
+  }
+
+  void moveCursorLeft() {
+    
+    if (selection.start > 0) {
+      selection = TextSelection.collapsed(offset: selection.start - 1);
+      notifyListeners();
+    }
+  }
+
+  void moveCursorRight() {
+   
+    if (selection.start <text.length ) {
+      selection = TextSelection.collapsed(offset: selection.start + 1);
+      notifyListeners();
     }
   }
 }

@@ -100,7 +100,7 @@ class Track with _$Track {
     metro.commit(midiFile);
   }
 
-  Result<bool, int> computeNotes() {
+  Result<bool, Bar> computeNotes() {
     int count = 0;
     double accumulatedTime = 0;
 
@@ -111,98 +111,13 @@ class Track with _$Track {
         accumulatedTime: accumulatedTime,
       );
       if (result.isFailure) {
-        return Failure(count);
+        return Failure(bar);
       } else {
         accumulatedTime = result.success;
       }
       count = count + 1;
     }
     return Success(true);
-  }
-
-  Result<bool, Note> computeNote() {
-    double accumulatedTime = 0;
-    DurationNote? start, end;
-    MusicNote? previousNote, mid;
-
-    Note? errorNote;
-
-    for (var note in notesForCommit) {
-      note.intialScoreConfigNote = intialScoreConfigNote;
-      note.intialTrackConfigNote = intialTrackConfigNote;
-      if ((note.isDuration) || (note.isMusic)) {
-        if (start == null) {
-          if (note.isDuration) {
-            start = note as DurationNote;
-            continue;
-          } else {
-            errorNote = note;
-            break;
-          }
-        } else if (mid == null) {
-          if (note.isMusic) {
-            mid = note as MusicNote;
-            continue;
-          } else {
-            errorNote = note;
-            break;
-          }
-        } else if (end == null) {
-          if (note.isDuration) {
-            end = note as DurationNote;
-            //
-            var result = start.beatsBetween(end);
-            if (result.isSuccess) {
-              double duration = result.success;
-              mid.startAt = accumulatedTime;
-              start.startAt = accumulatedTime;
-              end.startAt = accumulatedTime;
-              accumulatedTime = accumulatedTime + duration;
-              mid.endAt = accumulatedTime;
-              start.endAt = accumulatedTime;
-              end.endAt = accumulatedTime;
-
-              if (mid.isSustained) {
-                if (previousNote == null) {
-                  errorNote = mid;
-                  break;
-                } else {
-                  if (previousNote.duration == null) {
-                    errorNote = mid;
-                    break;
-                  } else {
-                    previousNote.duration = previousNote.duration + duration;
-                    mid.duration = 0;
-                  }
-                }
-              } else {
-                mid.duration = duration;
-                previousNote = mid;
-              }
-
-              mid = null;
-              start = end;
-              end = null;
-            } else {
-              errorNote = mid;
-              break;
-            }
-          } else {
-            errorNote = note;
-            break;
-          }
-        } else {
-          errorNote = note;
-          break;
-        }
-      }
-    }
-
-    if (errorNote != null) {
-      return Failure(errorNote);
-    } else {
-      return Success(true);
-    }
   }
 
   Future<void> commit(MIDIFile midiFile) async {

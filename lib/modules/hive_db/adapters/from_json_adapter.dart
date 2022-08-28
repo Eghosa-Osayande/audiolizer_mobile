@@ -2,12 +2,11 @@ import 'dart:convert' as conv;
 
 import 'package:hive/hive.dart';
 
-class FreezedTypeAdapter<T> extends TypeAdapter<T> {
-
-  FreezedTypeAdapter({required this.typeId, required this.createObject});
+class FromJsonTypeAdapter<T> extends TypeAdapter<T> {
+  FromJsonTypeAdapter({required this.typeId, required this.createObject});
 
   @override
-  final int  typeId;
+  final int typeId;
   final T Function(dynamic json) createObject;
 
   @override
@@ -35,5 +34,5 @@ class FreezedTypeAdapter<T> extends TypeAdapter<T> {
   int get hashCode => typeId.hashCode;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is FreezedTypeAdapter && runtimeType == other.runtimeType && typeId == other.typeId;
+  bool operator ==(Object other) => identical(this, other) || other is FromJsonTypeAdapter && runtimeType == other.runtimeType && typeId == other.typeId;
 }

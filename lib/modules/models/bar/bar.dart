@@ -16,7 +16,7 @@ List<Note> solfaEditingControllerToJson(SolfaEditingController value) {
 
 SolfaEditingController solfaEditingControllerFromJson(dynamic value) {
     List<Note> list = List.from(value.map((e)=>Note.fromJson(e)).toList());
-  return SolfaEditingController()..notes.addAll(list);
+  return SolfaEditingController(list);
 }
 
 @unfreezed
