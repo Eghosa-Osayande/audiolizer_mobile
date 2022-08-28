@@ -33,12 +33,19 @@ class _SolfaTextFieldState extends State<SolfaTextField> with AutoSizeTextMixin 
         this.setState(() {});
       }
     });
+    focus.addListener(focusListener);
+  }
+
+  void focusListener() {
+    if (focus.hasPrimaryFocus) {
+      BlocProvider.of<CurrentBarCubit>(context).setKey(widget.bar);
+    }
   }
 
   @override
   void didChangeDependencies() {
     var currentBarKey = BlocProvider.of<CurrentBarCubit>(context).state;
-    if (currentBarKey.createdAt == widget.bar.createdAt) {
+    if (currentBarKey?.createdAt == widget.bar.createdAt) {
       SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
         Scrollable.ensureVisible(context, alignmentPolicy: ScrollPositionAlignmentPolicy.keepVisibleAtEnd);
       });
@@ -57,15 +64,22 @@ class _SolfaTextFieldState extends State<SolfaTextField> with AutoSizeTextMixin 
 
   @override
   void dispose() {
+    focus.removeListener(focusListener);
     focus.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<CurrentBarCubit, Bar>(
+    final textField = _buildTextField();
+    // return buildAutoSizedText(context, textField, widget.controller);
+    return textField;
+  }
+
+  Widget _buildTextField() {
+    return BlocListener<CurrentBarCubit, Bar?>(
       listener: (context, currentBarKey) {
-        if (currentBarKey.createdAt == widget.bar.createdAt) {
+        if (currentBarKey?.createdAt == widget.bar.createdAt) {
           SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
             FocusScope.of(context).requestFocus(focus);
           });
@@ -73,36 +87,9 @@ class _SolfaTextFieldState extends State<SolfaTextField> with AutoSizeTextMixin 
           focus.unfocus();
         }
       },
-      child: LayoutBuilder(builder: (context, size) {
-        var result = calculateFontSize(
-          size,
-          widget.controller.buildTextSpan(
-            context: context,
-            withComposing: true,
-          ),
-          1,
-        );
-       
-        var fontSize = result[0] as double;
-        var textFits = result[1] as bool;
-        Widget textField;
-        NoteThemeProvider.of(context).setFontSize(fontSize);
-        textField = _buildTextField();
-        if (!textFits) {
-          return textField;
-        } else {
-          return textField;
-        }
-      }),
-    );
-  }
-
-  Widget _buildTextField() {
-    return BlocBuilder<NoteThemeProvider, NoteTheme>(
-      builder: (context, noteTheme) {
-        return SizedBox(
-          width: (1 == 1) ? double.infinity : max(noteTheme.fontSize, textSpanWidth * MediaQuery.of(context).textScaleFactor),
-          child: TextField(
+      child: BlocBuilder<NoteThemeProvider, NoteTheme>(
+        builder: (context, noteTheme) {
+          return TextField(
             minLines: 1,
             maxLines: null,
             onTap: () {
@@ -130,11 +117,10 @@ class _SolfaTextFieldState extends State<SolfaTextField> with AutoSizeTextMixin 
                 });
               },
             ),
-            
             style: noteTheme.constantStyle,
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

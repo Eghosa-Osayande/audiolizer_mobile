@@ -14,8 +14,6 @@ class ScoreCubit extends Cubit<ScoreCubitState> {
 
   File? outputFile;
 
-  
-
   ScoreCubit({required this.score}) : super(ScoreCubitState(score));
 
   void play() async {
@@ -28,13 +26,11 @@ class ScoreCubit extends Cubit<ScoreCubitState> {
 
       if (result != null) {
         if (result.isSuccess) {
-        
           await AudioPlayerService.instance.setSourceBytes(await result.success.readAsBytes());
           await AudioPlayerService.instance.seek(Duration(seconds: 0));
           AudioPlayerService.instance.resume();
           return;
         } else {
-         
           return;
         }
       }
@@ -46,7 +42,6 @@ class ScoreCubit extends Cubit<ScoreCubitState> {
 
   @override
   Future<void> close() {
-    
     return super.close();
   }
 }

@@ -7,6 +7,33 @@ import 'package:solpha/modules/score_editor/ui/widgets/note_widgets/note_theme.d
 mixin AutoSizeTextMixin<T extends StatefulWidget> on State<T> {
   late double textSpanWidth;
 
+
+  Widget buildAutoSizedText(
+    BuildContext context,
+    Widget textField,
+    TextEditingController controller,
+  ) {
+    return LayoutBuilder(builder: (context, size) {
+      var result = calculateFontSize(
+        size,
+        controller.buildTextSpan(
+          context: context,
+          withComposing: true,
+        ),
+        1,
+      );
+
+      var fontSize = result[0] as double;
+      var textFits = result[1] as bool;
+
+      NoteThemeProvider.of(context).setFontSize(fontSize);
+      return SizedBox(
+        width: (1 == 1) ? double.infinity : max(fontSize, textSpanWidth * MediaQuery.of(context).textScaleFactor),
+        child: textField,
+      );
+    });
+  }
+
   List calculateFontSize(BoxConstraints size, TextSpan span, int? maxLines) {
     num minFontSize = 16;
 

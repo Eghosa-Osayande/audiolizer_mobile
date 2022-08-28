@@ -40,6 +40,7 @@ class ScoreEditorBody extends StatelessWidget {
                     (track) {
                       return BlocProvider(
                         create: (context) => SingleTrackCubit(track),
+                        lazy: false,
                         child: TrackScaffold(),
                       );
                     },

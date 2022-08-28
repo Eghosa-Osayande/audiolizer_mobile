@@ -40,7 +40,7 @@ class MusicNoteButton implements ButtonModel {
       octave: octave,
       createdAt: DateTime.now().toUtc(),
     );
-    BlocProvider.of<CurrentBarCubit>(context).state.solfaEditingController.insertNotes([
+    BlocProvider.of<CurrentBarCubit>(context).state?.solfaEditingController.insertNotes([
       note
     ]);
   }
@@ -67,7 +67,7 @@ class DurationNoteButton implements ButtonModel {
       marker: marker,
       createdAt: DateTime.now().toUtc(),
     );
-    BlocProvider.of<CurrentBarCubit>(context).state.solfaEditingController.insertNotes([
+    BlocProvider.of<CurrentBarCubit>(context).state?.solfaEditingController.insertNotes([
       note
     ]);
   }
@@ -86,10 +86,10 @@ class DeleteNoteButton implements ButtonModel {
 
   @override
   void action(BuildContext context) {
-    var solfaEditingController2 = BlocProvider.of<CurrentBarCubit>(context).state.solfaEditingController;
-
-    if (solfaEditingController2.notes.isEmpty) {
-      var currentBar = BlocProvider.of<CurrentBarCubit>(context).state;
+    var solfaEditingController2 = BlocProvider.of<CurrentBarCubit>(context).state?.solfaEditingController;
+if(solfaEditingController2!=null){
+  if (solfaEditingController2.notes.isEmpty) {
+      var currentBar = BlocProvider.of<CurrentBarCubit>(context).state!;
       if (currentBar.previous != null) {
         var prev = currentBar.previous!;
         currentBar.unlink();
@@ -98,6 +98,8 @@ class DeleteNoteButton implements ButtonModel {
     } else {
       solfaEditingController2.backSpace();
     }
+}
+  
   }
 
   @override
@@ -124,7 +126,7 @@ class SpaceBarButton implements ButtonModel {
     Note note = WhiteSpaceNote(
       createdAt: DateTime.now().toUtc(),
     );
-    BlocProvider.of<CurrentBarCubit>(context).state.solfaEditingController.insertNotes([
+    BlocProvider.of<CurrentBarCubit>(context).state?.solfaEditingController.insertNotes([
       note
     ]);
   }

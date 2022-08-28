@@ -28,7 +28,7 @@ class _TrackScaffoldState extends State<TrackScaffold> {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => CurrentBarCubit(track.bars.first),
+          create: (context) => CurrentBarCubit(),
         ),
       ],
       child: Builder(builder: (context) {
@@ -42,7 +42,7 @@ class _TrackScaffoldState extends State<TrackScaffold> {
                 Expanded(
                   child: Align(
                       alignment: Alignment.topLeft,
-                      child: BlocBuilder<CurrentBarCubit, Bar>(
+                      child: BlocBuilder<CurrentBarCubit, Bar?>(
                         builder: (context, state) {
                           return ListView.builder(
                             itemCount: track.bars.length,
@@ -61,7 +61,7 @@ class _TrackScaffoldState extends State<TrackScaffold> {
                         },
                       )),
                 ),
-                BlocBuilder<CurrentBarCubit, Bar>(
+                BlocBuilder<CurrentBarCubit, Bar?>(
                   builder: (context, key) {
                     return SolfaKeyboard(key: keyboardKey,);
                   },

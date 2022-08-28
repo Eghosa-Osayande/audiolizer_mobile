@@ -84,7 +84,7 @@ class SolfaTextFieldSelectionControls extends MaterialTextSelectionControls {
               },
               child: Text('Paste'),
             ),
-            BlocBuilder<CurrentBarCubit, Bar>(
+            BlocBuilder<CurrentBarCubit, Bar?>(
               builder: (context, bar) {
                 
                   return ControlButton(
