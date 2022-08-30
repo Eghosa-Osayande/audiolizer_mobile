@@ -563,9 +563,11 @@ packages:
   midi_util:
     dependency: "direct main"
     description:
-      path: "../midi_util"
-      relative: true
-    source: path
+      path: "."
+      ref: main
+      resolved-ref: "8bb45f2aa0ef3869450118c848a33632c06cd28b"
+      url: "https://github.com/Eghosa-Osayande/midi_util"
+    source: git
     version: "1.0.2"
   mime:
     dependency: transitive
