@@ -34,8 +34,8 @@ class ScorelistPage extends StatelessWidget {
           child: Icon(Icons.add),
         ),
       ),
-      body: FutureBuilder<List<Score>>(
-        future: scoreRepo.fetchAllScores(),
+      body: StreamBuilder<List<Score>>(
+        stream: ScoresRepo.instance.scoreListStream,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             var data = snapshot.data!;
@@ -44,7 +44,7 @@ class ScorelistPage extends StatelessWidget {
               itemBuilder: (context, index) {
                 return ListTile(
                   onTap: () {
-                     Navigator.of(context).push(ScoreEditorPage.route(data[index]));
+                    Navigator.of(context).push(ScoreEditorPage.route(data[index]));
                   },
                   title: Text('G'),
                 );

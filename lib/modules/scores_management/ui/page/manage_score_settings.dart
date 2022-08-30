@@ -148,7 +148,7 @@ class _CreateScorePageState extends State<CreateScorePage> {
     );
   }
 
-  void onDone()async {
+  void onDone() async {
     var isValidated = formKey.currentState?.saveAndValidate();
     if (isValidated == true) {
       var value = formKey.currentState?.value;
@@ -186,7 +186,7 @@ class _CreateScorePageState extends State<CreateScorePage> {
               )
             ],
           );
-          await scoreRepo.addNewScore(score);
+          await ScoresRepo.instance.put(score);
           Navigator.pop<Score>(context, score);
         }
       }
