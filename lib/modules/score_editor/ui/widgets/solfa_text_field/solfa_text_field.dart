@@ -1,12 +1,9 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:solpha/modules/models/bar/bar.dart';
-import 'package:solpha/modules/score_editor/cubit/current_bar_key/current_bar_cubit.dart';
+import 'package:solpha/modules/score_editor/cubit/keyboard_event/keyboard_event.dart';
 import 'package:solpha/modules/score_editor/cubit/toggle_keyboard_visibility.dart/toggle_keyboard_visibility_cubit.dart';
 import 'package:solpha/modules/score_editor/ui/widgets/note_widgets/note_theme.dart';
 import 'package:solpha/modules/score_editor/ui/widgets/solfa_text_field/auto_size_mixin.dart';
@@ -17,8 +14,6 @@ class SolfaTextField extends StatefulWidget {
   final Bar bar;
   const SolfaTextField({Key? key, required this.bar}) : super(key: key);
 
-  SolfaEditingController get controller => bar.solfaEditingController;
-
   @override
   State<SolfaTextField> createState() => _SolfaTextFieldState();
 }
@@ -27,6 +22,8 @@ class _SolfaTextFieldState extends State<SolfaTextField> with AutoSizeTextMixin 
   late final FocusNode focus = FocusNode(
     onKey: volumeKeyOveride,
   );
+
+  late SolfaEditingController controller = SolfaEditingController(widget.bar);
 
   KeyEventResult volumeKeyOveride(data, event) {
     // if (event.isKeyPressed(LogicalKeyboardKey.audioVolumeUp)) {
@@ -46,7 +43,7 @@ class _SolfaTextFieldState extends State<SolfaTextField> with AutoSizeTextMixin 
   @override
   void initState() {
     super.initState();
-    widget.controller.addListener(() {
+    controller.addListener(() {
       if (this.mounted) {
         this.setState(() {});
       }
@@ -55,23 +52,11 @@ class _SolfaTextFieldState extends State<SolfaTextField> with AutoSizeTextMixin 
   }
 
   void focusListener() {
-    if (focus.hasPrimaryFocus) {
-      BlocProvider.of<CurrentBarCubit>(context).setKey(widget.bar);
-    }
+    if (focus.hasPrimaryFocus) {}
   }
 
   @override
   void didChangeDependencies() {
-    var currentBarKey = BlocProvider.of<CurrentBarCubit>(context).state;
-    if (currentBarKey?.createdAt == widget.bar.createdAt) {
-      SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-        Scrollable.ensureVisible(context, alignmentPolicy: ScrollPositionAlignmentPolicy.keepVisibleAtEnd);
-      });
-    }
-
-    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-      setState(() {});
-    });
     super.didChangeDependencies();
   }
 
@@ -90,19 +75,25 @@ class _SolfaTextFieldState extends State<SolfaTextField> with AutoSizeTextMixin 
   @override
   Widget build(BuildContext context) {
     final textField = _buildTextField();
-    // return buildAutoSizedText(context, textField, widget.controller);
+    // return buildAutoSizedText(context, textField, controller);
     return textField;
   }
 
   Widget _buildTextField() {
-    return BlocListener<CurrentBarCubit, Bar?>(
-      listener: (context, currentBarKey) {
-        if (currentBarKey?.createdAt == widget.bar.createdAt) {
-          SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-            FocusScope.of(context).requestFocus(focus);
-          });
-        } else {
-          focus.unfocus();
+    return BlocListener<SolfaKeyBoardInputEventCubit, SolfaKeyBoardInputEvent?>(
+      listener: (context, state) {
+        if (state != null && (focus.hasPrimaryFocus)) {
+          switch (state.name) {
+            case SolfaKeyBoardInputEventName.insert:
+              controller.insertNotes(state.note);
+              break;
+            case SolfaKeyBoardInputEventName.delete:
+              controller.backSpace();
+              break;
+            case SolfaKeyBoardInputEventName.newBar:
+             
+              break;
+          }
         }
       },
       child: BlocBuilder<NoteThemeProvider, NoteTheme>(
@@ -112,24 +103,22 @@ class _SolfaTextFieldState extends State<SolfaTextField> with AutoSizeTextMixin 
             maxLines: null,
             onTap: () {
               BlocProvider.of<ToggleKeyboardVisibilityCubit>(context).open();
-              BlocProvider.of<CurrentBarCubit>(context).setKey(widget.bar);
             },
             autofocus: true,
             focusNode: focus,
             scrollPhysics: NeverScrollableScrollPhysics(),
-            controller: widget.controller,
+            controller: controller,
             keyboardType: TextInputType.none,
             selectionControls: SolfaTextFieldSelectionControls(
               context,
-              barCubit: BlocProvider.of<CurrentBarCubit>(context),
               onCopy: (value) {
-                widget.controller.copySelectedNotes();
+                controller.copySelectedNotes();
               },
               onCut: (value) {
-                widget.controller.cutSelectedNotes();
+                controller.cutSelectedNotes();
               },
               onPaste: (value) {
-                widget.controller.pasteNotes();
+                controller.pasteNotes();
                 SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
                   setState(() {});
                 });

@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:solpha/modules/models/notes/enums/duration_markers.dart';
 import 'package:solpha/modules/models/notes/enums/solfege.dart';
 import 'package:solpha/modules/models/notes/note.dart';
-import 'package:solpha/modules/score_editor/cubit/current_bar_key/current_bar_cubit.dart';
+import 'package:solpha/modules/score_editor/cubit/keyboard_event/keyboard_event.dart';
 
 class ButtonModel {
   const ButtonModel();
@@ -40,7 +40,7 @@ class MusicNoteButton implements ButtonModel {
       octave: octave,
       createdAt: DateTime.now().toUtc(),
     );
-    BlocProvider.of<CurrentBarCubit>(context).state?.solfaEditingController.insertNotes([
+    BlocProvider.of<SolfaKeyBoardInputEventCubit>(context).insertNotes([
       note
     ]);
   }
@@ -67,7 +67,7 @@ class DurationNoteButton implements ButtonModel {
       marker: marker,
       createdAt: DateTime.now().toUtc(),
     );
-    BlocProvider.of<CurrentBarCubit>(context).state?.solfaEditingController.insertNotes([
+     BlocProvider.of<SolfaKeyBoardInputEventCubit>(context).insertNotes([
       note
     ]);
   }
@@ -86,20 +86,7 @@ class DeleteNoteButton implements ButtonModel {
 
   @override
   void action(BuildContext context) {
-    var solfaEditingController2 = BlocProvider.of<CurrentBarCubit>(context).state?.solfaEditingController;
-if(solfaEditingController2!=null){
-  if (solfaEditingController2.notes.isEmpty) {
-      var currentBar = BlocProvider.of<CurrentBarCubit>(context).state!;
-      if (currentBar.previous != null) {
-        var prev = currentBar.previous!;
-        currentBar.unlink();
-        BlocProvider.of<CurrentBarCubit>(context).setKey(prev);
-      }
-    } else {
-      solfaEditingController2.backSpace();
-    }
-}
-  
+  BlocProvider.of<SolfaKeyBoardInputEventCubit>(context).backSpace();
   }
 
   @override
@@ -126,7 +113,7 @@ class SpaceBarButton implements ButtonModel {
     Note note = WhiteSpaceNote(
       createdAt: DateTime.now().toUtc(),
     );
-    BlocProvider.of<CurrentBarCubit>(context).state?.solfaEditingController.insertNotes([
+     BlocProvider.of<SolfaKeyBoardInputEventCubit>(context).insertNotes([
       note
     ]);
   }
@@ -145,7 +132,7 @@ class NewLineButton implements ButtonModel {
 
   @override
   void action(BuildContext context) {
-    BlocProvider.of<CurrentBarCubit>(context).addNewBar();
+     BlocProvider.of<SolfaKeyBoardInputEventCubit>(context).addNewBar();
   }
 
   @override

@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:bloc/bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:solpha/modules/score_editor/service/audio_player_service.dart';
 
 part 'toggle_edit_play_mode_state.dart';

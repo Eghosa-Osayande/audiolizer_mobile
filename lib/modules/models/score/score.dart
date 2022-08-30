@@ -36,6 +36,12 @@ class Score extends HiveObject with _$Score {
     midiFile = MIDIFile(numTracks: 10);
   }
 
+  int get trackBarCount {
+    if (tracks.isNotEmpty) {
+      return tracks.first.bars.length;
+    }
+    return 0;
+  }
 
   Future<Result<File, Track>?> commit() async {
     _resetMidiFile();

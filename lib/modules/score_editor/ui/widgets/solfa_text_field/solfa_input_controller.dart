@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:solpha/modules/models/bar/bar.dart';
 import 'package:solpha/modules/models/notes/enums/duration_markers.dart';
 import 'package:solpha/modules/models/notes/enums/solfege.dart';
 import 'package:solpha/modules/models/notes/note.dart';
@@ -9,14 +10,18 @@ import 'package:solpha/modules/score_editor/ui/widgets/note_widgets/note_theme.d
 import 'package:solpha/modules/score_editor/ui/widgets/solfa_text_field/solfa_clipboard_service.dart';
 
 class SolfaEditingController extends TextEditingController {
-  final List<Note> notes;
+  final Bar bar;
 
-  SolfaEditingController(this.notes)
+  SolfaEditingController(this.bar)
       : super.fromValue(
           TextEditingValue.empty,
         ) {
-    value = TextEditingValue(text: notes.map((e) => '-').toList().join());
+    value = TextEditingValue(text: bar.notes.map((e) => '-').toList().join());
+    selection = TextSelection.collapsed(offset: value.text.length);
+    notifyListeners();
   }
+
+  List<Note> get notes => bar.notes;
 
   @override
   TextSpan buildTextSpan({required BuildContext context, TextStyle? style, required bool withComposing}) {
@@ -42,6 +47,10 @@ class SolfaEditingController extends TextEditingController {
   }
 
   void insertNotes(List<Note> newNotes) {
+    print([
+      selection.end,
+      selection.start
+    ]);
     String myText = newNotes.map((e) => '-').toList().join();
 
     final textSelection = selection;
@@ -63,6 +72,7 @@ class SolfaEditingController extends TextEditingController {
       baseOffset: textSelection.start + myTextLength,
       extentOffset: textSelection.start + myTextLength,
     );
+     notifyListeners();
   }
 
   void backSpace() {
@@ -87,6 +97,7 @@ class SolfaEditingController extends TextEditingController {
         baseOffset: textSelection.start,
         extentOffset: textSelection.start,
       );
+       notifyListeners();
       return;
     }
     // The cursor is at the beginning.
@@ -113,6 +124,7 @@ class SolfaEditingController extends TextEditingController {
       baseOffset: newStart,
       extentOffset: newStart,
     );
+     notifyListeners();
   }
 
   void copySelectedNotes() {
@@ -148,7 +160,6 @@ class SolfaEditingController extends TextEditingController {
   }
 
   void moveCursorLeft() {
-    
     if (selection.start > 0) {
       selection = TextSelection.collapsed(offset: selection.start - 1);
       notifyListeners();
@@ -156,8 +167,7 @@ class SolfaEditingController extends TextEditingController {
   }
 
   void moveCursorRight() {
-   
-    if (selection.start <text.length ) {
+    if (selection.start < text.length) {
       selection = TextSelection.collapsed(offset: selection.start + 1);
       notifyListeners();
     }

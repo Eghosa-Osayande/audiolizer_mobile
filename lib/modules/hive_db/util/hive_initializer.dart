@@ -19,7 +19,7 @@ class HiveInitializer {
     if (kIsWeb) {
     } else {
       String path = await PlatformPathService.instance.getHiveDirectory();
-      Hive.init(path);
+      Hive.init(path+'/b');
     }
 
     // await Hive.deleteFromDisk();

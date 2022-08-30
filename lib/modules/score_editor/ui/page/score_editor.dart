@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:solpha/modules/models/score/score.dart';
+import 'package:solpha/modules/score_editor/cubit/keyboard_event/keyboard_event.dart';
 import 'package:solpha/modules/score_editor/cubit/score/score_cubit_cubit.dart';
-import 'package:solpha/modules/score_editor/cubit/toggle_edit_lyrics/toggle_can_see_lyrics_cubit.dart';
 import 'package:solpha/modules/score_editor/cubit/toggle_edit_play_mode/toggle_edit_play_mode_cubit.dart';
 import 'package:solpha/modules/score_editor/cubit/toggle_keyboard_visibility.dart/toggle_keyboard_visibility_cubit.dart';
 import 'package:solpha/modules/score_editor/ui/widgets/score_editor_body.dart';
@@ -16,7 +16,7 @@ class ScoreEditorPage extends StatelessWidget {
   static Route route(Score score) {
     return MaterialPageRoute(
       settings: RouteSettings(name: path),
-      builder: (_) =>  ScoreEditorPage(score: score),
+      builder: (_) => ScoreEditorPage(score: score),
     );
   }
 
@@ -34,7 +34,7 @@ class ScoreEditorPage extends StatelessWidget {
           create: (context) => ToggleKeyboardVisibilityCubit(),
         ),
         BlocProvider(
-          create: (context) => CanSeeLyricsCubit(),
+          create: (context) => SolfaKeyBoardInputEventCubit(),
         ),
       ],
       child: ScoreEditorBody(),

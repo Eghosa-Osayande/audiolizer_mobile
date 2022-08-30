@@ -8,8 +8,9 @@ part of 'bar.dart';
 
 _$Bard _$$BardFromJson(Map<String, dynamic> json) => _$Bard(
       createdAt: DateTime.parse(json['createdAt'] as String),
-      solfaEditingController:
-          solfaEditingControllerFromJson(json['solfaEditingController']),
+      notes: (json['notes'] as List<dynamic>)
+          .map((e) => Note.fromJson(e as Map<String, dynamic>))
+          .toList(),
       lyrics: json['lyrics'] as String? ?? '',
       startAt: (json['startAt'] as num?)?.toDouble(),
       endAt: (json['endAt'] as num?)?.toDouble(),
@@ -26,8 +27,7 @@ _$Bard _$$BardFromJson(Map<String, dynamic> json) => _$Bard(
 
 Map<String, dynamic> _$$BardToJson(_$Bard instance) => <String, dynamic>{
       'createdAt': instance.createdAt.toIso8601String(),
-      'solfaEditingController':
-          solfaEditingControllerToJson(instance.solfaEditingController),
+      'notes': instance.notes.map((e) => e.toJson()).toList(),
       'lyrics': instance.lyrics,
       'startAt': instance.startAt,
       'endAt': instance.endAt,

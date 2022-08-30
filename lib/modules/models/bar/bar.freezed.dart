@@ -22,16 +22,8 @@ Bar _$BarFromJson(Map<String, dynamic> json) {
 mixin _$Bar {
   DateTime get createdAt => throw _privateConstructorUsedError;
   set createdAt(DateTime value) => throw _privateConstructorUsedError;
-  @JsonKey(
-      toJson: solfaEditingControllerToJson,
-      fromJson: solfaEditingControllerFromJson)
-  SolfaEditingController get solfaEditingController =>
-      throw _privateConstructorUsedError;
-  @JsonKey(
-      toJson: solfaEditingControllerToJson,
-      fromJson: solfaEditingControllerFromJson)
-  set solfaEditingController(SolfaEditingController value) =>
-      throw _privateConstructorUsedError;
+  List<Note> get notes => throw _privateConstructorUsedError;
+  set notes(List<Note> value) => throw _privateConstructorUsedError;
   String get lyrics => throw _privateConstructorUsedError;
   set lyrics(String value) => throw _privateConstructorUsedError;
   double? get startAt => throw _privateConstructorUsedError;
@@ -60,8 +52,7 @@ abstract class $BarCopyWith<$Res> {
       _$BarCopyWithImpl<$Res>;
   $Res call(
       {DateTime createdAt,
-      @JsonKey(toJson: solfaEditingControllerToJson, fromJson: solfaEditingControllerFromJson)
-          SolfaEditingController solfaEditingController,
+      List<Note> notes,
       String lyrics,
       double? startAt,
       double? endAt,
@@ -81,7 +72,7 @@ class _$BarCopyWithImpl<$Res> implements $BarCopyWith<$Res> {
   @override
   $Res call({
     Object? createdAt = freezed,
-    Object? solfaEditingController = freezed,
+    Object? notes = freezed,
     Object? lyrics = freezed,
     Object? startAt = freezed,
     Object? endAt = freezed,
@@ -94,10 +85,10 @@ class _$BarCopyWithImpl<$Res> implements $BarCopyWith<$Res> {
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      solfaEditingController: solfaEditingController == freezed
-          ? _value.solfaEditingController
-          : solfaEditingController // ignore: cast_nullable_to_non_nullable
-              as SolfaEditingController,
+      notes: notes == freezed
+          ? _value.notes
+          : notes // ignore: cast_nullable_to_non_nullable
+              as List<Note>,
       lyrics: lyrics == freezed
           ? _value.lyrics
           : lyrics // ignore: cast_nullable_to_non_nullable
@@ -133,8 +124,7 @@ abstract class _$$BardCopyWith<$Res> implements $BarCopyWith<$Res> {
   @override
   $Res call(
       {DateTime createdAt,
-      @JsonKey(toJson: solfaEditingControllerToJson, fromJson: solfaEditingControllerFromJson)
-          SolfaEditingController solfaEditingController,
+      List<Note> notes,
       String lyrics,
       double? startAt,
       double? endAt,
@@ -155,7 +145,7 @@ class __$$BardCopyWithImpl<$Res> extends _$BarCopyWithImpl<$Res>
   @override
   $Res call({
     Object? createdAt = freezed,
-    Object? solfaEditingController = freezed,
+    Object? notes = freezed,
     Object? lyrics = freezed,
     Object? startAt = freezed,
     Object? endAt = freezed,
@@ -168,10 +158,10 @@ class __$$BardCopyWithImpl<$Res> extends _$BarCopyWithImpl<$Res>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      solfaEditingController: solfaEditingController == freezed
-          ? _value.solfaEditingController
-          : solfaEditingController // ignore: cast_nullable_to_non_nullable
-              as SolfaEditingController,
+      notes: notes == freezed
+          ? _value.notes
+          : notes // ignore: cast_nullable_to_non_nullable
+              as List<Note>,
       lyrics: lyrics == freezed
           ? _value.lyrics
           : lyrics // ignore: cast_nullable_to_non_nullable
@@ -206,8 +196,7 @@ class __$$BardCopyWithImpl<$Res> extends _$BarCopyWithImpl<$Res>
 class _$Bard extends Bard {
   _$Bard(
       {required this.createdAt,
-      @JsonKey(toJson: solfaEditingControllerToJson, fromJson: solfaEditingControllerFromJson)
-          required this.solfaEditingController,
+      required this.notes,
       this.lyrics = '',
       this.startAt,
       this.endAt,
@@ -221,10 +210,7 @@ class _$Bard extends Bard {
   @override
   DateTime createdAt;
   @override
-  @JsonKey(
-      toJson: solfaEditingControllerToJson,
-      fromJson: solfaEditingControllerFromJson)
-  SolfaEditingController solfaEditingController;
+  List<Note> notes;
   @override
   @JsonKey()
   String lyrics;
@@ -242,7 +228,7 @@ class _$Bard extends Bard {
 
   @override
   String toString() {
-    return 'Bar(createdAt: $createdAt, solfaEditingController: $solfaEditingController, lyrics: $lyrics, startAt: $startAt, endAt: $endAt, duration: $duration, intialScoreConfigNote: $intialScoreConfigNote, intialTrackConfigNote: $intialTrackConfigNote)';
+    return 'Bar(createdAt: $createdAt, notes: $notes, lyrics: $lyrics, startAt: $startAt, endAt: $endAt, duration: $duration, intialScoreConfigNote: $intialScoreConfigNote, intialTrackConfigNote: $intialTrackConfigNote)';
   }
 
   @JsonKey(ignore: true)
@@ -261,8 +247,7 @@ class _$Bard extends Bard {
 abstract class Bard extends Bar {
   factory Bard(
       {required DateTime createdAt,
-      @JsonKey(toJson: solfaEditingControllerToJson, fromJson: solfaEditingControllerFromJson)
-          required SolfaEditingController solfaEditingController,
+      required List<Note> notes,
       String lyrics,
       double? startAt,
       double? endAt,
@@ -277,14 +262,8 @@ abstract class Bard extends Bar {
   DateTime get createdAt;
   set createdAt(DateTime value);
   @override
-  @JsonKey(
-      toJson: solfaEditingControllerToJson,
-      fromJson: solfaEditingControllerFromJson)
-  SolfaEditingController get solfaEditingController;
-  @JsonKey(
-      toJson: solfaEditingControllerToJson,
-      fromJson: solfaEditingControllerFromJson)
-  set solfaEditingController(SolfaEditingController value);
+  List<Note> get notes;
+  set notes(List<Note> value);
   @override
   String get lyrics;
   set lyrics(String value);

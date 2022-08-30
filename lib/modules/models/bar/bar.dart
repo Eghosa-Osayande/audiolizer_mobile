@@ -1,5 +1,6 @@
 import 'dart:collection';
 
+import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:midi_util/midi_util.dart';
 import 'package:result_type/result_type.dart';
@@ -10,22 +11,22 @@ import 'package:solpha/modules/score_editor/ui/widgets/solfa_text_field/solfa_in
 part 'bar.freezed.dart';
 part 'bar.g.dart';
 
-List<Note> solfaEditingControllerToJson(SolfaEditingController value) {
-  return value.notes;
-}
+// List<Note> oJson(value) {
+//   return value.notes;
+// }
 
-SolfaEditingController solfaEditingControllerFromJson(dynamic value) {
-    List<Note> list = List.from(value.map((e)=>Note.fromJson(e)).toList());
-  return SolfaEditingController(list);
-}
+// romJson(dynamic value) {
+//     List<Note> list = List.from(value.map((e)=>Note.fromJson(e)).toList());
+//   return list);
+// }
 
 @unfreezed
-class Bar extends LinkedListEntry<Bar> with _$Bar {
+class Bar extends LinkedListEntry<Bar> with _$Bar, ChangeNotifier {
   Bar._();
   @JsonSerializable(explicitToJson: true)
   factory Bar({
     required DateTime createdAt,
-    @JsonKey(toJson: solfaEditingControllerToJson, fromJson: solfaEditingControllerFromJson) required SolfaEditingController solfaEditingController,
+    required List<Note> notes,
     @Default('') String lyrics,
     double? startAt,
     double? endAt,
@@ -43,12 +44,10 @@ class Bar extends LinkedListEntry<Bar> with _$Bar {
     return 0;
   }
 
-  List<Note> get notes => solfaEditingController.notes;
-
   List<Note> get notesForCommit => [
         intialScoreConfigNote!,
         intialTrackConfigNote!,
-        ...solfaEditingController.notes
+        ...notes
       ];
 
   Result<double, Note> computeNotes({
@@ -64,7 +63,6 @@ class Bar extends LinkedListEntry<Bar> with _$Bar {
 
     Note? errorNote;
 
-  
     for (var note in notesForCommit) {
       note.intialScoreConfigNote = intialScoreConfigNote;
       note.intialTrackConfigNote = intialTrackConfigNote;

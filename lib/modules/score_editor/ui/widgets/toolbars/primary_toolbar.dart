@@ -2,27 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:solpha/modules/models/score/score.dart';
-import 'package:solpha/modules/score_editor/cubit/current_track_index/current_track_index_cubit.dart';
 import 'package:solpha/modules/score_editor/cubit/score/score_cubit_cubit.dart';
-import 'package:solpha/modules/score_editor/cubit/toggle_edit_lyrics/toggle_can_see_lyrics_cubit.dart';
 import 'package:solpha/modules/score_editor/cubit/toggle_edit_play_mode/toggle_edit_play_mode_cubit.dart';
 import 'package:solpha/modules/score_editor/cubit/toggle_keyboard_visibility.dart/toggle_keyboard_visibility_cubit.dart';
-import 'package:solpha/modules/score_editor/ui/widgets/lyrics_input/lyrics_input.dart';
 
 class PrimaryToolbar extends StatelessWidget implements PreferredSizeWidget {
   const PrimaryToolbar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var lyricsViewCubit = context.watch<CanSeeLyricsCubit>();
-    return BlocBuilder<CurrentTrackIndexCubit, int>(
-      builder: (context, currentIndex) {
-        return BlocBuilder<ScoreCubit, ScoreCubitState>(
+   
+         return BlocBuilder<ScoreCubit, ScoreCubitState>(
           builder: (context, state) {
             var tracks = state.score.tracks;
             var noOfTracks = tracks.length;
             return AppBar(
-              title: Text('Track ${currentIndex + 1}'),
+              title: Text('Tracks'),
               actions: [
                 IconButton(
                   onPressed: () {
@@ -53,23 +48,7 @@ class PrimaryToolbar extends StatelessWidget implements PreferredSizeWidget {
                         child: ToolbarOption(title: 'Redo'),
                         onTap: () {},
                       ),
-                      PopupMenuItem(
-                        onTap: () {
-                          lyricsViewCubit.toggle();
-                        },
-                        child: BlocProvider.value(
-                          value: lyricsViewCubit,
-                          child: Builder(builder: (context) {
-                            return BlocBuilder<CanSeeLyricsCubit, LyricsViewMode>(
-                              builder: (context, state) {
-                                return ToolbarOption(
-                                  title: state.isVisible ? 'Hide lyrics' : 'Show Lyrics',
-                                );
-                              },
-                            );
-                          }),
-                        ),
-                      ),
+                      
                     ];
                   },
                   icon: Icon(
@@ -80,8 +59,7 @@ class PrimaryToolbar extends StatelessWidget implements PreferredSizeWidget {
             );
           },
         );
-      },
-    );
+    
   }
 
   @override

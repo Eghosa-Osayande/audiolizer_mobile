@@ -3,6 +3,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:midi_util/midi_util.dart';
+import 'package:solpha/modules/models/bar/bar.dart';
 import 'package:solpha/modules/models/bar/bars_linked_list.dart';
 import 'package:solpha/modules/models/notes/config_notes_x.dart';
 import 'package:solpha/modules/models/notes/note.dart';
@@ -181,7 +182,24 @@ class _CreateScorePageState extends State<CreateScorePage> {
                 trackNumber: 0,
                 volume: 100,
                 program: 48,
-                bars: BarsLinkedlist(),
+                bars: BarsLinkedlist([
+                  Bar(
+                    createdAt: DateTime.now().toUtc(),
+                    notes: [],
+                  )
+                ]),
+                intialScoreConfigNote: scoreConfigNote,
+              ),
+              Track(
+                trackNumber: 1,
+                volume: 100,
+                program: 0,
+                bars: BarsLinkedlist([
+                  Bar(
+                    createdAt: DateTime.now().toUtc(),
+                    notes: [],
+                  )
+                ]),
                 intialScoreConfigNote: scoreConfigNote,
               )
             ],
