@@ -25,10 +25,10 @@ class CreateScorePage extends StatefulWidget {
 
   static String path = '/createScore';
 
-  static Route<Score> route() {
+  static Route<Score> route({Score? score}) {
     return MaterialPageRoute<Score>(
       settings: RouteSettings(name: path),
-      builder: (_) => const CreateScorePage(),
+      builder: (_) => CreateScorePage(score: score),
     );
   }
 
@@ -167,17 +167,20 @@ class _CreateScorePageState extends State<CreateScorePage> {
           int trackNo = 0;
           List<Track> copiedTracks = [];
           for (var track in tracks) {
+            var copied = track.copyWith(
+              trackNumber: trackNo,
+            );
+            for (var bar in track) {
+              copied.add(bar.copyWith());
+            }
             copiedTracks.add(
-              track.copyWith(
-                trackNumber: trackNo,
-              ),
+              copied,
             );
             trackNo = trackNo + 1;
           }
-          widget.score!
-            ..clear()
-            ..addAll(copiedTracks);
-          widget.score?.save();
+          widget.score!.clear();
+          widget.score!.addAll(copiedTracks);
+          await widget.score?.save();
           Navigator.pop<Score>(context, widget.score);
         } else {
           // creating score
@@ -203,7 +206,7 @@ class _CreateScorePageState extends State<CreateScorePage> {
                   notes: [],
                 ),
               );
-           
+
             copiedTracks.add(
               copied,
             );

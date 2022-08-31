@@ -32,7 +32,7 @@ class ScoresRepo {
 
   Future<List<Score>> readAll() async {
     var box = await _getScoresBox();
-    return box.values.toList().reversed.toList();
+    return box.values.toList().reversed.toList()..sort((b, a) => a.updatedAt.compareTo(b.updatedAt),);
   }
 
   Future<Score> put(Score score) async {

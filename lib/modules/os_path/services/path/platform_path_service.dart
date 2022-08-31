@@ -1,3 +1,4 @@
+import 'package:file/file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:solpha/modules/app_services_controller/services_config.dart';
 
@@ -19,9 +20,10 @@ class PlatformPathService {
     return path;
   }
 
-  Future<String> getImportDirectory() async {
+  Future<String> getExportRootDirectory() async {
     var directory = await getApplicationDocumentsDirectory();
-    var path = directory.path+'/imports';
+    var path = directory.path + '/exports';
+    
     return path;
   }
 }
