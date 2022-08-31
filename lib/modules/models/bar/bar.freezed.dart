@@ -32,14 +32,6 @@ mixin _$Bar {
   set endAt(double? value) => throw _privateConstructorUsedError;
   double get duration => throw _privateConstructorUsedError;
   set duration(double value) => throw _privateConstructorUsedError;
-  ScoreConfigNote? get intialScoreConfigNote =>
-      throw _privateConstructorUsedError;
-  set intialScoreConfigNote(ScoreConfigNote? value) =>
-      throw _privateConstructorUsedError;
-  TrackConfigNote? get intialTrackConfigNote =>
-      throw _privateConstructorUsedError;
-  set intialTrackConfigNote(TrackConfigNote? value) =>
-      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -56,9 +48,7 @@ abstract class $BarCopyWith<$Res> {
       String lyrics,
       double? startAt,
       double? endAt,
-      double duration,
-      ScoreConfigNote? intialScoreConfigNote,
-      TrackConfigNote? intialTrackConfigNote});
+      double duration});
 }
 
 /// @nodoc
@@ -77,8 +67,6 @@ class _$BarCopyWithImpl<$Res> implements $BarCopyWith<$Res> {
     Object? startAt = freezed,
     Object? endAt = freezed,
     Object? duration = freezed,
-    Object? intialScoreConfigNote = freezed,
-    Object? intialTrackConfigNote = freezed,
   }) {
     return _then(_value.copyWith(
       createdAt: createdAt == freezed
@@ -105,14 +93,6 @@ class _$BarCopyWithImpl<$Res> implements $BarCopyWith<$Res> {
           ? _value.duration
           : duration // ignore: cast_nullable_to_non_nullable
               as double,
-      intialScoreConfigNote: intialScoreConfigNote == freezed
-          ? _value.intialScoreConfigNote
-          : intialScoreConfigNote // ignore: cast_nullable_to_non_nullable
-              as ScoreConfigNote?,
-      intialTrackConfigNote: intialTrackConfigNote == freezed
-          ? _value.intialTrackConfigNote
-          : intialTrackConfigNote // ignore: cast_nullable_to_non_nullable
-              as TrackConfigNote?,
     ));
   }
 }
@@ -128,9 +108,7 @@ abstract class _$$BardCopyWith<$Res> implements $BarCopyWith<$Res> {
       String lyrics,
       double? startAt,
       double? endAt,
-      double duration,
-      ScoreConfigNote? intialScoreConfigNote,
-      TrackConfigNote? intialTrackConfigNote});
+      double duration});
 }
 
 /// @nodoc
@@ -150,8 +128,6 @@ class __$$BardCopyWithImpl<$Res> extends _$BarCopyWithImpl<$Res>
     Object? startAt = freezed,
     Object? endAt = freezed,
     Object? duration = freezed,
-    Object? intialScoreConfigNote = freezed,
-    Object? intialTrackConfigNote = freezed,
   }) {
     return _then(_$Bard(
       createdAt: createdAt == freezed
@@ -178,14 +154,6 @@ class __$$BardCopyWithImpl<$Res> extends _$BarCopyWithImpl<$Res>
           ? _value.duration
           : duration // ignore: cast_nullable_to_non_nullable
               as double,
-      intialScoreConfigNote: intialScoreConfigNote == freezed
-          ? _value.intialScoreConfigNote
-          : intialScoreConfigNote // ignore: cast_nullable_to_non_nullable
-              as ScoreConfigNote?,
-      intialTrackConfigNote: intialTrackConfigNote == freezed
-          ? _value.intialTrackConfigNote
-          : intialTrackConfigNote // ignore: cast_nullable_to_non_nullable
-              as TrackConfigNote?,
     ));
   }
 }
@@ -200,9 +168,7 @@ class _$Bard extends Bard {
       this.lyrics = '',
       this.startAt,
       this.endAt,
-      this.duration = 0,
-      this.intialScoreConfigNote,
-      this.intialTrackConfigNote})
+      this.duration = 0})
       : super._();
 
   factory _$Bard.fromJson(Map<String, dynamic> json) => _$$BardFromJson(json);
@@ -221,14 +187,10 @@ class _$Bard extends Bard {
   @override
   @JsonKey()
   double duration;
-  @override
-  ScoreConfigNote? intialScoreConfigNote;
-  @override
-  TrackConfigNote? intialTrackConfigNote;
 
   @override
   String toString() {
-    return 'Bar(createdAt: $createdAt, notes: $notes, lyrics: $lyrics, startAt: $startAt, endAt: $endAt, duration: $duration, intialScoreConfigNote: $intialScoreConfigNote, intialTrackConfigNote: $intialTrackConfigNote)';
+    return 'Bar(createdAt: $createdAt, notes: $notes, lyrics: $lyrics, startAt: $startAt, endAt: $endAt, duration: $duration)';
   }
 
   @JsonKey(ignore: true)
@@ -251,9 +213,7 @@ abstract class Bard extends Bar {
       String lyrics,
       double? startAt,
       double? endAt,
-      double duration,
-      ScoreConfigNote? intialScoreConfigNote,
-      TrackConfigNote? intialTrackConfigNote}) = _$Bard;
+      double duration}) = _$Bard;
   Bard._() : super._();
 
   factory Bard.fromJson(Map<String, dynamic> json) = _$Bard.fromJson;
@@ -276,12 +236,6 @@ abstract class Bard extends Bar {
   @override
   double get duration;
   set duration(double value);
-  @override
-  ScoreConfigNote? get intialScoreConfigNote;
-  set intialScoreConfigNote(ScoreConfigNote? value);
-  @override
-  TrackConfigNote? get intialTrackConfigNote;
-  set intialTrackConfigNote(TrackConfigNote? value);
   @override
   @JsonKey(ignore: true)
   _$$BardCopyWith<_$Bard> get copyWith => throw _privateConstructorUsedError;

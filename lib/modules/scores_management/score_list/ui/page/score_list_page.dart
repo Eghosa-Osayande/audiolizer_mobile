@@ -3,7 +3,8 @@ import 'package:hive/hive.dart';
 import 'package:solpha/modules/models/score/score.dart';
 import 'package:solpha/modules/score_editor/ui/page/score_editor.dart';
 import 'package:solpha/modules/scores_management/repo/scores_repo.dart';
-import 'package:solpha/modules/scores_management/ui/page/manage_score_settings.dart';
+import 'package:solpha/modules/scores_management/manage_score_settings/ui/page/manage_score_settings.dart';
+import 'package:solpha/modules/scores_management/score_list/ui/widgets/score_tile.dart';
 
 class ScorelistPage extends StatelessWidget {
   const ScorelistPage({Key? key}) : super(key: key);
@@ -42,12 +43,8 @@ class ScorelistPage extends StatelessWidget {
             return ListView.builder(
               itemCount: data.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                  onTap: () {
-                    Navigator.of(context).push(ScoreEditorPage.route(data[index]));
-                  },
-                  title: Text('G'),
-                );
+                var score = data[index];
+                return ScoreListTile(score: score);
               },
             );
           }

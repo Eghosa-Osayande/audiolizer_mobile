@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:midi_util/midi_util.dart';
 import 'package:result_type/result_type.dart';
@@ -5,6 +6,8 @@ import 'package:solpha/modules/models/bar/bar.dart';
 import 'package:solpha/modules/models/notes/enums/duration_markers.dart';
 import 'package:solpha/modules/models/notes/enums/solfege.dart';
 import 'package:solpha/modules/models/notes/note.dart';
+import 'package:solpha/modules/models/score/score.dart';
+import 'package:solpha/modules/models/track/enums/midi_program.dart';
 import 'package:solpha/modules/score_editor/ui/widgets/solfa_text_field/solfa_input_controller.dart';
 import 'dart:collection';
 
@@ -13,17 +16,15 @@ import '../bar/bars_linked_list.dart';
 part 'track.freezed.dart';
 // part 'track.g.dart';
 
-
-
 @unfreezed
-class Track extends LinkedList<Bar> with _$Track {
-   Track._();
+class Track extends LinkedList<Bar> with _$Track, LinkedListEntry<Track>, EquatableMixin {
+  Track._();
 
   factory Track({
     required int trackNumber,
     required int volume,
-    required int program,
-    required ScoreConfigNote intialScoreConfigNote,
+    required MidiProgram program,
+    required String name,
   }) = _Track;
 
   // factory Track.fromJson(Map<String, dynamic> json) => _$TrackFromJson(json);
@@ -32,29 +33,25 @@ class Track extends LinkedList<Bar> with _$Track {
     var track = Track(
       trackNumber: json['trackNumber'] as int,
       volume: json['volume'] as int,
-      program: json['program'] as int,
-      intialScoreConfigNote: ScoreConfigNote.fromJson(json['intialScoreConfigNote'] as Map<String, dynamic>),
+      program: MidiProgram.values[json['program'] as int],
+      name: json['name'] as String,
     );
-    List<Bar> bars = List.from((json['bars'] as List).map((e) => Bar.fromJson(e)).toList() );
+    List<Bar> bars = List.from((json['bars'] as List).map((e) => Bar.fromJson(e)).toList());
     track.addAll(bars);
     return track;
   }
 
   Map<String, dynamic> toJson() => <String, dynamic>{
+        'name': name,
         'trackNumber': trackNumber,
         'volume': volume,
-        'program': program,
+        'program': program.index,
         'bars': this.toList(),
-        'intialScoreConfigNote': intialScoreConfigNote.toJson(),
       };
 
   LinkedList<Bar> get bars => this;
 
-  TrackConfigNote get intialTrackConfigNote => TrackConfigNote(
-        volume,
-        program,
-        createdAt: DateTime.now().toUtc(),
-      );
+  Score get score => this.list as Score;
 
   List<Note> get notes => [
         ...(bars.fold<List<Note>>(
@@ -66,12 +63,6 @@ class Track extends LinkedList<Bar> with _$Track {
         ))
       ];
 
-  List<Note> get notesForCommit => [
-        intialScoreConfigNote,
-        intialTrackConfigNote,
-        ...notes
-      ];
-
   double get trackLengthInBeats {
     if (notes.isNotEmpty) {
       return notes.last.endAt ?? 0;
@@ -80,13 +71,7 @@ class Track extends LinkedList<Bar> with _$Track {
   }
 
   void addMetronemeTrack(MIDIFile midiFile) {
-    var metro = Track(
-      trackNumber: 5,
-      program: 115,
-      volume: 100,
-      intialScoreConfigNote: intialScoreConfigNote,
-    
-    );
+    var metro = Track(trackNumber: 5, program: MidiProgram.gong, volume: 100, name: 'met');
     metro.notes.add(
       DurationNote(
         marker: DurationMarker.full,
@@ -118,8 +103,6 @@ class Track extends LinkedList<Bar> with _$Track {
 
     for (var bar in bars) {
       var result = bar.computeNotes(
-        intialScoreConfigNoteX: intialScoreConfigNote,
-        intialTrackConfigNoteX: intialTrackConfigNote,
         accumulatedTime: accumulatedTime,
       );
       if (result.isFailure) {
@@ -133,11 +116,40 @@ class Track extends LinkedList<Bar> with _$Track {
   }
 
   Future<void> commit(MIDIFile midiFile) async {
+    midiFile.addTempo(
+      track: trackNumber,
+      time: 0,
+      tempo: score.bpm,
+    );
+    midiFile.addTimeSignature(
+      track: trackNumber,
+      time: 0,
+      numerator: score.timeSignature.numerator,
+      denominator: score.timeSignature.denominator,
+      clocks_per_tick: 24,
+    );
+    midiFile.addKeySignature(
+      track: trackNumber,
+      time: 0,
+      no_of_accidentals: score.keySignature.accidentalCount,
+      accidental_mode: score.keySignature.accidentalMode,
+      accidental_type: score.keySignature.accidentalType,
+    );
+    midiFile.addProgramChange(
+      tracknum: trackNumber,
+      channel: trackNumber,
+      time: 0,
+      program: program.value,
+    );
+   
     for (var bar in bars) {
       await bar.commit(this, midiFile);
     }
-    // for (var note in notesForCommit) {
-    //   await note.commit(this, midiFile);
-    // }
   }
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+  @override
+  bool? get stringify => true;
 }

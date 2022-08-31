@@ -42,7 +42,7 @@ class _TrackScaffoldState extends State<TrackScaffold> {
                             var bars = List.generate(
                               tracks.length,
                               (trackIndex) {
-                                var bar = tracks[trackIndex].bars.toList()[barIndex];
+                                var bar = tracks.toList()[trackIndex].bars.toList()[barIndex];
                                 return bar;
                               },
                             );

@@ -20,12 +20,10 @@ mixin _$Track {
   set trackNumber(int value) => throw _privateConstructorUsedError;
   int get volume => throw _privateConstructorUsedError;
   set volume(int value) => throw _privateConstructorUsedError;
-  int get program => throw _privateConstructorUsedError;
-  set program(int value) => throw _privateConstructorUsedError;
-  ScoreConfigNote get intialScoreConfigNote =>
-      throw _privateConstructorUsedError;
-  set intialScoreConfigNote(ScoreConfigNote value) =>
-      throw _privateConstructorUsedError;
+  MidiProgram get program => throw _privateConstructorUsedError;
+  set program(MidiProgram value) => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
+  set name(String value) => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $TrackCopyWith<Track> get copyWith => throw _privateConstructorUsedError;
@@ -35,11 +33,7 @@ mixin _$Track {
 abstract class $TrackCopyWith<$Res> {
   factory $TrackCopyWith(Track value, $Res Function(Track) then) =
       _$TrackCopyWithImpl<$Res>;
-  $Res call(
-      {int trackNumber,
-      int volume,
-      int program,
-      ScoreConfigNote intialScoreConfigNote});
+  $Res call({int trackNumber, int volume, MidiProgram program, String name});
 }
 
 /// @nodoc
@@ -55,7 +49,7 @@ class _$TrackCopyWithImpl<$Res> implements $TrackCopyWith<$Res> {
     Object? trackNumber = freezed,
     Object? volume = freezed,
     Object? program = freezed,
-    Object? intialScoreConfigNote = freezed,
+    Object? name = freezed,
   }) {
     return _then(_value.copyWith(
       trackNumber: trackNumber == freezed
@@ -69,11 +63,11 @@ class _$TrackCopyWithImpl<$Res> implements $TrackCopyWith<$Res> {
       program: program == freezed
           ? _value.program
           : program // ignore: cast_nullable_to_non_nullable
-              as int,
-      intialScoreConfigNote: intialScoreConfigNote == freezed
-          ? _value.intialScoreConfigNote
-          : intialScoreConfigNote // ignore: cast_nullable_to_non_nullable
-              as ScoreConfigNote,
+              as MidiProgram,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -83,11 +77,7 @@ abstract class _$$_TrackCopyWith<$Res> implements $TrackCopyWith<$Res> {
   factory _$$_TrackCopyWith(_$_Track value, $Res Function(_$_Track) then) =
       __$$_TrackCopyWithImpl<$Res>;
   @override
-  $Res call(
-      {int trackNumber,
-      int volume,
-      int program,
-      ScoreConfigNote intialScoreConfigNote});
+  $Res call({int trackNumber, int volume, MidiProgram program, String name});
 }
 
 /// @nodoc
@@ -104,7 +94,7 @@ class __$$_TrackCopyWithImpl<$Res> extends _$TrackCopyWithImpl<$Res>
     Object? trackNumber = freezed,
     Object? volume = freezed,
     Object? program = freezed,
-    Object? intialScoreConfigNote = freezed,
+    Object? name = freezed,
   }) {
     return _then(_$_Track(
       trackNumber: trackNumber == freezed
@@ -118,11 +108,11 @@ class __$$_TrackCopyWithImpl<$Res> extends _$TrackCopyWithImpl<$Res>
       program: program == freezed
           ? _value.program
           : program // ignore: cast_nullable_to_non_nullable
-              as int,
-      intialScoreConfigNote: intialScoreConfigNote == freezed
-          ? _value.intialScoreConfigNote
-          : intialScoreConfigNote // ignore: cast_nullable_to_non_nullable
-              as ScoreConfigNote,
+              as MidiProgram,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -134,7 +124,7 @@ class _$_Track extends _Track {
       {required this.trackNumber,
       required this.volume,
       required this.program,
-      required this.intialScoreConfigNote})
+      required this.name})
       : super._();
 
   @override
@@ -142,9 +132,9 @@ class _$_Track extends _Track {
   @override
   int volume;
   @override
-  int program;
+  MidiProgram program;
   @override
-  ScoreConfigNote intialScoreConfigNote;
+  String name;
 
   @JsonKey(ignore: true)
   @override
@@ -156,8 +146,8 @@ abstract class _Track extends Track {
   factory _Track(
       {required int trackNumber,
       required int volume,
-      required int program,
-      required ScoreConfigNote intialScoreConfigNote}) = _$_Track;
+      required MidiProgram program,
+      required String name}) = _$_Track;
   _Track._() : super._();
 
   @override
@@ -167,11 +157,11 @@ abstract class _Track extends Track {
   int get volume;
   set volume(int value);
   @override
-  int get program;
-  set program(int value);
+  MidiProgram get program;
+  set program(MidiProgram value);
   @override
-  ScoreConfigNote get intialScoreConfigNote;
-  set intialScoreConfigNote(ScoreConfigNote value);
+  String get name;
+  set name(String value);
   @override
   @JsonKey(ignore: true)
   _$$_TrackCopyWith<_$_Track> get copyWith =>

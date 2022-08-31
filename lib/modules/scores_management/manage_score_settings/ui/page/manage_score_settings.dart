@@ -7,11 +7,14 @@ import 'package:solpha/modules/models/bar/bar.dart';
 import 'package:solpha/modules/models/bar/bars_linked_list.dart';
 import 'package:solpha/modules/models/notes/config_notes_x.dart';
 import 'package:solpha/modules/models/notes/note.dart';
-import 'package:solpha/modules/models/score/key_signature.dart';
+import 'package:solpha/modules/models/score/enums/key_signature.dart';
 import 'package:solpha/modules/models/score/score.dart';
-import 'package:solpha/modules/models/score/time_signature.dart';
+import 'package:solpha/modules/models/score/enums/time_signature.dart';
+import 'package:solpha/modules/models/track/enums/midi_program.dart';
 import 'package:solpha/modules/models/track/track.dart';
+import 'package:solpha/modules/scores_management/manage_score_settings/ui/widgets/tracks_manager.dart';
 import 'package:solpha/modules/scores_management/repo/scores_repo.dart';
+import 'package:solpha/modules/themes/constants.dart';
 
 class CreateScorePage extends StatefulWidget {
   final Score? score;
@@ -38,11 +41,12 @@ class _CreateScorePageState extends State<CreateScorePage> {
 
   @override
   Widget build(BuildContext context) {
-    ScoreConfigNote? config = widget.score?.intialConfigNote;
+    var score = widget.score;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.score == null ? 'New Project' : widget.score!.intialConfigNote.scoreTitle,
+          widget.score == null ? 'New Project' : widget.score!.scoreTitle,
         ),
         actions: [
           TextButton(onPressed: onDone, child: Text('DONE'))
@@ -54,20 +58,19 @@ class _CreateScorePageState extends State<CreateScorePage> {
           padding: EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             children: [
+              kGap14,
               FormBuilderTextField(
                 name: 'title',
-                autofocus: true,
-                initialValue: config?.scoreTitle,
+                initialValue: score?.scoreTitle,
                 validator: FormBuilderValidators.compose([
                   FormBuilderValidators.required(),
                 ]),
-                decoration: InputDecoration(
-                  label: Text('Title'),
-                ),
+                decoration: InputDecoration(label: Text('Title'), contentPadding: kNewProjectContentPadding, border: kNewProjectInputBorder),
                 style: GoogleFonts.inter(fontSize: 16),
                 keyboardType: TextInputType.name,
                 textInputAction: TextInputAction.next,
               ),
+              kGap14,
               FormBuilderTextField(
                 name: 'bpm',
                 validator: FormBuilderValidators.compose<String>([
@@ -79,24 +82,20 @@ class _CreateScorePageState extends State<CreateScorePage> {
                     }
                   }
                 ]),
-                decoration: InputDecoration(
-                  hintText: 'eg. 120 BPM',
-                  label: Text('Tempo'),
-                ),
-                initialValue: config?.bpm.toString(),
+                decoration: InputDecoration(hintText: 'eg. 120 BPM', label: Text('Tempo'), contentPadding: kNewProjectContentPadding, border: kNewProjectInputBorder),
+                initialValue: score?.bpm.toString(),
                 keyboardType: TextInputType.number,
                 textInputAction: TextInputAction.next,
               ),
+              kGap14,
               FormBuilderDropdown<KeySignature>(
                 name: 'key',
                 isDense: false,
-                initialValue: config?.keySignature,
+                initialValue: score?.keySignature,
                 validator: FormBuilderValidators.compose([
                   FormBuilderValidators.required(),
                 ]),
-                decoration: InputDecoration(
-                  label: Text('Select Key Signature'),
-                ),
+                decoration: InputDecoration(label: Text('Select Key Signature'), contentPadding: kNewProjectContentPadding, border: kNewProjectInputBorder),
                 items: KeySignature.values.map((sign) {
                   return DropdownMenuItem<KeySignature>(
                       value: sign,
@@ -105,17 +104,15 @@ class _CreateScorePageState extends State<CreateScorePage> {
                       ));
                 }).toList(),
               ),
+              kGap14,
               FormBuilderDropdown<int>(
                 name: 'pitch',
                 isDense: false,
-                initialValue: config?.tonicPitchNumber,
+                initialValue: score?.tonicPitchNumber,
                 validator: FormBuilderValidators.compose([
                   FormBuilderValidators.required(),
                 ]),
-                decoration: InputDecoration(
-                  hintText: 'eg. 3, doh is G3',
-                  label: Text('Tonic Pitch'),
-                ),
+                decoration: InputDecoration(hintText: 'eg. 3, doh is G3', label: Text('Tonic Pitch'), contentPadding: kNewProjectContentPadding, border: kNewProjectInputBorder),
                 items: List.generate(10, (index) {
                   return DropdownMenuItem<int>(
                       value: index,
@@ -124,16 +121,15 @@ class _CreateScorePageState extends State<CreateScorePage> {
                       ));
                 }),
               ),
+              kGap14,
               FormBuilderDropdown<TimeSignature>(
                 name: 'time',
                 isDense: false,
-                initialValue: config?.timeSignature,
+                initialValue: score?.timeSignature,
                 validator: FormBuilderValidators.compose([
                   FormBuilderValidators.required(),
                 ]),
-                decoration: InputDecoration(
-                  label: Text('Select Time Signature'),
-                ),
+                decoration: InputDecoration(label: Text('Select Time Signature'), contentPadding: kNewProjectContentPadding, border: kNewProjectInputBorder),
                 items: TimeSignature.values.map((sign) {
                   return DropdownMenuItem<TimeSignature>(
                       value: sign,
@@ -142,6 +138,8 @@ class _CreateScorePageState extends State<CreateScorePage> {
                       ));
                 }).toList(),
               ),
+              kGap14,
+              TracksManager(score: score),
             ],
           ),
         ),
@@ -151,59 +149,71 @@ class _CreateScorePageState extends State<CreateScorePage> {
 
   void onDone() async {
     var isValidated = formKey.currentState?.saveAndValidate();
+    print('is validated $isValidated');
     if (isValidated == true) {
       var value = formKey.currentState?.value;
       if (value != null) {
         if (widget.score != null) {
-          widget.score!.intialConfigNote = ScoreConfigNote(
-            bpm: int.parse(value['bpm']),
-            timeSignature: value['time'],
-            keySignature: value['key'],
-            scoreTitle: value['title'],
-            tonicPitchNumber: value['pitch'],
-            createdAt: DateTime.now().toUtc(),
-          );
+          // updating score
+          widget.score!
+            ..bpm = int.parse(value['bpm'])
+            ..timeSignature = value['time']
+            ..keySignature = value['key']
+            ..scoreTitle = value['title']
+            ..tonicPitchNumber = value['pitch']
+            ..updatedAt = DateTime.now().toUtc();
+          var tracks = (formKey.currentState?.value['tracks'] as List<Track>);
+
+          int trackNo = 0;
+          List<Track> copiedTracks = [];
+          for (var track in tracks) {
+            copiedTracks.add(
+              track.copyWith(
+                trackNumber: trackNo,
+              ),
+            );
+            trackNo = trackNo + 1;
+          }
+          widget.score!
+            ..clear()
+            ..addAll(copiedTracks);
           widget.score?.save();
           Navigator.pop<Score>(context, widget.score);
         } else {
-          var scoreConfigNote = ScoreConfigNote(
+          // creating score
+
+          var newlyCreatedScore = Score(
             bpm: int.parse(value['bpm']),
             timeSignature: value['time'],
             keySignature: value['key'],
             scoreTitle: value['title'],
             tonicPitchNumber: value['pitch'],
-            createdAt: DateTime.now().toUtc(),
+            updatedAt: DateTime.now().toUtc(),
           );
-          var score = Score(
-            midiFile: MIDIFile(),
-            intialConfigNote: scoreConfigNote,
-            tracks: [
-              Track(
-                trackNumber: 0,
-                volume: 100,
-                program: 48,
-                intialScoreConfigNote: scoreConfigNote,
-              )..add(
-                  Bar(
-                    createdAt: DateTime.now().toUtc(),
-                    notes: [],
-                  ),
+          var tracks = (formKey.currentState?.value['tracks'] as List<Track>);
+
+          int trackNo = 0;
+          List<Track> copiedTracks = [];
+          for (var track in tracks) {
+            var copied = track.copyWith(
+              trackNumber: trackNo,
+            )..add(
+                Bar(
+                  createdAt: DateTime.now().toUtc(),
+                  notes: [],
                 ),
-              Track(
-                trackNumber: 1,
-                volume: 100,
-                program: 0,
-                intialScoreConfigNote: scoreConfigNote,
-              )..add(
-                  Bar(
-                    createdAt: DateTime.now().toUtc(),
-                    notes: [],
-                  ),
-                )
-            ],
-          );
-          await ScoresRepo.instance.put(score);
-          Navigator.pop<Score>(context, score);
+              );
+           
+            copiedTracks.add(
+              copied,
+            );
+            trackNo = trackNo + 1;
+          }
+
+          newlyCreatedScore.addAll(copiedTracks);
+          // print(newlyCreatedScore.length);
+          await ScoresRepo.instance.put(newlyCreatedScore);
+          Navigator.pop<Score>(context, newlyCreatedScore);
         }
       }
     }

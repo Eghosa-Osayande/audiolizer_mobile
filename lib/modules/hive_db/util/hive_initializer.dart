@@ -10,9 +10,9 @@ import 'package:solpha/modules/models/bar/bars_linked_list.dart';
 import 'package:solpha/modules/models/notes/enums/duration_markers.dart';
 import 'package:solpha/modules/models/notes/enums/solfege.dart';
 import 'package:solpha/modules/models/notes/note.dart';
-import 'package:solpha/modules/models/score/key_signature.dart';
+import 'package:solpha/modules/models/score/enums/key_signature.dart';
 import 'package:solpha/modules/models/score/score.dart';
-import 'package:solpha/modules/models/score/time_signature.dart';
+import 'package:solpha/modules/models/score/enums/time_signature.dart';
 import 'package:solpha/modules/models/track/track.dart';
 import 'package:solpha/modules/os_path/services/path/platform_path_service.dart';
 
@@ -21,7 +21,7 @@ class HiveInitializer {
     if (kIsWeb) {
     } else {
       String path = await PlatformPathService.instance.getHiveDirectory();
-      Hive.init(path+'/d');
+      Hive.init(path + '/ab2');
     }
 
     // await Hive.deleteFromDisk();
@@ -31,6 +31,7 @@ class HiveInitializer {
         typeId: 1,
       ),
     );
+    
     Hive.registerAdapter(
       FromJsonTypeAdapter(
         createObject: (json) => Score.fromJson(json),
@@ -61,18 +62,7 @@ class HiveInitializer {
         typeId: 7,
       ),
     );
-    Hive.registerAdapter(
-      FromJsonTypeAdapter(
-        createObject: (json) => ScoreConfigNote.fromJson(json),
-        typeId: 8,
-      ),
-    );
-    Hive.registerAdapter(
-      FromJsonTypeAdapter(
-        createObject: (json) => TrackConfigNote.fromJson(json),
-        typeId: 9,
-      ),
-    );
+
     Hive.registerAdapter(
       FromJsonTypeAdapter(
         createObject: (json) => WhiteSpaceNote.fromJson(json),
@@ -90,6 +80,11 @@ class HiveInitializer {
     );
     Hive.registerAdapter(
       EnumTypeAdapter(typeId: 14, values: Solfege.values),
+    );
+    Hive.registerAdapter(
+      LinkedListAdapter<Track, LinkedList<Track>>(
+        typeId: 15,
+      ),
     );
   }
 }

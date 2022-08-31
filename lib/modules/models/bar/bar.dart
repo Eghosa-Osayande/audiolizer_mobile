@@ -31,8 +31,6 @@ class Bar extends LinkedListEntry<Bar> with _$Bar, ChangeNotifier {
     double? startAt,
     double? endAt,
     @Default(0) double duration,
-    ScoreConfigNote? intialScoreConfigNote,
-    TrackConfigNote? intialTrackConfigNote,
   }) = Bard;
 
   factory Bar.fromJson(Map<String, dynamic> json) => _$BarFromJson(json);
@@ -44,28 +42,23 @@ class Bar extends LinkedListEntry<Bar> with _$Bar, ChangeNotifier {
     return 0;
   }
 
-  List<Note> get notesForCommit => [
-        intialScoreConfigNote!,
-        intialTrackConfigNote!,
-        ...notes
-      ];
+
 
   Result<double, Note> computeNotes({
-    required ScoreConfigNote intialScoreConfigNoteX,
-    required TrackConfigNote intialTrackConfigNoteX,
+    
+  
     required double accumulatedTime,
   }) {
-    intialScoreConfigNote = intialScoreConfigNoteX;
-    intialTrackConfigNote = intialTrackConfigNoteX;
+    // intialScoreConfigNote = intialScoreConfigNoteX;
+  
 
     DurationNote? start, end;
     MusicNote? previousNote, mid;
 
     Note? errorNote;
 
-    for (var note in notesForCommit) {
-      note.intialScoreConfigNote = intialScoreConfigNote;
-      note.intialTrackConfigNote = intialTrackConfigNote;
+    for (var note in notes) {
+      
       if ((note.isDuration) || (note.isMusic)) {
         if (start == null) {
           if (note.isDuration) {
@@ -142,7 +135,7 @@ class Bar extends LinkedListEntry<Bar> with _$Bar, ChangeNotifier {
   }
 
   Future<void> commit(Track track, MIDIFile midiFile) async {
-    for (var note in notesForCommit) {
+    for (var note in notes) {
       await note.commit(track, midiFile);
     }
   }

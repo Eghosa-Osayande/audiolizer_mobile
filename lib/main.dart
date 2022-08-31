@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:form_builder_validators/localization/l10n.dart';
 import 'package:solpha/modules/hive_db/util/hive_initializer.dart';
-import 'package:solpha/modules/scores_management/ui/page/score_list_page.dart';
+import 'package:solpha/modules/scores_management/score_list/ui/page/score_list_page.dart';
 
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();

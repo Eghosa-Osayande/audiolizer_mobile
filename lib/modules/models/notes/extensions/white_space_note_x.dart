@@ -1,4 +1,4 @@
-part of 'note.dart';
+part of '../note.dart';
 extension WhiteSpaceNoteX on WhiteSpaceNote {
   
 

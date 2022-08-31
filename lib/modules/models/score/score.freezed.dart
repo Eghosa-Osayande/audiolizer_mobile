@@ -16,13 +16,20 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$Score {
-  ScoreConfigNote get intialConfigNote => throw _privateConstructorUsedError;
-  set intialConfigNote(ScoreConfigNote value) =>
-      throw _privateConstructorUsedError;
-  List<Track> get tracks => throw _privateConstructorUsedError;
-  set tracks(List<Track> value) => throw _privateConstructorUsedError;
-  MIDIFile get midiFile => throw _privateConstructorUsedError;
-  set midiFile(MIDIFile value) => throw _privateConstructorUsedError;
+  int get bpm => throw _privateConstructorUsedError;
+  set bpm(int value) => throw _privateConstructorUsedError;
+  TimeSignature get timeSignature => throw _privateConstructorUsedError;
+  set timeSignature(TimeSignature value) => throw _privateConstructorUsedError;
+  KeySignature get keySignature => throw _privateConstructorUsedError;
+  set keySignature(KeySignature value) => throw _privateConstructorUsedError;
+  int get tonicPitchNumber => throw _privateConstructorUsedError;
+  set tonicPitchNumber(int value) => throw _privateConstructorUsedError;
+  String get scoreTitle => throw _privateConstructorUsedError;
+  set scoreTitle(String value) => throw _privateConstructorUsedError;
+  DateTime get updatedAt => throw _privateConstructorUsedError;
+  set updatedAt(DateTime value) => throw _privateConstructorUsedError;
+  MIDIFile? get midiFile => throw _privateConstructorUsedError;
+  set midiFile(MIDIFile? value) => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ScoreCopyWith<Score> get copyWith => throw _privateConstructorUsedError;
@@ -33,9 +40,13 @@ abstract class $ScoreCopyWith<$Res> {
   factory $ScoreCopyWith(Score value, $Res Function(Score) then) =
       _$ScoreCopyWithImpl<$Res>;
   $Res call(
-      {ScoreConfigNote intialConfigNote,
-      List<Track> tracks,
-      MIDIFile midiFile});
+      {int bpm,
+      TimeSignature timeSignature,
+      KeySignature keySignature,
+      int tonicPitchNumber,
+      String scoreTitle,
+      DateTime updatedAt,
+      MIDIFile? midiFile});
 }
 
 /// @nodoc
@@ -48,23 +59,43 @@ class _$ScoreCopyWithImpl<$Res> implements $ScoreCopyWith<$Res> {
 
   @override
   $Res call({
-    Object? intialConfigNote = freezed,
-    Object? tracks = freezed,
+    Object? bpm = freezed,
+    Object? timeSignature = freezed,
+    Object? keySignature = freezed,
+    Object? tonicPitchNumber = freezed,
+    Object? scoreTitle = freezed,
+    Object? updatedAt = freezed,
     Object? midiFile = freezed,
   }) {
     return _then(_value.copyWith(
-      intialConfigNote: intialConfigNote == freezed
-          ? _value.intialConfigNote
-          : intialConfigNote // ignore: cast_nullable_to_non_nullable
-              as ScoreConfigNote,
-      tracks: tracks == freezed
-          ? _value.tracks
-          : tracks // ignore: cast_nullable_to_non_nullable
-              as List<Track>,
+      bpm: bpm == freezed
+          ? _value.bpm
+          : bpm // ignore: cast_nullable_to_non_nullable
+              as int,
+      timeSignature: timeSignature == freezed
+          ? _value.timeSignature
+          : timeSignature // ignore: cast_nullable_to_non_nullable
+              as TimeSignature,
+      keySignature: keySignature == freezed
+          ? _value.keySignature
+          : keySignature // ignore: cast_nullable_to_non_nullable
+              as KeySignature,
+      tonicPitchNumber: tonicPitchNumber == freezed
+          ? _value.tonicPitchNumber
+          : tonicPitchNumber // ignore: cast_nullable_to_non_nullable
+              as int,
+      scoreTitle: scoreTitle == freezed
+          ? _value.scoreTitle
+          : scoreTitle // ignore: cast_nullable_to_non_nullable
+              as String,
+      updatedAt: updatedAt == freezed
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       midiFile: midiFile == freezed
           ? _value.midiFile
           : midiFile // ignore: cast_nullable_to_non_nullable
-              as MIDIFile,
+              as MIDIFile?,
     ));
   }
 }
@@ -75,9 +106,13 @@ abstract class _$$_ScoreCopyWith<$Res> implements $ScoreCopyWith<$Res> {
       __$$_ScoreCopyWithImpl<$Res>;
   @override
   $Res call(
-      {ScoreConfigNote intialConfigNote,
-      List<Track> tracks,
-      MIDIFile midiFile});
+      {int bpm,
+      TimeSignature timeSignature,
+      KeySignature keySignature,
+      int tonicPitchNumber,
+      String scoreTitle,
+      DateTime updatedAt,
+      MIDIFile? midiFile});
 }
 
 /// @nodoc
@@ -91,23 +126,43 @@ class __$$_ScoreCopyWithImpl<$Res> extends _$ScoreCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? intialConfigNote = freezed,
-    Object? tracks = freezed,
+    Object? bpm = freezed,
+    Object? timeSignature = freezed,
+    Object? keySignature = freezed,
+    Object? tonicPitchNumber = freezed,
+    Object? scoreTitle = freezed,
+    Object? updatedAt = freezed,
     Object? midiFile = freezed,
   }) {
     return _then(_$_Score(
-      intialConfigNote: intialConfigNote == freezed
-          ? _value.intialConfigNote
-          : intialConfigNote // ignore: cast_nullable_to_non_nullable
-              as ScoreConfigNote,
-      tracks: tracks == freezed
-          ? _value.tracks
-          : tracks // ignore: cast_nullable_to_non_nullable
-              as List<Track>,
+      bpm: bpm == freezed
+          ? _value.bpm
+          : bpm // ignore: cast_nullable_to_non_nullable
+              as int,
+      timeSignature: timeSignature == freezed
+          ? _value.timeSignature
+          : timeSignature // ignore: cast_nullable_to_non_nullable
+              as TimeSignature,
+      keySignature: keySignature == freezed
+          ? _value.keySignature
+          : keySignature // ignore: cast_nullable_to_non_nullable
+              as KeySignature,
+      tonicPitchNumber: tonicPitchNumber == freezed
+          ? _value.tonicPitchNumber
+          : tonicPitchNumber // ignore: cast_nullable_to_non_nullable
+              as int,
+      scoreTitle: scoreTitle == freezed
+          ? _value.scoreTitle
+          : scoreTitle // ignore: cast_nullable_to_non_nullable
+              as String,
+      updatedAt: updatedAt == freezed
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       midiFile: midiFile == freezed
           ? _value.midiFile
           : midiFile // ignore: cast_nullable_to_non_nullable
-              as MIDIFile,
+              as MIDIFile?,
     ));
   }
 }
@@ -116,22 +171,29 @@ class __$$_ScoreCopyWithImpl<$Res> extends _$ScoreCopyWithImpl<$Res>
 
 class _$_Score extends _Score {
   _$_Score(
-      {required this.intialConfigNote,
-      required this.tracks,
-      required this.midiFile})
+      {required this.bpm,
+      required this.timeSignature,
+      required this.keySignature,
+      required this.tonicPitchNumber,
+      required this.scoreTitle,
+      required this.updatedAt,
+      this.midiFile})
       : super._();
 
   @override
-  ScoreConfigNote intialConfigNote;
+  int bpm;
   @override
-  List<Track> tracks;
+  TimeSignature timeSignature;
   @override
-  MIDIFile midiFile;
-
+  KeySignature keySignature;
   @override
-  String toString() {
-    return 'Score(intialConfigNote: $intialConfigNote, tracks: $tracks, midiFile: $midiFile)';
-  }
+  int tonicPitchNumber;
+  @override
+  String scoreTitle;
+  @override
+  DateTime updatedAt;
+  @override
+  MIDIFile? midiFile;
 
   @JsonKey(ignore: true)
   @override
@@ -141,20 +203,36 @@ class _$_Score extends _Score {
 
 abstract class _Score extends Score {
   factory _Score(
-      {required ScoreConfigNote intialConfigNote,
-      required List<Track> tracks,
-      required MIDIFile midiFile}) = _$_Score;
+      {required int bpm,
+      required TimeSignature timeSignature,
+      required KeySignature keySignature,
+      required int tonicPitchNumber,
+      required String scoreTitle,
+      required DateTime updatedAt,
+      MIDIFile? midiFile}) = _$_Score;
   _Score._() : super._();
 
   @override
-  ScoreConfigNote get intialConfigNote;
-  set intialConfigNote(ScoreConfigNote value);
+  int get bpm;
+  set bpm(int value);
   @override
-  List<Track> get tracks;
-  set tracks(List<Track> value);
+  TimeSignature get timeSignature;
+  set timeSignature(TimeSignature value);
   @override
-  MIDIFile get midiFile;
-  set midiFile(MIDIFile value);
+  KeySignature get keySignature;
+  set keySignature(KeySignature value);
+  @override
+  int get tonicPitchNumber;
+  set tonicPitchNumber(int value);
+  @override
+  String get scoreTitle;
+  set scoreTitle(String value);
+  @override
+  DateTime get updatedAt;
+  set updatedAt(DateTime value);
+  @override
+  MIDIFile? get midiFile;
+  set midiFile(MIDIFile? value);
   @override
   @JsonKey(ignore: true)
   _$$_ScoreCopyWith<_$_Score> get copyWith =>

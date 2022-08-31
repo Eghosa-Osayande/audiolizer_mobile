@@ -9,15 +9,14 @@ import 'package:solpha/modules/exceptions/exceptions.dart';
 import 'package:solpha/modules/models/notes/config_notes_x.dart';
 import 'package:solpha/modules/models/notes/enums/duration_markers.dart';
 import 'package:solpha/modules/models/notes/enums/solfege.dart';
-import 'package:solpha/modules/models/score/key_signature.dart';
-import 'package:solpha/modules/models/score/time_signature.dart';
+import 'package:solpha/modules/models/score/enums/key_signature.dart';
+import 'package:solpha/modules/models/score/score.dart';
+import 'package:solpha/modules/models/score/enums/time_signature.dart';
 import 'package:solpha/modules/models/track/track.dart';
 
-part 'duration_note_x.dart';
-part 'music_note_x.dart';
-part 'score_config_note.dart';
-part 'track_config_note.dart';
-part 'white_space_note.dart';
+part 'extensions/duration_note_x.dart';
+part 'extensions/music_note_x.dart';
+part 'extensions/white_space_note_x.dart';
 
 part 'note.freezed.dart';
 part 'note.g.dart';
@@ -34,6 +33,7 @@ part 'note.g.dart';
 abstract class Note with _$Note, EquatableMixin {
   @JsonSerializable(explicitToJson: true)
   const Note._();
+
   @JsonSerializable(explicitToJson: true)
   factory Note.music({
     required Solfege solfa,
@@ -42,10 +42,9 @@ abstract class Note with _$Note, EquatableMixin {
     double? startAt,
     double? endAt,
     @Default(0) double duration,
-    @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-    @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
     double? startAtInSeconds,
   }) = MusicNote;
+
   @JsonSerializable(explicitToJson: true)
   factory Note.duration({
     required DurationMarker marker,
@@ -53,47 +52,17 @@ abstract class Note with _$Note, EquatableMixin {
     double? startAt,
     double? endAt,
     @Default(0) double duration,
-    @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-    @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
     double? startAtInSeconds,
   }) = DurationNote;
+
   @JsonSerializable(explicitToJson: true)
   factory Note.whiteSpace({
     required DateTime createdAt,
     double? startAt,
     double? endAt,
     @Default(0) double duration,
-    @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-    @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
     double? startAtInSeconds,
   }) = WhiteSpaceNote;
-  @JsonSerializable(explicitToJson: true)
-  factory Note.trackConfig(
-    int volume,
-    int program, {
-      required DateTime createdAt,
-    double? startAt,
-    double? endAt,
-    @Default(0) double duration,
-    @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-    @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-    double? startAtInSeconds,
-  }) = TrackConfigNote;
-  @JsonSerializable(explicitToJson: true)
-  factory Note.scoreConfig({
-    required DateTime createdAt,
-    required int bpm,
-    required TimeSignature timeSignature,
-    required KeySignature keySignature,
-    required int tonicPitchNumber,
-    required String scoreTitle,
-    double? startAt,
-    double? endAt,
-    @Default(0) double duration,
-    @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-    @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-    double? startAtInSeconds,
-  }) = ScoreConfigNote;
 
   factory Note.fromJson(Map<String, dynamic> json) => _$NoteFromJson(json);
 
@@ -106,31 +75,14 @@ abstract class Note with _$Note, EquatableMixin {
   ) async {
     map(
       music: (music) {
-        music
-          .._commitX(track, midiFile)
-          .._commit();
+        music._commitX(track, midiFile);
       },
       duration: (duration) {
-        duration._commit();
+      
       },
-      whiteSpace: (whiteSpace) {
-        whiteSpace._commit();
-      },
-      trackConfig: (trackConfig) {
-        trackConfig
-          .._commitX(track, midiFile)
-          .._commit();
-      },
-      scoreConfig: (scoreConfig) {
-        scoreConfig
-          .._commitX(track, midiFile)
-          .._commit();
-      },
+      whiteSpace: (whiteSpace) {},
     );
-  }
-
-  void _commit() {
-    num bpm = intialScoreConfigNote!.bpm;
+    num bpm = track.score.bpm;
     if (startAt != null) {
       startAtInSeconds = (60 / bpm) * (startAt!);
     }
@@ -147,12 +99,6 @@ abstract class Note with _$Note, EquatableMixin {
       whiteSpace: (whiteSpace) {
         return whiteSpace._makeCopyX();
       },
-      trackConfig: (trackConfig) {
-        return trackConfig._makeCopyX();
-      },
-      scoreConfig: (scoreConfig) {
-        return scoreConfig._makeCopyX();
-      },
     );
   }
 
@@ -167,15 +113,11 @@ abstract class Note with _$Note, EquatableMixin {
       whiteSpace: (whiteSpace) {
         return whiteSpace._displayStringX();
       },
-      trackConfig: (trackConfig) {
-        return trackConfig._displayStringX();
-      },
-      scoreConfig: (scoreConfig) {
-        return scoreConfig._displayStringX();
-      },
     );
   }
 
   @override
-  List<Object?> get props =>[createdAt];
+  List<Object?> get props => [
+        createdAt
+      ];
 }

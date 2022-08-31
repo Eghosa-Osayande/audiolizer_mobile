@@ -22,10 +22,6 @@ Note _$NoteFromJson(Map<String, dynamic> json) {
       return DurationNote.fromJson(json);
     case 'whiteSpace':
       return WhiteSpaceNote.fromJson(json);
-    case 'trackConfig':
-      return TrackConfigNote.fromJson(json);
-    case 'scoreConfig':
-      return ScoreConfigNote.fromJson(json);
 
     default:
       throw CheckedFromJsonException(json, 'runtimeType', 'Note',
@@ -43,18 +39,6 @@ mixin _$Note {
   set endAt(double? value) => throw _privateConstructorUsedError;
   double get duration => throw _privateConstructorUsedError;
   set duration(double value) => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  ScoreConfigNote? get intialScoreConfigNote =>
-      throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  set intialScoreConfigNote(ScoreConfigNote? value) =>
-      throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  TrackConfigNote? get intialTrackConfigNote =>
-      throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  set intialTrackConfigNote(TrackConfigNote? value) =>
-      throw _privateConstructorUsedError;
   double? get startAtInSeconds => throw _privateConstructorUsedError;
   set startAtInSeconds(double? value) => throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -66,8 +50,6 @@ mixin _$Note {
             double? startAt,
             double? endAt,
             double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)
         music,
     required TResult Function(
@@ -76,44 +58,11 @@ mixin _$Note {
             double? startAt,
             double? endAt,
             double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)
         duration,
-    required TResult Function(
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)
+    required TResult Function(DateTime createdAt, double? startAt,
+            double? endAt, double duration, double? startAtInSeconds)
         whiteSpace,
-    required TResult Function(
-            int volume,
-            int program,
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)
-        trackConfig,
-    required TResult Function(
-            DateTime createdAt,
-            int bpm,
-            TimeSignature timeSignature,
-            KeySignature keySignature,
-            int tonicPitchNumber,
-            String scoreTitle,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)
-        scoreConfig,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -125,54 +74,14 @@ mixin _$Note {
             double? startAt,
             double? endAt,
             double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         music,
-    TResult Function(
-            DurationMarker marker,
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
+    TResult Function(DurationMarker marker, DateTime createdAt, double? startAt,
+            double? endAt, double duration, double? startAtInSeconds)?
         duration,
-    TResult Function(
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
+    TResult Function(DateTime createdAt, double? startAt, double? endAt,
+            double duration, double? startAtInSeconds)?
         whiteSpace,
-    TResult Function(
-            int volume,
-            int program,
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
-        trackConfig,
-    TResult Function(
-            DateTime createdAt,
-            int bpm,
-            TimeSignature timeSignature,
-            KeySignature keySignature,
-            int tonicPitchNumber,
-            String scoreTitle,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
-        scoreConfig,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -184,54 +93,14 @@ mixin _$Note {
             double? startAt,
             double? endAt,
             double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         music,
-    TResult Function(
-            DurationMarker marker,
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
+    TResult Function(DurationMarker marker, DateTime createdAt, double? startAt,
+            double? endAt, double duration, double? startAtInSeconds)?
         duration,
-    TResult Function(
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
+    TResult Function(DateTime createdAt, double? startAt, double? endAt,
+            double duration, double? startAtInSeconds)?
         whiteSpace,
-    TResult Function(
-            int volume,
-            int program,
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
-        trackConfig,
-    TResult Function(
-            DateTime createdAt,
-            int bpm,
-            TimeSignature timeSignature,
-            KeySignature keySignature,
-            int tonicPitchNumber,
-            String scoreTitle,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
-        scoreConfig,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -240,8 +109,6 @@ mixin _$Note {
     required TResult Function(MusicNote value) music,
     required TResult Function(DurationNote value) duration,
     required TResult Function(WhiteSpaceNote value) whiteSpace,
-    required TResult Function(TrackConfigNote value) trackConfig,
-    required TResult Function(ScoreConfigNote value) scoreConfig,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -249,8 +116,6 @@ mixin _$Note {
     TResult Function(MusicNote value)? music,
     TResult Function(DurationNote value)? duration,
     TResult Function(WhiteSpaceNote value)? whiteSpace,
-    TResult Function(TrackConfigNote value)? trackConfig,
-    TResult Function(ScoreConfigNote value)? scoreConfig,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -258,8 +123,6 @@ mixin _$Note {
     TResult Function(MusicNote value)? music,
     TResult Function(DurationNote value)? duration,
     TResult Function(WhiteSpaceNote value)? whiteSpace,
-    TResult Function(TrackConfigNote value)? trackConfig,
-    TResult Function(ScoreConfigNote value)? scoreConfig,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -277,8 +140,6 @@ abstract class $NoteCopyWith<$Res> {
       double? startAt,
       double? endAt,
       double duration,
-      @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-      @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
       double? startAtInSeconds});
 }
 
@@ -296,8 +157,6 @@ class _$NoteCopyWithImpl<$Res> implements $NoteCopyWith<$Res> {
     Object? startAt = freezed,
     Object? endAt = freezed,
     Object? duration = freezed,
-    Object? intialScoreConfigNote = freezed,
-    Object? intialTrackConfigNote = freezed,
     Object? startAtInSeconds = freezed,
   }) {
     return _then(_value.copyWith(
@@ -317,14 +176,6 @@ class _$NoteCopyWithImpl<$Res> implements $NoteCopyWith<$Res> {
           ? _value.duration
           : duration // ignore: cast_nullable_to_non_nullable
               as double,
-      intialScoreConfigNote: intialScoreConfigNote == freezed
-          ? _value.intialScoreConfigNote
-          : intialScoreConfigNote // ignore: cast_nullable_to_non_nullable
-              as ScoreConfigNote?,
-      intialTrackConfigNote: intialTrackConfigNote == freezed
-          ? _value.intialTrackConfigNote
-          : intialTrackConfigNote // ignore: cast_nullable_to_non_nullable
-              as TrackConfigNote?,
       startAtInSeconds: startAtInSeconds == freezed
           ? _value.startAtInSeconds
           : startAtInSeconds // ignore: cast_nullable_to_non_nullable
@@ -346,8 +197,6 @@ abstract class _$$MusicNoteCopyWith<$Res> implements $NoteCopyWith<$Res> {
       double? startAt,
       double? endAt,
       double duration,
-      @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-      @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
       double? startAtInSeconds});
 }
 
@@ -369,8 +218,6 @@ class __$$MusicNoteCopyWithImpl<$Res> extends _$NoteCopyWithImpl<$Res>
     Object? startAt = freezed,
     Object? endAt = freezed,
     Object? duration = freezed,
-    Object? intialScoreConfigNote = freezed,
-    Object? intialTrackConfigNote = freezed,
     Object? startAtInSeconds = freezed,
   }) {
     return _then(_$MusicNote(
@@ -398,14 +245,6 @@ class __$$MusicNoteCopyWithImpl<$Res> extends _$NoteCopyWithImpl<$Res>
           ? _value.duration
           : duration // ignore: cast_nullable_to_non_nullable
               as double,
-      intialScoreConfigNote: intialScoreConfigNote == freezed
-          ? _value.intialScoreConfigNote
-          : intialScoreConfigNote // ignore: cast_nullable_to_non_nullable
-              as ScoreConfigNote?,
-      intialTrackConfigNote: intialTrackConfigNote == freezed
-          ? _value.intialTrackConfigNote
-          : intialTrackConfigNote // ignore: cast_nullable_to_non_nullable
-              as TrackConfigNote?,
       startAtInSeconds: startAtInSeconds == freezed
           ? _value.startAtInSeconds
           : startAtInSeconds // ignore: cast_nullable_to_non_nullable
@@ -425,8 +264,6 @@ class _$MusicNote extends MusicNote {
       this.startAt,
       this.endAt,
       this.duration = 0,
-      @JsonKey(ignore: true) this.intialScoreConfigNote,
-      @JsonKey(ignore: true) this.intialTrackConfigNote,
       this.startAtInSeconds,
       final String? $type})
       : $type = $type ?? 'music',
@@ -449,12 +286,6 @@ class _$MusicNote extends MusicNote {
   @JsonKey()
   double duration;
   @override
-  @JsonKey(ignore: true)
-  ScoreConfigNote? intialScoreConfigNote;
-  @override
-  @JsonKey(ignore: true)
-  TrackConfigNote? intialTrackConfigNote;
-  @override
   double? startAtInSeconds;
 
   @JsonKey(name: 'runtimeType')
@@ -475,8 +306,6 @@ class _$MusicNote extends MusicNote {
             double? startAt,
             double? endAt,
             double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)
         music,
     required TResult Function(
@@ -485,47 +314,14 @@ class _$MusicNote extends MusicNote {
             double? startAt,
             double? endAt,
             double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)
         duration,
-    required TResult Function(
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)
+    required TResult Function(DateTime createdAt, double? startAt,
+            double? endAt, double duration, double? startAtInSeconds)
         whiteSpace,
-    required TResult Function(
-            int volume,
-            int program,
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)
-        trackConfig,
-    required TResult Function(
-            DateTime createdAt,
-            int bpm,
-            TimeSignature timeSignature,
-            KeySignature keySignature,
-            int tonicPitchNumber,
-            String scoreTitle,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)
-        scoreConfig,
   }) {
     return music(solfa, octave, createdAt, startAt, endAt, this.duration,
-        intialScoreConfigNote, intialTrackConfigNote, startAtInSeconds);
+        startAtInSeconds);
   }
 
   @override
@@ -538,57 +334,17 @@ class _$MusicNote extends MusicNote {
             double? startAt,
             double? endAt,
             double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         music,
-    TResult Function(
-            DurationMarker marker,
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
+    TResult Function(DurationMarker marker, DateTime createdAt, double? startAt,
+            double? endAt, double duration, double? startAtInSeconds)?
         duration,
-    TResult Function(
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
+    TResult Function(DateTime createdAt, double? startAt, double? endAt,
+            double duration, double? startAtInSeconds)?
         whiteSpace,
-    TResult Function(
-            int volume,
-            int program,
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
-        trackConfig,
-    TResult Function(
-            DateTime createdAt,
-            int bpm,
-            TimeSignature timeSignature,
-            KeySignature keySignature,
-            int tonicPitchNumber,
-            String scoreTitle,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
-        scoreConfig,
   }) {
     return music?.call(solfa, octave, createdAt, startAt, endAt, this.duration,
-        intialScoreConfigNote, intialTrackConfigNote, startAtInSeconds);
+        startAtInSeconds);
   }
 
   @override
@@ -601,59 +357,19 @@ class _$MusicNote extends MusicNote {
             double? startAt,
             double? endAt,
             double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         music,
-    TResult Function(
-            DurationMarker marker,
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
+    TResult Function(DurationMarker marker, DateTime createdAt, double? startAt,
+            double? endAt, double duration, double? startAtInSeconds)?
         duration,
-    TResult Function(
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
+    TResult Function(DateTime createdAt, double? startAt, double? endAt,
+            double duration, double? startAtInSeconds)?
         whiteSpace,
-    TResult Function(
-            int volume,
-            int program,
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
-        trackConfig,
-    TResult Function(
-            DateTime createdAt,
-            int bpm,
-            TimeSignature timeSignature,
-            KeySignature keySignature,
-            int tonicPitchNumber,
-            String scoreTitle,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
-        scoreConfig,
     required TResult orElse(),
   }) {
     if (music != null) {
       return music(solfa, octave, createdAt, startAt, endAt, this.duration,
-          intialScoreConfigNote, intialTrackConfigNote, startAtInSeconds);
+          startAtInSeconds);
     }
     return orElse();
   }
@@ -664,8 +380,6 @@ class _$MusicNote extends MusicNote {
     required TResult Function(MusicNote value) music,
     required TResult Function(DurationNote value) duration,
     required TResult Function(WhiteSpaceNote value) whiteSpace,
-    required TResult Function(TrackConfigNote value) trackConfig,
-    required TResult Function(ScoreConfigNote value) scoreConfig,
   }) {
     return music(this);
   }
@@ -676,8 +390,6 @@ class _$MusicNote extends MusicNote {
     TResult Function(MusicNote value)? music,
     TResult Function(DurationNote value)? duration,
     TResult Function(WhiteSpaceNote value)? whiteSpace,
-    TResult Function(TrackConfigNote value)? trackConfig,
-    TResult Function(ScoreConfigNote value)? scoreConfig,
   }) {
     return music?.call(this);
   }
@@ -688,8 +400,6 @@ class _$MusicNote extends MusicNote {
     TResult Function(MusicNote value)? music,
     TResult Function(DurationNote value)? duration,
     TResult Function(WhiteSpaceNote value)? whiteSpace,
-    TResult Function(TrackConfigNote value)? trackConfig,
-    TResult Function(ScoreConfigNote value)? scoreConfig,
     required TResult orElse(),
   }) {
     if (music != null) {
@@ -714,8 +424,6 @@ abstract class MusicNote extends Note {
       double? startAt,
       double? endAt,
       double duration,
-      @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-      @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
       double? startAtInSeconds}) = _$MusicNote;
   MusicNote._() : super._();
 
@@ -738,16 +446,6 @@ abstract class MusicNote extends Note {
   double get duration;
   set duration(double value);
   @override
-  @JsonKey(ignore: true)
-  ScoreConfigNote? get intialScoreConfigNote;
-  @JsonKey(ignore: true)
-  set intialScoreConfigNote(ScoreConfigNote? value);
-  @override
-  @JsonKey(ignore: true)
-  TrackConfigNote? get intialTrackConfigNote;
-  @JsonKey(ignore: true)
-  set intialTrackConfigNote(TrackConfigNote? value);
-  @override
   double? get startAtInSeconds;
   set startAtInSeconds(double? value);
   @override
@@ -768,8 +466,6 @@ abstract class _$$DurationNoteCopyWith<$Res> implements $NoteCopyWith<$Res> {
       double? startAt,
       double? endAt,
       double duration,
-      @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-      @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
       double? startAtInSeconds});
 }
 
@@ -790,8 +486,6 @@ class __$$DurationNoteCopyWithImpl<$Res> extends _$NoteCopyWithImpl<$Res>
     Object? startAt = freezed,
     Object? endAt = freezed,
     Object? duration = freezed,
-    Object? intialScoreConfigNote = freezed,
-    Object? intialTrackConfigNote = freezed,
     Object? startAtInSeconds = freezed,
   }) {
     return _then(_$DurationNote(
@@ -815,14 +509,6 @@ class __$$DurationNoteCopyWithImpl<$Res> extends _$NoteCopyWithImpl<$Res>
           ? _value.duration
           : duration // ignore: cast_nullable_to_non_nullable
               as double,
-      intialScoreConfigNote: intialScoreConfigNote == freezed
-          ? _value.intialScoreConfigNote
-          : intialScoreConfigNote // ignore: cast_nullable_to_non_nullable
-              as ScoreConfigNote?,
-      intialTrackConfigNote: intialTrackConfigNote == freezed
-          ? _value.intialTrackConfigNote
-          : intialTrackConfigNote // ignore: cast_nullable_to_non_nullable
-              as TrackConfigNote?,
       startAtInSeconds: startAtInSeconds == freezed
           ? _value.startAtInSeconds
           : startAtInSeconds // ignore: cast_nullable_to_non_nullable
@@ -841,8 +527,6 @@ class _$DurationNote extends DurationNote {
       this.startAt,
       this.endAt,
       this.duration = 0,
-      @JsonKey(ignore: true) this.intialScoreConfigNote,
-      @JsonKey(ignore: true) this.intialTrackConfigNote,
       this.startAtInSeconds,
       final String? $type})
       : $type = $type ?? 'duration',
@@ -862,12 +546,6 @@ class _$DurationNote extends DurationNote {
   @override
   @JsonKey()
   double duration;
-  @override
-  @JsonKey(ignore: true)
-  ScoreConfigNote? intialScoreConfigNote;
-  @override
-  @JsonKey(ignore: true)
-  TrackConfigNote? intialTrackConfigNote;
   @override
   double? startAtInSeconds;
 
@@ -889,8 +567,6 @@ class _$DurationNote extends DurationNote {
             double? startAt,
             double? endAt,
             double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)
         music,
     required TResult Function(
@@ -899,47 +575,14 @@ class _$DurationNote extends DurationNote {
             double? startAt,
             double? endAt,
             double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)
         duration,
-    required TResult Function(
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)
+    required TResult Function(DateTime createdAt, double? startAt,
+            double? endAt, double duration, double? startAtInSeconds)
         whiteSpace,
-    required TResult Function(
-            int volume,
-            int program,
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)
-        trackConfig,
-    required TResult Function(
-            DateTime createdAt,
-            int bpm,
-            TimeSignature timeSignature,
-            KeySignature keySignature,
-            int tonicPitchNumber,
-            String scoreTitle,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)
-        scoreConfig,
   }) {
-    return duration(marker, createdAt, startAt, endAt, this.duration,
-        intialScoreConfigNote, intialTrackConfigNote, startAtInSeconds);
+    return duration(
+        marker, createdAt, startAt, endAt, this.duration, startAtInSeconds);
   }
 
   @override
@@ -952,57 +595,17 @@ class _$DurationNote extends DurationNote {
             double? startAt,
             double? endAt,
             double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         music,
-    TResult Function(
-            DurationMarker marker,
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
+    TResult Function(DurationMarker marker, DateTime createdAt, double? startAt,
+            double? endAt, double duration, double? startAtInSeconds)?
         duration,
-    TResult Function(
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
+    TResult Function(DateTime createdAt, double? startAt, double? endAt,
+            double duration, double? startAtInSeconds)?
         whiteSpace,
-    TResult Function(
-            int volume,
-            int program,
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
-        trackConfig,
-    TResult Function(
-            DateTime createdAt,
-            int bpm,
-            TimeSignature timeSignature,
-            KeySignature keySignature,
-            int tonicPitchNumber,
-            String scoreTitle,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
-        scoreConfig,
   }) {
-    return duration?.call(marker, createdAt, startAt, endAt, this.duration,
-        intialScoreConfigNote, intialTrackConfigNote, startAtInSeconds);
+    return duration?.call(
+        marker, createdAt, startAt, endAt, this.duration, startAtInSeconds);
   }
 
   @override
@@ -1015,59 +618,19 @@ class _$DurationNote extends DurationNote {
             double? startAt,
             double? endAt,
             double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         music,
-    TResult Function(
-            DurationMarker marker,
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
+    TResult Function(DurationMarker marker, DateTime createdAt, double? startAt,
+            double? endAt, double duration, double? startAtInSeconds)?
         duration,
-    TResult Function(
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
+    TResult Function(DateTime createdAt, double? startAt, double? endAt,
+            double duration, double? startAtInSeconds)?
         whiteSpace,
-    TResult Function(
-            int volume,
-            int program,
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
-        trackConfig,
-    TResult Function(
-            DateTime createdAt,
-            int bpm,
-            TimeSignature timeSignature,
-            KeySignature keySignature,
-            int tonicPitchNumber,
-            String scoreTitle,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
-        scoreConfig,
     required TResult orElse(),
   }) {
     if (duration != null) {
-      return duration(marker, createdAt, startAt, endAt, this.duration,
-          intialScoreConfigNote, intialTrackConfigNote, startAtInSeconds);
+      return duration(
+          marker, createdAt, startAt, endAt, this.duration, startAtInSeconds);
     }
     return orElse();
   }
@@ -1078,8 +641,6 @@ class _$DurationNote extends DurationNote {
     required TResult Function(MusicNote value) music,
     required TResult Function(DurationNote value) duration,
     required TResult Function(WhiteSpaceNote value) whiteSpace,
-    required TResult Function(TrackConfigNote value) trackConfig,
-    required TResult Function(ScoreConfigNote value) scoreConfig,
   }) {
     return duration(this);
   }
@@ -1090,8 +651,6 @@ class _$DurationNote extends DurationNote {
     TResult Function(MusicNote value)? music,
     TResult Function(DurationNote value)? duration,
     TResult Function(WhiteSpaceNote value)? whiteSpace,
-    TResult Function(TrackConfigNote value)? trackConfig,
-    TResult Function(ScoreConfigNote value)? scoreConfig,
   }) {
     return duration?.call(this);
   }
@@ -1102,8 +661,6 @@ class _$DurationNote extends DurationNote {
     TResult Function(MusicNote value)? music,
     TResult Function(DurationNote value)? duration,
     TResult Function(WhiteSpaceNote value)? whiteSpace,
-    TResult Function(TrackConfigNote value)? trackConfig,
-    TResult Function(ScoreConfigNote value)? scoreConfig,
     required TResult orElse(),
   }) {
     if (duration != null) {
@@ -1127,8 +684,6 @@ abstract class DurationNote extends Note {
       double? startAt,
       double? endAt,
       double duration,
-      @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-      @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
       double? startAtInSeconds}) = _$DurationNote;
   DurationNote._() : super._();
 
@@ -1150,16 +705,6 @@ abstract class DurationNote extends Note {
   double get duration;
   set duration(double value);
   @override
-  @JsonKey(ignore: true)
-  ScoreConfigNote? get intialScoreConfigNote;
-  @JsonKey(ignore: true)
-  set intialScoreConfigNote(ScoreConfigNote? value);
-  @override
-  @JsonKey(ignore: true)
-  TrackConfigNote? get intialTrackConfigNote;
-  @JsonKey(ignore: true)
-  set intialTrackConfigNote(TrackConfigNote? value);
-  @override
   double? get startAtInSeconds;
   set startAtInSeconds(double? value);
   @override
@@ -1179,8 +724,6 @@ abstract class _$$WhiteSpaceNoteCopyWith<$Res> implements $NoteCopyWith<$Res> {
       double? startAt,
       double? endAt,
       double duration,
-      @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-      @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
       double? startAtInSeconds});
 }
 
@@ -1200,8 +743,6 @@ class __$$WhiteSpaceNoteCopyWithImpl<$Res> extends _$NoteCopyWithImpl<$Res>
     Object? startAt = freezed,
     Object? endAt = freezed,
     Object? duration = freezed,
-    Object? intialScoreConfigNote = freezed,
-    Object? intialTrackConfigNote = freezed,
     Object? startAtInSeconds = freezed,
   }) {
     return _then(_$WhiteSpaceNote(
@@ -1221,14 +762,6 @@ class __$$WhiteSpaceNoteCopyWithImpl<$Res> extends _$NoteCopyWithImpl<$Res>
           ? _value.duration
           : duration // ignore: cast_nullable_to_non_nullable
               as double,
-      intialScoreConfigNote: intialScoreConfigNote == freezed
-          ? _value.intialScoreConfigNote
-          : intialScoreConfigNote // ignore: cast_nullable_to_non_nullable
-              as ScoreConfigNote?,
-      intialTrackConfigNote: intialTrackConfigNote == freezed
-          ? _value.intialTrackConfigNote
-          : intialTrackConfigNote // ignore: cast_nullable_to_non_nullable
-              as TrackConfigNote?,
       startAtInSeconds: startAtInSeconds == freezed
           ? _value.startAtInSeconds
           : startAtInSeconds // ignore: cast_nullable_to_non_nullable
@@ -1246,8 +779,6 @@ class _$WhiteSpaceNote extends WhiteSpaceNote {
       this.startAt,
       this.endAt,
       this.duration = 0,
-      @JsonKey(ignore: true) this.intialScoreConfigNote,
-      @JsonKey(ignore: true) this.intialTrackConfigNote,
       this.startAtInSeconds,
       final String? $type})
       : $type = $type ?? 'whiteSpace',
@@ -1265,12 +796,6 @@ class _$WhiteSpaceNote extends WhiteSpaceNote {
   @override
   @JsonKey()
   double duration;
-  @override
-  @JsonKey(ignore: true)
-  ScoreConfigNote? intialScoreConfigNote;
-  @override
-  @JsonKey(ignore: true)
-  TrackConfigNote? intialTrackConfigNote;
   @override
   double? startAtInSeconds;
 
@@ -1292,8 +817,6 @@ class _$WhiteSpaceNote extends WhiteSpaceNote {
             double? startAt,
             double? endAt,
             double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)
         music,
     required TResult Function(
@@ -1302,47 +825,14 @@ class _$WhiteSpaceNote extends WhiteSpaceNote {
             double? startAt,
             double? endAt,
             double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)
         duration,
-    required TResult Function(
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)
+    required TResult Function(DateTime createdAt, double? startAt,
+            double? endAt, double duration, double? startAtInSeconds)
         whiteSpace,
-    required TResult Function(
-            int volume,
-            int program,
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)
-        trackConfig,
-    required TResult Function(
-            DateTime createdAt,
-            int bpm,
-            TimeSignature timeSignature,
-            KeySignature keySignature,
-            int tonicPitchNumber,
-            String scoreTitle,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)
-        scoreConfig,
   }) {
-    return whiteSpace(createdAt, startAt, endAt, this.duration,
-        intialScoreConfigNote, intialTrackConfigNote, startAtInSeconds);
+    return whiteSpace(
+        createdAt, startAt, endAt, this.duration, startAtInSeconds);
   }
 
   @override
@@ -1355,57 +845,17 @@ class _$WhiteSpaceNote extends WhiteSpaceNote {
             double? startAt,
             double? endAt,
             double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         music,
-    TResult Function(
-            DurationMarker marker,
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
+    TResult Function(DurationMarker marker, DateTime createdAt, double? startAt,
+            double? endAt, double duration, double? startAtInSeconds)?
         duration,
-    TResult Function(
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
+    TResult Function(DateTime createdAt, double? startAt, double? endAt,
+            double duration, double? startAtInSeconds)?
         whiteSpace,
-    TResult Function(
-            int volume,
-            int program,
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
-        trackConfig,
-    TResult Function(
-            DateTime createdAt,
-            int bpm,
-            TimeSignature timeSignature,
-            KeySignature keySignature,
-            int tonicPitchNumber,
-            String scoreTitle,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
-        scoreConfig,
   }) {
-    return whiteSpace?.call(createdAt, startAt, endAt, this.duration,
-        intialScoreConfigNote, intialTrackConfigNote, startAtInSeconds);
+    return whiteSpace?.call(
+        createdAt, startAt, endAt, this.duration, startAtInSeconds);
   }
 
   @override
@@ -1418,59 +868,19 @@ class _$WhiteSpaceNote extends WhiteSpaceNote {
             double? startAt,
             double? endAt,
             double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
             double? startAtInSeconds)?
         music,
-    TResult Function(
-            DurationMarker marker,
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
+    TResult Function(DurationMarker marker, DateTime createdAt, double? startAt,
+            double? endAt, double duration, double? startAtInSeconds)?
         duration,
-    TResult Function(
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
+    TResult Function(DateTime createdAt, double? startAt, double? endAt,
+            double duration, double? startAtInSeconds)?
         whiteSpace,
-    TResult Function(
-            int volume,
-            int program,
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
-        trackConfig,
-    TResult Function(
-            DateTime createdAt,
-            int bpm,
-            TimeSignature timeSignature,
-            KeySignature keySignature,
-            int tonicPitchNumber,
-            String scoreTitle,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
-        scoreConfig,
     required TResult orElse(),
   }) {
     if (whiteSpace != null) {
-      return whiteSpace(createdAt, startAt, endAt, this.duration,
-          intialScoreConfigNote, intialTrackConfigNote, startAtInSeconds);
+      return whiteSpace(
+          createdAt, startAt, endAt, this.duration, startAtInSeconds);
     }
     return orElse();
   }
@@ -1481,8 +891,6 @@ class _$WhiteSpaceNote extends WhiteSpaceNote {
     required TResult Function(MusicNote value) music,
     required TResult Function(DurationNote value) duration,
     required TResult Function(WhiteSpaceNote value) whiteSpace,
-    required TResult Function(TrackConfigNote value) trackConfig,
-    required TResult Function(ScoreConfigNote value) scoreConfig,
   }) {
     return whiteSpace(this);
   }
@@ -1493,8 +901,6 @@ class _$WhiteSpaceNote extends WhiteSpaceNote {
     TResult Function(MusicNote value)? music,
     TResult Function(DurationNote value)? duration,
     TResult Function(WhiteSpaceNote value)? whiteSpace,
-    TResult Function(TrackConfigNote value)? trackConfig,
-    TResult Function(ScoreConfigNote value)? scoreConfig,
   }) {
     return whiteSpace?.call(this);
   }
@@ -1505,8 +911,6 @@ class _$WhiteSpaceNote extends WhiteSpaceNote {
     TResult Function(MusicNote value)? music,
     TResult Function(DurationNote value)? duration,
     TResult Function(WhiteSpaceNote value)? whiteSpace,
-    TResult Function(TrackConfigNote value)? trackConfig,
-    TResult Function(ScoreConfigNote value)? scoreConfig,
     required TResult orElse(),
   }) {
     if (whiteSpace != null) {
@@ -1529,8 +933,6 @@ abstract class WhiteSpaceNote extends Note {
       double? startAt,
       double? endAt,
       double duration,
-      @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-      @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
       double? startAtInSeconds}) = _$WhiteSpaceNote;
   WhiteSpaceNote._() : super._();
 
@@ -1550,957 +952,10 @@ abstract class WhiteSpaceNote extends Note {
   double get duration;
   set duration(double value);
   @override
-  @JsonKey(ignore: true)
-  ScoreConfigNote? get intialScoreConfigNote;
-  @JsonKey(ignore: true)
-  set intialScoreConfigNote(ScoreConfigNote? value);
-  @override
-  @JsonKey(ignore: true)
-  TrackConfigNote? get intialTrackConfigNote;
-  @JsonKey(ignore: true)
-  set intialTrackConfigNote(TrackConfigNote? value);
-  @override
   double? get startAtInSeconds;
   set startAtInSeconds(double? value);
   @override
   @JsonKey(ignore: true)
   _$$WhiteSpaceNoteCopyWith<_$WhiteSpaceNote> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$TrackConfigNoteCopyWith<$Res> implements $NoteCopyWith<$Res> {
-  factory _$$TrackConfigNoteCopyWith(
-          _$TrackConfigNote value, $Res Function(_$TrackConfigNote) then) =
-      __$$TrackConfigNoteCopyWithImpl<$Res>;
-  @override
-  $Res call(
-      {int volume,
-      int program,
-      DateTime createdAt,
-      double? startAt,
-      double? endAt,
-      double duration,
-      @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-      @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-      double? startAtInSeconds});
-}
-
-/// @nodoc
-class __$$TrackConfigNoteCopyWithImpl<$Res> extends _$NoteCopyWithImpl<$Res>
-    implements _$$TrackConfigNoteCopyWith<$Res> {
-  __$$TrackConfigNoteCopyWithImpl(
-      _$TrackConfigNote _value, $Res Function(_$TrackConfigNote) _then)
-      : super(_value, (v) => _then(v as _$TrackConfigNote));
-
-  @override
-  _$TrackConfigNote get _value => super._value as _$TrackConfigNote;
-
-  @override
-  $Res call({
-    Object? volume = freezed,
-    Object? program = freezed,
-    Object? createdAt = freezed,
-    Object? startAt = freezed,
-    Object? endAt = freezed,
-    Object? duration = freezed,
-    Object? intialScoreConfigNote = freezed,
-    Object? intialTrackConfigNote = freezed,
-    Object? startAtInSeconds = freezed,
-  }) {
-    return _then(_$TrackConfigNote(
-      volume == freezed
-          ? _value.volume
-          : volume // ignore: cast_nullable_to_non_nullable
-              as int,
-      program == freezed
-          ? _value.program
-          : program // ignore: cast_nullable_to_non_nullable
-              as int,
-      createdAt: createdAt == freezed
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      startAt: startAt == freezed
-          ? _value.startAt
-          : startAt // ignore: cast_nullable_to_non_nullable
-              as double?,
-      endAt: endAt == freezed
-          ? _value.endAt
-          : endAt // ignore: cast_nullable_to_non_nullable
-              as double?,
-      duration: duration == freezed
-          ? _value.duration
-          : duration // ignore: cast_nullable_to_non_nullable
-              as double,
-      intialScoreConfigNote: intialScoreConfigNote == freezed
-          ? _value.intialScoreConfigNote
-          : intialScoreConfigNote // ignore: cast_nullable_to_non_nullable
-              as ScoreConfigNote?,
-      intialTrackConfigNote: intialTrackConfigNote == freezed
-          ? _value.intialTrackConfigNote
-          : intialTrackConfigNote // ignore: cast_nullable_to_non_nullable
-              as TrackConfigNote?,
-      startAtInSeconds: startAtInSeconds == freezed
-          ? _value.startAtInSeconds
-          : startAtInSeconds // ignore: cast_nullable_to_non_nullable
-              as double?,
-    ));
-  }
-}
-
-/// @nodoc
-
-@JsonSerializable(explicitToJson: true)
-class _$TrackConfigNote extends TrackConfigNote {
-  _$TrackConfigNote(this.volume, this.program,
-      {required this.createdAt,
-      this.startAt,
-      this.endAt,
-      this.duration = 0,
-      @JsonKey(ignore: true) this.intialScoreConfigNote,
-      @JsonKey(ignore: true) this.intialTrackConfigNote,
-      this.startAtInSeconds,
-      final String? $type})
-      : $type = $type ?? 'trackConfig',
-        super._();
-
-  factory _$TrackConfigNote.fromJson(Map<String, dynamic> json) =>
-      _$$TrackConfigNoteFromJson(json);
-
-  @override
-  int volume;
-  @override
-  int program;
-  @override
-  DateTime createdAt;
-  @override
-  double? startAt;
-  @override
-  double? endAt;
-  @override
-  @JsonKey()
-  double duration;
-  @override
-  @JsonKey(ignore: true)
-  ScoreConfigNote? intialScoreConfigNote;
-  @override
-  @JsonKey(ignore: true)
-  TrackConfigNote? intialTrackConfigNote;
-  @override
-  double? startAtInSeconds;
-
-  @JsonKey(name: 'runtimeType')
-  final String $type;
-
-  @JsonKey(ignore: true)
-  @override
-  _$$TrackConfigNoteCopyWith<_$TrackConfigNote> get copyWith =>
-      __$$TrackConfigNoteCopyWithImpl<_$TrackConfigNote>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(
-            Solfege solfa,
-            int octave,
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)
-        music,
-    required TResult Function(
-            DurationMarker marker,
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)
-        duration,
-    required TResult Function(
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)
-        whiteSpace,
-    required TResult Function(
-            int volume,
-            int program,
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)
-        trackConfig,
-    required TResult Function(
-            DateTime createdAt,
-            int bpm,
-            TimeSignature timeSignature,
-            KeySignature keySignature,
-            int tonicPitchNumber,
-            String scoreTitle,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)
-        scoreConfig,
-  }) {
-    return trackConfig(
-        volume,
-        program,
-        createdAt,
-        startAt,
-        endAt,
-        this.duration,
-        intialScoreConfigNote,
-        intialTrackConfigNote,
-        startAtInSeconds);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(
-            Solfege solfa,
-            int octave,
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
-        music,
-    TResult Function(
-            DurationMarker marker,
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
-        duration,
-    TResult Function(
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
-        whiteSpace,
-    TResult Function(
-            int volume,
-            int program,
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
-        trackConfig,
-    TResult Function(
-            DateTime createdAt,
-            int bpm,
-            TimeSignature timeSignature,
-            KeySignature keySignature,
-            int tonicPitchNumber,
-            String scoreTitle,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
-        scoreConfig,
-  }) {
-    return trackConfig?.call(
-        volume,
-        program,
-        createdAt,
-        startAt,
-        endAt,
-        this.duration,
-        intialScoreConfigNote,
-        intialTrackConfigNote,
-        startAtInSeconds);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            Solfege solfa,
-            int octave,
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
-        music,
-    TResult Function(
-            DurationMarker marker,
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
-        duration,
-    TResult Function(
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
-        whiteSpace,
-    TResult Function(
-            int volume,
-            int program,
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
-        trackConfig,
-    TResult Function(
-            DateTime createdAt,
-            int bpm,
-            TimeSignature timeSignature,
-            KeySignature keySignature,
-            int tonicPitchNumber,
-            String scoreTitle,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
-        scoreConfig,
-    required TResult orElse(),
-  }) {
-    if (trackConfig != null) {
-      return trackConfig(
-          volume,
-          program,
-          createdAt,
-          startAt,
-          endAt,
-          this.duration,
-          intialScoreConfigNote,
-          intialTrackConfigNote,
-          startAtInSeconds);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(MusicNote value) music,
-    required TResult Function(DurationNote value) duration,
-    required TResult Function(WhiteSpaceNote value) whiteSpace,
-    required TResult Function(TrackConfigNote value) trackConfig,
-    required TResult Function(ScoreConfigNote value) scoreConfig,
-  }) {
-    return trackConfig(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(MusicNote value)? music,
-    TResult Function(DurationNote value)? duration,
-    TResult Function(WhiteSpaceNote value)? whiteSpace,
-    TResult Function(TrackConfigNote value)? trackConfig,
-    TResult Function(ScoreConfigNote value)? scoreConfig,
-  }) {
-    return trackConfig?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(MusicNote value)? music,
-    TResult Function(DurationNote value)? duration,
-    TResult Function(WhiteSpaceNote value)? whiteSpace,
-    TResult Function(TrackConfigNote value)? trackConfig,
-    TResult Function(ScoreConfigNote value)? scoreConfig,
-    required TResult orElse(),
-  }) {
-    if (trackConfig != null) {
-      return trackConfig(this);
-    }
-    return orElse();
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$TrackConfigNoteToJson(
-      this,
-    );
-  }
-}
-
-abstract class TrackConfigNote extends Note {
-  factory TrackConfigNote(int volume, int program,
-      {required DateTime createdAt,
-      double? startAt,
-      double? endAt,
-      double duration,
-      @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-      @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-      double? startAtInSeconds}) = _$TrackConfigNote;
-  TrackConfigNote._() : super._();
-
-  factory TrackConfigNote.fromJson(Map<String, dynamic> json) =
-      _$TrackConfigNote.fromJson;
-
-  int get volume;
-  set volume(int value);
-  int get program;
-  set program(int value);
-  @override
-  DateTime get createdAt;
-  set createdAt(DateTime value);
-  @override
-  double? get startAt;
-  set startAt(double? value);
-  @override
-  double? get endAt;
-  set endAt(double? value);
-  @override
-  double get duration;
-  set duration(double value);
-  @override
-  @JsonKey(ignore: true)
-  ScoreConfigNote? get intialScoreConfigNote;
-  @JsonKey(ignore: true)
-  set intialScoreConfigNote(ScoreConfigNote? value);
-  @override
-  @JsonKey(ignore: true)
-  TrackConfigNote? get intialTrackConfigNote;
-  @JsonKey(ignore: true)
-  set intialTrackConfigNote(TrackConfigNote? value);
-  @override
-  double? get startAtInSeconds;
-  set startAtInSeconds(double? value);
-  @override
-  @JsonKey(ignore: true)
-  _$$TrackConfigNoteCopyWith<_$TrackConfigNote> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$ScoreConfigNoteCopyWith<$Res> implements $NoteCopyWith<$Res> {
-  factory _$$ScoreConfigNoteCopyWith(
-          _$ScoreConfigNote value, $Res Function(_$ScoreConfigNote) then) =
-      __$$ScoreConfigNoteCopyWithImpl<$Res>;
-  @override
-  $Res call(
-      {DateTime createdAt,
-      int bpm,
-      TimeSignature timeSignature,
-      KeySignature keySignature,
-      int tonicPitchNumber,
-      String scoreTitle,
-      double? startAt,
-      double? endAt,
-      double duration,
-      @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-      @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-      double? startAtInSeconds});
-}
-
-/// @nodoc
-class __$$ScoreConfigNoteCopyWithImpl<$Res> extends _$NoteCopyWithImpl<$Res>
-    implements _$$ScoreConfigNoteCopyWith<$Res> {
-  __$$ScoreConfigNoteCopyWithImpl(
-      _$ScoreConfigNote _value, $Res Function(_$ScoreConfigNote) _then)
-      : super(_value, (v) => _then(v as _$ScoreConfigNote));
-
-  @override
-  _$ScoreConfigNote get _value => super._value as _$ScoreConfigNote;
-
-  @override
-  $Res call({
-    Object? createdAt = freezed,
-    Object? bpm = freezed,
-    Object? timeSignature = freezed,
-    Object? keySignature = freezed,
-    Object? tonicPitchNumber = freezed,
-    Object? scoreTitle = freezed,
-    Object? startAt = freezed,
-    Object? endAt = freezed,
-    Object? duration = freezed,
-    Object? intialScoreConfigNote = freezed,
-    Object? intialTrackConfigNote = freezed,
-    Object? startAtInSeconds = freezed,
-  }) {
-    return _then(_$ScoreConfigNote(
-      createdAt: createdAt == freezed
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      bpm: bpm == freezed
-          ? _value.bpm
-          : bpm // ignore: cast_nullable_to_non_nullable
-              as int,
-      timeSignature: timeSignature == freezed
-          ? _value.timeSignature
-          : timeSignature // ignore: cast_nullable_to_non_nullable
-              as TimeSignature,
-      keySignature: keySignature == freezed
-          ? _value.keySignature
-          : keySignature // ignore: cast_nullable_to_non_nullable
-              as KeySignature,
-      tonicPitchNumber: tonicPitchNumber == freezed
-          ? _value.tonicPitchNumber
-          : tonicPitchNumber // ignore: cast_nullable_to_non_nullable
-              as int,
-      scoreTitle: scoreTitle == freezed
-          ? _value.scoreTitle
-          : scoreTitle // ignore: cast_nullable_to_non_nullable
-              as String,
-      startAt: startAt == freezed
-          ? _value.startAt
-          : startAt // ignore: cast_nullable_to_non_nullable
-              as double?,
-      endAt: endAt == freezed
-          ? _value.endAt
-          : endAt // ignore: cast_nullable_to_non_nullable
-              as double?,
-      duration: duration == freezed
-          ? _value.duration
-          : duration // ignore: cast_nullable_to_non_nullable
-              as double,
-      intialScoreConfigNote: intialScoreConfigNote == freezed
-          ? _value.intialScoreConfigNote
-          : intialScoreConfigNote // ignore: cast_nullable_to_non_nullable
-              as ScoreConfigNote?,
-      intialTrackConfigNote: intialTrackConfigNote == freezed
-          ? _value.intialTrackConfigNote
-          : intialTrackConfigNote // ignore: cast_nullable_to_non_nullable
-              as TrackConfigNote?,
-      startAtInSeconds: startAtInSeconds == freezed
-          ? _value.startAtInSeconds
-          : startAtInSeconds // ignore: cast_nullable_to_non_nullable
-              as double?,
-    ));
-  }
-}
-
-/// @nodoc
-
-@JsonSerializable(explicitToJson: true)
-class _$ScoreConfigNote extends ScoreConfigNote {
-  _$ScoreConfigNote(
-      {required this.createdAt,
-      required this.bpm,
-      required this.timeSignature,
-      required this.keySignature,
-      required this.tonicPitchNumber,
-      required this.scoreTitle,
-      this.startAt,
-      this.endAt,
-      this.duration = 0,
-      @JsonKey(ignore: true) this.intialScoreConfigNote,
-      @JsonKey(ignore: true) this.intialTrackConfigNote,
-      this.startAtInSeconds,
-      final String? $type})
-      : $type = $type ?? 'scoreConfig',
-        super._();
-
-  factory _$ScoreConfigNote.fromJson(Map<String, dynamic> json) =>
-      _$$ScoreConfigNoteFromJson(json);
-
-  @override
-  DateTime createdAt;
-  @override
-  int bpm;
-  @override
-  TimeSignature timeSignature;
-  @override
-  KeySignature keySignature;
-  @override
-  int tonicPitchNumber;
-  @override
-  String scoreTitle;
-  @override
-  double? startAt;
-  @override
-  double? endAt;
-  @override
-  @JsonKey()
-  double duration;
-  @override
-  @JsonKey(ignore: true)
-  ScoreConfigNote? intialScoreConfigNote;
-  @override
-  @JsonKey(ignore: true)
-  TrackConfigNote? intialTrackConfigNote;
-  @override
-  double? startAtInSeconds;
-
-  @JsonKey(name: 'runtimeType')
-  final String $type;
-
-  @JsonKey(ignore: true)
-  @override
-  _$$ScoreConfigNoteCopyWith<_$ScoreConfigNote> get copyWith =>
-      __$$ScoreConfigNoteCopyWithImpl<_$ScoreConfigNote>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(
-            Solfege solfa,
-            int octave,
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)
-        music,
-    required TResult Function(
-            DurationMarker marker,
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)
-        duration,
-    required TResult Function(
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)
-        whiteSpace,
-    required TResult Function(
-            int volume,
-            int program,
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)
-        trackConfig,
-    required TResult Function(
-            DateTime createdAt,
-            int bpm,
-            TimeSignature timeSignature,
-            KeySignature keySignature,
-            int tonicPitchNumber,
-            String scoreTitle,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)
-        scoreConfig,
-  }) {
-    return scoreConfig(
-        createdAt,
-        bpm,
-        timeSignature,
-        keySignature,
-        tonicPitchNumber,
-        scoreTitle,
-        startAt,
-        endAt,
-        this.duration,
-        intialScoreConfigNote,
-        intialTrackConfigNote,
-        startAtInSeconds);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(
-            Solfege solfa,
-            int octave,
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
-        music,
-    TResult Function(
-            DurationMarker marker,
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
-        duration,
-    TResult Function(
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
-        whiteSpace,
-    TResult Function(
-            int volume,
-            int program,
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
-        trackConfig,
-    TResult Function(
-            DateTime createdAt,
-            int bpm,
-            TimeSignature timeSignature,
-            KeySignature keySignature,
-            int tonicPitchNumber,
-            String scoreTitle,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
-        scoreConfig,
-  }) {
-    return scoreConfig?.call(
-        createdAt,
-        bpm,
-        timeSignature,
-        keySignature,
-        tonicPitchNumber,
-        scoreTitle,
-        startAt,
-        endAt,
-        this.duration,
-        intialScoreConfigNote,
-        intialTrackConfigNote,
-        startAtInSeconds);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            Solfege solfa,
-            int octave,
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
-        music,
-    TResult Function(
-            DurationMarker marker,
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
-        duration,
-    TResult Function(
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
-        whiteSpace,
-    TResult Function(
-            int volume,
-            int program,
-            DateTime createdAt,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
-        trackConfig,
-    TResult Function(
-            DateTime createdAt,
-            int bpm,
-            TimeSignature timeSignature,
-            KeySignature keySignature,
-            int tonicPitchNumber,
-            String scoreTitle,
-            double? startAt,
-            double? endAt,
-            double duration,
-            @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-            @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-            double? startAtInSeconds)?
-        scoreConfig,
-    required TResult orElse(),
-  }) {
-    if (scoreConfig != null) {
-      return scoreConfig(
-          createdAt,
-          bpm,
-          timeSignature,
-          keySignature,
-          tonicPitchNumber,
-          scoreTitle,
-          startAt,
-          endAt,
-          this.duration,
-          intialScoreConfigNote,
-          intialTrackConfigNote,
-          startAtInSeconds);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(MusicNote value) music,
-    required TResult Function(DurationNote value) duration,
-    required TResult Function(WhiteSpaceNote value) whiteSpace,
-    required TResult Function(TrackConfigNote value) trackConfig,
-    required TResult Function(ScoreConfigNote value) scoreConfig,
-  }) {
-    return scoreConfig(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(MusicNote value)? music,
-    TResult Function(DurationNote value)? duration,
-    TResult Function(WhiteSpaceNote value)? whiteSpace,
-    TResult Function(TrackConfigNote value)? trackConfig,
-    TResult Function(ScoreConfigNote value)? scoreConfig,
-  }) {
-    return scoreConfig?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(MusicNote value)? music,
-    TResult Function(DurationNote value)? duration,
-    TResult Function(WhiteSpaceNote value)? whiteSpace,
-    TResult Function(TrackConfigNote value)? trackConfig,
-    TResult Function(ScoreConfigNote value)? scoreConfig,
-    required TResult orElse(),
-  }) {
-    if (scoreConfig != null) {
-      return scoreConfig(this);
-    }
-    return orElse();
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ScoreConfigNoteToJson(
-      this,
-    );
-  }
-}
-
-abstract class ScoreConfigNote extends Note {
-  factory ScoreConfigNote(
-      {required DateTime createdAt,
-      required int bpm,
-      required TimeSignature timeSignature,
-      required KeySignature keySignature,
-      required int tonicPitchNumber,
-      required String scoreTitle,
-      double? startAt,
-      double? endAt,
-      double duration,
-      @JsonKey(ignore: true) ScoreConfigNote? intialScoreConfigNote,
-      @JsonKey(ignore: true) TrackConfigNote? intialTrackConfigNote,
-      double? startAtInSeconds}) = _$ScoreConfigNote;
-  ScoreConfigNote._() : super._();
-
-  factory ScoreConfigNote.fromJson(Map<String, dynamic> json) =
-      _$ScoreConfigNote.fromJson;
-
-  @override
-  DateTime get createdAt;
-  set createdAt(DateTime value);
-  int get bpm;
-  set bpm(int value);
-  TimeSignature get timeSignature;
-  set timeSignature(TimeSignature value);
-  KeySignature get keySignature;
-  set keySignature(KeySignature value);
-  int get tonicPitchNumber;
-  set tonicPitchNumber(int value);
-  String get scoreTitle;
-  set scoreTitle(String value);
-  @override
-  double? get startAt;
-  set startAt(double? value);
-  @override
-  double? get endAt;
-  set endAt(double? value);
-  @override
-  double get duration;
-  set duration(double value);
-  @override
-  @JsonKey(ignore: true)
-  ScoreConfigNote? get intialScoreConfigNote;
-  @JsonKey(ignore: true)
-  set intialScoreConfigNote(ScoreConfigNote? value);
-  @override
-  @JsonKey(ignore: true)
-  TrackConfigNote? get intialTrackConfigNote;
-  @JsonKey(ignore: true)
-  set intialTrackConfigNote(TrackConfigNote? value);
-  @override
-  double? get startAtInSeconds;
-  set startAtInSeconds(double? value);
-  @override
-  @JsonKey(ignore: true)
-  _$$ScoreConfigNoteCopyWith<_$ScoreConfigNote> get copyWith =>
       throw _privateConstructorUsedError;
 }

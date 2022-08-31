@@ -1,4 +1,4 @@
-part of 'note.dart';
+part of '../note.dart';
 
 extension DurationNoteX on DurationNote {
   Result<double, GenericException> beatsBetween(DurationNote other) {
@@ -17,13 +17,5 @@ extension DurationNoteX on DurationNote {
     return marker.symbol;
   }
 
-  Future<void> commit(
-    Track track,
-    MIDIFile midiFile,
-  ) async {
-    num bpm = intialScoreConfigNote!.bpm;
-    if (startAt != null) {
-      startAtInSeconds = (60 / bpm) * (startAt!);
-    }
-  }
+ 
 }

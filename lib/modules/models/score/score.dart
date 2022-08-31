@@ -5,38 +5,56 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
 import 'package:midi_util/midi_util.dart';
 import 'package:result_type/result_type.dart';
+import 'package:solpha/modules/models/bar/bar.dart';
 import 'package:solpha/modules/models/notes/note.dart';
+import 'package:solpha/modules/models/score/enums/key_signature.dart';
+import 'package:solpha/modules/models/score/enums/time_signature.dart';
 import 'package:solpha/modules/models/track/track.dart';
+import 'dart:collection';
 
 part 'score.freezed.dart';
 // part 'score.g.dart';
 
-
-
 @unfreezed
-class Score extends HiveObject with _$Score {
+class Score extends LinkedList<Track> with HiveObjectMixin, _$Score {
   Score._();
 
   factory Score({
-    required ScoreConfigNote intialConfigNote,
-    required List<Track> tracks,
-    required MIDIFile midiFile,
+    required int bpm,
+    required TimeSignature timeSignature,
+    required KeySignature keySignature,
+    required int tonicPitchNumber,
+    required String scoreTitle,
+    required DateTime updatedAt,
+    MIDIFile? midiFile,
   }) = _Score;
 
   // factory Score.fromJson(Map<String, dynamic> json) => _$ScoreFromJson(json);
 
   factory Score.fromJson(Map<String, dynamic> json) {
-    return Score(
-      intialConfigNote: ScoreConfigNote.fromJson(json['intialConfigNote'] as Map<String, dynamic>),
-      tracks: (json['tracks'] as List<dynamic>).map((e) => Track.fromJson(e as Map<String, dynamic>)).toList(),
-      midiFile: MIDIFile(numTracks: 10),
+    var score = Score(
+      bpm: json['bpm'] as int,
+      timeSignature: TimeSignature.values[json['timeSignature'] as int],
+      keySignature: KeySignature.values[json['keySignature'] as int],
+      tonicPitchNumber: json['tonicPitchNumber'] as int,
+      scoreTitle: json['scoreTitle'] as String,
+      updatedAt: DateTime.fromMicrosecondsSinceEpoch(json['updatedAt'] as int,)
     );
+    var tracks = (json['tracks'] as List<dynamic>).map((e) => Track.fromJson(e as Map<String, dynamic>)).toList();
+    score.addAll(tracks);
+    return score;
   }
 
+  LinkedList<Track> get tracks => this;
+
   Map<String, dynamic> toJson() => <String, dynamic>{
-        'intialConfigNote': intialConfigNote.toJson(),
+        'bpm': bpm,
+        'timeSignature': timeSignature.index,
+        'keySignature': keySignature.index,
+        'tonicPitchNumber': tonicPitchNumber,
+        'scoreTitle': scoreTitle,
         'tracks': tracks.map((track) => track.toJson()).toList(),
-        'midiFile': '',
+        'updatedAt': DateTime.now().millisecondsSinceEpoch
       };
 
   void _resetMidiFile() {
@@ -65,11 +83,11 @@ class Score extends HiveObject with _$Score {
     }
 
     for (var track in tracks) {
-      await track.commit(midiFile);
+      await track.commit(midiFile!);
     }
 
     File outputFile = MemoryFileSystem().file('${DateTime.now().toUtc()}.mid');
-    await midiFile.writeFile(outputFile);
+    await midiFile!.writeFile(outputFile);
 
     return Success(outputFile);
   }
