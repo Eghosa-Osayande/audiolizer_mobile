@@ -6,37 +6,49 @@ import 'package:solpha/modules/models/notes/enums/duration_markers.dart';
 import 'package:solpha/modules/models/notes/enums/solfege.dart';
 import 'package:solpha/modules/models/notes/note.dart';
 import 'package:solpha/modules/score_editor/ui/widgets/solfa_text_field/solfa_input_controller.dart';
+import 'dart:collection';
 
 import '../bar/bars_linked_list.dart';
 
 part 'track.freezed.dart';
-part 'track.g.dart';
+// part 'track.g.dart';
 
-typedef Bars = Map<int, SolfaEditingController>;
 
-List<Bar> linkedListToJson(BarsLinkedlist value) {
-  return value.toList();
-}
-
-BarsLinkedlist linkedListfromJson(dynamic value) {
-  List<Bar> list = List.from(value.map((e)=>Bar.fromJson(e)).toList());
-  return BarsLinkedlist(list);
-}
 
 @unfreezed
-class Track with _$Track {
-  const Track._();
+class Track extends LinkedList<Bar> with _$Track {
+   Track._();
 
-  @JsonSerializable(explicitToJson: true)
   factory Track({
     required int trackNumber,
     required int volume,
     required int program,
-    @JsonKey(toJson: linkedListToJson, fromJson: linkedListfromJson) required BarsLinkedlist bars,
     required ScoreConfigNote intialScoreConfigNote,
   }) = _Track;
 
-  factory Track.fromJson(Map<String, dynamic> json) => _$TrackFromJson(json);
+  // factory Track.fromJson(Map<String, dynamic> json) => _$TrackFromJson(json);
+
+  factory Track.fromJson(Map<String, dynamic> json) {
+    var track = Track(
+      trackNumber: json['trackNumber'] as int,
+      volume: json['volume'] as int,
+      program: json['program'] as int,
+      intialScoreConfigNote: ScoreConfigNote.fromJson(json['intialScoreConfigNote'] as Map<String, dynamic>),
+    );
+    List<Bar> bars = List.from((json['bars'] as List).map((e) => Bar.fromJson(e)).toList() );
+    track.addAll(bars);
+    return track;
+  }
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'trackNumber': trackNumber,
+        'volume': volume,
+        'program': program,
+        'bars': this.toList(),
+        'intialScoreConfigNote': intialScoreConfigNote.toJson(),
+      };
+
+  LinkedList<Bar> get bars => this;
 
   TrackConfigNote get intialTrackConfigNote => TrackConfigNote(
         volume,
@@ -73,7 +85,7 @@ class Track with _$Track {
       program: 115,
       volume: 100,
       intialScoreConfigNote: intialScoreConfigNote,
-      bars: BarsLinkedlist(),
+    
     );
     metro.notes.add(
       DurationNote(

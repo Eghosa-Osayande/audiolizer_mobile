@@ -14,10 +14,6 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-Track _$TrackFromJson(Map<String, dynamic> json) {
-  return _Track.fromJson(json);
-}
-
 /// @nodoc
 mixin _$Track {
   int get trackNumber => throw _privateConstructorUsedError;
@@ -26,16 +22,11 @@ mixin _$Track {
   set volume(int value) => throw _privateConstructorUsedError;
   int get program => throw _privateConstructorUsedError;
   set program(int value) => throw _privateConstructorUsedError;
-  @JsonKey(toJson: linkedListToJson, fromJson: linkedListfromJson)
-  BarsLinkedlist get bars => throw _privateConstructorUsedError;
-  @JsonKey(toJson: linkedListToJson, fromJson: linkedListfromJson)
-  set bars(BarsLinkedlist value) => throw _privateConstructorUsedError;
   ScoreConfigNote get intialScoreConfigNote =>
       throw _privateConstructorUsedError;
   set intialScoreConfigNote(ScoreConfigNote value) =>
       throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $TrackCopyWith<Track> get copyWith => throw _privateConstructorUsedError;
 }
@@ -48,8 +39,6 @@ abstract class $TrackCopyWith<$Res> {
       {int trackNumber,
       int volume,
       int program,
-      @JsonKey(toJson: linkedListToJson, fromJson: linkedListfromJson)
-          BarsLinkedlist bars,
       ScoreConfigNote intialScoreConfigNote});
 }
 
@@ -66,7 +55,6 @@ class _$TrackCopyWithImpl<$Res> implements $TrackCopyWith<$Res> {
     Object? trackNumber = freezed,
     Object? volume = freezed,
     Object? program = freezed,
-    Object? bars = freezed,
     Object? intialScoreConfigNote = freezed,
   }) {
     return _then(_value.copyWith(
@@ -82,10 +70,6 @@ class _$TrackCopyWithImpl<$Res> implements $TrackCopyWith<$Res> {
           ? _value.program
           : program // ignore: cast_nullable_to_non_nullable
               as int,
-      bars: bars == freezed
-          ? _value.bars
-          : bars // ignore: cast_nullable_to_non_nullable
-              as BarsLinkedlist,
       intialScoreConfigNote: intialScoreConfigNote == freezed
           ? _value.intialScoreConfigNote
           : intialScoreConfigNote // ignore: cast_nullable_to_non_nullable
@@ -103,8 +87,6 @@ abstract class _$$_TrackCopyWith<$Res> implements $TrackCopyWith<$Res> {
       {int trackNumber,
       int volume,
       int program,
-      @JsonKey(toJson: linkedListToJson, fromJson: linkedListfromJson)
-          BarsLinkedlist bars,
       ScoreConfigNote intialScoreConfigNote});
 }
 
@@ -122,7 +104,6 @@ class __$$_TrackCopyWithImpl<$Res> extends _$TrackCopyWithImpl<$Res>
     Object? trackNumber = freezed,
     Object? volume = freezed,
     Object? program = freezed,
-    Object? bars = freezed,
     Object? intialScoreConfigNote = freezed,
   }) {
     return _then(_$_Track(
@@ -138,10 +119,6 @@ class __$$_TrackCopyWithImpl<$Res> extends _$TrackCopyWithImpl<$Res>
           ? _value.program
           : program // ignore: cast_nullable_to_non_nullable
               as int,
-      bars: bars == freezed
-          ? _value.bars
-          : bars // ignore: cast_nullable_to_non_nullable
-              as BarsLinkedlist,
       intialScoreConfigNote: intialScoreConfigNote == freezed
           ? _value.intialScoreConfigNote
           : intialScoreConfigNote // ignore: cast_nullable_to_non_nullable
@@ -152,19 +129,13 @@ class __$$_TrackCopyWithImpl<$Res> extends _$TrackCopyWithImpl<$Res>
 
 /// @nodoc
 
-@JsonSerializable(explicitToJson: true)
 class _$_Track extends _Track {
   _$_Track(
       {required this.trackNumber,
       required this.volume,
       required this.program,
-      @JsonKey(toJson: linkedListToJson, fromJson: linkedListfromJson)
-          required this.bars,
       required this.intialScoreConfigNote})
       : super._();
-
-  factory _$_Track.fromJson(Map<String, dynamic> json) =>
-      _$$_TrackFromJson(json);
 
   @override
   int trackNumber;
@@ -173,27 +144,12 @@ class _$_Track extends _Track {
   @override
   int program;
   @override
-  @JsonKey(toJson: linkedListToJson, fromJson: linkedListfromJson)
-  BarsLinkedlist bars;
-  @override
   ScoreConfigNote intialScoreConfigNote;
-
-  @override
-  String toString() {
-    return 'Track(trackNumber: $trackNumber, volume: $volume, program: $program, bars: $bars, intialScoreConfigNote: $intialScoreConfigNote)';
-  }
 
   @JsonKey(ignore: true)
   @override
   _$$_TrackCopyWith<_$_Track> get copyWith =>
       __$$_TrackCopyWithImpl<_$_Track>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_TrackToJson(
-      this,
-    );
-  }
 }
 
 abstract class _Track extends Track {
@@ -201,12 +157,8 @@ abstract class _Track extends Track {
       {required int trackNumber,
       required int volume,
       required int program,
-      @JsonKey(toJson: linkedListToJson, fromJson: linkedListfromJson)
-          required BarsLinkedlist bars,
       required ScoreConfigNote intialScoreConfigNote}) = _$_Track;
   _Track._() : super._();
-
-  factory _Track.fromJson(Map<String, dynamic> json) = _$_Track.fromJson;
 
   @override
   int get trackNumber;
@@ -217,11 +169,6 @@ abstract class _Track extends Track {
   @override
   int get program;
   set program(int value);
-  @override
-  @JsonKey(toJson: linkedListToJson, fromJson: linkedListfromJson)
-  BarsLinkedlist get bars;
-  @JsonKey(toJson: linkedListToJson, fromJson: linkedListfromJson)
-  set bars(BarsLinkedlist value);
   @override
   ScoreConfigNote get intialScoreConfigNote;
   set intialScoreConfigNote(ScoreConfigNote value);

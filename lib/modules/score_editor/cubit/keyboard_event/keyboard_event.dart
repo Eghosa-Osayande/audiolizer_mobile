@@ -15,7 +15,6 @@ class SolfaKeyBoardInputEventCubit extends Cubit<SolfaKeyBoardInputEvent?> {
       emit(SolfaKeyBoardInputEvent(SolfaKeyBoardInputEventName.delete, []));
   }
 
-  void addNewBar() {}
 }
 
 class SolfaKeyBoardInputEvent extends Equatable {
@@ -34,6 +33,5 @@ class SolfaKeyBoardInputEvent extends Equatable {
 
 enum SolfaKeyBoardInputEventName {
   insert,
-  delete,
-  newBar;
+  delete;
 }

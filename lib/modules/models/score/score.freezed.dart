@@ -14,10 +14,6 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-Score _$ScoreFromJson(Map<String, dynamic> json) {
-  return _Score.fromJson(json);
-}
-
 /// @nodoc
 mixin _$Score {
   ScoreConfigNote get intialConfigNote => throw _privateConstructorUsedError;
@@ -25,12 +21,9 @@ mixin _$Score {
       throw _privateConstructorUsedError;
   List<Track> get tracks => throw _privateConstructorUsedError;
   set tracks(List<Track> value) => throw _privateConstructorUsedError;
-  @JsonKey(toJson: midifileToJson, fromJson: midifilefromJson)
   MIDIFile get midiFile => throw _privateConstructorUsedError;
-  @JsonKey(toJson: midifileToJson, fromJson: midifilefromJson)
   set midiFile(MIDIFile value) => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $ScoreCopyWith<Score> get copyWith => throw _privateConstructorUsedError;
 }
@@ -42,8 +35,7 @@ abstract class $ScoreCopyWith<$Res> {
   $Res call(
       {ScoreConfigNote intialConfigNote,
       List<Track> tracks,
-      @JsonKey(toJson: midifileToJson, fromJson: midifilefromJson)
-          MIDIFile midiFile});
+      MIDIFile midiFile});
 }
 
 /// @nodoc
@@ -85,8 +77,7 @@ abstract class _$$_ScoreCopyWith<$Res> implements $ScoreCopyWith<$Res> {
   $Res call(
       {ScoreConfigNote intialConfigNote,
       List<Track> tracks,
-      @JsonKey(toJson: midifileToJson, fromJson: midifilefromJson)
-          MIDIFile midiFile});
+      MIDIFile midiFile});
 }
 
 /// @nodoc
@@ -123,24 +114,18 @@ class __$$_ScoreCopyWithImpl<$Res> extends _$ScoreCopyWithImpl<$Res>
 
 /// @nodoc
 
-@JsonSerializable(explicitToJson: true)
 class _$_Score extends _Score {
   _$_Score(
       {required this.intialConfigNote,
       required this.tracks,
-      @JsonKey(toJson: midifileToJson, fromJson: midifilefromJson)
-          required this.midiFile})
+      required this.midiFile})
       : super._();
-
-  factory _$_Score.fromJson(Map<String, dynamic> json) =>
-      _$$_ScoreFromJson(json);
 
   @override
   ScoreConfigNote intialConfigNote;
   @override
   List<Track> tracks;
   @override
-  @JsonKey(toJson: midifileToJson, fromJson: midifilefromJson)
   MIDIFile midiFile;
 
   @override
@@ -152,24 +137,14 @@ class _$_Score extends _Score {
   @override
   _$$_ScoreCopyWith<_$_Score> get copyWith =>
       __$$_ScoreCopyWithImpl<_$_Score>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_ScoreToJson(
-      this,
-    );
-  }
 }
 
 abstract class _Score extends Score {
   factory _Score(
       {required ScoreConfigNote intialConfigNote,
       required List<Track> tracks,
-      @JsonKey(toJson: midifileToJson, fromJson: midifilefromJson)
-          required MIDIFile midiFile}) = _$_Score;
+      required MIDIFile midiFile}) = _$_Score;
   _Score._() : super._();
-
-  factory _Score.fromJson(Map<String, dynamic> json) = _$_Score.fromJson;
 
   @override
   ScoreConfigNote get intialConfigNote;
@@ -178,9 +153,7 @@ abstract class _Score extends Score {
   List<Track> get tracks;
   set tracks(List<Track> value);
   @override
-  @JsonKey(toJson: midifileToJson, fromJson: midifilefromJson)
   MIDIFile get midiFile;
-  @JsonKey(toJson: midifileToJson, fromJson: midifilefromJson)
   set midiFile(MIDIFile value);
   @override
   @JsonKey(ignore: true)

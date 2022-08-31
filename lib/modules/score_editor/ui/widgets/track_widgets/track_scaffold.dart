@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:solpha/modules/models/track/track.dart';
 import 'package:solpha/modules/score_editor/cubit/score/score_cubit_cubit.dart';
 import 'package:solpha/modules/score_editor/ui/widgets/keyboard/solfa_keyboard.dart';
 import 'package:solpha/modules/score_editor/ui/widgets/toolbars/playback_slider.dart';
 import 'package:solpha/modules/score_editor/ui/widgets/toolbars/primary_toolbar.dart';
+import 'package:solpha/modules/score_editor/ui/widgets/track_widgets/bar_group.dart';
 import 'package:solpha/modules/score_editor/ui/widgets/track_widgets/track_bar.dart';
 import 'package:solpha/modules/score_editor/ui/widgets/track_widgets/track_drawer.dart';
 
@@ -37,27 +39,16 @@ class _TrackScaffoldState extends State<TrackScaffold> {
                         return ListView.builder(
                           itemCount: scoreCubitState.score.trackBarCount,
                           itemBuilder: (context, barIndex) {
-                            return Row(
-                              children: [
-                                Text('$barIndex'),
-                                Expanded(
-                                  child: Column(
-                                    children: [
-                                      ...List.generate(scoreCubitState.score.tracks.length, (trackIndex) {
-                                        var bar = tracks[trackIndex].bars.toList()[barIndex];
-                                        return SizedBox(
-                                          // height: 300,
-                                          child: TrackBarWidget(
-                                            key: ObjectKey(bar),
-                                            bar: bar,
-                                            index: trackIndex,
-                                          ),
-                                        );
-                                      }),
-                                    ],
-                                  ),
-                                ),
-                              ],
+                            var bars = List.generate(
+                              tracks.length,
+                              (trackIndex) {
+                                var bar = tracks[trackIndex].bars.toList()[barIndex];
+                                return bar;
+                              },
+                            );
+                            return BarGroupWidget(
+                              barIndex: barIndex,
+                              bars: bars,
                             );
                           },
                         );

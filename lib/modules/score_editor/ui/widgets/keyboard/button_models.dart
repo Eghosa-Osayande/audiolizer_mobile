@@ -1,11 +1,15 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:solpha/modules/models/bar/bar.dart';
 import 'package:solpha/modules/models/notes/enums/duration_markers.dart';
 import 'package:solpha/modules/models/notes/enums/solfege.dart';
 import 'package:solpha/modules/models/notes/note.dart';
+import 'package:solpha/modules/score_editor/cubit/focused_bar/focused_bar_cubit.dart';
 import 'package:solpha/modules/score_editor/cubit/keyboard_event/keyboard_event.dart';
+import 'package:solpha/modules/score_editor/cubit/score/score_cubit_cubit.dart';
 
 class ButtonModel {
   const ButtonModel();
@@ -67,7 +71,7 @@ class DurationNoteButton implements ButtonModel {
       marker: marker,
       createdAt: DateTime.now().toUtc(),
     );
-     BlocProvider.of<SolfaKeyBoardInputEventCubit>(context).insertNotes([
+    BlocProvider.of<SolfaKeyBoardInputEventCubit>(context).insertNotes([
       note
     ]);
   }
@@ -86,7 +90,7 @@ class DeleteNoteButton implements ButtonModel {
 
   @override
   void action(BuildContext context) {
-  BlocProvider.of<SolfaKeyBoardInputEventCubit>(context).backSpace();
+    BlocProvider.of<SolfaKeyBoardInputEventCubit>(context).backSpace();
   }
 
   @override
@@ -113,7 +117,7 @@ class SpaceBarButton implements ButtonModel {
     Note note = WhiteSpaceNote(
       createdAt: DateTime.now().toUtc(),
     );
-     BlocProvider.of<SolfaKeyBoardInputEventCubit>(context).insertNotes([
+    BlocProvider.of<SolfaKeyBoardInputEventCubit>(context).insertNotes([
       note
     ]);
   }
@@ -132,7 +136,13 @@ class NewLineButton implements ButtonModel {
 
   @override
   void action(BuildContext context) {
-     BlocProvider.of<SolfaKeyBoardInputEventCubit>(context).addNewBar();
+    Bar? focusedBar = BlocProvider.of<FocusedBarCubit>(context).state;
+    if (focusedBar != null) {
+      var newBar = BlocProvider.of<ScoreCubit>(context).addBar(focusedBar);
+      SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+        BlocProvider.of<FocusedBarCubit>(context).focusBar(newBar);
+      });
+    }
   }
 
   @override

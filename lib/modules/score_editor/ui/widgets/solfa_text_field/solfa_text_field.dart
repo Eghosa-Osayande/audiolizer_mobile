@@ -3,7 +3,9 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:solpha/modules/models/bar/bar.dart';
+import 'package:solpha/modules/score_editor/cubit/focused_bar/focused_bar_cubit.dart';
 import 'package:solpha/modules/score_editor/cubit/keyboard_event/keyboard_event.dart';
+import 'package:solpha/modules/score_editor/cubit/score/score_cubit_cubit.dart';
 import 'package:solpha/modules/score_editor/cubit/toggle_keyboard_visibility.dart/toggle_keyboard_visibility_cubit.dart';
 import 'package:solpha/modules/score_editor/ui/widgets/note_widgets/note_theme.dart';
 import 'package:solpha/modules/score_editor/ui/widgets/solfa_text_field/auto_size_mixin.dart';
@@ -23,7 +25,7 @@ class _SolfaTextFieldState extends State<SolfaTextField> with AutoSizeTextMixin 
     onKey: volumeKeyOveride,
   );
 
-  late SolfaEditingController controller = SolfaEditingController(widget.bar);
+  late SolfaEditingController controller = SolfaEditingController(widget.bar.notes);
 
   KeyEventResult volumeKeyOveride(data, event) {
     // if (event.isKeyPressed(LogicalKeyboardKey.audioVolumeUp)) {
@@ -52,7 +54,9 @@ class _SolfaTextFieldState extends State<SolfaTextField> with AutoSizeTextMixin 
   }
 
   void focusListener() {
-    if (focus.hasPrimaryFocus) {}
+    if (focus.hasPrimaryFocus) {
+      BlocProvider.of<FocusedBarCubit>(context).focusBar(widget.bar);
+    }
   }
 
   @override
@@ -80,22 +84,42 @@ class _SolfaTextFieldState extends State<SolfaTextField> with AutoSizeTextMixin 
   }
 
   Widget _buildTextField() {
-    return BlocListener<SolfaKeyBoardInputEventCubit, SolfaKeyBoardInputEvent?>(
-      listener: (context, state) {
-        if (state != null && (focus.hasPrimaryFocus)) {
-          switch (state.name) {
-            case SolfaKeyBoardInputEventName.insert:
-              controller.insertNotes(state.note);
-              break;
-            case SolfaKeyBoardInputEventName.delete:
-              controller.backSpace();
-              break;
-            case SolfaKeyBoardInputEventName.newBar:
-             
-              break;
-          }
-        }
-      },
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<SolfaKeyBoardInputEventCubit, SolfaKeyBoardInputEvent?>(
+          listener: (context, state) {
+            if (state != null && (focus.hasPrimaryFocus)) {
+              switch (state.name) {
+                case SolfaKeyBoardInputEventName.insert:
+                  controller.insertNotes(state.note);
+                  break;
+                case SolfaKeyBoardInputEventName.delete:
+                  controller.backSpace();
+                  break;
+              }
+            }
+          },
+        ),
+        BlocListener<FocusedBarCubit, Bar?>(
+          listener: (context, state) {
+            if (state != widget.bar) {
+              if (focus.hasPrimaryFocus) {
+                focus.unfocus();
+              }
+            } else {
+              focus.requestFocus();
+              Future.delayed(
+                Duration(
+                  milliseconds: 500,
+                ),
+                () {
+                  Scrollable.ensureVisible(context);
+                },
+              );
+            }
+          },
+        ),
+      ],
       child: BlocBuilder<NoteThemeProvider, NoteTheme>(
         builder: (context, noteTheme) {
           return TextField(

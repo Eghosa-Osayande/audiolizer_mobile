@@ -10,18 +10,16 @@ import 'package:solpha/modules/score_editor/ui/widgets/note_widgets/note_theme.d
 import 'package:solpha/modules/score_editor/ui/widgets/solfa_text_field/solfa_clipboard_service.dart';
 
 class SolfaEditingController extends TextEditingController {
-  final Bar bar;
-
-  SolfaEditingController(this.bar)
+  SolfaEditingController(this.notes)
       : super.fromValue(
           TextEditingValue.empty,
         ) {
-    value = TextEditingValue(text: bar.notes.map((e) => '-').toList().join());
+    value = TextEditingValue(text: notes.map((e) => '-').toList().join());
     selection = TextSelection.collapsed(offset: value.text.length);
     notifyListeners();
   }
 
-  List<Note> get notes => bar.notes;
+  final List<Note> notes;
 
   @override
   TextSpan buildTextSpan({required BuildContext context, TextStyle? style, required bool withComposing}) {
@@ -72,7 +70,7 @@ class SolfaEditingController extends TextEditingController {
       baseOffset: textSelection.start + myTextLength,
       extentOffset: textSelection.start + myTextLength,
     );
-     notifyListeners();
+    notifyListeners();
   }
 
   void backSpace() {
@@ -97,7 +95,7 @@ class SolfaEditingController extends TextEditingController {
         baseOffset: textSelection.start,
         extentOffset: textSelection.start,
       );
-       notifyListeners();
+      notifyListeners();
       return;
     }
     // The cursor is at the beginning.
@@ -124,7 +122,7 @@ class SolfaEditingController extends TextEditingController {
       baseOffset: newStart,
       extentOffset: newStart,
     );
-     notifyListeners();
+    notifyListeners();
   }
 
   void copySelectedNotes() {

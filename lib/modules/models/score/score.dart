@@ -9,28 +9,35 @@ import 'package:solpha/modules/models/notes/note.dart';
 import 'package:solpha/modules/models/track/track.dart';
 
 part 'score.freezed.dart';
-part 'score.g.dart';
+// part 'score.g.dart';
 
-String midifileToJson(MIDIFile value) {
-  return '';
-}
 
-MIDIFile midifilefromJson(String value) {
-  return MIDIFile(numTracks: 10);
-}
 
 @unfreezed
 class Score extends HiveObject with _$Score {
-  @JsonSerializable(explicitToJson: true)
   Score._();
-  @JsonSerializable(explicitToJson: true)
+
   factory Score({
     required ScoreConfigNote intialConfigNote,
     required List<Track> tracks,
-    @JsonKey(toJson: midifileToJson, fromJson: midifilefromJson) required MIDIFile midiFile,
+    required MIDIFile midiFile,
   }) = _Score;
 
-  factory Score.fromJson(Map<String, dynamic> json) => _$ScoreFromJson(json);
+  // factory Score.fromJson(Map<String, dynamic> json) => _$ScoreFromJson(json);
+
+  factory Score.fromJson(Map<String, dynamic> json) {
+    return Score(
+      intialConfigNote: ScoreConfigNote.fromJson(json['intialConfigNote'] as Map<String, dynamic>),
+      tracks: (json['tracks'] as List<dynamic>).map((e) => Track.fromJson(e as Map<String, dynamic>)).toList(),
+      midiFile: MIDIFile(numTracks: 10),
+    );
+  }
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'intialConfigNote': intialConfigNote.toJson(),
+        'tracks': tracks.map((track) => track.toJson()).toList(),
+        'midiFile': '',
+      };
 
   void _resetMidiFile() {
     midiFile = MIDIFile(numTracks: 10);

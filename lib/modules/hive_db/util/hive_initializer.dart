@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 import 'package:solpha/modules/hive_db/adapters/enum_adapter.dart';
@@ -19,13 +21,13 @@ class HiveInitializer {
     if (kIsWeb) {
     } else {
       String path = await PlatformPathService.instance.getHiveDirectory();
-      Hive.init(path+'/b');
+      Hive.init(path+'/d');
     }
 
     // await Hive.deleteFromDisk();
 
     Hive.registerAdapter(
-      LinkedListAdapter<Bar, BarsLinkedlist>(
+      LinkedListAdapter<Bar, LinkedList<Bar>>(
         typeId: 1,
       ),
     );

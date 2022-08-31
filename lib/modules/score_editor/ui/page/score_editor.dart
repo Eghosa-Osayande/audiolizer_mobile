@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:solpha/modules/models/score/score.dart';
+import 'package:solpha/modules/score_editor/cubit/focused_bar/focused_bar_cubit.dart';
 import 'package:solpha/modules/score_editor/cubit/keyboard_event/keyboard_event.dart';
 import 'package:solpha/modules/score_editor/cubit/score/score_cubit_cubit.dart';
 import 'package:solpha/modules/score_editor/cubit/toggle_edit_play_mode/toggle_edit_play_mode_cubit.dart';
@@ -35,6 +36,9 @@ class ScoreEditorPage extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => SolfaKeyBoardInputEventCubit(),
+        ),
+        BlocProvider(
+          create: (context) => FocusedBarCubit(),
         ),
       ],
       child: ScoreEditorBody(),

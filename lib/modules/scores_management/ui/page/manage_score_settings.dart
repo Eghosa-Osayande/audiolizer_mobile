@@ -182,26 +182,24 @@ class _CreateScorePageState extends State<CreateScorePage> {
                 trackNumber: 0,
                 volume: 100,
                 program: 48,
-                bars: BarsLinkedlist([
+                intialScoreConfigNote: scoreConfigNote,
+              )..add(
                   Bar(
                     createdAt: DateTime.now().toUtc(),
                     notes: [],
-                  )
-                ]),
-                intialScoreConfigNote: scoreConfigNote,
-              ),
+                  ),
+                ),
               Track(
                 trackNumber: 1,
                 volume: 100,
                 program: 0,
-                bars: BarsLinkedlist([
+                intialScoreConfigNote: scoreConfigNote,
+              )..add(
                   Bar(
                     createdAt: DateTime.now().toUtc(),
                     notes: [],
-                  )
-                ]),
-                intialScoreConfigNote: scoreConfigNote,
-              )
+                  ),
+                )
             ],
           );
           await ScoresRepo.instance.put(score);
