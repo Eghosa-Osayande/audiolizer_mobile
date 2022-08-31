@@ -45,7 +45,8 @@ dependencies:
   dio: ^4.0.6
 
   #share to other apps
-  share_plus: ^4.0.4
+  share_plus: ^4.0.10+1
+  receive_sharing_intent: ^1.4.5
 
   #database
   hive: ^2.1.0
@@ -74,6 +75,7 @@ dependencies:
   auto_size_text_field: ^2.1.0
   flutter_slidable: ^2.0.0
   
+  
 
 dev_dependencies:
   flutter_test:
@@ -90,6 +92,7 @@ dev_dependencies:
   json_serializable:
   hive_generator: ^1.1.2
   analyzer: ^4.6.0
+  
   
 
 

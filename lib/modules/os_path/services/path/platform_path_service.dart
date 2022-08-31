@@ -1,4 +1,3 @@
-
 import 'package:path_provider/path_provider.dart';
 import 'package:solpha/modules/app_services_controller/services_config.dart';
 
@@ -12,11 +11,17 @@ class PlatformPathService {
     return _instance!;
   }
 
- static PlatformPathService get instance => PlatformPathService._create();
+  static PlatformPathService get instance => PlatformPathService._create();
 
   Future<String> getHiveDirectory() async {
     var directory = await getApplicationDocumentsDirectory();
     var path = directory.path;
+    return path;
+  }
+
+  Future<String> getImportDirectory() async {
+    var directory = await getApplicationDocumentsDirectory();
+    var path = directory.path+'/imports';
     return path;
   }
 }
