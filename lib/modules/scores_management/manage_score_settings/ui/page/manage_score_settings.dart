@@ -178,10 +178,12 @@ class _CreateScorePageState extends State<CreateScorePage> {
             );
             trackNo = trackNo + 1;
           }
-          widget.score!.clear();
-          widget.score!.addAll(copiedTracks);
-          await widget.score?.save();
-          Navigator.pop<Score>(context, widget.score);
+          print(copiedTracks);
+          // widget.score!.clear();
+          // widget.score!.addAll(copiedTracks);
+          // await widget.score?.save();
+
+          // Navigator.pop<Score>(context, widget.score);
         } else {
           // creating score
 

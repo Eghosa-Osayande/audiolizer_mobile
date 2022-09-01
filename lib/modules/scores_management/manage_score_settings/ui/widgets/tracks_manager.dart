@@ -139,7 +139,7 @@ class TrackOptionsWidget extends StatelessWidget {
                         child: FormBuilderDropdown<MidiProgram>(
                           name: '_exclude${track.trackNumber}',
                           isDense: false,
-                          initialValue: MidiProgram.keyboard,
+                          initialValue: track.program,
                           validator: FormBuilderValidators.compose([
                             FormBuilderValidators.required(),
                           ]),
@@ -165,7 +165,7 @@ class TrackOptionsWidget extends StatelessWidget {
                         child: FormBuilderDropdown<int>(
                           name: '_exclude2${track.trackNumber}',
                           isDense: false,
-                          initialValue: 127,
+                          initialValue: track.volume,
                           validator: FormBuilderValidators.compose([
                             FormBuilderValidators.required(),
                           ]),
