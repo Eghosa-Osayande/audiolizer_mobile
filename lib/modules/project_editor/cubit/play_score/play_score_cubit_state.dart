@@ -1,9 +1,9 @@
-part of 'score_cubit_cubit.dart';
+part of 'play_score_cubit.dart';
 
-class ScoreCubitState with EquatableMixin {
+class PlayScoreCubitState with EquatableMixin {
   late final int id = DateTime.now().millisecondsSinceEpoch;
   final Score score;
-  ScoreCubitState(this.score);
+  PlayScoreCubitState(this.score);
 
   @override
   List<Object?> get props => [

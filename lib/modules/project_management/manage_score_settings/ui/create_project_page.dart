@@ -222,7 +222,8 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
             description: '',
             updatedAt: DateTime.now(),
             score: newlyCreatedScore,
-            scoreVersions: {},
+            scoreRedoVersions: [],
+            scoreUndoVersions: [],
           );
           await ProjectRepo.instance.put(newProject);
           Navigator.pop<Project>(context, newProject);

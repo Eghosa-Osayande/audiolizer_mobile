@@ -6,7 +6,7 @@ import 'package:solpha/modules/models/notes/enums/solfege.dart';
 import 'button_models.dart';
 import 'button_widget.dart';
 
-double kNoteHeight = 37;
+
 
 class OctaveBoard extends StatelessWidget {
   final int octave;
@@ -14,6 +14,8 @@ class OctaveBoard extends StatelessWidget {
     Key? key,
     required this.octave,
   }) : super(key: key);
+
+  final double kNoteHeight = 45;
 
   @override
   Widget build(BuildContext context) {

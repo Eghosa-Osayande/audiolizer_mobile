@@ -22,7 +22,7 @@ class ProjectBottomSheet extends StatelessWidget {
         // physics: NeverScrollableScrollPhysics(),
         child: Column(
           children: [
-               ListTile(
+            ListTile(
               leading: Icon(Icons.settings),
               title: Text('Settings'),
               onTap: () {
@@ -34,14 +34,12 @@ class ProjectBottomSheet extends StatelessWidget {
               leading: Icon(Icons.share),
               title: Text('Share'),
               onTap: () {
-                ShareIntentService.instance.shareProject(project);
+                ShareProjectService.instance.shareProject(project);
                 Navigator.pop(context);
               },
             ),
-         
-           
             ListTile(
-             leading: Icon(Icons.share),
+              leading: Icon(Icons.share),
               title: Text('Share as Midi'),
               onTap: () {
                 //  ShareIntentService.instance.shareProject(project);
@@ -72,7 +70,7 @@ class ProjectBottomSheet extends StatelessWidget {
                 Navigator.pop(context);
               },
             ),
-             ListTile(
+            ListTile(
               leading: Icon(Icons.delete),
               title: Text('Remove'),
               onTap: () {

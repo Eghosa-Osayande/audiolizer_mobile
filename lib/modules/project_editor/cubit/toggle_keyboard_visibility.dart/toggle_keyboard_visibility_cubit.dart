@@ -2,36 +2,36 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/services.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-enum KeyboardVisibility { visible, hidden, hiddenForSytemUI }
+enum SolfaKeyboardVisibility { visible, hidden, hiddenForSytemUI }
 
-class ToggleKeyboardVisibilityCubit extends Cubit<KeyboardVisibility> {
-  ToggleKeyboardVisibilityCubit() : super(KeyboardVisibility.visible);
+class ToggleSolfaKeyboardVisibilityCubit extends Cubit<SolfaKeyboardVisibility> {
+  ToggleSolfaKeyboardVisibilityCubit() : super(SolfaKeyboardVisibility.visible);
 
   void toggle() {
     switch (state) {
-      case KeyboardVisibility.visible:
-        emit(KeyboardVisibility.hidden);
+      case SolfaKeyboardVisibility.visible:
+        emit(SolfaKeyboardVisibility.hidden);
         break;
-      case KeyboardVisibility.hidden:
+      case SolfaKeyboardVisibility.hidden:
 
-      case KeyboardVisibility.hiddenForSytemUI:
-        emit(KeyboardVisibility.visible);
+      case SolfaKeyboardVisibility.hiddenForSytemUI:
+        emit(SolfaKeyboardVisibility.visible);
         break;
     }
   }
 
   void open() {
     SystemChannels.textInput.invokeMethod('TextInput.hide');
-    emit(KeyboardVisibility.visible);
+    emit(SolfaKeyboardVisibility.visible);
   }
 
   void hiddenForSytemUI() {
-    emit(KeyboardVisibility.hiddenForSytemUI);
+    emit(SolfaKeyboardVisibility.hiddenForSytemUI);
   }
 
   void showForSytemUI() {
-    if (state == KeyboardVisibility.hiddenForSytemUI) {
-      emit(KeyboardVisibility.visible);
+    if (state == SolfaKeyboardVisibility.hiddenForSytemUI) {
+      emit(SolfaKeyboardVisibility.visible);
       SystemChannels.textInput.invokeMethod('TextInput.hide');
     }
   }

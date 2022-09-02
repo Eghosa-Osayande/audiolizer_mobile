@@ -14,7 +14,7 @@ abstract class AppColors {
   final Color black = Color.fromRGBO(0, 0, 0, 1);
   final transparent = Color.fromRGBO(0, 0, 0, 0);
 
-  final Color primary = Color(0xFFE94242);
+  final Color primary = Colors.red;
   // final Color primary500 = Color(0xFF5700D8);
   // final Color primary400 = Color(0xFF742DDD);
   // final Color primary300 = Color(0xFF8549DF);

@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:solpha/modules/models/bar/bar.dart';
 import 'package:solpha/modules/project_editor/cubit/focused_bar/focused_bar_cubit.dart';
 import 'package:solpha/modules/project_editor/cubit/keyboard_event/keyboard_event.dart';
-import 'package:solpha/modules/project_editor/cubit/score/score_cubit_cubit.dart';
+import 'package:solpha/modules/project_editor/cubit/play_score/play_score_cubit.dart';
 import 'package:solpha/modules/project_editor/cubit/toggle_keyboard_visibility.dart/toggle_keyboard_visibility_cubit.dart';
 import 'package:solpha/modules/project_editor/ui/note_widgets/note_theme.dart';
 import 'package:solpha/modules/project_editor/ui/solfa_text_field/auto_size_mixin.dart';
@@ -96,6 +96,12 @@ class _SolfaTextFieldState extends State<SolfaTextField> with AutoSizeTextMixin 
                 case SolfaKeyBoardInputEventName.delete:
                   controller.backSpace();
                   break;
+                case SolfaKeyBoardInputEventName.addBar:
+                  // TODO: Handle this case.
+                  break;
+                case SolfaKeyBoardInputEventName.deleteBar:
+                  // TODO: Handle this case.
+                  break;
               }
             }
           },
@@ -113,7 +119,9 @@ class _SolfaTextFieldState extends State<SolfaTextField> with AutoSizeTextMixin 
                   milliseconds: 500,
                 ),
                 () {
-                  Scrollable.ensureVisible(context);
+                  if (mounted) {
+                    Scrollable.ensureVisible(context);
+                  }
                 },
               );
             }
@@ -126,7 +134,7 @@ class _SolfaTextFieldState extends State<SolfaTextField> with AutoSizeTextMixin 
             minLines: 1,
             maxLines: null,
             onTap: () {
-              BlocProvider.of<ToggleKeyboardVisibilityCubit>(context).open();
+              BlocProvider.of<ToggleSolfaKeyboardVisibilityCubit>(context).open();
             },
             autofocus: true,
             focusNode: focus,

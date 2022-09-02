@@ -1,0 +1,43 @@
+import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'package:solpha/modules/models/project/project_model.dart';
+import 'package:solpha/modules/models/score/score.dart';
+import 'package:solpha/modules/project_editor/service/audio_player_service.dart';
+
+part 'play_score_cubit_state.dart';
+
+class PlayScoreCubit extends Cubit<PlayScoreCubitState> {
+  final Project project;
+
+  PlayScoreCubit({required this.project}) : super(PlayScoreCubitState(project.score));
+
+  void play() async {
+    if (AudioPlayerService.instance.isPlaying) {
+      AudioPlayerService.instance.pause();
+    } else {
+      emit(PlayScoreCubitState(project.score));
+
+      var result = await project.score.commit();
+
+      if (result != null) {
+        if (result.isSuccess) {
+          project.save();
+          await AudioPlayerService.instance.setSourceBytes(await result.success.readAsBytes());
+          await AudioPlayerService.instance.seek(Duration(seconds: 0));
+          AudioPlayerService.instance.resume();
+          return;
+        } else {
+          return;
+        }
+      }
+      AudioPlayerService.instance.resume();
+
+      emit(PlayScoreCubitState(project.score));
+    }
+  }
+
+  @override
+  Future<void> close() {
+    return super.close();
+  }
+}

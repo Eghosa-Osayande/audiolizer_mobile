@@ -15,7 +15,8 @@ class Project with HiveObjectMixin, _$Project {
     required String description,
     required DateTime updatedAt,
     required Score score,
-    required Map<DateTime,Score> scoreVersions,
+    required List<Score> scoreUndoVersions,
+    required List<Score> scoreRedoVersions,
   }) = _Project;
 
   factory Project.fromJson(Map<String, dynamic> json) => _$ProjectFromJson(json);
@@ -23,5 +24,9 @@ class Project with HiveObjectMixin, _$Project {
   String get updatedAtString {
     final DateFormat formatter = DateFormat.jm().add_yMd();
     return '${formatter.format(updatedAt)}';
+  }
+
+  String titleShort(int value,{String delimiter=''}) {
+    return (title.length > value ? title.substring(0, value)+delimiter : title);
   }
 }

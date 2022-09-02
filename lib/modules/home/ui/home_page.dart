@@ -1,3 +1,4 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -6,6 +7,8 @@ import 'package:solpha/modules/home/cubit/my_projects/my_projects.dart';
 import 'package:solpha/modules/home/cubit/recently_opened/recently_opened.dart';
 import 'package:solpha/modules/home/ui/open_project_fab.dart';
 import 'package:solpha/modules/models/project/project_model.dart';
+import 'package:solpha/modules/os_file_picker/platform_file_picker.dart';
+import 'package:solpha/modules/os_share_intent/services/share_intent_service.dart';
 import 'package:solpha/modules/project_management/manage_score_settings/ui/create_project_page.dart';
 import 'package:solpha/modules/project_management/my_projects/ui/my_projects_page.dart';
 
@@ -71,7 +74,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
               ),
               BlocBuilder<MyProjectsCubit, List<Project>?>(builder: (context, state) {
                 var pagingController = PagingController<int, Project>(firstPageKey: 0)
-                  ..itemList =  state
+                  ..itemList = state
                   ..nextPageKey = null;
 
                 return PagedSliverList(
@@ -102,7 +105,12 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                 child: Text('New Project'),
                               ),
                               ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () async {
+                                  var path = await PlatformFilePickerService.instance.pickFile();
+                                  if (path != null) {
+                                    ShareProjectService.instance.processFileFromPath(path);
+                                  }
+                                },
                                 child: Text('Open File'),
                               ),
                             ],
@@ -119,7 +127,9 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                   ),
                 );
               }),
-              SliverToBoxAdapter(child: SizedBox(height: 200),)
+              SliverToBoxAdapter(
+                child: SizedBox(height: 200),
+              )
             ],
           ),
         ),

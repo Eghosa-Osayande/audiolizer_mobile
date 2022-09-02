@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:solpha/modules/models/track/track.dart';
-import 'package:solpha/modules/project_editor/cubit/score/score_cubit_cubit.dart';
+import 'package:solpha/modules/project_editor/cubit/keyboard_event/keyboard_event.dart';
+import 'package:solpha/modules/project_editor/cubit/undo_redo/undo_redo_cubit.dart';
 import 'package:solpha/modules/project_editor/ui/keyboard/solfa_keyboard.dart';
 import 'package:solpha/modules/project_editor/ui/toolbars/playback_slider.dart';
 import 'package:solpha/modules/project_editor/ui/toolbars/primary_toolbar.dart';
 import 'package:solpha/modules/project_editor/ui/track_widgets/bar_group.dart';
-import 'package:solpha/modules/project_editor/ui/track_widgets/track_bar.dart';
-import 'package:solpha/modules/project_editor/ui/track_widgets/track_drawer.dart';
 
 class TrackScaffold extends StatefulWidget {
   const TrackScaffold({
@@ -19,25 +17,43 @@ class TrackScaffold extends StatefulWidget {
 }
 
 class _TrackScaffoldState extends State<TrackScaffold> {
-  final GlobalKey keyboardKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
-    return Builder(builder: (context) {
-      return Scaffold(
-        drawer: SideDrawer(),
-        appBar: PrimaryToolbar(),
-        body: Scaffold(
-          appBar: ToolbarPlaybackProgress(),
-          body: Column(
-            children: [
-              Expanded(
-                child: Align(
-                    alignment: Alignment.topLeft,
-                    child: BlocBuilder<ScoreCubit, ScoreCubitState>(
-                      builder: (context, scoreCubitState) {
-                        var tracks = scoreCubitState.score.tracks;
+    return Scaffold(
+      appBar: PrimaryToolbar(),
+      body: Scaffold(
+        appBar: ToolbarPlaybackProgress(),
+        body: Column(
+          children: [
+            Expanded(
+              child: Align(
+                  alignment: Alignment.topLeft,
+                  child: MultiBlocListener(
+                    listeners: [
+                      BlocListener<SolfaKeyBoardInputEventCubit, SolfaKeyBoardInputEvent?>(
+                        listener: (context, state) {
+                          if (state != null) {
+                            switch (state.name) {
+                              case SolfaKeyBoardInputEventName.insert:
+                                break;
+                              case SolfaKeyBoardInputEventName.delete:
+                                break;
+                              case SolfaKeyBoardInputEventName.addBar:
+                                setState(() {});
+                                break;
+                              case SolfaKeyBoardInputEventName.deleteBar:
+                                setState(() {});
+                                break;
+                            }
+                          }
+                        },
+                      ),
+                    ],
+                    child: BlocBuilder<UndoRedoCubit, UndoRedoState>(
+                      builder: (context, undoRedoState) {
+                        var tracks = undoRedoState.project.score.tracks;
                         return ListView.builder(
-                          itemCount: scoreCubitState.score.trackBarCount,
+                          itemCount: undoRedoState.project.score.trackBarCount,
                           itemBuilder: (context, barIndex) {
                             var bars = List.generate(
                               tracks.length,
@@ -53,15 +69,13 @@ class _TrackScaffoldState extends State<TrackScaffold> {
                           },
                         );
                       },
-                    )),
-              ),
-              SolfaKeyboard(
-                key: keyboardKey,
-              ),
-            ],
-          ),
+                    ),
+                  )),
+            ),
+            SolfaKeyboard(),
+          ],
         ),
-      );
-    });
+      ),
+    );
   }
 }

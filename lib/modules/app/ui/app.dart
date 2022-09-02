@@ -18,15 +18,15 @@ class SolphaApp extends StatefulWidget {
 }
 
 class _SolphaAppState extends State<SolphaApp> {
-  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+  static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   @override
   void initState() {
     super.initState();
-    ShareIntentService.instance.handleAnyInitialSharedMedia();
-    ShareIntentService.instance.sharedSolphaFileEventStream.listen(onSharedSolphaFileEvent);
+    ShareProjectService.instance.handleAnyInitialSharedProject();
+    ShareProjectService.instance.sharedProjectEventStream.listen(onRecievedShareProjectEvent);
   }
 
-  void onSharedSolphaFileEvent(Project project) {
+  void onRecievedShareProjectEvent(Project project) {
     navigatorKey.currentState?.push(ProjectEditorPage.route(project));
   }
 
@@ -45,16 +45,14 @@ class _SolphaAppState extends State<SolphaApp> {
         FormBuilderLocalizations.delegate,
       ],
       theme: ThemeData(
-        primarySwatch: generateMaterialColor(AppColors.instance.primary),
-        textTheme: GoogleFonts.interTextTheme(
-          Theme.of(context).textTheme,
-        ).apply(
-            bodyColor:  AppColors.instance.defaultTextColor,
-  displayColor: AppColors.instance.defaultTextColor,
-        ),
-
-        brightness:Brightness.dark
-      ),
+          primarySwatch: generateMaterialColor(AppColors.instance.primary),
+          textTheme: GoogleFonts.interTextTheme(
+            Theme.of(context).textTheme,
+          ).apply(
+            bodyColor: AppColors.instance.defaultTextColor,
+            displayColor: AppColors.instance.defaultTextColor,
+          ),
+          brightness: Brightness.dark),
       home: const HomePage(),
     );
   }

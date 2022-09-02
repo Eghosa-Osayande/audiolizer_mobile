@@ -1,5 +1,7 @@
 import 'package:floating_action_bubble/floating_action_bubble.dart';
 import 'package:flutter/material.dart';
+import 'package:solpha/modules/os_file_picker/platform_file_picker.dart';
+import 'package:solpha/modules/os_share_intent/services/share_intent_service.dart';
 import 'package:solpha/modules/project_management/manage_score_settings/ui/create_project_page.dart';
 import 'package:solpha/modules/themes/colors/app_colors.dart';
 
@@ -41,7 +43,6 @@ class OpenProjectFABState extends State<OpenProjectFAB> with TickerProviderState
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-       
         return isFABClosed();
       },
       child: FloatingActionBubble(
@@ -55,7 +56,11 @@ class OpenProjectFABState extends State<OpenProjectFAB> with TickerProviderState
               fontSize: 16,
               color: AppColors.instance.iconLight,
             ),
-            onPress: () {
+            onPress: () async {
+              var path = await PlatformFilePickerService.instance.pickFile();
+              if (path != null) {
+                ShareProjectService.instance.processFileFromPath(path);
+              }
               _animationController.reverse();
             },
           ),

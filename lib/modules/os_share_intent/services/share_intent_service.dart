@@ -13,37 +13,44 @@ import 'package:solpha/modules/os_permission/services/permission/platform_permis
 import 'package:solpha/modules/os_toast/services/platform_toast_service.dart';
 import 'package:solpha/modules/project_management/repo/project_repo.dart';
 
-class ShareIntentService {
-  static ShareIntentService? _instance;
+class ShareProjectService {
+  static ShareProjectService? _instance;
 
-  ShareIntentService._();
+  ShareProjectService._();
 
-  factory ShareIntentService._create() {
+  factory ShareProjectService._create() {
     if (_instance == null) {
-      _instance = (AppServicesConfig.isTest) ? ShareIntentService._() : ShareIntentService._();
+      _instance = (AppServicesConfig.isTest) ? ShareProjectService._() : ShareProjectService._();
       _instance?._startListeningForIncomingShareIntent();
     }
 
     return _instance!;
   }
 
-  static ShareIntentService get instance => ShareIntentService._create();
+  static ShareProjectService get instance => ShareProjectService._create();
 
   final StreamController<Project> _sharedSolphaFileEventStream = StreamController.broadcast();
 
-  Stream<Project> get sharedSolphaFileEventStream => _sharedSolphaFileEventStream.stream;
+  Stream<Project> get sharedProjectEventStream => _sharedSolphaFileEventStream.stream;
 
   _startListeningForIncomingShareIntent() {
     ReceiveSharingIntent.getMediaStream().listen(_onShareIntentRecieved);
   }
 
-  Future handleAnyInitialSharedMedia() async {
+  Future handleAnyInitialSharedProject() async {
     List<SharedMediaFile> result = await ReceiveSharingIntent.getInitialMedia();
+    _onShareIntentRecieved(result);
   }
 
   void _onShareIntentRecieved(List<SharedMediaFile> value) async {
-    try {
+    if (value.isNotEmpty) {
       var filePath = value.first.path;
+      await processFileFromPath(filePath);
+    }
+  }
+
+  Future<void> processFileFromPath(String filePath) async {
+    try {
       print(filePath);
 
       await _handleFile(File(filePath));
@@ -51,7 +58,7 @@ class ShareIntentService {
       print('storage permission required');
       bool hasPermission = await PlatformPermissionService.instance.handleStoragePermission();
       if (hasPermission) {
-        _onShareIntentRecieved(value);
+        processFileFromPath(filePath);
       } else {
         PlatformToastService.instance.showToast(msg: 'Permission not granted');
       }
@@ -59,11 +66,13 @@ class ShareIntentService {
   }
 
   Future<void> _handleFile(File file) async {
-    if (file.path.endsWith('.solpha')) {
+    if (file.path.endsWith('.solfa')) {
       String scoreJson = await file.readAsString();
 
       try {
-        Project importedScore = Project.fromJson(json.decode(scoreJson));
+        Project importedScore = Project.fromJson(json.decode(scoreJson)).copyWith(
+          updatedAt: DateTime.now(),
+        );
         await ProjectRepo.instance.put(importedScore);
         _sharedSolphaFileEventStream.add(importedScore);
       } on Exception catch (e) {
@@ -75,10 +84,13 @@ class ShareIntentService {
   }
 
   Future<void> shareProject(Project project) async {
-    String shareData = json.encode(project.toJson());
+    String shareData = json.encode(project.copyWith(
+      scoreUndoVersions: [],
+      scoreRedoVersions: [],
+    ).toJson());
     String root = await PlatformPathService.instance.getExportRootDirectory();
 
-    File outputFile = File('$root/${project.title}.solpha');
+    File outputFile = File('$root/${project.title}.solfa');
     await outputFile.create(recursive: true);
     var result = await outputFile.writeAsString(shareData);
     Share.shareFiles([

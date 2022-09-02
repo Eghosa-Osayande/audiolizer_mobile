@@ -2,25 +2,61 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:solpha/modules/models/score/score.dart';
-import 'package:solpha/modules/project_editor/cubit/score/score_cubit_cubit.dart';
+import 'package:solpha/modules/project_editor/cubit/current_project/current_project.dart';
+import 'package:solpha/modules/project_editor/cubit/edit_project/edit_project_cubit.dart';
+import 'package:solpha/modules/project_editor/cubit/play_score/play_score_cubit.dart';
 import 'package:solpha/modules/project_editor/cubit/toggle_edit_play_mode/toggle_edit_play_mode_cubit.dart';
 import 'package:solpha/modules/project_editor/cubit/toggle_keyboard_visibility.dart/toggle_keyboard_visibility_cubit.dart';
+import 'package:solpha/modules/project_editor/cubit/undo_redo/undo_redo_cubit.dart';
+import 'package:solpha/modules/themes/colors/app_colors.dart';
 
 class PrimaryToolbar extends StatelessWidget implements PreferredSizeWidget {
   const PrimaryToolbar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ScoreCubit, ScoreCubitState>(
+    return BlocBuilder<EditProjectCubit, EditProjectCubitState>(
       builder: (context, state) {
-        var tracks = state.score.tracks;
-        var noOfTracks = tracks.length;
-        return AppBar(
-          title: Text('Tracks'),
-          actions: [
+        var project = BlocProvider.of<CurrentProjectCubit>(context).state;
+        return Row(
+          children: [
+            IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back)),
+            Text(
+              project.titleShort(7, delimiter: '...'.toUpperCase()),
+              style: TextStyle(fontSize: 20),
+            ),
+            Spacer(),
+            BlocBuilder<UndoRedoCubit, UndoRedoState>(
+              builder: (context, state) {
+                return IconButton(
+                  onPressed: project.scoreUndoVersions.isEmpty
+                      ? null
+                      : () {
+                          BlocProvider.of<UndoRedoCubit>(context).undo();
+                        },
+                  icon: Icon(
+                    Icons.undo,
+                  ),
+                );
+              },
+            ),
+            BlocBuilder<UndoRedoCubit, UndoRedoState>(
+              builder: (context, state) {
+                return IconButton(
+                  onPressed: project.scoreRedoVersions.isEmpty
+                      ? null
+                      : () {
+                          BlocProvider.of<UndoRedoCubit>(context).redo();
+                        },
+                  icon: Icon(
+                    Icons.redo,
+                  ),
+                );
+              },
+            ),
             IconButton(
               onPressed: () {
-                BlocProvider.of<ScoreCubit>(context).play();
+                BlocProvider.of<PlayScoreCubit>(context).play();
               },
               icon: BlocBuilder<ToggleEditPlayModeCubit, ToggleEditPlayModeState>(
                 builder: (context, state) {
@@ -39,7 +75,9 @@ class PrimaryToolbar extends StatelessWidget implements PreferredSizeWidget {
                 return [
                   PopupMenuItem(
                     child: ToolbarOption(title: 'Undo'),
-                    onTap: () async {},
+                    onTap: () async {
+                      BlocProvider.of<UndoRedoCubit>(context).undo();
+                    },
                   ),
                   PopupMenuItem(
                     child: ToolbarOption(title: 'Redo'),
@@ -95,17 +133,17 @@ class KeyboardVisibilityToggler extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: () {
-        BlocProvider.of<ToggleKeyboardVisibilityCubit>(context).toggle();
+        BlocProvider.of<ToggleSolfaKeyboardVisibilityCubit>(context).toggle();
       },
-      icon: BlocBuilder<ToggleKeyboardVisibilityCubit, KeyboardVisibility>(
+      icon: BlocBuilder<ToggleSolfaKeyboardVisibilityCubit, SolfaKeyboardVisibility>(
         builder: (context, state) {
           switch (state) {
-            case KeyboardVisibility.visible:
+            case SolfaKeyboardVisibility.visible:
               return Icon(Icons.keyboard);
 
-            case KeyboardVisibility.hidden:
+            case SolfaKeyboardVisibility.hidden:
 
-            case KeyboardVisibility.hiddenForSytemUI:
+            case SolfaKeyboardVisibility.hiddenForSytemUI:
               return Icon(Icons.keyboard_alt_outlined);
           }
         },

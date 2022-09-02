@@ -15,6 +15,7 @@ class ToggleEditPlayModeCubit extends Cubit<ToggleEditPlayModeState> {
     sub = AudioPlayerService.instance.onPlayerStateChanged.listen(onPlayerStateChangedListener);
     sub2 = AudioPlayerService.instance.onPlayerComplete.listen(onPlayerCompleteListener);
   }
+  
 
   @override
   Future<void> close() {

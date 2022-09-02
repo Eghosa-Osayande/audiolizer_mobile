@@ -18,9 +18,9 @@ class SolfaKeyboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ToggleKeyboardVisibilityCubit, KeyboardVisibility>(
+    return BlocBuilder<ToggleSolfaKeyboardVisibilityCubit, SolfaKeyboardVisibility>(
       builder: (context, state) {
-        if (state == KeyboardVisibility.hidden || state == KeyboardVisibility.hiddenForSytemUI) {
+        if (state == SolfaKeyboardVisibility.hidden || state == SolfaKeyboardVisibility.hiddenForSytemUI) {
           return SizedBox();
         }
         return LayoutBuilder(builder: (context, box) {
@@ -29,7 +29,7 @@ class SolfaKeyboard extends StatelessWidget {
               Container(
                 decoration: BoxDecoration(color: Colors.black54),
                 child: SizedBox(
-                  height: 185,
+                  height: 220,
                   child: Column(
                     children: [
                       TopRow(),

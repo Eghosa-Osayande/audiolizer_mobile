@@ -28,8 +28,11 @@ mixin _$Project {
   set updatedAt(DateTime value) => throw _privateConstructorUsedError;
   Score get score => throw _privateConstructorUsedError;
   set score(Score value) => throw _privateConstructorUsedError;
-  Map<DateTime, Score> get scoreVersions => throw _privateConstructorUsedError;
-  set scoreVersions(Map<DateTime, Score> value) =>
+  List<Score> get scoreUndoVersions => throw _privateConstructorUsedError;
+  set scoreUndoVersions(List<Score> value) =>
+      throw _privateConstructorUsedError;
+  List<Score> get scoreRedoVersions => throw _privateConstructorUsedError;
+  set scoreRedoVersions(List<Score> value) =>
       throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -46,7 +49,8 @@ abstract class $ProjectCopyWith<$Res> {
       String description,
       DateTime updatedAt,
       Score score,
-      Map<DateTime, Score> scoreVersions});
+      List<Score> scoreUndoVersions,
+      List<Score> scoreRedoVersions});
 
   $ScoreCopyWith<$Res> get score;
 }
@@ -65,7 +69,8 @@ class _$ProjectCopyWithImpl<$Res> implements $ProjectCopyWith<$Res> {
     Object? description = freezed,
     Object? updatedAt = freezed,
     Object? score = freezed,
-    Object? scoreVersions = freezed,
+    Object? scoreUndoVersions = freezed,
+    Object? scoreRedoVersions = freezed,
   }) {
     return _then(_value.copyWith(
       title: title == freezed
@@ -84,10 +89,14 @@ class _$ProjectCopyWithImpl<$Res> implements $ProjectCopyWith<$Res> {
           ? _value.score
           : score // ignore: cast_nullable_to_non_nullable
               as Score,
-      scoreVersions: scoreVersions == freezed
-          ? _value.scoreVersions
-          : scoreVersions // ignore: cast_nullable_to_non_nullable
-              as Map<DateTime, Score>,
+      scoreUndoVersions: scoreUndoVersions == freezed
+          ? _value.scoreUndoVersions
+          : scoreUndoVersions // ignore: cast_nullable_to_non_nullable
+              as List<Score>,
+      scoreRedoVersions: scoreRedoVersions == freezed
+          ? _value.scoreRedoVersions
+          : scoreRedoVersions // ignore: cast_nullable_to_non_nullable
+              as List<Score>,
     ));
   }
 
@@ -110,7 +119,8 @@ abstract class _$$_ProjectCopyWith<$Res> implements $ProjectCopyWith<$Res> {
       String description,
       DateTime updatedAt,
       Score score,
-      Map<DateTime, Score> scoreVersions});
+      List<Score> scoreUndoVersions,
+      List<Score> scoreRedoVersions});
 
   @override
   $ScoreCopyWith<$Res> get score;
@@ -131,7 +141,8 @@ class __$$_ProjectCopyWithImpl<$Res> extends _$ProjectCopyWithImpl<$Res>
     Object? description = freezed,
     Object? updatedAt = freezed,
     Object? score = freezed,
-    Object? scoreVersions = freezed,
+    Object? scoreUndoVersions = freezed,
+    Object? scoreRedoVersions = freezed,
   }) {
     return _then(_$_Project(
       title: title == freezed
@@ -150,10 +161,14 @@ class __$$_ProjectCopyWithImpl<$Res> extends _$ProjectCopyWithImpl<$Res>
           ? _value.score
           : score // ignore: cast_nullable_to_non_nullable
               as Score,
-      scoreVersions: scoreVersions == freezed
-          ? _value.scoreVersions
-          : scoreVersions // ignore: cast_nullable_to_non_nullable
-              as Map<DateTime, Score>,
+      scoreUndoVersions: scoreUndoVersions == freezed
+          ? _value.scoreUndoVersions
+          : scoreUndoVersions // ignore: cast_nullable_to_non_nullable
+              as List<Score>,
+      scoreRedoVersions: scoreRedoVersions == freezed
+          ? _value.scoreRedoVersions
+          : scoreRedoVersions // ignore: cast_nullable_to_non_nullable
+              as List<Score>,
     ));
   }
 }
@@ -166,7 +181,8 @@ class _$_Project extends _Project {
       required this.description,
       required this.updatedAt,
       required this.score,
-      required this.scoreVersions})
+      required this.scoreUndoVersions,
+      required this.scoreRedoVersions})
       : super._();
 
   factory _$_Project.fromJson(Map<String, dynamic> json) =>
@@ -181,11 +197,13 @@ class _$_Project extends _Project {
   @override
   Score score;
   @override
-  Map<DateTime, Score> scoreVersions;
+  List<Score> scoreUndoVersions;
+  @override
+  List<Score> scoreRedoVersions;
 
   @override
   String toString() {
-    return 'Project(title: $title, description: $description, updatedAt: $updatedAt, score: $score, scoreVersions: $scoreVersions)';
+    return 'Project(title: $title, description: $description, updatedAt: $updatedAt, score: $score, scoreUndoVersions: $scoreUndoVersions, scoreRedoVersions: $scoreRedoVersions)';
   }
 
   @JsonKey(ignore: true)
@@ -207,7 +225,8 @@ abstract class _Project extends Project {
       required String description,
       required DateTime updatedAt,
       required Score score,
-      required Map<DateTime, Score> scoreVersions}) = _$_Project;
+      required List<Score> scoreUndoVersions,
+      required List<Score> scoreRedoVersions}) = _$_Project;
   _Project._() : super._();
 
   factory _Project.fromJson(Map<String, dynamic> json) = _$_Project.fromJson;
@@ -225,8 +244,11 @@ abstract class _Project extends Project {
   Score get score;
   set score(Score value);
   @override
-  Map<DateTime, Score> get scoreVersions;
-  set scoreVersions(Map<DateTime, Score> value);
+  List<Score> get scoreUndoVersions;
+  set scoreUndoVersions(List<Score> value);
+  @override
+  List<Score> get scoreRedoVersions;
+  set scoreRedoVersions(List<Score> value);
   @override
   @JsonKey(ignore: true)
   _$$_ProjectCopyWith<_$_Project> get copyWith =>

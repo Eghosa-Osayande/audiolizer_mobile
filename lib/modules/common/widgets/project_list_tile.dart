@@ -32,7 +32,7 @@ class ProjectListTile extends StatelessWidget {
               dimension: 50,
               child: Center(
                 child: Text(
-                  (project.title.length > 3 ? project.title.substring(0, 3) : project.title).toUpperCase(),
+                  project.titleShort(3).toUpperCase(),
                 ),
               ),
             ),

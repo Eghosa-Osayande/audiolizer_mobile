@@ -46,7 +46,7 @@ class Track extends LinkedList<Bar> with _$Track, LinkedListEntry<Track>, Equata
         'trackNumber': trackNumber,
         'volume': volume,
         'program': program.index,
-        'bars': this.toList(),
+        'bars': this.toList().map((bar) => bar.toJson()).toList(),
       };
 
   LinkedList<Bar> get bars => this;

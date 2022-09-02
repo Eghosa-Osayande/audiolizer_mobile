@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:solpha/modules/project_editor/ui/keyboard/button_models.dart';
@@ -7,11 +9,16 @@ import 'package:charcode/charcode.dart';
 
 class ButtonWidget extends StatefulWidget {
   final ButtonModel data;
+
   final double? height;
+
+ 
+
   const ButtonWidget({
     Key? key,
     this.data = const ButtonModel(),
     this.height,
+   
   }) : super(key: key);
 
   @override
@@ -23,18 +30,47 @@ class _ButtonWidgetState extends State<ButtonWidget> {
 
   double initialWidth = 30;
 
+  Timer? timer;
+
+  Duration delay = const Duration(milliseconds: 100);
+
+  void continuousWork() {
+    widget.data.action(context);
+  }
+
+  void onJobEnd() {
+    if (widget.data.canLongPress) {
+      debugPrint("Job END");
+      timer?.cancel();
+      timer = null;
+    }
+  }
+
+  void onJobStart() {
+    if (widget.data.canLongPress) {
+      if (timer != null) return;
+      debugPrint("Job started");
+      timer = Timer.periodic(delay, (timer) {
+        continuousWork();
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       onTapCancel: () {
         tooltipKey.currentState?.deactivate();
+        onJobEnd();
       },
       onTapDown: (details) {
+        onJobStart();
         tooltipKey.currentState?.ensureTooltipVisible();
       },
       onTapUp: (details) {
         tooltipKey.currentState?.deactivate();
-        widget.data.action(context);
+        continuousWork();
+        onJobEnd();
       },
       child: Tooltip(
         key: tooltipKey,
