@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:midi_util/midi_util.dart';
 import 'package:result_type/result_type.dart';
+import 'package:solpha/modules/models/notes/enums/solfege.dart';
 import 'package:solpha/modules/models/notes/note.dart';
 import 'package:solpha/modules/models/track/track.dart';
 
@@ -41,15 +42,10 @@ class Bar extends LinkedListEntry<Bar> with _$Bar, ChangeNotifier {
     return 0;
   }
 
-
-
   Result<double, Note> computeNotes({
-    
-  
     required double accumulatedTime,
   }) {
     // intialScoreConfigNote = intialScoreConfigNoteX;
-  
 
     DurationNote? start, end;
     MusicNote? previousNote, mid;
@@ -57,7 +53,6 @@ class Bar extends LinkedListEntry<Bar> with _$Bar, ChangeNotifier {
     Note? errorNote;
 
     for (var note in notes) {
-      
       if ((note.isDuration) || (note.isMusic)) {
         if (start == null) {
           if (note.isDuration) {
@@ -72,12 +67,16 @@ class Bar extends LinkedListEntry<Bar> with _$Bar, ChangeNotifier {
             mid = note as MusicNote;
             continue;
           } else {
-            errorNote = note;
-            break;
+            // errorNote = note;
+            // break;
           }
-        } else if (end == null) {
+        }
+        if (end == null) {
           if (note.isDuration) {
             end = note as DurationNote;
+
+            mid ??= MusicNote(solfa: Solfege.silent, octave: 0, createdAt: DateTime.now());
+
             //
             var result = start.beatsBetween(end);
             if (result.isSuccess) {

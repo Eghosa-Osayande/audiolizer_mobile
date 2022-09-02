@@ -7,6 +7,7 @@ import 'package:solpha/modules/project_editor/cubit/focused_bar/focused_bar_cubi
 import 'package:solpha/modules/project_editor/cubit/keyboard_event/keyboard_event.dart';
 import 'package:solpha/modules/project_editor/cubit/play_score/play_score_cubit.dart';
 import 'package:solpha/modules/project_editor/cubit/toggle_keyboard_visibility.dart/toggle_keyboard_visibility_cubit.dart';
+import 'package:solpha/modules/project_editor/cubit/volume_navigation/volume_navigation_cubit.dart';
 import 'package:solpha/modules/project_editor/ui/note_widgets/note_theme.dart';
 import 'package:solpha/modules/project_editor/ui/solfa_text_field/auto_size_mixin.dart';
 import 'package:solpha/modules/project_editor/ui/solfa_text_field/solfa_input_controller.dart';
@@ -28,18 +29,21 @@ class _SolfaTextFieldState extends State<SolfaTextField> with AutoSizeTextMixin 
   late SolfaEditingController controller = SolfaEditingController(widget.bar.notes);
 
   KeyEventResult volumeKeyOveride(data, event) {
-    // if (event.isKeyPressed(LogicalKeyboardKey.audioVolumeUp)) {
-    //   print("Volume up");
-    //   BlocProvider.of<CurrentBarCubit>(context).state?.solfaEditingController.moveCursorLeft();
-    //   return KeyEventResult.handled;
-    // }
-    // if (event.isKeyPressed(LogicalKeyboardKey.audioVolumeDown)) {
-    //   print("Volume down");
-    //   BlocProvider.of<CurrentBarCubit>(context).state?.solfaEditingController.moveCursorRight();
-    //   return KeyEventResult.handled;
-    // }
-    // return KeyEventResult.ignored;
-    return KeyEventResult.ignored;
+    if (BlocProvider.of<VolumeNavigationCubit>(context).state) {
+if (event.isKeyPressed(LogicalKeyboardKey.audioVolumeUp)) {
+        print("Volume up");
+        controller.moveCursorLeft();
+        return KeyEventResult.handled;
+      }
+      if (event.isKeyPressed(LogicalKeyboardKey.audioVolumeDown)) {
+        print("Volume down");
+       controller.moveCursorRight();
+        return KeyEventResult.handled;
+      }
+      return KeyEventResult.ignored;
+    } else {
+      return KeyEventResult.ignored;
+    }
   }
 
   @override

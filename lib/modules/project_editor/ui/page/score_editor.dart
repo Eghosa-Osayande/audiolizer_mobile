@@ -11,6 +11,7 @@ import 'package:solpha/modules/project_editor/cubit/play_score/play_score_cubit.
 import 'package:solpha/modules/project_editor/cubit/toggle_edit_play_mode/toggle_edit_play_mode_cubit.dart';
 import 'package:solpha/modules/project_editor/cubit/toggle_keyboard_visibility.dart/toggle_keyboard_visibility_cubit.dart';
 import 'package:solpha/modules/project_editor/cubit/undo_redo/undo_redo_cubit.dart';
+import 'package:solpha/modules/project_editor/cubit/volume_navigation/volume_navigation_cubit.dart';
 import 'package:solpha/modules/project_editor/ui/score_editor_body.dart';
 
 class ProjectEditorPage extends StatelessWidget {
@@ -53,6 +54,9 @@ class ProjectEditorPage extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => FocusedBarCubit(),
+        ),
+        BlocProvider(
+          create: (context) => VolumeNavigationCubit(),
         ),
       ],
       child: ScoreEditorBody(),

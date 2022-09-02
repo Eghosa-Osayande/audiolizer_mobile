@@ -8,6 +8,7 @@ import 'package:solpha/modules/project_editor/cubit/play_score/play_score_cubit.
 import 'package:solpha/modules/project_editor/cubit/toggle_edit_play_mode/toggle_edit_play_mode_cubit.dart';
 import 'package:solpha/modules/project_editor/cubit/toggle_keyboard_visibility.dart/toggle_keyboard_visibility_cubit.dart';
 import 'package:solpha/modules/project_editor/cubit/undo_redo/undo_redo_cubit.dart';
+import 'package:solpha/modules/project_editor/cubit/volume_navigation/volume_navigation_cubit.dart';
 import 'package:solpha/modules/themes/colors/app_colors.dart';
 
 class PrimaryToolbar extends StatelessWidget implements PreferredSizeWidget {
@@ -74,14 +75,27 @@ class PrimaryToolbar extends StatelessWidget implements PreferredSizeWidget {
               itemBuilder: (context) {
                 return [
                   PopupMenuItem(
-                    child: ToolbarOption(title: 'Undo'),
-                    onTap: () async {
-                      BlocProvider.of<UndoRedoCubit>(context).undo();
-                    },
-                  ),
-                  PopupMenuItem(
-                    child: ToolbarOption(title: 'Redo'),
-                    onTap: () {},
+                    child: ToolbarOption(
+                      title: 'Volume Navigation',
+                      trailing: BlocProvider(
+                        create: (context) => VolumeNavigationCubit(),
+                        child: Builder(builder: (context) {
+                          return BlocBuilder<VolumeNavigationCubit, bool>(
+                            builder: (context, state) {
+                              return Checkbox(
+                                  value: state,
+                                  onChanged: (bool? value) {
+                                    if (value != null) {
+                                      BlocProvider.of<VolumeNavigationCubit>(context).toggle(value);
+                                    }
+                                    Navigator.pop(context);
+                                  });
+                            },
+                          );
+                        }),
+                      ),
+                    ),
+                   
                   ),
                 ];
               },
