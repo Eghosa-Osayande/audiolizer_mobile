@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:solpha/modules/app/app.dart';
+import 'package:solpha/modules/app/ui/app.dart';
 import 'package:solpha/modules/hive_db/util/hive_initializer.dart';
 
 void main() async {

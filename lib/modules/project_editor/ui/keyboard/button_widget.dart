@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:solpha/modules/project_editor/ui/widgets/keyboard/button_models.dart';
+import 'package:solpha/modules/project_editor/ui/keyboard/button_models.dart';
 import 'package:charcode/charcode.dart';
 
 class ButtonWidget extends StatefulWidget {

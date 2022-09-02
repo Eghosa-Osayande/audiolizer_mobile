@@ -4,7 +4,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:solpha/modules/models/bar/bar.dart';
 import 'package:solpha/modules/models/track/track.dart';
 import 'package:solpha/modules/project_editor/cubit/score/score_cubit_cubit.dart';
-import 'package:solpha/modules/project_editor/ui/widgets/track_widgets/track_bar.dart';
+import 'package:solpha/modules/project_editor/ui/track_widgets/track_bar.dart';
 
 class BarGroupWidget extends StatelessWidget {
   const BarGroupWidget({

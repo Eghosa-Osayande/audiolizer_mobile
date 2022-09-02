@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:solpha/modules/models/track/track.dart';
 import 'package:solpha/modules/project_editor/cubit/score/score_cubit_cubit.dart';
-import 'package:solpha/modules/project_editor/ui/widgets/keyboard/solfa_keyboard.dart';
-import 'package:solpha/modules/project_editor/ui/widgets/toolbars/playback_slider.dart';
-import 'package:solpha/modules/project_editor/ui/widgets/toolbars/primary_toolbar.dart';
-import 'package:solpha/modules/project_editor/ui/widgets/track_widgets/bar_group.dart';
-import 'package:solpha/modules/project_editor/ui/widgets/track_widgets/track_bar.dart';
-import 'package:solpha/modules/project_editor/ui/widgets/track_widgets/track_drawer.dart';
+import 'package:solpha/modules/project_editor/ui/keyboard/solfa_keyboard.dart';
+import 'package:solpha/modules/project_editor/ui/toolbars/playback_slider.dart';
+import 'package:solpha/modules/project_editor/ui/toolbars/primary_toolbar.dart';
+import 'package:solpha/modules/project_editor/ui/track_widgets/bar_group.dart';
+import 'package:solpha/modules/project_editor/ui/track_widgets/track_bar.dart';
+import 'package:solpha/modules/project_editor/ui/track_widgets/track_drawer.dart';
 
 class TrackScaffold extends StatefulWidget {
   const TrackScaffold({

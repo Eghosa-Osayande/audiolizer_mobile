@@ -7,7 +7,7 @@ import 'package:solpha/modules/project_editor/cubit/keyboard_event/keyboard_even
 import 'package:solpha/modules/project_editor/cubit/score/score_cubit_cubit.dart';
 import 'package:solpha/modules/project_editor/cubit/toggle_edit_play_mode/toggle_edit_play_mode_cubit.dart';
 import 'package:solpha/modules/project_editor/cubit/toggle_keyboard_visibility.dart/toggle_keyboard_visibility_cubit.dart';
-import 'package:solpha/modules/project_editor/ui/widgets/score_editor_body.dart';
+import 'package:solpha/modules/project_editor/ui/score_editor_body.dart';
 
 class ProjectEditorPage extends StatelessWidget {
   final Project project;

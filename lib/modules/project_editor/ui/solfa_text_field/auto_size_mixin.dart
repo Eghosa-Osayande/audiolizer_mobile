@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:solpha/modules/project_editor/ui/widgets/note_widgets/note_theme.dart';
+import 'package:solpha/modules/project_editor/ui/note_widgets/note_theme.dart';
 
 mixin AutoSizeTextMixin<T extends StatefulWidget> on State<T> {
   late double textSpanWidth;

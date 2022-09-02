@@ -7,10 +7,10 @@ import 'package:solpha/modules/project_editor/cubit/focused_bar/focused_bar_cubi
 import 'package:solpha/modules/project_editor/cubit/keyboard_event/keyboard_event.dart';
 import 'package:solpha/modules/project_editor/cubit/score/score_cubit_cubit.dart';
 import 'package:solpha/modules/project_editor/cubit/toggle_keyboard_visibility.dart/toggle_keyboard_visibility_cubit.dart';
-import 'package:solpha/modules/project_editor/ui/widgets/note_widgets/note_theme.dart';
-import 'package:solpha/modules/project_editor/ui/widgets/solfa_text_field/auto_size_mixin.dart';
-import 'package:solpha/modules/project_editor/ui/widgets/solfa_text_field/solfa_input_controller.dart';
-import 'package:solpha/modules/project_editor/ui/widgets/solfa_text_field/solfa_text_controls.dart';
+import 'package:solpha/modules/project_editor/ui/note_widgets/note_theme.dart';
+import 'package:solpha/modules/project_editor/ui/solfa_text_field/auto_size_mixin.dart';
+import 'package:solpha/modules/project_editor/ui/solfa_text_field/solfa_input_controller.dart';
+import 'package:solpha/modules/project_editor/ui/solfa_text_field/solfa_text_controls.dart';
 
 class SolfaTextField extends StatefulWidget {
   final Bar bar;

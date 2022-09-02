@@ -12,7 +12,7 @@ import 'package:solpha/modules/models/score/score.dart';
 import 'package:solpha/modules/models/score/enums/time_signature.dart';
 import 'package:solpha/modules/models/track/enums/midi_program.dart';
 import 'package:solpha/modules/models/track/track.dart';
-import 'package:solpha/modules/project_management/manage_score_settings/ui/widgets/tracks_manager.dart';
+import 'package:solpha/modules/project_management/manage_score_settings/ui/tracks_manager.dart';
 import 'package:solpha/modules/project_management/repo/project_repo.dart';
 import 'package:solpha/modules/themes/constants.dart';
 

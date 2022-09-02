@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:solpha/modules/project_editor/cubit/toggle_keyboard_visibility.dart/toggle_keyboard_visibility_cubit.dart';
-import 'package:solpha/modules/project_editor/ui/widgets/keyboard/utility_row.dart';
+import 'package:solpha/modules/project_editor/ui/keyboard/utility_row.dart';
 
 import 'octave_board.dart';
 

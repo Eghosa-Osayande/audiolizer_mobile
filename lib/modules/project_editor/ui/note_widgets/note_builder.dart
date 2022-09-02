@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:solpha/modules/models/notes/note.dart';
-import 'package:solpha/modules/project_editor/ui/widgets/note_widgets/note_theme.dart';
+import 'package:solpha/modules/project_editor/ui/note_widgets/note_theme.dart';
 
 class NoteBuilder extends StatelessWidget {
   final Note note;
