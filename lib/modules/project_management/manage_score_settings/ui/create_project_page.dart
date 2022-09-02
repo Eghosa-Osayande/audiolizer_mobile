@@ -25,10 +25,10 @@ class CreateProjectPage extends StatefulWidget {
 
   static String path = '/createScore';
 
-  static Route<Project> route({Project? score}) {
+  static Route<Project> route({Project? project}) {
     return MaterialPageRoute<Project>(
       settings: RouteSettings(name: path),
-      builder: (_) => CreateProjectPage(project: score),
+      builder: (_) => CreateProjectPage(project: project),
     );
   }
 
