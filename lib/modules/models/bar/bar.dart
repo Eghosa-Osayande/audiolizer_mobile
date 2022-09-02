@@ -6,7 +6,6 @@ import 'package:midi_util/midi_util.dart';
 import 'package:result_type/result_type.dart';
 import 'package:solpha/modules/models/notes/note.dart';
 import 'package:solpha/modules/models/track/track.dart';
-import 'package:solpha/modules/score_editor/ui/widgets/solfa_text_field/solfa_input_controller.dart';
 
 part 'bar.freezed.dart';
 part 'bar.g.dart';

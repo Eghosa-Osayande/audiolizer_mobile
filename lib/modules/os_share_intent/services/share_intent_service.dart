@@ -6,11 +6,12 @@ import 'package:file/memory.dart';
 import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:solpha/modules/app_services_controller/services_config.dart';
+import 'package:solpha/modules/models/project/project_model.dart';
 import 'package:solpha/modules/models/score/score.dart';
 import 'package:solpha/modules/os_path/services/path/platform_path_service.dart';
 import 'package:solpha/modules/os_permission/services/permission/platform_permission_service.dart';
 import 'package:solpha/modules/os_toast/services/platform_toast_service.dart';
-import 'package:solpha/modules/scores_management/repo/scores_repo.dart';
+import 'package:solpha/modules/project_management/repo/project_repo.dart';
 
 class ShareIntentService {
   static ShareIntentService? _instance;
@@ -28,9 +29,9 @@ class ShareIntentService {
 
   static ShareIntentService get instance => ShareIntentService._create();
 
-  final StreamController<Score> _sharedSolphaFileEventStream = StreamController.broadcast();
+  final StreamController<Project> _sharedSolphaFileEventStream = StreamController.broadcast();
 
-  Stream<Score> get sharedSolphaFileEventStream => _sharedSolphaFileEventStream.stream;
+  Stream<Project> get sharedSolphaFileEventStream => _sharedSolphaFileEventStream.stream;
 
   _startListeningForIncomingShareIntent() {
     ReceiveSharingIntent.getMediaStream().listen(_onShareIntentRecieved);
@@ -62,8 +63,8 @@ class ShareIntentService {
       String scoreJson = await file.readAsString();
 
       try {
-        Score importedScore = Score.fromJson(json.decode(scoreJson));
-        await ScoresRepo.instance.put(importedScore);
+        Project importedScore = Project.fromJson(json.decode(scoreJson));
+        await ProjectRepo.instance.put(importedScore);
         _sharedSolphaFileEventStream.add(importedScore);
       } on Exception catch (e) {
         PlatformToastService.instance.showToast(msg: 'Loading file failed\nInvalidformat');
@@ -73,11 +74,11 @@ class ShareIntentService {
     }
   }
 
-  Future<void> shareScore(Score score) async {
-    String shareData = json.encode(score.toJson());
+  Future<void> shareProject(Project project) async {
+    String shareData = json.encode(project.toJson());
     String root = await PlatformPathService.instance.getExportRootDirectory();
 
-    File outputFile = File('$root/${score.scoreTitle}.solpha');
+    File outputFile = File('$root/${project.title}.solpha');
     await outputFile.create(recursive: true);
     var result = await outputFile.writeAsString(shareData);
     Share.shareFiles([

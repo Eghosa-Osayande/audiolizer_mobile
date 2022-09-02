@@ -6,10 +6,10 @@ import 'package:solpha/modules/hive_db/adapters/enum_adapter.dart';
 import 'package:solpha/modules/hive_db/adapters/from_json_adapter.dart';
 import 'package:solpha/modules/hive_db/adapters/linked_list_adapter.dart';
 import 'package:solpha/modules/models/bar/bar.dart';
-import 'package:solpha/modules/models/bar/bars_linked_list.dart';
 import 'package:solpha/modules/models/notes/enums/duration_markers.dart';
 import 'package:solpha/modules/models/notes/enums/solfege.dart';
 import 'package:solpha/modules/models/notes/note.dart';
+import 'package:solpha/modules/models/project/project_model.dart';
 import 'package:solpha/modules/models/score/enums/key_signature.dart';
 import 'package:solpha/modules/models/score/score.dart';
 import 'package:solpha/modules/models/score/enums/time_signature.dart';
@@ -69,6 +69,7 @@ class HiveInitializer {
         typeId: 10,
       ),
     );
+
     Hive.registerAdapter(
       EnumTypeAdapter(typeId: 11, values: KeySignature.values),
     );
@@ -84,6 +85,12 @@ class HiveInitializer {
     Hive.registerAdapter(
       LinkedListAdapter<Track, LinkedList<Track>>(
         typeId: 15,
+      ),
+    );
+    Hive.registerAdapter(
+      FromJsonTypeAdapter(
+        createObject: (json) => Project.fromJson(json),
+        typeId: 16,
       ),
     );
   }

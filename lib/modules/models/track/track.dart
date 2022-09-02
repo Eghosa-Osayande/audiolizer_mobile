@@ -8,10 +8,10 @@ import 'package:solpha/modules/models/notes/enums/solfege.dart';
 import 'package:solpha/modules/models/notes/note.dart';
 import 'package:solpha/modules/models/score/score.dart';
 import 'package:solpha/modules/models/track/enums/midi_program.dart';
-import 'package:solpha/modules/score_editor/ui/widgets/solfa_text_field/solfa_input_controller.dart';
+
 import 'dart:collection';
 
-import '../bar/bars_linked_list.dart';
+
 
 part 'track.freezed.dart';
 // part 'track.g.dart';

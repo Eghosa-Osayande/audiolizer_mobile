@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:form_builder_validators/localization/l10n.dart';
+import 'package:solpha/modules/models/project/project_model.dart';
 import 'package:solpha/modules/models/score/score.dart';
 import 'package:solpha/modules/os_share_intent/services/share_intent_service.dart';
-import 'package:solpha/modules/score_editor/ui/page/score_editor.dart';
-import 'package:solpha/modules/scores_management/score_list/ui/page/score_list_page.dart';
+import 'package:solpha/modules/project_editor/ui/page/score_editor.dart';
 
 class SolphaApp extends StatefulWidget {
   const SolphaApp({Key? key}) : super(key: key);
@@ -21,8 +21,8 @@ class _SolphaAppState extends State<SolphaApp> {
     ShareIntentService.instance.sharedSolphaFileEventStream.listen(onSharedSolphaFileEvent);
   }
 
-  void onSharedSolphaFileEvent(Score score) {
-    navigatorKey.currentState?.push(ScoreEditorPage.route(score));
+  void onSharedSolphaFileEvent(Project project) {
+    navigatorKey.currentState?.push(ProjectEditorPage.route(project));
   }
 
   @override
@@ -44,7 +44,7 @@ class _SolphaAppState extends State<SolphaApp> {
         primaryColor: Colors.red.shade900,
         brightness: Brightness.dark,
       ),
-      home: const ScorelistPage(),
+      home: const Center(),
     );
   }
 }
