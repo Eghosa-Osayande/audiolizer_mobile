@@ -20,7 +20,7 @@ part 'score.freezed.dart';
 // part 'score.g.dart';
 
 @unfreezed
-class Score extends LinkedList<Track> with HiveObjectMixin, _$Score {
+class Score extends LinkedList<Track> with HiveObjectMixin, _$Score, ErrorObjectMixin<Track> {
   Score._();
 
   factory Score({
@@ -120,6 +120,8 @@ class Score extends LinkedList<Track> with HiveObjectMixin, _$Score {
     _resetMidiFile();
 
     int maxBeats = 0;
+
+    errorObj = null;
     for (var track in tracks) {
       var result = track.computeNotes();
 
@@ -132,6 +134,7 @@ class Score extends LinkedList<Track> with HiveObjectMixin, _$Score {
 
         continue;
       } else {
+        errorObj = track;
         return Failure(track);
       }
     }

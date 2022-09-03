@@ -11,17 +11,13 @@ import 'package:solpha/modules/models/track/track.dart';
 part 'bar.freezed.dart';
 part 'bar.g.dart';
 
-// List<Note> oJson(value) {
-//   return value.notes;
-// }
-
-// romJson(dynamic value) {
-//     List<Note> list = List.from(value.map((e)=>Note.fromJson(e)).toList());
-//   return list);
-// }
+mixin ErrorObjectMixin<T> {
+  T? errorObj;
+  int? errorIndex;
+}
 
 @unfreezed
-class Bar extends LinkedListEntry<Bar> with _$Bar, ChangeNotifier {
+class Bar extends LinkedListEntry<Bar> with _$Bar, ChangeNotifier, ErrorObjectMixin<Note> {
   Bar._();
   @JsonSerializable(explicitToJson: true)
   factory Bar({
@@ -50,16 +46,20 @@ class Bar extends LinkedListEntry<Bar> with _$Bar, ChangeNotifier {
     DurationNote? start, end;
     MusicNote? previousNote, mid;
 
-    Note? errorNote;
+    errorObj = null;
+    errorIndex = null;
     startAt = null;
+    int index = 0;
     for (var note in notes) {
+      errorIndex = index;
+      index++;
       if ((note.isDuration) || (note.isMusic)) {
         if (start == null) {
           if (note.isDuration) {
             start = note as DurationNote;
             continue;
           } else {
-            errorNote = note;
+            errorObj = note;
             break;
           }
         } else if (mid == null) {
@@ -67,7 +67,7 @@ class Bar extends LinkedListEntry<Bar> with _$Bar, ChangeNotifier {
             mid = note as MusicNote;
             continue;
           } else {
-            // errorNote = note;
+            // errorObj = note;
             // break;
           }
         }
@@ -92,11 +92,11 @@ class Bar extends LinkedListEntry<Bar> with _$Bar, ChangeNotifier {
 
               if (mid.isSustained) {
                 if (previousNote == null) {
-                  errorNote = mid;
+                  errorObj = mid;
                   break;
                 } else {
                   if (previousNote.duration == null) {
-                    errorNote = mid;
+                    errorObj = mid;
                     break;
                   } else {
                     previousNote.duration = previousNote.duration + duration;
@@ -112,30 +112,30 @@ class Bar extends LinkedListEntry<Bar> with _$Bar, ChangeNotifier {
               start = end;
               end = null;
             } else {
-              errorNote = mid;
+              errorObj = mid;
               break;
             }
           } else {
-            errorNote = note;
+            errorObj = note;
             break;
           }
         } else {
-          errorNote = note;
+          errorObj = note;
           break;
         }
       }
     }
 
-    if (errorNote != null) {
-      return Failure(errorNote);
+    if (errorObj != null) {
+      return Failure(errorObj!);
     } else {
       return Success(accumulatedTime);
     }
   }
 
-  Future<void> commit(Track track, MIDIFile midiFile,{bool isMetroneme=false}) async {
+  Future<void> commit(Track track, MIDIFile midiFile, {bool isMetroneme = false}) async {
     for (var note in notes) {
-      await note.commit(track, midiFile,isMetroneme: isMetroneme);
+      await note.commit(track, midiFile, isMetroneme: isMetroneme);
     }
   }
 }

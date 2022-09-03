@@ -2,16 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:solpha/modules/models/bar/bar.dart';
+import 'package:solpha/modules/models/notes/note.dart';
 import 'package:solpha/modules/project_editor/cubit/current_project/current_project.dart';
 import 'package:solpha/modules/project_editor/cubit/edit_project/edit_project_cubit.dart';
 import 'package:solpha/modules/project_editor/cubit/focused_bar/focused_bar_cubit.dart';
 import 'package:solpha/modules/project_editor/cubit/keyboard_event/keyboard_event.dart';
+import 'package:solpha/modules/project_editor/cubit/play_score/play_score_cubit.dart';
 import 'package:solpha/modules/project_editor/cubit/toggle_keyboard_visibility.dart/toggle_keyboard_visibility_cubit.dart';
 import 'package:solpha/modules/project_editor/cubit/undo_redo/undo_redo_cubit.dart';
 import 'package:solpha/modules/project_editor/ui/keyboard/solfa_keyboard.dart';
 import 'package:solpha/modules/project_editor/ui/toolbars/playback_slider.dart';
 import 'package:solpha/modules/project_editor/ui/toolbars/primary_toolbar.dart';
 import 'package:solpha/modules/project_editor/ui/track_widgets/bar_group.dart';
+import 'package:solpha/modules/themes/colors/app_colors.dart';
 
 class TrackScaffold extends StatefulWidget {
   const TrackScaffold({
@@ -23,11 +26,10 @@ class TrackScaffold extends StatefulWidget {
 }
 
 class _TrackScaffoldState extends State<TrackScaffold> {
-
-@override
+  @override
   void initState() {
     super.initState();
-     context.read<SolfaKeyBoardInputEventCubit>().addBarWhenEmpty();
+    context.read<SolfaKeyBoardInputEventCubit>().addBarWhenEmpty();
   }
 
   @override
@@ -69,6 +71,76 @@ class _TrackScaffoldState extends State<TrackScaffold> {
                                   // TODO: Handle this case.
                                   break;
                               }
+                            }
+                          },
+                        ),
+                        BlocListener<PlayScoreCubit, PlayScoreCubitState?>(
+                          listener: (context, state) {
+                            if (state?.score.errorObj != null) {
+                              var errorTrack = state?.score.errorObj;
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  String? errorTrackName = errorTrack?.name;
+                                  int? errorTrackIndex = errorTrack?.errorIndex;
+
+                                  Bar? errorBar = errorTrack?.errorObj;
+                                  int? errorBarIndex = errorTrack?.errorObj?.errorIndex;
+
+                                  Note? errorNote = errorTrack?.errorObj?.errorObj;
+
+                                  String start = '';
+                                  String? mid;
+                                  String end = '';
+
+                                  for (Note note in errorBar?.notes ?? []) {
+                                    if (note == errorNote) {
+                                      mid = note.displayString();
+                                      continue;
+                                    }
+                                    if (mid != null) {
+                                      end = end + note.displayString();
+                                    } else {
+                                      start = start + note.displayString();
+                                    }
+                                  }
+                                  return AlertDialog(
+                                    title: Text('Compile error'),
+                                    content: Text.rich(
+                                      TextSpan(
+                                        children: [
+                                          TextSpan(text: 'Issue on Track named ($errorTrackName) at Bar $errorTrackIndex\n\n'),
+                                          WidgetSpan(
+                                            child: Container(
+                                              padding: EdgeInsets.all(4),
+                                              color: AppColors.instance.black,
+                                              child: Text.rich(
+                                                TextSpan(
+                                                  children: [
+                                                    TextSpan(text: start),
+                                                    WidgetSpan(
+                                                      child: Container(
+                                                        padding: EdgeInsets.symmetric(horizontal: 10),
+                                                        decoration: BoxDecoration(
+                                                          color: AppColors.instance.accentError,
+                                                        ),
+                                                        child: Text.rich(
+                                                          TextSpan(text: mid),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    TextSpan(text: end),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
                             }
                           },
                         ),

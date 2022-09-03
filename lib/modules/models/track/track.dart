@@ -15,7 +15,7 @@ part 'track.freezed.dart';
 // part 'track.g.dart';
 
 @unfreezed
-class Track extends LinkedList<Bar> with _$Track, LinkedListEntry<Track>, EquatableMixin {
+class Track extends LinkedList<Bar> with _$Track, LinkedListEntry<Track>, EquatableMixin, ErrorObjectMixin<Bar> {
   Track._();
 
   factory Track({
@@ -72,11 +72,19 @@ class Track extends LinkedList<Bar> with _$Track, LinkedListEntry<Track>, Equata
     int count = 0;
     double accumulatedTime = 0;
 
+    errorObj = null;
+    errorIndex = null;
+
+    int index = 0;
+
     for (var bar in bars) {
+      errorIndex = index;
+      index++;
       var result = bar.computeNotes(
         accumulatedTime: accumulatedTime,
       );
       if (result.isFailure) {
+        errorObj = bar;
         return Failure(bar);
       } else {
         accumulatedTime = result.success;

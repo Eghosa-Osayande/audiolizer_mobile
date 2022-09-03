@@ -26,8 +26,10 @@ class PlayScoreCubit extends Cubit<PlayScoreCubitState> {
           await AudioPlayerService.instance.setSourceBytes(await result.success.readAsBytes());
           await AudioPlayerService.instance.seek(Duration(seconds: 0));
           AudioPlayerService.instance.resume();
+          emit(PlayScoreCubitState(project.score));
           return;
         } else {
+          emit(PlayScoreCubitState(project.score));
           return;
         }
       }
