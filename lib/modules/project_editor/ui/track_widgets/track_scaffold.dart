@@ -109,7 +109,7 @@ class _TrackScaffoldState extends State<TrackScaffold> {
                                     content: Text.rich(
                                       TextSpan(
                                         children: [
-                                          TextSpan(text: 'Issue on Track named ($errorTrackName) at Bar $errorTrackIndex\n\n'),
+                                          TextSpan(text: 'Issue on track  "$errorTrackName"\n\n'),
                                           WidgetSpan(
                                             child: Container(
                                               padding: EdgeInsets.all(4),
@@ -117,6 +117,7 @@ class _TrackScaffoldState extends State<TrackScaffold> {
                                               child: Text.rich(
                                                 TextSpan(
                                                   children: [
+                                                    TextSpan(text:'Bar $errorTrackIndex ==> '),
                                                     TextSpan(text: start),
                                                     WidgetSpan(
                                                       child: Container(
@@ -135,6 +136,7 @@ class _TrackScaffoldState extends State<TrackScaffold> {
                                               ),
                                             ),
                                           ),
+                                           TextSpan(text: '\n\n${errorBar?.errorMessage??''}'),
                                         ],
                                       ),
                                     ),

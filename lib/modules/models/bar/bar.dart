@@ -14,6 +14,13 @@ part 'bar.g.dart';
 mixin ErrorObjectMixin<T> {
   T? errorObj;
   int? errorIndex;
+  String errorMessage = '';
+
+  clearErrors() {
+    errorObj = null;
+    errorIndex = null;
+    errorMessage = '';
+  }
 }
 
 @unfreezed
@@ -46,8 +53,7 @@ class Bar extends LinkedListEntry<Bar> with _$Bar, ChangeNotifier, ErrorObjectMi
     DurationNote? start, end;
     MusicNote? previousNote, mid;
 
-    errorObj = null;
-    errorIndex = null;
+    clearErrors();
     startAt = null;
     int index = 0;
     for (var note in notes) {
@@ -60,6 +66,7 @@ class Bar extends LinkedListEntry<Bar> with _$Bar, ChangeNotifier, ErrorObjectMi
             continue;
           } else {
             errorObj = note;
+            errorMessage = "${note.displayString()} should come after a duration marker such as : , . |";
             break;
           }
         } else if (mid == null) {
@@ -93,10 +100,12 @@ class Bar extends LinkedListEntry<Bar> with _$Bar, ChangeNotifier, ErrorObjectMi
               if (mid.isSustained) {
                 if (previousNote == null) {
                   errorObj = mid;
+                  errorMessage = "No previous note found to sustain";
                   break;
                 } else {
                   if (previousNote.duration == null) {
                     errorObj = mid;
+                    errorMessage = "No previous note found to sustain";
                     break;
                   } else {
                     previousNote.duration = previousNote.duration + duration;
@@ -113,14 +122,17 @@ class Bar extends LinkedListEntry<Bar> with _$Bar, ChangeNotifier, ErrorObjectMi
               end = null;
             } else {
               errorObj = mid;
+              errorMessage = "${start.displayString()}__${end.displayString()} is an invalid time duration";
               break;
             }
           } else {
+            errorMessage = "${note.displayString()} should come after a duration marker such as : , . |";
             errorObj = note;
             break;
           }
         } else {
           errorObj = note;
+          errorMessage = 'Syntax error';
           break;
         }
       }
