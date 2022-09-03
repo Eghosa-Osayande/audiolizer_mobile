@@ -30,14 +30,14 @@ class _SolfaTextFieldState extends State<SolfaTextField> with AutoSizeTextMixin 
 
   KeyEventResult volumeKeyOveride(data, event) {
     if (BlocProvider.of<VolumeNavigationCubit>(context).state) {
-if (event.isKeyPressed(LogicalKeyboardKey.audioVolumeUp)) {
+      if (event.isKeyPressed(LogicalKeyboardKey.audioVolumeUp)) {
         print("Volume up");
         controller.moveCursorLeft();
         return KeyEventResult.handled;
       }
       if (event.isKeyPressed(LogicalKeyboardKey.audioVolumeDown)) {
         print("Volume down");
-       controller.moveCursorRight();
+        controller.moveCursorRight();
         return KeyEventResult.handled;
       }
       return KeyEventResult.ignored;
@@ -104,7 +104,13 @@ if (event.isKeyPressed(LogicalKeyboardKey.audioVolumeUp)) {
                   // TODO: Handle this case.
                   break;
                 case SolfaKeyBoardInputEventName.deleteBar:
-                  // TODO: Handle this case.
+                  if (state.barToFocus == widget.bar) {
+                    BlocProvider.of<FocusedBarCubit>(context).unfocusBar();
+                  }
+                  break;
+                case SolfaKeyBoardInputEventName.selectAll:
+                  print('object');
+                  controller.selectAll();
                   break;
               }
             }
@@ -140,7 +146,7 @@ if (event.isKeyPressed(LogicalKeyboardKey.audioVolumeUp)) {
             onTap: () {
               BlocProvider.of<ToggleSolfaKeyboardVisibilityCubit>(context).open();
             },
-            autofocus: true,
+            autofocus: false,
             focusNode: focus,
             scrollPhysics: NeverScrollableScrollPhysics(),
             controller: controller,

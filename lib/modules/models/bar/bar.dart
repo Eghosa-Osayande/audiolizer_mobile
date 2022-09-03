@@ -51,7 +51,7 @@ class Bar extends LinkedListEntry<Bar> with _$Bar, ChangeNotifier {
     MusicNote? previousNote, mid;
 
     Note? errorNote;
-
+    startAt = null;
     for (var note in notes) {
       if ((note.isDuration) || (note.isMusic)) {
         if (start == null) {
@@ -78,6 +78,7 @@ class Bar extends LinkedListEntry<Bar> with _$Bar, ChangeNotifier {
             mid ??= MusicNote(solfa: Solfege.silent, octave: 0, createdAt: DateTime.now());
 
             //
+            startAt ??= start.startAtInSeconds;
             var result = start.beatsBetween(end);
             if (result.isSuccess) {
               double duration = result.success;

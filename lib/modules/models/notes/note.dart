@@ -21,13 +21,6 @@ part 'extensions/white_space_note_x.dart';
 part 'note.freezed.dart';
 part 'note.g.dart';
 
-// this.map(
-//       music: (music) {},
-//       duration: (duration) {},
-//       whiteSpace: (whiteSpace) {},
-//       trackConfig: (trackConfig) {},
-//       scoreConfig: (scoreConfig) {},
-//     );
 
 @unfreezed
 abstract class Note with _$Note, EquatableMixin {
@@ -84,7 +77,7 @@ abstract class Note with _$Note, EquatableMixin {
     );
     num bpm = track.score.bpm;
     if (startAt != null) {
-      startAtInSeconds = (60 / bpm) * (startAt!);
+      startAtInSeconds = ((60 / bpm) * (startAt!))-1;
     }
   }
 

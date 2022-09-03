@@ -170,4 +170,9 @@ class SolfaEditingController extends TextEditingController {
       notifyListeners();
     }
   }
+
+  void selectAll() {
+    selection = TextSelection(baseOffset: 0, extentOffset: text.length);
+    notifyListeners();
+  }
 }

@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:solpha/modules/models/bar/bar.dart';
-
+import 'package:solpha/modules/project_editor/cubit/focused_bar/focused_bar_cubit.dart';
+import 'package:solpha/modules/project_editor/cubit/keyboard_event/keyboard_event.dart';
 
 class SolfaTextFieldSelectionControls extends MaterialTextSelectionControls {
   SolfaTextFieldSelectionControls(
@@ -12,14 +13,13 @@ class SolfaTextFieldSelectionControls extends MaterialTextSelectionControls {
     this.onCopy,
     this.onCut,
     this.onAddLyrics,
-   
   });
 
   ValueChanged<TextSelectionDelegate>? onPaste;
   ValueChanged<TextSelectionDelegate>? onCopy;
   ValueChanged<TextSelectionDelegate>? onCut;
   ValueChanged<TextSelectionDelegate>? onAddLyrics;
- 
+
   final BuildContext cubitContext;
 
   @override
@@ -81,7 +81,26 @@ class SolfaTextFieldSelectionControls extends MaterialTextSelectionControls {
             },
             child: Text('Paste'),
           ),
-         
+          ControlButton(
+            onTap: () {
+              BlocProvider.of<SolfaKeyBoardInputEventCubit>(cubitContext).selectAll();
+              // delegate.hideToolbar();
+            },
+            child: Text('SelectAll'),
+          ),
+          ControlButton(
+            onTap: () {
+              var bar = BlocProvider.of<FocusedBarCubit>(cubitContext).state;
+              if (bar != null) {
+                BlocProvider.of<SolfaKeyBoardInputEventCubit>(cubitContext).deleteBars([
+                  bar
+                ]);
+              }
+
+              delegate.hideToolbar();
+            },
+            child: Text('Delete Bar'),
+          ),
         ],
       );
     });

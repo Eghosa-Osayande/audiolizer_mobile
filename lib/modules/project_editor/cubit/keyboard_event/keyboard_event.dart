@@ -32,28 +32,36 @@ class SolfaKeyBoardInputEventCubit extends Cubit<SolfaKeyBoardInputEvent?> {
       bar.insertAfter(
         Bar(
           createdAt: DateTime.now().toUtc(),
+          //  startAt: 0,
           notes: [],
         ),
       );
     }
-     emit(SolfaKeyBoardInputEvent(SolfaKeyBoardInputEventName.addBar, []));
+    emit(SolfaKeyBoardInputEvent(SolfaKeyBoardInputEventName.addBar, []));
     return bar.next!;
   }
 
   deleteBars(List<Bar> bars) {
+    var prev;
     for (var bar in bars) {
+      prev = bar.previous;
       bar.unlink();
     }
-     emit(SolfaKeyBoardInputEvent(SolfaKeyBoardInputEventName.deleteBar, []));
+    emit(SolfaKeyBoardInputEvent(SolfaKeyBoardInputEventName.deleteBar, [], barToFocus: prev));
+  }
+
+  void selectAll() {
+     emit(SolfaKeyBoardInputEvent(SolfaKeyBoardInputEventName.selectAll, []));
   }
 }
 
 class SolfaKeyBoardInputEvent extends Equatable {
   final SolfaKeyBoardInputEventName name;
   final List<Note> note;
+  final Bar? barToFocus;
   final createdAt = DateTime.now();
 
-  SolfaKeyBoardInputEvent(this.name, this.note);
+  SolfaKeyBoardInputEvent(this.name, this.note, {this.barToFocus});
 
   @override
   // TODO: implement props
@@ -66,5 +74,5 @@ enum SolfaKeyBoardInputEventName {
   insert,
   delete,
   addBar,
-  deleteBar;
+  deleteBar,selectAll;
 }

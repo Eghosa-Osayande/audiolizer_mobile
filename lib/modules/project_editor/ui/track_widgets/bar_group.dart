@@ -20,74 +20,34 @@ class BarGroupWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Slidable(
-      // startActionPane: ActionPane(
-      //   motion: BehindMotion(),
-      //   children: [
-      //     SlidableAction(
-      //       onPressed: (_) {},
-      //       backgroundColor: Color(0xFF7BC043),
-      //       foregroundColor: Colors.white,
-      //       icon: Icons.copy,
-      //       // label: 'Copy',
-      //     ),
-      //     SlidableAction(
-      //       onPressed: (_) {},
-      //       backgroundColor: Color(0xFF0392CF),
-      //       foregroundColor: Colors.white,
-      //       icon: Icons.cut,
-      //       // label: 'Cut',
-      //     ),
-      // SlidableAction(
-      //   onPressed: (_) {},
-      //   backgroundColor: Color(0xFF0392CF),
-      //   foregroundColor: Colors.white,
-      //   icon: Icons.paste,
-      //   // label: 'Paste',
-      // ),
-      //   ],
-      // ),
-      endActionPane: ActionPane(
-        extentRatio: 0.25,
-        motion: DrawerMotion(),
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(width: 2),
+        borderRadius: BorderRadius.circular(4),
+      ),
+      margin: EdgeInsets.all(4),
+      padding: EdgeInsets.all(4),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SlidableAction(
-            onPressed: (_) {
-              BlocProvider.of<SolfaKeyBoardInputEventCubit>(context).deleteBars(bars);
-            },
-            backgroundColor: Colors.transparent,
-            foregroundColor: Colors.white,
-            icon: Icons.delete,
-            // label: 'Delete',
+          Text('$barIndex'),
+          Expanded(
+            child: Column(
+              children: [
+                ...List.generate(bars.length, (index) {
+                  var bar = bars[index];
+                  return SizedBox(
+                    child: TrackBarWidget(
+                      key: ObjectKey(bar),
+                      bar: bar,
+                      index: index,
+                    ),
+                  );
+                }),
+              ],
+            ),
           ),
         ],
-      ),
-      child: Container(
-        decoration: BoxDecoration(border: Border.all(width: 2), borderRadius: BorderRadius.circular(4)),
-        margin: EdgeInsets.all(4),
-        padding: EdgeInsets.all(4),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('$barIndex'),
-            Expanded(
-              child: Column(
-                children: [
-                  ...List.generate(bars.length, (index) {
-                    var bar = bars[index];
-                    return SizedBox(
-                      child: TrackBarWidget(
-                        key: ObjectKey(bar),
-                        bar: bar,
-                        index: index,
-                      ),
-                    );
-                  }),
-                ],
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

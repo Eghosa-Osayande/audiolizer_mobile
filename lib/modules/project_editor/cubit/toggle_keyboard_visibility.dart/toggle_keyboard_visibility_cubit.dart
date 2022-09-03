@@ -25,6 +25,11 @@ class ToggleSolfaKeyboardVisibilityCubit extends Cubit<SolfaKeyboardVisibility> 
     emit(SolfaKeyboardVisibility.visible);
   }
 
+  void hide() {
+    SystemChannels.textInput.invokeMethod('TextInput.hide');
+    emit(SolfaKeyboardVisibility.hidden);
+  }
+
   void hiddenForSytemUI() {
     emit(SolfaKeyboardVisibility.hiddenForSytemUI);
   }

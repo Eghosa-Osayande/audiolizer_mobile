@@ -15,7 +15,7 @@ class PlayScoreCubit extends Cubit<PlayScoreCubitState> {
     if (AudioPlayerService.instance.isPlaying) {
       AudioPlayerService.instance.pause();
     } else {
-      emit(PlayScoreCubitState(project.score));
+      // emit(PlayScoreCubitState(project.score));
 
       var result = await project.score.commit();
 
