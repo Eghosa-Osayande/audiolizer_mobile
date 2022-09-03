@@ -65,10 +65,11 @@ abstract class Note with _$Note, EquatableMixin {
   Future<void> commit(
     Track track,
     MIDIFile midiFile,
+    {bool isMetroneme=false}
   ) async {
     map(
       music: (music) {
-        music._commitX(track, midiFile);
+        music._commitX(track, midiFile,isMetroneme:isMetroneme);
       },
       duration: (duration) {
       

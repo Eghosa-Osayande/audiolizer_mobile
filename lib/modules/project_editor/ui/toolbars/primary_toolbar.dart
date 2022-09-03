@@ -7,6 +7,7 @@ import 'package:solpha/modules/project_editor/cubit/edit_project/edit_project_cu
 import 'package:solpha/modules/project_editor/cubit/play_score/play_score_cubit.dart';
 import 'package:solpha/modules/project_editor/cubit/toggle_edit_play_mode/toggle_edit_play_mode_cubit.dart';
 import 'package:solpha/modules/project_editor/cubit/toggle_keyboard_visibility.dart/toggle_keyboard_visibility_cubit.dart';
+import 'package:solpha/modules/project_editor/cubit/toggle_metroneme/toggle_metroneme.dart';
 import 'package:solpha/modules/project_editor/cubit/undo_redo/undo_redo_cubit.dart';
 import 'package:solpha/modules/project_editor/cubit/volume_navigation/volume_navigation_cubit.dart';
 import 'package:solpha/modules/themes/colors/app_colors.dart';
@@ -95,7 +96,28 @@ class PrimaryToolbar extends StatelessWidget implements PreferredSizeWidget {
                         }),
                       ),
                     ),
-                   
+                  ),
+                  PopupMenuItem(
+                    child: ToolbarOption(
+                      title: 'Metroneme',
+                      trailing: BlocProvider(
+                        create: (context) => ToggleMetronemeCubit(),
+                        child: Builder(builder: (context) {
+                          return BlocBuilder<ToggleMetronemeCubit, bool>(
+                            builder: (context, state) {
+                              return Checkbox(
+                                  value: state,
+                                  onChanged: (bool? value) {
+                                    if (value != null) {
+                                      BlocProvider.of<ToggleMetronemeCubit>(context).toggle(value);
+                                    }
+                                    Navigator.pop(context);
+                                  });
+                            },
+                          );
+                        }),
+                      ),
+                    ),
                   ),
                 ];
               },
@@ -131,6 +153,7 @@ class ToolbarOption extends StatelessWidget {
       child: Row(
         children: [
           Text(title),
+          Spacer(),
           if (trailing != null) trailing!,
         ],
       ),

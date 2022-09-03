@@ -11,8 +11,6 @@ import 'package:solpha/modules/models/track/enums/midi_program.dart';
 
 import 'dart:collection';
 
-
-
 part 'track.freezed.dart';
 // part 'track.g.dart';
 
@@ -70,33 +68,6 @@ class Track extends LinkedList<Bar> with _$Track, LinkedListEntry<Track>, Equata
     return 0;
   }
 
-  void addMetronemeTrack(MIDIFile midiFile) {
-    var metro = Track(trackNumber: 5, program: MidiProgram.gong, volume: 100, name: 'met');
-    metro.notes.add(
-      DurationNote(
-        marker: DurationMarker.full,
-        createdAt: DateTime.now().toUtc(),
-      ),
-    );
-    List.generate(trackLengthInBeats.ceil(), (index) {
-      metro.notes.add(
-        MusicNote(
-          solfa: Solfege.d,
-          octave: 0,
-          createdAt: DateTime.now().toUtc(),
-        ),
-      );
-      metro.notes.add(
-        DurationNote(
-          marker: DurationMarker.full,
-          createdAt: DateTime.now().toUtc(),
-        ),
-      );
-    });
-    metro.computeNotes();
-    metro.commit(midiFile);
-  }
-
   Result<bool, Bar> computeNotes() {
     int count = 0;
     double accumulatedTime = 0;
@@ -115,7 +86,7 @@ class Track extends LinkedList<Bar> with _$Track, LinkedListEntry<Track>, Equata
     return Success(true);
   }
 
-  Future<void> commit(MIDIFile midiFile) async {
+  Future<void> commit(MIDIFile midiFile, {bool isMetroneme = false}) async {
     midiFile.addTempo(
       track: trackNumber,
       time: 0,
@@ -135,15 +106,24 @@ class Track extends LinkedList<Bar> with _$Track, LinkedListEntry<Track>, Equata
       accidental_mode: score.keySignature.accidentalMode,
       accidental_type: score.keySignature.accidentalType,
     );
-    midiFile.addProgramChange(
-      tracknum: trackNumber,
-      channel: trackNumber,
-      time: 0,
-      program: program.value,
-    );
-   
+    if (isMetroneme) {
+      midiFile.addProgramChange(
+        tracknum: trackNumber,
+        channel: trackNumber,
+        time: 0,
+        program: 115,
+      );
+    } else {
+      midiFile.addProgramChange(
+        tracknum: trackNumber,
+        channel: trackNumber,
+        time: 0,
+        program: program.value,
+      );
+    }
+
     for (var bar in bars) {
-      await bar.commit(this, midiFile);
+      await bar.commit(this, midiFile, isMetroneme: isMetroneme);
     }
   }
 

@@ -133,9 +133,9 @@ class Bar extends LinkedListEntry<Bar> with _$Bar, ChangeNotifier {
     }
   }
 
-  Future<void> commit(Track track, MIDIFile midiFile) async {
+  Future<void> commit(Track track, MIDIFile midiFile,{bool isMetroneme=false}) async {
     for (var note in notes) {
-      await note.commit(track, midiFile);
+      await note.commit(track, midiFile,isMetroneme: isMetroneme);
     }
   }
 }

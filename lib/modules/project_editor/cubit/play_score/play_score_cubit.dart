@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:solpha/modules/models/project/project_model.dart';
 import 'package:solpha/modules/models/score/score.dart';
+import 'package:solpha/modules/project_editor/repo/toggle_metroneme.dart';
 import 'package:solpha/modules/project_editor/service/audio_player_service.dart';
 
 part 'play_score_cubit_state.dart';
@@ -16,8 +17,8 @@ class PlayScoreCubit extends Cubit<PlayScoreCubitState> {
       AudioPlayerService.instance.pause();
     } else {
       // emit(PlayScoreCubitState(project.score));
-
-      var result = await project.score.commit();
+      var useMetro = await ToggleMetronemeRepo.instance.read();
+      var result = await project.score.commit(useMetroneme: useMetro);
 
       if (result != null) {
         if (result.isSuccess) {

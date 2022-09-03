@@ -7,9 +7,12 @@ import 'package:intl/intl.dart';
 import 'package:midi_util/midi_util.dart';
 import 'package:result_type/result_type.dart';
 import 'package:solpha/modules/models/bar/bar.dart';
+import 'package:solpha/modules/models/notes/enums/duration_markers.dart';
+import 'package:solpha/modules/models/notes/enums/solfege.dart';
 import 'package:solpha/modules/models/notes/note.dart';
 import 'package:solpha/modules/models/score/enums/key_signature.dart';
 import 'package:solpha/modules/models/score/enums/time_signature.dart';
+import 'package:solpha/modules/models/track/enums/midi_program.dart';
 import 'package:solpha/modules/models/track/track.dart';
 import 'dart:collection';
 
@@ -75,19 +78,64 @@ class Score extends LinkedList<Track> with HiveObjectMixin, _$Score {
     return 0;
   }
 
-  Future<Result<File, Track>?> commit() async {
+  Future<void> addMetronemeTrack(int maxBeats) async {
+    var metro = Track(
+      trackNumber: 7,
+      program: MidiProgram.pizzicato,
+      volume: 127,
+      name: 'metroneme,',
+    );
+
+    List.generate(maxBeats, (index) {
+      var bar = Bar(createdAt: DateTime.now(), notes: [
+        DurationNote(
+          marker: DurationMarker.full,
+          createdAt: DateTime.now().toUtc(),
+        )
+      ]);
+
+      bar.notes.add(
+        MusicNote(
+          solfa: Solfege.d,
+          octave: 0,
+          createdAt: DateTime.now().toUtc(),
+        ),
+      );
+      bar.notes.add(
+        DurationNote(
+          marker: DurationMarker.full,
+          createdAt: DateTime.now().toUtc(),
+        ),
+      );
+      metro.add(bar);
+    });
+
+    metro.computeNotes();
+    this.add(metro);
+    await metro.commit(midiFile!, isMetroneme: true);
+    metro.unlink();
+  }
+
+  Future<Result<File, Track>?> commit({bool useMetroneme = false}) async {
     _resetMidiFile();
 
+    int maxBeats = 0;
     for (var track in tracks) {
       var result = track.computeNotes();
 
       if (result.isSuccess) {
-        // track.addMetronemeTrack(midiFile);
+        if (useMetroneme) {
+          var ceil = track.trackLengthInBeats.ceil();
+          print(ceil);
+          maxBeats = (ceil > maxBeats) ? ceil : maxBeats;
+        }
+
         continue;
       } else {
         return Failure(track);
       }
     }
+    await addMetronemeTrack(maxBeats);
 
     for (var track in tracks) {
       await track.commit(midiFile!);
