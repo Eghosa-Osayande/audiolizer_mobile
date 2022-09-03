@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:solpha/modules/models/bar/bar.dart';
+import 'package:solpha/modules/project_editor/cubit/current_project/current_project.dart';
+import 'package:solpha/modules/project_editor/cubit/edit_project/edit_project_cubit.dart';
 import 'package:solpha/modules/project_editor/cubit/focused_bar/focused_bar_cubit.dart';
 import 'package:solpha/modules/project_editor/cubit/keyboard_event/keyboard_event.dart';
 import 'package:solpha/modules/project_editor/cubit/toggle_keyboard_visibility.dart/toggle_keyboard_visibility_cubit.dart';
@@ -19,6 +23,13 @@ class TrackScaffold extends StatefulWidget {
 }
 
 class _TrackScaffoldState extends State<TrackScaffold> {
+
+@override
+  void initState() {
+    super.initState();
+     context.read<SolfaKeyBoardInputEventCubit>().addBarWhenEmpty();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -49,6 +60,9 @@ class _TrackScaffoldState extends State<TrackScaffold> {
                                   setState(() {});
                                   break;
                                 case SolfaKeyBoardInputEventName.deleteBar:
+                                  if (context.read<CurrentProjectCubit>().state.score.tracks.first.bars.isEmpty) {
+                                    context.read<SolfaKeyBoardInputEventCubit>().addBarWhenEmpty();
+                                  }
                                   setState(() {});
                                   break;
                                 case SolfaKeyBoardInputEventName.selectAll:
@@ -62,6 +76,7 @@ class _TrackScaffoldState extends State<TrackScaffold> {
                       child: BlocBuilder<UndoRedoCubit, UndoRedoState>(
                         builder: (context, undoRedoState) {
                           var tracks = undoRedoState.project.score.tracks;
+
                           return ListView.builder(
                             itemCount: undoRedoState.project.score.trackBarCount,
                             itemBuilder: (context, barIndex) {

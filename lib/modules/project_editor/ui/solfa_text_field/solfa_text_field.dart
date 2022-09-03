@@ -101,7 +101,6 @@ class _SolfaTextFieldState extends State<SolfaTextField> with AutoSizeTextMixin 
                   controller.backSpace();
                   break;
                 case SolfaKeyBoardInputEventName.addBar:
-                  // TODO: Handle this case.
                   break;
                 case SolfaKeyBoardInputEventName.deleteBar:
                   if (state.barToFocus == widget.bar) {
@@ -109,7 +108,6 @@ class _SolfaTextFieldState extends State<SolfaTextField> with AutoSizeTextMixin 
                   }
                   break;
                 case SolfaKeyBoardInputEventName.selectAll:
-                  print('object');
                   controller.selectAll();
                   break;
               }

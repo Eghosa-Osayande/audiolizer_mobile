@@ -41,6 +41,24 @@ class SolfaKeyBoardInputEventCubit extends Cubit<SolfaKeyBoardInputEvent?> {
     return bar.next!;
   }
 
+  void addBarWhenEmpty() {
+    // var index = track.toList().indexOf(bar);
+
+    for (var track in project.score.tracks) {
+      if (track.isEmpty) {
+        track.add(
+          Bar(
+            createdAt: DateTime.now().toUtc(),
+            //  startAt: 0,
+            notes: [],
+          ),
+        );
+      }
+    }
+    emit(SolfaKeyBoardInputEvent(SolfaKeyBoardInputEventName.addBar, []));
+    return;
+  }
+
   deleteBars(List<Bar> bars) {
     var prev;
     for (var bar in bars) {
@@ -51,7 +69,7 @@ class SolfaKeyBoardInputEventCubit extends Cubit<SolfaKeyBoardInputEvent?> {
   }
 
   void selectAll() {
-     emit(SolfaKeyBoardInputEvent(SolfaKeyBoardInputEventName.selectAll, []));
+    emit(SolfaKeyBoardInputEvent(SolfaKeyBoardInputEventName.selectAll, []));
   }
 }
 
@@ -74,5 +92,6 @@ enum SolfaKeyBoardInputEventName {
   insert,
   delete,
   addBar,
-  deleteBar,selectAll;
+  deleteBar,
+  selectAll;
 }

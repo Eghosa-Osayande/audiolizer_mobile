@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:solpha/modules/models/bar/bar.dart';
+import 'package:solpha/modules/project_editor/cubit/edit_project/edit_project_cubit.dart';
 import 'package:solpha/modules/project_editor/cubit/focused_bar/focused_bar_cubit.dart';
 import 'package:solpha/modules/project_editor/cubit/keyboard_event/keyboard_event.dart';
 
@@ -92,6 +93,7 @@ class SolfaTextFieldSelectionControls extends MaterialTextSelectionControls {
             onTap: () {
               var bar = BlocProvider.of<FocusedBarCubit>(cubitContext).state;
               if (bar != null) {
+                BlocProvider.of<EditProjectCubit>(cubitContext).takeSnapShot();
                 BlocProvider.of<SolfaKeyBoardInputEventCubit>(cubitContext).deleteBars([
                   bar
                 ]);
