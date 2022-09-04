@@ -24,7 +24,9 @@ Map<String, dynamic> _$$_ProjectToJson(_$_Project instance) =>
       'title': instance.title,
       'description': instance.description,
       'updatedAt': instance.updatedAt.toIso8601String(),
-      'score': instance.score,
-      'scoreUndoVersions': instance.scoreUndoVersions,
-      'scoreRedoVersions': instance.scoreRedoVersions,
+      'score': instance.score.toJson(),
+      'scoreUndoVersions':
+          instance.scoreUndoVersions.map((e) => e.toJson()).toList(),
+      'scoreRedoVersions':
+          instance.scoreRedoVersions.map((e) => e.toJson()).toList(),
     };

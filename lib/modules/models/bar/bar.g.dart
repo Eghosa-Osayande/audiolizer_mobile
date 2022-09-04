@@ -15,9 +15,17 @@ _$Bard _$$BardFromJson(Map<String, dynamic> json) => _$Bard(
       startAt: (json['startAt'] as num?)?.toDouble(),
       endAt: (json['endAt'] as num?)?.toDouble(),
       duration: (json['duration'] as num?)?.toDouble() ?? 0,
-    );
+    )
+      ..errorObj = json['errorObj'] == null
+          ? null
+          : Note.fromJson(json['errorObj'] as Map<String, dynamic>)
+      ..errorIndex = json['errorIndex'] as int?
+      ..errorMessage = json['errorMessage'] as String;
 
 Map<String, dynamic> _$$BardToJson(_$Bard instance) => <String, dynamic>{
+      'errorObj': instance.errorObj?.toJson(),
+      'errorIndex': instance.errorIndex,
+      'errorMessage': instance.errorMessage,
       'createdAt': instance.createdAt.toIso8601String(),
       'notes': instance.notes.map((e) => e.toJson()).toList(),
       'lyrics': instance.lyrics,

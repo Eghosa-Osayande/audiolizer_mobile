@@ -23,13 +23,17 @@ class ProjectRepo {
 
   _listenToDatabaseChanges() async {
     _projectsSubject.add((await readAll()));
-    (await _getProjectsBox()).watch().listen((event) async {
+    (await _getProjectsBox()).watch().listen((BoxEvent event) async {
+      _updatedProjectSink.add(event.value);
       _projectsSubject.add((await readAll()));
     });
   }
 
   final BehaviorSubject<List<Project>> _projectsSubject = BehaviorSubject();
   Stream<List<Project>> get projectListStream => _projectsSubject.stream;
+
+  final StreamController<Project> _updatedProjectSink = StreamController.broadcast();
+  Stream<Project> get updatedProjectStream => _updatedProjectSink.stream;
 
   Future<List<Project>> readAll() async {
     var box = await _getProjectsBox();

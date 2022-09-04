@@ -2,10 +2,10 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/services.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-enum SolfaKeyboardVisibility { visible, hidden, hiddenForSytemUI }
+enum SolfaKeyboardVisibility { visible, hidden }
 
 class ToggleSolfaKeyboardVisibilityCubit extends Cubit<SolfaKeyboardVisibility> {
-  ToggleSolfaKeyboardVisibilityCubit() : super(SolfaKeyboardVisibility.visible);
+  ToggleSolfaKeyboardVisibilityCubit() : super(SolfaKeyboardVisibility.hidden);
 
   void toggle() {
     switch (state) {
@@ -14,7 +14,7 @@ class ToggleSolfaKeyboardVisibilityCubit extends Cubit<SolfaKeyboardVisibility> 
         break;
       case SolfaKeyboardVisibility.hidden:
 
-      case SolfaKeyboardVisibility.hiddenForSytemUI:
+     
         emit(SolfaKeyboardVisibility.visible);
         break;
     }
@@ -30,14 +30,5 @@ class ToggleSolfaKeyboardVisibilityCubit extends Cubit<SolfaKeyboardVisibility> 
     emit(SolfaKeyboardVisibility.hidden);
   }
 
-  void hiddenForSytemUI() {
-    emit(SolfaKeyboardVisibility.hiddenForSytemUI);
-  }
 
-  void showForSytemUI() {
-    if (state == SolfaKeyboardVisibility.hiddenForSytemUI) {
-      emit(SolfaKeyboardVisibility.visible);
-      SystemChannels.textInput.invokeMethod('TextInput.hide');
-    }
-  }
 }

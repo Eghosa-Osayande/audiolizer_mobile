@@ -30,7 +30,7 @@ class TrackBarWidget extends StatelessWidget {
           builder: (context, snapshot) {
             int? position = snapshot.data?.inSeconds;
             Color color = Colors.transparent;
-           
+
             if (position != null && bar.startAt != null) {
               if (position >= (bar.startAt!)) {
                 color = Colors.green;
@@ -39,7 +39,10 @@ class TrackBarWidget extends StatelessWidget {
             // print('du=>${}<==>${note.convertBeatPositionToSeconds()}');
 
             return Container(
-              color: color,
+              decoration: BoxDecoration(
+                color: color,
+                borderRadius: BorderRadius.circular(4),
+              ),
               child: SolfaTextField(
                 key: ObjectKey(bar),
                 bar: bar,

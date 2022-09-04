@@ -23,6 +23,7 @@ class Track extends LinkedList<Bar> with _$Track, LinkedListEntry<Track>, Equata
     required int volume,
     required MidiProgram program,
     required String name,
+    @Default(true) bool isVisible,
   }) = _Track;
 
   // factory Track.fromJson(Map<String, dynamic> json) => _$TrackFromJson(json);
@@ -33,6 +34,7 @@ class Track extends LinkedList<Bar> with _$Track, LinkedListEntry<Track>, Equata
       volume: json['volume'] as int,
       program: MidiProgram.values[json['program'] as int],
       name: json['name'] as String,
+      isVisible: json['isVisible'] ?? true,
     );
     List<Bar> bars = List.from((json['bars'] as List).map((e) => Bar.fromJson(e)).toList());
     track.addAll(bars);
@@ -45,6 +47,7 @@ class Track extends LinkedList<Bar> with _$Track, LinkedListEntry<Track>, Equata
         'volume': volume,
         'program': program.index,
         'bars': this.toList().map((bar) => bar.toJson()).toList(),
+        'isVisible':isVisible,
       };
 
   LinkedList<Bar> get bars => this;

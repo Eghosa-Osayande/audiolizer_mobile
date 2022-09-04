@@ -39,10 +39,10 @@ class CreateProjectPage extends StatefulWidget {
 class _CreateProjectPageState extends State<CreateProjectPage> {
   GlobalKey<FormBuilderState> formKey = GlobalKey<FormBuilderState>();
 
+  late Project? projectCopy = (widget.project != null) ? Project.fromJson(widget.project!.toJson()) : null;
+
   @override
   Widget build(BuildContext context) {
-    var project = widget.project;
-
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -61,7 +61,7 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
               kGap14,
               FormBuilderTextField(
                 name: 'title',
-                initialValue: project?.title,
+                initialValue: projectCopy?.title,
                 validator: FormBuilderValidators.compose([
                   FormBuilderValidators.required(),
                 ]),
@@ -83,7 +83,7 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
                   }
                 ]),
                 decoration: InputDecoration(hintText: 'eg. 120 BPM', label: Text('Tempo'), contentPadding: kNewProjectContentPadding, border: kNewProjectInputBorder),
-                initialValue: project?.score.bpm.toString(),
+                initialValue: projectCopy?.score.bpm.toString(),
                 keyboardType: TextInputType.number,
                 textInputAction: TextInputAction.next,
               ),
@@ -91,7 +91,7 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
               FormBuilderDropdown<KeySignature>(
                 name: 'key',
                 isDense: false,
-                initialValue: project?.score.keySignature,
+                initialValue: projectCopy?.score.keySignature,
                 validator: FormBuilderValidators.compose([
                   FormBuilderValidators.required(),
                 ]),
@@ -108,7 +108,7 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
               FormBuilderDropdown<int>(
                 name: 'pitch',
                 isDense: false,
-                initialValue: project?.score.tonicPitchNumber,
+                initialValue: projectCopy?.score.tonicPitchNumber,
                 validator: FormBuilderValidators.compose([
                   FormBuilderValidators.required(),
                 ]),
@@ -125,7 +125,7 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
               FormBuilderDropdown<TimeSignature>(
                 name: 'time',
                 isDense: false,
-                initialValue: project?.score.timeSignature,
+                initialValue: projectCopy?.score.timeSignature,
                 validator: FormBuilderValidators.compose([
                   FormBuilderValidators.required(),
                 ]),
@@ -139,7 +139,7 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
                 }).toList(),
               ),
               kGap14,
-              TracksManager(score: project?.score),
+              TracksManager(score: projectCopy?.score),
             ],
           ),
         ),
@@ -154,81 +154,95 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
       var value = formKey.currentState?.value;
       if (value != null) {
         if (widget.project != null) {
-          // updating score
-          widget.project!.score
-            ..bpm = int.parse(value['bpm'])
-            ..timeSignature = value['time']
-            ..keySignature = value['key']
-            ..scoreTitle = value['title']
-            ..tonicPitchNumber = value['pitch']
-            ..updatedAt = DateTime.now().toUtc();
-          var tracks = (formKey.currentState?.value['tracks'] as List<Track>);
-
-          int trackNo = 0;
-          List<Track> copiedTracks = [];
-          for (var track in tracks) {
-            var copied = track.copyWith(
-              trackNumber: trackNo,
-            );
-            for (var bar in track) {
-              copied.add(bar.copyWith());
-            }
-            copiedTracks.add(
-              copied,
-            );
-            trackNo = trackNo + 1;
-          }
-          print(copiedTracks);
-          // widget.score!.clear();
-          // widget.score!.addAll(copiedTracks);
-          // await widget.score?.save();
-
-          // Navigator.pop<Score>(context, widget.score);
+          updateProject(value);
         } else {
-          // creating score
-
-          var newlyCreatedScore = Score(
-            bpm: int.parse(value['bpm']),
-            timeSignature: value['time'],
-            keySignature: value['key'],
-            scoreTitle: value['title'],
-            tonicPitchNumber: value['pitch'],
-            updatedAt: DateTime.now().toUtc(),
-          );
-          var tracks = (formKey.currentState?.value['tracks'] as List<Track>);
-
-          int trackNo = 0;
-          List<Track> copiedTracks = [];
-          for (var track in tracks) {
-            var copied = track.copyWith(
-              trackNumber: trackNo,
-            )..add(
-                Bar(
-                  createdAt: DateTime.now().toUtc(),
-                  notes: [],
-                ),
-              );
-
-            copiedTracks.add(
-              copied,
-            );
-            trackNo = trackNo + 1;
-          }
-
-          newlyCreatedScore.addAll(copiedTracks);
-          // print(newlyCreatedScore.length);
-          var newProject = Project(
-            title: value['title'],
-            description: '',
-            updatedAt: DateTime.now(),
-            score: newlyCreatedScore,
-            scoreRedoVersions: [],
-            scoreUndoVersions: [],
-          );
-          await ProjectRepo.instance.put(newProject);
-          Navigator.pop<Project>(context, newProject);
+          await createProject(value);
         }
       }
     }
+  }
+
+  void updateProject(Map<String, dynamic> value) async {
+    var project = widget.project!;
+
+    var oldScore = project.score;
+
+    project
+      ..title = value['title']
+      ..updatedAt = DateTime.now().toUtc();
+    var updatedScore = Score(
+      bpm: int.parse(value['bpm']),
+      timeSignature: value['time'],
+      keySignature: value['key'],
+      scoreTitle: value['title'],
+      tonicPitchNumber: value['pitch'],
+      updatedAt: DateTime.now().toUtc(),
+    );
+
+    var tracks = (formKey.currentState?.value['tracks'] as List<Track>);
+
+    int trackNo = 0;
+    List<Track> copiedTracks = [];
+    for (var track in tracks) {
+      var trackCopy = Track.fromJson(track.toJson());
+      trackCopy.trackNumber = trackNo;
+
+      copiedTracks.add(
+        trackCopy,
+      );
+      trackNo = trackNo + 1;
+    }
+    print(copiedTracks);
+    updatedScore
+      ..addAll(copiedTracks)
+      ..ensureUniformTracksLength();
+
+    project.score = updatedScore;
+    project.scoreUndoVersions.add(oldScore);
+    project.scoreRedoVersions.clear();
+
+    await project.save();
+
+    Navigator.pop<Project>(context, project);
+  }
+
+  Future<void> createProject(Map<String, dynamic> value) async {
+    var newlyCreatedScore = Score(
+      bpm: int.parse(value['bpm']),
+      timeSignature: value['time'],
+      keySignature: value['key'],
+      scoreTitle: value['title'],
+      tonicPitchNumber: value['pitch'],
+      updatedAt: DateTime.now().toUtc(),
+    );
+    var tracks = (formKey.currentState?.value['tracks'] as List<Track>);
+
+    int trackNo = 0;
+    List<Track> copiedTracks = [];
+    for (var track in tracks) {
+      var copied = track.copyWith(
+        trackNumber: trackNo,
+      );
+
+      copiedTracks.add(
+        copied,
+      );
+      trackNo = trackNo + 1;
+    }
+
+    newlyCreatedScore
+      ..addAll(copiedTracks)
+      ..ensureUniformTracksLength();
+
+    var newProject = Project(
+      title: value['title'],
+      description: '',
+      updatedAt: DateTime.now(),
+      score: newlyCreatedScore,
+      scoreRedoVersions: [],
+      scoreUndoVersions: [],
+    );
+    await ProjectRepo.instance.put(newProject);
+    Navigator.pop<Project>(context, newProject);
   }
 }

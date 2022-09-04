@@ -78,7 +78,7 @@ abstract class Note with _$Note, EquatableMixin {
     );
     num bpm = track.score.bpm;
     if (startAt != null) {
-      startAtInSeconds = ((60 / bpm) * (startAt!))-1;
+      startAtInSeconds = ((60 / bpm) * (startAt!));
     }
   }
 

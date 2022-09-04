@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math' as math;
 
 import 'package:file/memory.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -65,6 +66,28 @@ class Score extends LinkedList<Track> with HiveObjectMixin, _$Score, ErrorObject
   String get updatedAtString {
     final DateFormat formatter = DateFormat.jm().add_yMd();
     return '${formatter.format(updatedAt)}';
+  }
+
+  void ensureUniformTracksLength() {
+    List<int> trackLengths = this.map((track) => track.length).toList();
+    var max = [
+      1,
+      ...trackLengths
+    ].reduce(math.max);
+    for (var track in this) {
+      var trackLength = track.length;
+      if (trackLength < max) {
+        List.generate(
+          max - trackLength,
+          (index) => track.add(
+            Bar(
+              createdAt: DateTime.now().toUtc(),
+              notes: [],
+            ),
+          ),
+        );
+      }
+    }
   }
 
   void _resetMidiFile() {

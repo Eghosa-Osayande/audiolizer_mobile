@@ -8,10 +8,12 @@ import 'package:solpha/modules/project_editor/cubit/edit_project/edit_project_cu
 import 'package:solpha/modules/project_editor/cubit/focused_bar/focused_bar_cubit.dart';
 import 'package:solpha/modules/project_editor/cubit/keyboard_event/keyboard_event.dart';
 import 'package:solpha/modules/project_editor/cubit/play_score/play_score_cubit.dart';
+import 'package:solpha/modules/project_editor/cubit/reload_project/reload_project.dart';
 import 'package:solpha/modules/project_editor/cubit/toggle_edit_play_mode/toggle_edit_play_mode_cubit.dart';
 import 'package:solpha/modules/project_editor/cubit/toggle_keyboard_visibility.dart/toggle_keyboard_visibility_cubit.dart';
 import 'package:solpha/modules/project_editor/cubit/toggle_metroneme/toggle_metroneme.dart';
 import 'package:solpha/modules/project_editor/cubit/undo_redo/undo_redo_cubit.dart';
+import 'package:solpha/modules/project_editor/cubit/view_mode/view_mode.dart';
 import 'package:solpha/modules/project_editor/cubit/volume_navigation/volume_navigation_cubit.dart';
 import 'package:solpha/modules/project_editor/ui/score_editor_body.dart';
 
@@ -34,6 +36,9 @@ class ProjectEditorPage extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => CurrentProjectCubit(project),
+        ),
+        BlocProvider(
+          create: (context) => ReloadProjectCubit(project: project),
         ),
         BlocProvider(
           create: (context) => PlayScoreCubit(project: project),
@@ -61,6 +66,9 @@ class ProjectEditorPage extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => ToggleMetronemeCubit(),
+        ),
+        BlocProvider(
+          create: (context) => ViewModeCubit(),
         ),
       ],
       child: ScoreEditorBody(),

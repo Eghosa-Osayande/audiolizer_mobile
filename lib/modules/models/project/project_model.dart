@@ -10,6 +10,7 @@ part 'project_model.g.dart';
 class Project with HiveObjectMixin, _$Project {
   Project._();
 
+   @JsonSerializable(explicitToJson: true)
   factory Project({
     required String title,
     required String description,

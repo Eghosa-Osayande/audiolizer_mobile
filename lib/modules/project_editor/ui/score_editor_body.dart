@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:solpha/modules/project_editor/cubit/edit_project/edit_project_cubit.dart';
 import 'package:solpha/modules/project_editor/cubit/keyboard_event/keyboard_event.dart';
+import 'package:solpha/modules/project_editor/cubit/reload_project/reload_project.dart';
 import 'package:solpha/modules/project_editor/cubit/toggle_keyboard_visibility.dart/toggle_keyboard_visibility_cubit.dart';
 import 'package:solpha/modules/project_editor/ui/track_widgets/track_scaffold.dart';
 
@@ -18,15 +19,15 @@ class _ScoreEditorBodyState extends State<ScoreEditorBody> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+    // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
   }
 
   @override
   void dispose() {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
-      SystemUiOverlay.top,
-      SystemUiOverlay.bottom
-    ]);
+    // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
+    //   SystemUiOverlay.top,
+    //   SystemUiOverlay.bottom
+    // ]);
     super.dispose();
   }
 
@@ -40,12 +41,14 @@ class _ScoreEditorBodyState extends State<ScoreEditorBody> {
             BlocProvider.of<ToggleSolfaKeyboardVisibilityCubit>(context).toggle();
             return false;
           case SolfaKeyboardVisibility.hidden:
-
-          case SolfaKeyboardVisibility.hiddenForSytemUI:
             return true;
         }
       },
-      child: TrackScaffold(),
+      child: BlocBuilder<ReloadProjectCubit, ReloadProjectCubitState>(
+        builder: (context, state) {
+          return TrackScaffold();
+        },
+      ),
     );
   }
 }
