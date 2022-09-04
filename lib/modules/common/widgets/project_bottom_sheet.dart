@@ -1,3 +1,4 @@
+import 'package:audiolizer/modules/common/widgets/confirm_action_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:audiolizer/modules/models/project/project_model.dart';
 import 'package:audiolizer/modules/models/score/score.dart';
@@ -74,8 +75,12 @@ class ProjectBottomSheet extends StatelessWidget {
               leading: Icon(Icons.delete),
               title: Text('Remove'),
               onTap: () {
-                ProjectRepo.instance.delete(project);
                 Navigator.pop(context);
+                showConfirmDialog(context, 'Delete ${project.title}?').then((value) {
+                  if (value == true) {
+                    ProjectRepo.instance.delete(project);
+                  }
+                });
               },
             ),
           ],

@@ -54,6 +54,11 @@ class AudioPlayerService {
     _player.pause();
   }
 
+  Future<void> stop() async {
+    playCount++;
+    _player.stop();
+  }
+
   Future<void> seek(Duration position) async {
     playCount++;
     await _player.seek(position);

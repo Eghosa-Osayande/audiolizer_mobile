@@ -5,5 +5,5 @@ import 'package:audiolizer/modules/hive_db/util/hive_initializer.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await HiveInitializer.init();
-  runApp(const SolphaApp());
+  runApp(const AudiolizerApp());
 }

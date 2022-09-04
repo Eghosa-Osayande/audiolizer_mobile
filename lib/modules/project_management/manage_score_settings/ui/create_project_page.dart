@@ -49,7 +49,12 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
           widget.project == null ? 'New Project' : widget.project!.title,
         ),
         actions: [
-          TextButton(onPressed: onDone, child: Text('SAVE'))
+          TextButton(
+            onPressed: onDone,
+            child: Text(
+              widget.project == null ? 'DONE' : 'SAVE CHANGES',
+            ),
+          ),
         ],
       ),
       body: FormBuilder(

@@ -24,7 +24,9 @@ class ProjectRepo {
   _listenToDatabaseChanges() async {
     _projectsSubject.add((await readAll()));
     (await _getProjectsBox()).watch().listen((BoxEvent event) async {
-      _updatedProjectSink.add(event.value);
+      if (!event.deleted) {
+        _updatedProjectSink.add(event.value);
+      }
       _projectsSubject.add((await readAll()));
     });
   }

@@ -10,14 +10,15 @@ import 'package:audiolizer/modules/project_editor/ui/page/score_editor.dart';
 import 'package:audiolizer/modules/themes/colors/app_colors.dart';
 import 'package:audiolizer/modules/themes/theme_utils.dart';
 
-class SolphaApp extends StatefulWidget {
-  const SolphaApp({Key? key}) : super(key: key);
+class AudiolizerApp extends StatefulWidget {
+  static final RouteObserver routeObserver = RouteObserver();
+  const AudiolizerApp({Key? key}) : super(key: key);
 
   @override
-  State<SolphaApp> createState() => _SolphaAppState();
+  State<AudiolizerApp> createState() => _AudiolizerAppState();
 }
 
-class _SolphaAppState extends State<SolphaApp> {
+class _AudiolizerAppState extends State<AudiolizerApp> {
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   @override
   void initState() {
@@ -43,6 +44,9 @@ class _SolphaAppState extends State<SolphaApp> {
       debugShowCheckedModeBanner: false,
       localizationsDelegates: const [
         FormBuilderLocalizations.delegate,
+      ],
+      navigatorObservers: [
+        AudiolizerApp.routeObserver,
       ],
       theme: ThemeData(
           primarySwatch: generateMaterialColor(AppColors.instance.primary),
