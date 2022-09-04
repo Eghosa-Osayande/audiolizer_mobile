@@ -67,7 +67,7 @@ class ProjectBottomSheet extends StatelessWidget {
               leading: Icon(Icons.copy),
               title: Text('Duplicate'),
               onTap: () {
-                //  ShareIntentService.instance.shareProject(project);
+                 ProjectRepo.instance.duplicate(project);
                 Navigator.pop(context);
               },
             ),

@@ -60,7 +60,7 @@ class _ScoreEditorBodyState extends State<ScoreEditorBody> with RouteAware, Widg
       case AppLifecycleState.resumed:
         break;
       case AppLifecycleState.inactive:
-
+        break;
       case AppLifecycleState.paused:
 
       case AppLifecycleState.detached:

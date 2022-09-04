@@ -77,6 +77,26 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
               ),
               kGap14,
               FormBuilderTextField(
+                name: 'description',
+                initialValue: projectCopy?.description,
+                validator: FormBuilderValidators.compose([]),
+                maxLines: 4,
+                minLines: 1,
+maxLength: 280,
+                decoration: InputDecoration(
+                  
+                  label: Text(
+                    'Description (optional)',
+                  ),
+                  contentPadding: kNewProjectContentPadding,
+                  border: kNewProjectInputBorder,
+                ),
+                style: GoogleFonts.inter(fontSize: 16,height: 2),
+                keyboardType: TextInputType.name,
+                textInputAction: TextInputAction.newline,
+              ),
+              kGap14,
+              FormBuilderTextField(
                 name: 'bpm',
                 validator: FormBuilderValidators.compose<String>([
                   FormBuilderValidators.required(),
@@ -174,6 +194,7 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
 
     project
       ..title = value['title']
+      ..description = value['description']
       ..updatedAt = DateTime.now().toUtc();
     var updatedScore = Score(
       bpm: int.parse(value['bpm']),
@@ -241,7 +262,7 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
 
     var newProject = Project(
       title: value['title'],
-      description: '',
+      description: value['description'],
       updatedAt: DateTime.now(),
       score: newlyCreatedScore,
       scoreRedoVersions: [],

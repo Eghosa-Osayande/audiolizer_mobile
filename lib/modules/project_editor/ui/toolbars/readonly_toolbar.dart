@@ -4,6 +4,7 @@ import 'package:audiolizer/modules/project_editor/cubit/play_score/play_score_cu
 import 'package:audiolizer/modules/project_editor/cubit/toggle_edit_play_mode/toggle_edit_play_mode_cubit.dart';
 import 'package:audiolizer/modules/project_editor/cubit/toggle_keyboard_visibility.dart/toggle_keyboard_visibility_cubit.dart';
 import 'package:audiolizer/modules/project_editor/cubit/toggle_metroneme/toggle_metroneme.dart';
+import 'package:audiolizer/modules/project_editor/cubit/toggle_playback_progress_visibility/toggle_playback_progress_visibility.dart';
 import 'package:audiolizer/modules/project_editor/ui/toolbars/primary_toolbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,14 +12,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class ReadOnlyToolbar extends StatelessWidget {
   const ReadOnlyToolbar({
     Key? key,
-   
   }) : super(key: key);
-
-
 
   @override
   Widget build(BuildContext context) {
-     var project = BlocProvider.of<CurrentProjectCubit>(context).state;
+    var project = BlocProvider.of<CurrentProjectCubit>(context).state;
     return Row(
       children: [
         IconButton(
@@ -66,6 +64,28 @@ class ReadOnlyToolbar extends StatelessWidget {
                               onChanged: (bool? value) {
                                 if (value != null) {
                                   BlocProvider.of<ToggleMetronemeCubit>(context).toggle(value);
+                                }
+                                Navigator.pop(context);
+                              });
+                        },
+                      );
+                    }),
+                  ),
+                ),
+              ),
+              PopupMenuItem(
+                child: ToolbarOption(
+                  title: 'Show Progress',
+                  trailing: BlocProvider(
+                    create: (context) => TogglePlayBackProgressCubit(),
+                    child: Builder(builder: (context) {
+                      return BlocBuilder<TogglePlayBackProgressCubit, bool>(
+                        builder: (context, state) {
+                          return Checkbox(
+                              value: state,
+                              onChanged: (bool? value) {
+                                if (value != null) {
+                                  BlocProvider.of<TogglePlayBackProgressCubit>(context).toggle(value);
                                 }
                                 Navigator.pop(context);
                               });

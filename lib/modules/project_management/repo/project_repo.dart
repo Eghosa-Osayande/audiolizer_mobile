@@ -54,4 +54,11 @@ class ProjectRepo {
   Future<void> delete(Project project) async {
     await project.delete();
   }
+
+  Future<void> duplicate(Project project) async {
+    var box = await _getProjectsBox();
+    var copy = Project.fromJson(project.toJson());
+    copy.title = copy.title +' (COPY)';
+    await put(copy);
+  }
 }

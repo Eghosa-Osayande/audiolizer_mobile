@@ -1,4 +1,5 @@
 import 'package:audiolizer/modules/project_editor/cubit/edit_lyrics/edit_lyrics_cubit.dart';
+import 'package:audiolizer/modules/project_editor/cubit/toggle_playback_progress_visibility/toggle_playback_progress_visibility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -67,6 +68,9 @@ class ProjectEditorPage extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => ToggleMetronemeCubit(),
+        ),
+        BlocProvider(
+          create: (context) => TogglePlayBackProgressCubit(),
         ),
         BlocProvider(
           create: (context) => ViewModeCubit(),

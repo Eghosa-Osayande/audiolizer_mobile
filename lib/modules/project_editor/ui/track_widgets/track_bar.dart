@@ -1,6 +1,7 @@
 import 'package:audiolizer/modules/models/track/track.dart';
 import 'package:audiolizer/modules/project_editor/cubit/edit_lyrics/edit_lyrics_cubit.dart';
 import 'package:audiolizer/modules/project_editor/cubit/toggle_keyboard_visibility.dart/toggle_keyboard_visibility_cubit.dart';
+import 'package:audiolizer/modules/project_editor/cubit/toggle_playback_progress_visibility/toggle_playback_progress_visibility.dart';
 import 'package:audiolizer/modules/project_editor/cubit/view_mode/view_mode.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -43,20 +44,24 @@ class TrackBarWidget extends StatelessWidget {
             }
             // print('du=>${}<==>${note.convertBeatPositionToSeconds()}');
 
-            return Container(
-              decoration: BoxDecoration(
-                color: color,
-                borderRadius: BorderRadius.circular(4),
-              ),
-              child: Column(
-                children: [
-                  SolfaTextField(
-                    key: ObjectKey(bar),
-                    bar: bar,
+            return BlocBuilder<TogglePlayBackProgressCubit, bool>(
+              builder: (context, showPlayBack) {
+                return Container(
+                  decoration: BoxDecoration(
+                    color: showPlayBack ? color : Colors.transparent,
+                    borderRadius: BorderRadius.circular(4),
                   ),
-                  BarLyricsWidget(bar: bar)
-                ],
-              ),
+                  child: Column(
+                    children: [
+                      SolfaTextField(
+                        key: ObjectKey(bar),
+                        bar: bar,
+                      ),
+                      BarLyricsWidget(bar: bar)
+                    ],
+                  ),
+                );
+              },
             );
           }),
     );

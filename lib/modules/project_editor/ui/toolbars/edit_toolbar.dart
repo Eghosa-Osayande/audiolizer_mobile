@@ -1,5 +1,6 @@
 import 'package:audiolizer/modules/common/widgets/toolbar_options.dart';
 import 'package:audiolizer/modules/models/project/project_model.dart';
+import 'package:audiolizer/modules/project_editor/cubit/toggle_playback_progress_visibility/toggle_playback_progress_visibility.dart';
 import 'package:audiolizer/modules/project_editor/ui/toolbars/primary_toolbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,13 +18,10 @@ import 'package:audiolizer/modules/project_editor/cubit/volume_navigation/volume
 import 'package:audiolizer/modules/project_management/manage_score_settings/ui/create_project_page.dart';
 import 'package:audiolizer/modules/themes/colors/app_colors.dart';
 
-
 class EditToolbar extends StatelessWidget {
   const EditToolbar({
     Key? key,
   }) : super(key: key);
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -139,6 +137,28 @@ class EditToolbar extends StatelessWidget {
                   ),
                 ),
               ),
+              PopupMenuItem(
+                child: ToolbarOption(
+                  title: 'Show Progress',
+                  trailing: BlocProvider(
+                    create: (context) => TogglePlayBackProgressCubit(),
+                    child: Builder(builder: (context) {
+                      return BlocBuilder<TogglePlayBackProgressCubit, bool>(
+                        builder: (context, state) {
+                          return Checkbox(
+                              value: state,
+                              onChanged: (bool? value) {
+                                if (value != null) {
+                                  BlocProvider.of<TogglePlayBackProgressCubit>(context).toggle(value);
+                                }
+                                Navigator.pop(context);
+                              });
+                        },
+                      );
+                    }),
+                  ),
+                ),
+              ),
             ];
           },
           icon: Icon(
@@ -149,4 +169,3 @@ class EditToolbar extends StatelessWidget {
     );
   }
 }
-

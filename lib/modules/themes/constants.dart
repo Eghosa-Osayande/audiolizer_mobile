@@ -4,4 +4,4 @@ final kGap14 = SizedBox(
   height: 14,
 );
 final kNewProjectInputBorder = OutlineInputBorder(borderRadius: BorderRadius.circular(4));
-final kNewProjectContentPadding = EdgeInsets.symmetric(horizontal: 10);
+final kNewProjectContentPadding = EdgeInsets.symmetric(horizontal: 10,vertical: 50);
