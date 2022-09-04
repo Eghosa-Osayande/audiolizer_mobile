@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:solpha/modules/models/project/project_model.dart';
+import 'package:audiolizer/modules/models/project/project_model.dart';
 
 class UndoRedoCubit extends Cubit<UndoRedoState> {
   final Project project;

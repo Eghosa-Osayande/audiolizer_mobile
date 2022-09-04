@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:audioplayers/audioplayers.dart';
-import 'package:solpha/modules/app_services_controller/services_config.dart';
+import 'package:audiolizer/modules/app_services_controller/services_config.dart';
 
 class AudioPlayerService {
   static AudioPlayerService? _instance;

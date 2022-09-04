@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:solpha/modules/project_editor/repo/volume_navigation.dart';
+import 'package:audiolizer/modules/project_editor/repo/volume_navigation.dart';
 
 class VolumeNavigationCubit extends Cubit<bool> {
   StreamSubscription<bool>? sub;

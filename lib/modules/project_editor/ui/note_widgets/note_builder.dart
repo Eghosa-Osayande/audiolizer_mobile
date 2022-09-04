@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:solpha/modules/models/notes/note.dart';
-import 'package:solpha/modules/project_editor/ui/note_widgets/note_theme.dart';
+import 'package:audiolizer/modules/models/notes/note.dart';
+import 'package:audiolizer/modules/project_editor/ui/note_widgets/note_theme.dart';
 
-class NoteBuilder extends StatelessWidget {
+class NoteBuilder extends StatefulWidget {
   final Note note;
 
   final NoteTheme noteTheme;
@@ -15,17 +15,29 @@ class NoteBuilder extends StatelessWidget {
     required this.noteTheme,
   }) : super(key: key);
 
-  Widget buildNote(BuildContext context) {
+  @override
+  State<NoteBuilder> createState() => _NoteBuilderState();
+}
+
+class _NoteBuilderState extends State<NoteBuilder> {
+  @override
+  void initState() {
+    super.initState();
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
       NoteThemeProvider.of(context).notifyChildSize(context.size);
     });
+  }
+
+
+
+  Widget buildNote(BuildContext context) {
     return BlocBuilder<NoteThemeProvider, NoteTheme>(
       builder: (context, state) {
         return Container(
           margin: EdgeInsets.symmetric(horizontal: 2),
           child: Text(
-            note.displayString(),
-            style: noteTheme.getStyle(note),
+            widget.note.displayString(),
+            style: widget.noteTheme.getStyle(widget.note),
           ),
         );
       },

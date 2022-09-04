@@ -1,4 +1,4 @@
-package com.example.solpha
+package com.audiolizer.mobile
 
 import io.flutter.embedding.android.FlutterActivity
 import android.os.Bundle

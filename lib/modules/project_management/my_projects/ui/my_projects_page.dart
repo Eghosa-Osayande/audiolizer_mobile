@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:solpha/modules/common/widgets/project_list_tile.dart';
-import 'package:solpha/modules/home/cubit/my_projects/my_projects.dart';
-import 'package:solpha/modules/home/cubit/recently_opened/recently_opened.dart';
-import 'package:solpha/modules/home/ui/open_project_fab.dart';
-import 'package:solpha/modules/models/project/project_model.dart';
+import 'package:audiolizer/modules/common/widgets/project_list_tile.dart';
+import 'package:audiolizer/modules/home/cubit/my_projects/my_projects.dart';
+import 'package:audiolizer/modules/home/cubit/recently_opened/recently_opened.dart';
+import 'package:audiolizer/modules/home/ui/open_project_fab.dart';
+import 'package:audiolizer/modules/models/project/project_model.dart';
 
 class MyProjectsPage extends StatefulWidget {
   const MyProjectsPage({

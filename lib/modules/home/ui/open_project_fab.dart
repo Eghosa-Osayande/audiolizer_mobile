@@ -1,9 +1,9 @@
 import 'package:floating_action_bubble/floating_action_bubble.dart';
 import 'package:flutter/material.dart';
-import 'package:solpha/modules/os_file_picker/platform_file_picker.dart';
-import 'package:solpha/modules/os_share_intent/services/share_intent_service.dart';
-import 'package:solpha/modules/project_management/manage_score_settings/ui/create_project_page.dart';
-import 'package:solpha/modules/themes/colors/app_colors.dart';
+import 'package:audiolizer/modules/os_file_picker/platform_file_picker.dart';
+import 'package:audiolizer/modules/os_share_intent/services/share_intent_service.dart';
+import 'package:audiolizer/modules/project_management/manage_score_settings/ui/create_project_page.dart';
+import 'package:audiolizer/modules/themes/colors/app_colors.dart';
 
 class OpenProjectFAB extends StatefulWidget {
   const OpenProjectFAB({

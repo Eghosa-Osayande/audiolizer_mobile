@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:solpha/modules/models/project/project_model.dart';
-import 'package:solpha/modules/models/score/score.dart';
-import 'package:solpha/modules/project_editor/repo/toggle_metroneme.dart';
-import 'package:solpha/modules/project_editor/service/audio_player_service.dart';
+import 'package:audiolizer/modules/models/project/project_model.dart';
+import 'package:audiolizer/modules/models/score/score.dart';
+import 'package:audiolizer/modules/project_editor/repo/toggle_metroneme.dart';
+import 'package:audiolizer/modules/project_editor/service/audio_player_service.dart';
 
 part 'play_score_cubit_state.dart';
 

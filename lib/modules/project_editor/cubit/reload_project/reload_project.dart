@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:solpha/modules/models/project/project_model.dart';
-import 'package:solpha/modules/project_management/repo/project_repo.dart';
+import 'package:audiolizer/modules/models/project/project_model.dart';
+import 'package:audiolizer/modules/project_management/repo/project_repo.dart';
 
 part 'reload_project_cubit_state.dart';
 

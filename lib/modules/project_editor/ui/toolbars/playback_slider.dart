@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:solpha/modules/project_editor/service/audio_player_service.dart';
+import 'package:audiolizer/modules/project_editor/service/audio_player_service.dart';
 
 class ToolbarPlaybackProgress extends StatefulWidget implements PreferredSizeWidget {
   ToolbarPlaybackProgress({

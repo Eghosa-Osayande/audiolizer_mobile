@@ -1,7 +1,5 @@
 import 'package:permission_handler/permission_handler.dart';
-import 'package:solpha/modules/app_services_controller/services_config.dart';
-
-
+import 'package:audiolizer/modules/app_services_controller/services_config.dart';
 
 class PlatformPermissionService {
   static PlatformPermissionService? _instance;
@@ -26,6 +24,4 @@ class PlatformPermissionService {
     }
     return false;
   }
-
-  
 }

@@ -2,15 +2,15 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:solpha/modules/common/widgets/project_list_tile.dart';
-import 'package:solpha/modules/home/cubit/my_projects/my_projects.dart';
-import 'package:solpha/modules/home/cubit/recently_opened/recently_opened.dart';
-import 'package:solpha/modules/home/ui/open_project_fab.dart';
-import 'package:solpha/modules/models/project/project_model.dart';
-import 'package:solpha/modules/os_file_picker/platform_file_picker.dart';
-import 'package:solpha/modules/os_share_intent/services/share_intent_service.dart';
-import 'package:solpha/modules/project_management/manage_score_settings/ui/create_project_page.dart';
-import 'package:solpha/modules/project_management/my_projects/ui/my_projects_page.dart';
+import 'package:audiolizer/modules/common/widgets/project_list_tile.dart';
+import 'package:audiolizer/modules/home/cubit/my_projects/my_projects.dart';
+import 'package:audiolizer/modules/home/cubit/recently_opened/recently_opened.dart';
+import 'package:audiolizer/modules/home/ui/open_project_fab.dart';
+import 'package:audiolizer/modules/models/project/project_model.dart';
+import 'package:audiolizer/modules/os_file_picker/platform_file_picker.dart';
+import 'package:audiolizer/modules/os_share_intent/services/share_intent_service.dart';
+import 'package:audiolizer/modules/project_management/manage_score_settings/ui/create_project_page.dart';
+import 'package:audiolizer/modules/project_management/my_projects/ui/my_projects_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         },
         child: Scaffold(
           appBar: AppBar(
-            title: Text('Audiolize'),
+            title: Text('Audiolizer'),
           ),
           floatingActionButton: OpenProjectFAB(
             key: fabKey,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:solpha/modules/models/notes/note.dart';
+import 'package:audiolizer/modules/models/notes/note.dart';
 
 class NoteTheme {
   final double fontSize;
@@ -11,7 +11,6 @@ class NoteTheme {
   double get musicFontSize => fontSize - 2;
   double get musicDurationSize => fontSize - 2;
   double get musicWhiteSpaceSize => fontSize - 2;
-
 
   TextStyle get constantStyle {
     // return style;

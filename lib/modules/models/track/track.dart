@@ -2,12 +2,12 @@ import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:midi_util/midi_util.dart';
 import 'package:result_type/result_type.dart';
-import 'package:solpha/modules/models/bar/bar.dart';
-import 'package:solpha/modules/models/notes/enums/duration_markers.dart';
-import 'package:solpha/modules/models/notes/enums/solfege.dart';
-import 'package:solpha/modules/models/notes/note.dart';
-import 'package:solpha/modules/models/score/score.dart';
-import 'package:solpha/modules/models/track/enums/midi_program.dart';
+import 'package:audiolizer/modules/models/bar/bar.dart';
+import 'package:audiolizer/modules/models/notes/enums/duration_markers.dart';
+import 'package:audiolizer/modules/models/notes/enums/solfege.dart';
+import 'package:audiolizer/modules/models/notes/note.dart';
+import 'package:audiolizer/modules/models/score/score.dart';
+import 'package:audiolizer/modules/models/track/enums/midi_program.dart';
 
 import 'dart:collection';
 
@@ -24,6 +24,7 @@ class Track extends LinkedList<Bar> with _$Track, LinkedListEntry<Track>, Equata
     required MidiProgram program,
     required String name,
     @Default(true) bool isVisible,
+    @Default(true) bool isLyricsVisible,
   }) = _Track;
 
   // factory Track.fromJson(Map<String, dynamic> json) => _$TrackFromJson(json);
@@ -35,6 +36,7 @@ class Track extends LinkedList<Bar> with _$Track, LinkedListEntry<Track>, Equata
       program: MidiProgram.values[json['program'] as int],
       name: json['name'] as String,
       isVisible: json['isVisible'] ?? true,
+      isLyricsVisible: json['isLyricsVisible'] ?? true,
     );
     List<Bar> bars = List.from((json['bars'] as List).map((e) => Bar.fromJson(e)).toList());
     track.addAll(bars);
@@ -47,7 +49,8 @@ class Track extends LinkedList<Bar> with _$Track, LinkedListEntry<Track>, Equata
         'volume': volume,
         'program': program.index,
         'bars': this.toList().map((bar) => bar.toJson()).toList(),
-        'isVisible':isVisible,
+        'isVisible': isVisible,
+        'isLyricsVisible': isLyricsVisible,
       };
 
   LinkedList<Bar> get bars => this;
@@ -139,7 +142,6 @@ class Track extends LinkedList<Bar> with _$Track, LinkedListEntry<Track>, Equata
   }
 
   @override
-  // TODO: implement props
   List<Object?> get props => [];
   @override
   bool? get stringify => true;

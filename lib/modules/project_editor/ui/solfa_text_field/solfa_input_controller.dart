@@ -1,13 +1,13 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:solpha/modules/models/bar/bar.dart';
-import 'package:solpha/modules/models/notes/enums/duration_markers.dart';
-import 'package:solpha/modules/models/notes/enums/solfege.dart';
-import 'package:solpha/modules/models/notes/note.dart';
-import 'package:solpha/modules/project_editor/ui/note_widgets/note_builder.dart';
-import 'package:solpha/modules/project_editor/ui/note_widgets/note_theme.dart';
-import 'package:solpha/modules/project_editor/ui/solfa_text_field/solfa_clipboard_service.dart';
+import 'package:audiolizer/modules/models/bar/bar.dart';
+import 'package:audiolizer/modules/models/notes/enums/duration_markers.dart';
+import 'package:audiolizer/modules/models/notes/enums/solfege.dart';
+import 'package:audiolizer/modules/models/notes/note.dart';
+import 'package:audiolizer/modules/project_editor/ui/note_widgets/note_builder.dart';
+import 'package:audiolizer/modules/project_editor/ui/note_widgets/note_theme.dart';
+import 'package:audiolizer/modules/project_editor/ui/solfa_text_field/solfa_clipboard_service.dart';
 
 class SolfaEditingController extends TextEditingController {
   SolfaEditingController(this.notes)

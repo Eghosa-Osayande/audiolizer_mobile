@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
-import 'package:solpha/modules/models/score/score.dart';
+import 'package:audiolizer/modules/models/score/score.dart';
 
 part 'project_model.freezed.dart';
 part 'project_model.g.dart';
@@ -10,7 +10,7 @@ part 'project_model.g.dart';
 class Project with HiveObjectMixin, _$Project {
   Project._();
 
-   @JsonSerializable(explicitToJson: true)
+  @JsonSerializable(explicitToJson: true)
   factory Project({
     required String title,
     required String description,
@@ -18,6 +18,7 @@ class Project with HiveObjectMixin, _$Project {
     required Score score,
     required List<Score> scoreUndoVersions,
     required List<Score> scoreRedoVersions,
+    
   }) = _Project;
 
   factory Project.fromJson(Map<String, dynamic> json) => _$ProjectFromJson(json);
@@ -27,7 +28,7 @@ class Project with HiveObjectMixin, _$Project {
     return '${formatter.format(updatedAt)}';
   }
 
-  String titleShort(int value,{String delimiter=''}) {
-    return (title.length > value ? title.substring(0, value)+delimiter : title);
+  String titleShort(int value, {String delimiter = ''}) {
+    return (title.length > value ? title.substring(0, value) + delimiter : title);
   }
 }

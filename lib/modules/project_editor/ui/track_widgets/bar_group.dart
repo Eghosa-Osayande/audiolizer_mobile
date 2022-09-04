@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:solpha/modules/models/bar/bar.dart';
-import 'package:solpha/modules/models/track/track.dart';
-import 'package:solpha/modules/project_editor/cubit/edit_project/edit_project_cubit.dart';
-import 'package:solpha/modules/project_editor/cubit/keyboard_event/keyboard_event.dart';
-import 'package:solpha/modules/project_editor/cubit/play_score/play_score_cubit.dart';
-import 'package:solpha/modules/project_editor/ui/track_widgets/track_bar.dart';
+import 'package:audiolizer/modules/models/bar/bar.dart';
+import 'package:audiolizer/modules/models/track/track.dart';
+import 'package:audiolizer/modules/project_editor/cubit/edit_project/edit_project_cubit.dart';
+import 'package:audiolizer/modules/project_editor/cubit/keyboard_event/keyboard_event.dart';
+import 'package:audiolizer/modules/project_editor/cubit/play_score/play_score_cubit.dart';
+import 'package:audiolizer/modules/project_editor/ui/track_widgets/track_bar.dart';
 
 class BarGroupWidget extends StatelessWidget {
   const BarGroupWidget({

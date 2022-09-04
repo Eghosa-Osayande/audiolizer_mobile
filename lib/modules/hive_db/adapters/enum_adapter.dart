@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:hive/hive.dart';
-import 'package:solpha/modules/models/notes/enums/duration_markers.dart';
+import 'package:audiolizer/modules/models/notes/enums/duration_markers.dart';
 
 class EnumTypeAdapter<T> extends TypeAdapter<T> {
   EnumTypeAdapter({required this.typeId, required this.values});

@@ -3,18 +3,18 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:midi_util/midi_util.dart';
-import 'package:solpha/modules/models/bar/bar.dart';
-import 'package:solpha/modules/models/notes/config_notes_x.dart';
-import 'package:solpha/modules/models/notes/note.dart';
-import 'package:solpha/modules/models/project/project_model.dart';
-import 'package:solpha/modules/models/score/enums/key_signature.dart';
-import 'package:solpha/modules/models/score/score.dart';
-import 'package:solpha/modules/models/score/enums/time_signature.dart';
-import 'package:solpha/modules/models/track/enums/midi_program.dart';
-import 'package:solpha/modules/models/track/track.dart';
-import 'package:solpha/modules/project_management/manage_score_settings/ui/tracks_manager.dart';
-import 'package:solpha/modules/project_management/repo/project_repo.dart';
-import 'package:solpha/modules/themes/constants.dart';
+import 'package:audiolizer/modules/models/bar/bar.dart';
+import 'package:audiolizer/modules/models/notes/config_notes_x.dart';
+import 'package:audiolizer/modules/models/notes/note.dart';
+import 'package:audiolizer/modules/models/project/project_model.dart';
+import 'package:audiolizer/modules/models/score/enums/key_signature.dart';
+import 'package:audiolizer/modules/models/score/score.dart';
+import 'package:audiolizer/modules/models/score/enums/time_signature.dart';
+import 'package:audiolizer/modules/models/track/enums/midi_program.dart';
+import 'package:audiolizer/modules/models/track/track.dart';
+import 'package:audiolizer/modules/project_management/manage_score_settings/ui/tracks_manager.dart';
+import 'package:audiolizer/modules/project_management/repo/project_repo.dart';
+import 'package:audiolizer/modules/themes/constants.dart';
 
 class CreateProjectPage extends StatefulWidget {
   final Project? project;
@@ -37,7 +37,7 @@ class CreateProjectPage extends StatefulWidget {
 }
 
 class _CreateProjectPageState extends State<CreateProjectPage> {
-  GlobalKey<FormBuilderState> formKey = GlobalKey<FormBuilderState>();
+  final GlobalKey<FormBuilderState> formKey = GlobalKey<FormBuilderState>();
 
   late Project? projectCopy = (widget.project != null) ? Project.fromJson(widget.project!.toJson()) : null;
 
@@ -49,7 +49,7 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
           widget.project == null ? 'New Project' : widget.project!.title,
         ),
         actions: [
-          TextButton(onPressed: onDone, child: Text('DONE'))
+          TextButton(onPressed: onDone, child: Text('SAVE'))
         ],
       ),
       body: FormBuilder(

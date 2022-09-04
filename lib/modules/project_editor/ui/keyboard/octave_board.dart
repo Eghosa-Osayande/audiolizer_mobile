@@ -1,12 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:solpha/modules/models/notes/enums/solfege.dart';
+import 'package:audiolizer/modules/models/notes/enums/solfege.dart';
 
 import 'button_models.dart';
 import 'button_widget.dart';
-
-
 
 class OctaveBoard extends StatelessWidget {
   final int octave;

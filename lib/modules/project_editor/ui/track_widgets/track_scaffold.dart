@@ -3,22 +3,22 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:solpha/modules/models/bar/bar.dart';
-import 'package:solpha/modules/models/notes/note.dart';
-import 'package:solpha/modules/models/track/track.dart';
-import 'package:solpha/modules/project_editor/cubit/current_project/current_project.dart';
-import 'package:solpha/modules/project_editor/cubit/edit_project/edit_project_cubit.dart';
-import 'package:solpha/modules/project_editor/cubit/focused_bar/focused_bar_cubit.dart';
-import 'package:solpha/modules/project_editor/cubit/keyboard_event/keyboard_event.dart';
-import 'package:solpha/modules/project_editor/cubit/play_score/play_score_cubit.dart';
-import 'package:solpha/modules/project_editor/cubit/toggle_keyboard_visibility.dart/toggle_keyboard_visibility_cubit.dart';
-import 'package:solpha/modules/project_editor/cubit/undo_redo/undo_redo_cubit.dart';
-import 'package:solpha/modules/project_editor/cubit/view_mode/view_mode.dart';
-import 'package:solpha/modules/project_editor/ui/keyboard/solfa_keyboard.dart';
-import 'package:solpha/modules/project_editor/ui/toolbars/playback_slider.dart';
-import 'package:solpha/modules/project_editor/ui/toolbars/primary_toolbar.dart';
-import 'package:solpha/modules/project_editor/ui/track_widgets/bar_group.dart';
-import 'package:solpha/modules/themes/colors/app_colors.dart';
+import 'package:audiolizer/modules/models/bar/bar.dart';
+import 'package:audiolizer/modules/models/notes/note.dart';
+import 'package:audiolizer/modules/models/track/track.dart';
+import 'package:audiolizer/modules/project_editor/cubit/current_project/current_project.dart';
+import 'package:audiolizer/modules/project_editor/cubit/edit_project/edit_project_cubit.dart';
+import 'package:audiolizer/modules/project_editor/cubit/focused_bar/focused_bar_cubit.dart';
+import 'package:audiolizer/modules/project_editor/cubit/keyboard_event/keyboard_event.dart';
+import 'package:audiolizer/modules/project_editor/cubit/play_score/play_score_cubit.dart';
+import 'package:audiolizer/modules/project_editor/cubit/toggle_keyboard_visibility.dart/toggle_keyboard_visibility_cubit.dart';
+import 'package:audiolizer/modules/project_editor/cubit/undo_redo/undo_redo_cubit.dart';
+import 'package:audiolizer/modules/project_editor/cubit/view_mode/view_mode.dart';
+import 'package:audiolizer/modules/project_editor/ui/keyboard/solfa_keyboard.dart';
+import 'package:audiolizer/modules/project_editor/ui/toolbars/playback_slider.dart';
+import 'package:audiolizer/modules/project_editor/ui/toolbars/primary_toolbar.dart';
+import 'package:audiolizer/modules/project_editor/ui/track_widgets/bar_group.dart';
+import 'package:audiolizer/modules/themes/colors/app_colors.dart';
 
 class TrackScaffold extends StatefulWidget {
   const TrackScaffold({
@@ -95,14 +95,16 @@ class _TrackScaffoldState extends State<TrackScaffold> {
                           ),
                           BlocListener<ViewModeCubit, ViewModeState>(
                             listener: (context, viewMode) {
-                              switch (viewMode) {
-                                case ViewModeState.readOnly:
-                                  BlocProvider.of<ToggleSolfaKeyboardVisibilityCubit>(context).hide();
-                                  break;
-                                case ViewModeState.edit:
-                                  BlocProvider.of<ToggleSolfaKeyboardVisibilityCubit>(context).open();
-                                  break;
-                              }
+                              
+                                switch (viewMode) {
+                                  case ViewModeState.readOnly:
+                                    BlocProvider.of<ToggleSolfaKeyboardVisibilityCubit>(context).hide();
+                                    break;
+                                  case ViewModeState.edit:
+                                    BlocProvider.of<ToggleSolfaKeyboardVisibilityCubit>(context).open();
+                                    break;
+                                }
+                              
                             },
                           ),
                           BlocListener<PlayScoreCubit, PlayScoreCubitState?>(

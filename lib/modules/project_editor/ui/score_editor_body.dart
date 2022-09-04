@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:solpha/modules/project_editor/cubit/edit_project/edit_project_cubit.dart';
-import 'package:solpha/modules/project_editor/cubit/keyboard_event/keyboard_event.dart';
-import 'package:solpha/modules/project_editor/cubit/reload_project/reload_project.dart';
-import 'package:solpha/modules/project_editor/cubit/toggle_keyboard_visibility.dart/toggle_keyboard_visibility_cubit.dart';
-import 'package:solpha/modules/project_editor/ui/track_widgets/track_scaffold.dart';
+import 'package:audiolizer/modules/project_editor/cubit/edit_project/edit_project_cubit.dart';
+import 'package:audiolizer/modules/project_editor/cubit/keyboard_event/keyboard_event.dart';
+import 'package:audiolizer/modules/project_editor/cubit/reload_project/reload_project.dart';
+import 'package:audiolizer/modules/project_editor/cubit/toggle_keyboard_visibility.dart/toggle_keyboard_visibility_cubit.dart';
+import 'package:audiolizer/modules/project_editor/ui/track_widgets/track_scaffold.dart';
 
 class ScoreEditorBody extends StatefulWidget {
   const ScoreEditorBody({Key? key}) : super(key: key);
@@ -34,7 +34,9 @@ class _ScoreEditorBodyState extends State<ScoreEditorBody> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
+      
       onWillPop: () async {
+        
         var keyboardState = BlocProvider.of<ToggleSolfaKeyboardVisibilityCubit>(context).state;
         switch (keyboardState) {
           case SolfaKeyboardVisibility.visible:

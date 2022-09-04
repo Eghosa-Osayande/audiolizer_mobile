@@ -26,6 +26,8 @@ mixin _$Track {
   set name(String value) => throw _privateConstructorUsedError;
   bool get isVisible => throw _privateConstructorUsedError;
   set isVisible(bool value) => throw _privateConstructorUsedError;
+  bool get isLyricsVisible => throw _privateConstructorUsedError;
+  set isLyricsVisible(bool value) => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $TrackCopyWith<Track> get copyWith => throw _privateConstructorUsedError;
@@ -40,7 +42,8 @@ abstract class $TrackCopyWith<$Res> {
       int volume,
       MidiProgram program,
       String name,
-      bool isVisible});
+      bool isVisible,
+      bool isLyricsVisible});
 }
 
 /// @nodoc
@@ -58,6 +61,7 @@ class _$TrackCopyWithImpl<$Res> implements $TrackCopyWith<$Res> {
     Object? program = freezed,
     Object? name = freezed,
     Object? isVisible = freezed,
+    Object? isLyricsVisible = freezed,
   }) {
     return _then(_value.copyWith(
       trackNumber: trackNumber == freezed
@@ -80,6 +84,10 @@ class _$TrackCopyWithImpl<$Res> implements $TrackCopyWith<$Res> {
           ? _value.isVisible
           : isVisible // ignore: cast_nullable_to_non_nullable
               as bool,
+      isLyricsVisible: isLyricsVisible == freezed
+          ? _value.isLyricsVisible
+          : isLyricsVisible // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -94,7 +102,8 @@ abstract class _$$_TrackCopyWith<$Res> implements $TrackCopyWith<$Res> {
       int volume,
       MidiProgram program,
       String name,
-      bool isVisible});
+      bool isVisible,
+      bool isLyricsVisible});
 }
 
 /// @nodoc
@@ -113,6 +122,7 @@ class __$$_TrackCopyWithImpl<$Res> extends _$TrackCopyWithImpl<$Res>
     Object? program = freezed,
     Object? name = freezed,
     Object? isVisible = freezed,
+    Object? isLyricsVisible = freezed,
   }) {
     return _then(_$_Track(
       trackNumber: trackNumber == freezed
@@ -135,6 +145,10 @@ class __$$_TrackCopyWithImpl<$Res> extends _$TrackCopyWithImpl<$Res>
           ? _value.isVisible
           : isVisible // ignore: cast_nullable_to_non_nullable
               as bool,
+      isLyricsVisible: isLyricsVisible == freezed
+          ? _value.isLyricsVisible
+          : isLyricsVisible // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -147,7 +161,8 @@ class _$_Track extends _Track {
       required this.volume,
       required this.program,
       required this.name,
-      this.isVisible = true})
+      this.isVisible = true,
+      this.isLyricsVisible = true})
       : super._();
 
   @override
@@ -161,6 +176,9 @@ class _$_Track extends _Track {
   @override
   @JsonKey()
   bool isVisible;
+  @override
+  @JsonKey()
+  bool isLyricsVisible;
 
   @JsonKey(ignore: true)
   @override
@@ -174,7 +192,8 @@ abstract class _Track extends Track {
       required int volume,
       required MidiProgram program,
       required String name,
-      bool isVisible}) = _$_Track;
+      bool isVisible,
+      bool isLyricsVisible}) = _$_Track;
   _Track._() : super._();
 
   @override
@@ -192,6 +211,9 @@ abstract class _Track extends Track {
   @override
   bool get isVisible;
   set isVisible(bool value);
+  @override
+  bool get isLyricsVisible;
+  set isLyricsVisible(bool value);
   @override
   @JsonKey(ignore: true)
   _$$_TrackCopyWith<_$_Track> get copyWith =>

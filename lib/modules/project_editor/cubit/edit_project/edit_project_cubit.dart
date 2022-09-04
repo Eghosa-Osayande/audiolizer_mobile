@@ -2,11 +2,11 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:solpha/modules/models/bar/bar.dart';
-import 'package:solpha/modules/models/project/project_model.dart';
-import 'package:solpha/modules/models/score/score.dart';
-import 'package:solpha/modules/models/track/track.dart';
-import 'package:solpha/modules/project_editor/service/audio_player_service.dart';
+import 'package:audiolizer/modules/models/bar/bar.dart';
+import 'package:audiolizer/modules/models/project/project_model.dart';
+import 'package:audiolizer/modules/models/score/score.dart';
+import 'package:audiolizer/modules/models/track/track.dart';
+import 'package:audiolizer/modules/project_editor/service/audio_player_service.dart';
 
 part 'edit_project_cubit_state.dart';
 

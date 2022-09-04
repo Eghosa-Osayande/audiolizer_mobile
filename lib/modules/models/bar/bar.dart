@@ -4,9 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:midi_util/midi_util.dart';
 import 'package:result_type/result_type.dart';
-import 'package:solpha/modules/models/notes/enums/solfege.dart';
-import 'package:solpha/modules/models/notes/note.dart';
-import 'package:solpha/modules/models/track/track.dart';
+import 'package:audiolizer/modules/models/notes/enums/solfege.dart';
+import 'package:audiolizer/modules/models/notes/note.dart';
+import 'package:audiolizer/modules/models/track/track.dart';
 
 part 'bar.freezed.dart';
 part 'bar.g.dart';

@@ -1,6 +1,6 @@
 import 'package:rxdart/rxdart.dart';
-import 'package:solpha/modules/models/notes/note.dart';
-import 'package:solpha/modules/os_toast/services/platform_toast_service.dart';
+import 'package:audiolizer/modules/models/notes/note.dart';
+import 'package:audiolizer/modules/os_toast/services/platform_toast_service.dart';
 
 class SolfaClipboardService {
   static final SolfaClipboardService _instance = SolfaClipboardService._();

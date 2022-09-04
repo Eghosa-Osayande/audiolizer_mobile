@@ -5,13 +5,13 @@ import 'dart:io';
 import 'package:file/memory.dart';
 import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:solpha/modules/app_services_controller/services_config.dart';
-import 'package:solpha/modules/models/project/project_model.dart';
-import 'package:solpha/modules/models/score/score.dart';
-import 'package:solpha/modules/os_path/services/path/platform_path_service.dart';
-import 'package:solpha/modules/os_permission/services/permission/platform_permission_service.dart';
-import 'package:solpha/modules/os_toast/services/platform_toast_service.dart';
-import 'package:solpha/modules/project_management/repo/project_repo.dart';
+import 'package:audiolizer/modules/app_services_controller/services_config.dart';
+import 'package:audiolizer/modules/models/project/project_model.dart';
+import 'package:audiolizer/modules/models/score/score.dart';
+import 'package:audiolizer/modules/os_path/services/path/platform_path_service.dart';
+import 'package:audiolizer/modules/os_permission/services/permission/platform_permission_service.dart';
+import 'package:audiolizer/modules/os_toast/services/platform_toast_service.dart';
+import 'package:audiolizer/modules/project_management/repo/project_repo.dart';
 
 class ShareProjectService {
   static ShareProjectService? _instance;

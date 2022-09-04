@@ -1,9 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:solpha/modules/models/notes/enums/duration_markers.dart';
-import 'package:solpha/modules/models/notes/enums/solfege.dart';
-import 'package:solpha/modules/themes/colors/app_colors.dart';
+import 'package:audiolizer/modules/models/notes/enums/duration_markers.dart';
+import 'package:audiolizer/modules/models/notes/enums/solfege.dart';
+import 'package:audiolizer/modules/themes/colors/app_colors.dart';
 
 import 'button_models.dart';
 import 'button_widget.dart';
@@ -22,7 +22,7 @@ class BottomRow extends StatelessWidget {
             flex: 1,
             child: ButtonWidget(
               data: NewLineButton(),
-               height: 40,
+              height: 40,
             ),
           ),
           // Expanded(

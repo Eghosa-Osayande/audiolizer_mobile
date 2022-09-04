@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:solpha/modules/models/notes/note.dart';
-import 'package:solpha/modules/project_editor/service/audio_player_service.dart';
+import 'package:audiolizer/modules/models/notes/note.dart';
+import 'package:audiolizer/modules/project_editor/service/audio_player_service.dart';
 
 class PlaybackProgress extends StatelessWidget {
   final Note note;

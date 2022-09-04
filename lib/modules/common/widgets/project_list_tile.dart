@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:solpha/modules/common/formatters/string_formatter.dart';
-import 'package:solpha/modules/common/widgets/project_bottom_sheet.dart';
-import 'package:solpha/modules/models/project/project_model.dart';
-import 'package:solpha/modules/models/score/score.dart';
-import 'package:solpha/modules/os_share_intent/services/share_intent_service.dart';
-import 'package:solpha/modules/project_editor/ui/page/score_editor.dart';
-import 'package:solpha/modules/project_management/manage_score_settings/ui/create_project_page.dart';
-import 'package:solpha/modules/project_management/repo/project_repo.dart';
+import 'package:audiolizer/modules/common/formatters/string_formatter.dart';
+import 'package:audiolizer/modules/common/widgets/project_bottom_sheet.dart';
+import 'package:audiolizer/modules/models/project/project_model.dart';
+import 'package:audiolizer/modules/models/score/score.dart';
+import 'package:audiolizer/modules/os_share_intent/services/share_intent_service.dart';
+import 'package:audiolizer/modules/project_editor/ui/page/score_editor.dart';
+import 'package:audiolizer/modules/project_management/manage_score_settings/ui/create_project_page.dart';
+import 'package:audiolizer/modules/project_management/repo/project_repo.dart';
 
 class ProjectListTile extends StatelessWidget {
   final Project project;
@@ -37,8 +37,11 @@ class ProjectListTile extends StatelessWidget {
               ),
             ),
           ),
-          title: Text(project.title.XX,maxLines: 1,
-            overflow: TextOverflow.ellipsis,),
+          title: Text(
+            project.title.XX,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
           subtitle: Text(
             '${project.updatedAtString}',
           ),

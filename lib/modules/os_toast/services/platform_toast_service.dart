@@ -1,6 +1,5 @@
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:solpha/modules/app_services_controller/services_config.dart';
-
+import 'package:audiolizer/modules/app_services_controller/services_config.dart';
 
 class PlatformToastService {
   static PlatformToastService? _instance;

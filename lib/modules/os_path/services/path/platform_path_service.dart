@@ -1,6 +1,6 @@
 import 'package:file/file.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:solpha/modules/app_services_controller/services_config.dart';
+import 'package:audiolizer/modules/app_services_controller/services_config.dart';
 
 class PlatformPathService {
   static PlatformPathService? _instance;
@@ -23,7 +23,7 @@ class PlatformPathService {
   Future<String> getExportRootDirectory() async {
     var directory = await getApplicationDocumentsDirectory();
     var path = directory.path + '/exports';
-    
+
     return path;
   }
 }

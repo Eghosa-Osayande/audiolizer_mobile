@@ -2,19 +2,19 @@ import 'dart:collection';
 
 import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
-import 'package:solpha/modules/hive_db/adapters/enum_adapter.dart';
-import 'package:solpha/modules/hive_db/adapters/from_json_adapter.dart';
-import 'package:solpha/modules/hive_db/adapters/linked_list_adapter.dart';
-import 'package:solpha/modules/models/bar/bar.dart';
-import 'package:solpha/modules/models/notes/enums/duration_markers.dart';
-import 'package:solpha/modules/models/notes/enums/solfege.dart';
-import 'package:solpha/modules/models/notes/note.dart';
-import 'package:solpha/modules/models/project/project_model.dart';
-import 'package:solpha/modules/models/score/enums/key_signature.dart';
-import 'package:solpha/modules/models/score/score.dart';
-import 'package:solpha/modules/models/score/enums/time_signature.dart';
-import 'package:solpha/modules/models/track/track.dart';
-import 'package:solpha/modules/os_path/services/path/platform_path_service.dart';
+import 'package:audiolizer/modules/hive_db/adapters/enum_adapter.dart';
+import 'package:audiolizer/modules/hive_db/adapters/from_json_adapter.dart';
+import 'package:audiolizer/modules/hive_db/adapters/linked_list_adapter.dart';
+import 'package:audiolizer/modules/models/bar/bar.dart';
+import 'package:audiolizer/modules/models/notes/enums/duration_markers.dart';
+import 'package:audiolizer/modules/models/notes/enums/solfege.dart';
+import 'package:audiolizer/modules/models/notes/note.dart';
+import 'package:audiolizer/modules/models/project/project_model.dart';
+import 'package:audiolizer/modules/models/score/enums/key_signature.dart';
+import 'package:audiolizer/modules/models/score/score.dart';
+import 'package:audiolizer/modules/models/score/enums/time_signature.dart';
+import 'package:audiolizer/modules/models/track/track.dart';
+import 'package:audiolizer/modules/os_path/services/path/platform_path_service.dart';
 
 class HiveInitializer {
   static Future<void> init() async {
@@ -31,7 +31,7 @@ class HiveInitializer {
         typeId: 1,
       ),
     );
-    
+
     Hive.registerAdapter(
       FromJsonTypeAdapter(
         createObject: (json) => Score.fromJson(json),

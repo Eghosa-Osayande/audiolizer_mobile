@@ -2,12 +2,11 @@ import 'dart:async';
 import 'dart:collection';
 
 import 'package:flutter/cupertino.dart';
-import 'package:solpha/modules/models/notes/note.dart';
-import 'package:solpha/modules/models/track/track.dart';
+import 'package:audiolizer/modules/models/notes/note.dart';
+import 'package:audiolizer/modules/models/track/track.dart';
 
 class EditHistory {
   final Track track;
-  
 
   final List<EditActionPair> _redoList = [];
   final List<EditActionPair> _undoList = [];
@@ -29,8 +28,6 @@ class EditHistory {
       _redoList.add(
         last,
       );
-
-   
     }
   }
 
@@ -41,8 +38,6 @@ class EditHistory {
       _undoList.add(
         last,
       );
-
-     
     }
   }
 }

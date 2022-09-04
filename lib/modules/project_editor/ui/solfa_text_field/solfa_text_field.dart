@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:solpha/modules/models/bar/bar.dart';
-import 'package:solpha/modules/models/track/track.dart';
-import 'package:solpha/modules/project_editor/cubit/focused_bar/focused_bar_cubit.dart';
-import 'package:solpha/modules/project_editor/cubit/keyboard_event/keyboard_event.dart';
-import 'package:solpha/modules/project_editor/cubit/play_score/play_score_cubit.dart';
-import 'package:solpha/modules/project_editor/cubit/toggle_keyboard_visibility.dart/toggle_keyboard_visibility_cubit.dart';
-import 'package:solpha/modules/project_editor/cubit/view_mode/view_mode.dart';
-import 'package:solpha/modules/project_editor/cubit/volume_navigation/volume_navigation_cubit.dart';
-import 'package:solpha/modules/project_editor/ui/note_widgets/note_theme.dart';
-import 'package:solpha/modules/project_editor/ui/solfa_text_field/auto_size_mixin.dart';
-import 'package:solpha/modules/project_editor/ui/solfa_text_field/solfa_input_controller.dart';
-import 'package:solpha/modules/project_editor/ui/solfa_text_field/solfa_text_controls.dart';
+import 'package:audiolizer/modules/models/bar/bar.dart';
+import 'package:audiolizer/modules/models/track/track.dart';
+import 'package:audiolizer/modules/project_editor/cubit/focused_bar/focused_bar_cubit.dart';
+import 'package:audiolizer/modules/project_editor/cubit/keyboard_event/keyboard_event.dart';
+import 'package:audiolizer/modules/project_editor/cubit/play_score/play_score_cubit.dart';
+import 'package:audiolizer/modules/project_editor/cubit/toggle_keyboard_visibility.dart/toggle_keyboard_visibility_cubit.dart';
+import 'package:audiolizer/modules/project_editor/cubit/view_mode/view_mode.dart';
+import 'package:audiolizer/modules/project_editor/cubit/volume_navigation/volume_navigation_cubit.dart';
+import 'package:audiolizer/modules/project_editor/ui/note_widgets/note_theme.dart';
+import 'package:audiolizer/modules/project_editor/ui/solfa_text_field/auto_size_mixin.dart';
+import 'package:audiolizer/modules/project_editor/ui/solfa_text_field/solfa_input_controller.dart';
+import 'package:audiolizer/modules/project_editor/ui/solfa_text_field/solfa_text_controls.dart';
 
 class SolfaTextField extends StatefulWidget {
   final Bar bar;
@@ -133,7 +133,7 @@ class _SolfaTextFieldState extends State<SolfaTextField> with AutoSizeTextMixin 
                 ),
                 () {
                   if (mounted) {
-                    Scrollable.ensureVisible(context);
+                    Scrollable.ensureVisible(context,alignmentPolicy: ScrollPositionAlignmentPolicy.keepVisibleAtEnd);
                   }
                 },
               );
@@ -141,12 +141,12 @@ class _SolfaTextFieldState extends State<SolfaTextField> with AutoSizeTextMixin 
           },
         ),
       ],
-      child:BlocBuilder<ViewModeCubit, ViewModeState>(
-          builder: (context, viewMode) {
+      child: BlocBuilder<ViewModeCubit, ViewModeState>(
+        builder: (context, viewMode) {
           return BlocBuilder<NoteThemeProvider, NoteTheme>(
             builder: (context, noteTheme) {
               return TextField(
-                enabled: (viewMode==ViewModeState.edit),
+                enabled: (viewMode == ViewModeState.edit),
                 minLines: 1,
                 maxLines: null,
                 onTap: () {
@@ -174,7 +174,7 @@ class _SolfaTextFieldState extends State<SolfaTextField> with AutoSizeTextMixin 
                 ),
                 style: noteTheme.constantStyle,
                 decoration: InputDecoration(
-                  enabledBorder: InputBorder.none,
+                 
                   hintText: (widget.bar.list as Track).name + '...',
                 ),
               );

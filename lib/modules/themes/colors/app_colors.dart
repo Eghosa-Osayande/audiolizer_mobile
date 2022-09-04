@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:solpha/modules/themes/colors/app_colors_dark.dart';
-import 'package:solpha/modules/themes/colors/app_colors_light.dart';
+import 'package:audiolizer/modules/themes/colors/app_colors_dark.dart';
+import 'package:audiolizer/modules/themes/colors/app_colors_light.dart';
 
 abstract class AppColors {
   static AppColors get instance => (1 == 1) ? AppColorsDark() : AppColorsLight();

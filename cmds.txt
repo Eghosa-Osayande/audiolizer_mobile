@@ -1,8 +1,8 @@
-adb shell am force-stop com.example.solpha && adb shell am start -a android.intent.action.RUN -f 0x20000000 --ez enable-background-compilation true --ez    enable-dart-profiling true --ez enable-checked-mode true --ez verify-entry-points true com.example.solpha/com.example.solpha.MainActivity && flutter attach -v
+adb shell am force-stop com.audiolizer.mobile && adb shell am start -a android.intent.action.RUN -f 0x20000000 --ez enable-background-compilation true --ez    enable-dart-profiling true --ez enable-checked-mode true --ez verify-entry-points true com.audiolizer.mobile/com.audiolizer.mobile.MainActivity && flutter attach -v
 
-adb -s 192.168.43.1:5555 -d shell am force-stop com.example.solpha && adb -s 192.168.43.1:5555 -d shell am start -a android.intent.action.RUN -f 0x20000000 --ez enable-background-compilation true --ez    enable-dart-profiling true --ez enable-checked-mode true --ez verify-entry-points true com.example.solpha/com.example.solpha.MainActivity && flutter attach -v
+adb -s 192.168.43.1:5555 -d shell am force-stop com.audiolizer.mobile && adb -s 192.168.43.1:5555 -d shell am start -a android.intent.action.RUN -f 0x20000000 --ez enable-background-compilation true --ez    enable-dart-profiling true --ez enable-checked-mode true --ez verify-entry-points true com.audiolizer.mobile/com.audiolizer.mobile.MainActivity && flutter attach -v
 
-flutter install && adb shell am force-stop com.example.solpha && adb shell am start -a android.intent.action.RUN -f 0x20000000 --ez enable-background-compilation true --ez    enable-dart-profiling true --ez enable-checked-mode true --ez verify-entry-points true com.example.solpha/com.example.solpha.MainActivity && flutter attach -v
+flutter install && adb shell am force-stop com.audiolizer.mobile && adb shell am start -a android.intent.action.RUN -f 0x20000000 --ez enable-background-compilation true --ez    enable-dart-profiling true --ez enable-checked-mode true --ez verify-entry-points true com.audiolizer.mobile/com.audiolizer.mobile.MainActivity && flutter attach -v
 
 keytool -list -v -alias androiddebugkey -keystore %USERPROFILE%\.android\debug.keystore
 
@@ -15,20 +15,20 @@ keytool -list -v -alias androiddebugkey -keystore %USERPROFILE%\.android\debug.k
 
 adb install -t -r C:\\Users\\user\\Desktop\\YandeCode\\segi\\build\\app\\outputs\\flutter-apk\\app-debug.apk
 
-adb uninstall com.example.solpha
+adb uninstall com.audiolizer.mobile
 
-adb uninstall com.example.solpha && adb install -t -r C:\\Users\\user\\Desktop\\YandeCode\\segi\\build\\app\\outputs\\flutter-apk\\app-debug.apk && adb shell am force-stop com.example.solpha && adb shell am start -a android.intent.action.RUN -f 0x20000000 --ez enable-background-compilation true --ez    enable-dart-profiling true --ez enable-checked-mode true --ez verify-entry-points true com.example.solpha/com.example.solpha.MainActivity && flutter attach -v
+adb uninstall com.audiolizer.mobile && adb install -t -r C:\\Users\\user\\Desktop\\YandeCode\\segi\\build\\app\\outputs\\flutter-apk\\app-debug.apk && adb shell am force-stop com.audiolizer.mobile && adb shell am start -a android.intent.action.RUN -f 0x20000000 --ez enable-background-compilation true --ez    enable-dart-profiling true --ez enable-checked-mode true --ez verify-entry-points true com.audiolizer.mobile/com.audiolizer.mobile.MainActivity && flutter attach -v
 
 flutter build apk --split-per-abi --obfuscate --split-debug-info=v1  -v
 flutter build apk -v
 
 flutter build appbundle --obfuscate --split-debug-info=v1  -v
 
-flutter pub global run rename --bundleId com.example.solpha --appname "gallery"
+flutter pub global run rename --bundleId com.audiolizer.mobile --appname "gallery"
 flutter pub global run rename --bundleId com.joovlin.test2 --appname "test2"
 
 
-adb shell setprop debug.firebase.analytics.app com.example.solpha
+adb shell setprop debug.firebase.analytics.app com.audiolizer.mobile
 adb logcat | grep 'InAppMessaging'
 
 flutter pub cache 
@@ -45,7 +45,7 @@ TASKKILL //F //IM dart.exe
 "C:\Users\user\AppData\Local\Android\Sdk\emulator\emulator" -avd Nexus_5X_API_27
 "C:\Users\user\AppData\Local\Android\Sdk\emulator\emulator" -avd phone11
 
-adb logcat --pid=$(adb shell pidof -s com.example.solpha)
+adb logcat --pid=$(adb shell pidof -s com.audiolizer.mobile)
 
 Set-ExecutionPolicy Bypass -Scope Process -Force; `iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 C:\Strawberry\perl\bin\perl 'C:\\ProgramData\\chocolatey\\lib\\lcov\\tools\\bin\\genhtml' -o .\\coverage\\html .\\coverage\\lcov.info

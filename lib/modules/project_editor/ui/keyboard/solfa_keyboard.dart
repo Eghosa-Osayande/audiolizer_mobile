@@ -6,8 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:solpha/modules/project_editor/cubit/toggle_keyboard_visibility.dart/toggle_keyboard_visibility_cubit.dart';
-import 'package:solpha/modules/project_editor/ui/keyboard/utility_row.dart';
+import 'package:audiolizer/modules/project_editor/cubit/toggle_keyboard_visibility.dart/toggle_keyboard_visibility_cubit.dart';
+import 'package:audiolizer/modules/project_editor/ui/keyboard/utility_row.dart';
 
 import 'octave_board.dart';
 
@@ -20,7 +20,7 @@ class SolfaKeyboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ToggleSolfaKeyboardVisibilityCubit, SolfaKeyboardVisibility>(
       builder: (context, state) {
-        if (state == SolfaKeyboardVisibility.hidden ) {
+        if (state == SolfaKeyboardVisibility.hidden) {
           return SizedBox();
         }
         return LayoutBuilder(builder: (context, box) {

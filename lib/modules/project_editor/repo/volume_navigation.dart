@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:hive/hive.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:solpha/modules/app_services_controller/services_config.dart';
-import 'package:solpha/modules/models/project/project_model.dart';
-import 'package:solpha/modules/models/score/score.dart';
+import 'package:audiolizer/modules/app_services_controller/services_config.dart';
+import 'package:audiolizer/modules/models/project/project_model.dart';
+import 'package:audiolizer/modules/models/score/score.dart';
 
 class VolumeNavigationRepo {
   static VolumeNavigationRepo? _instance;

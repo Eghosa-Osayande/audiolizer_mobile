@@ -1,10 +1,11 @@
+import 'package:audiolizer/modules/common/widgets/toolbar_options.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:solpha/modules/models/score/score.dart';
-import 'package:solpha/modules/models/track/enums/midi_program.dart';
-import 'package:solpha/modules/models/track/track.dart';
-import 'package:solpha/modules/themes/constants.dart';
+import 'package:audiolizer/modules/models/score/score.dart';
+import 'package:audiolizer/modules/models/track/enums/midi_program.dart';
+import 'package:audiolizer/modules/models/track/track.dart';
+import 'package:audiolizer/modules/themes/constants.dart';
 
 class TracksManager extends StatefulWidget {
   final Score? score;
@@ -87,8 +88,8 @@ class _TracksManagerState extends State<TracksManager> {
                 ],
               ),
               SizedBox(
-                    height: 90,
-                  ),
+                height: 90,
+              ),
             ],
           ),
         );
@@ -110,137 +111,160 @@ class TrackOptionsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FormBuilderField<bool>(
-        name: '_v${track.trackNumber}',
-        initialValue: track.isVisible,
+        name: '_vv${track.trackNumber}',
+        initialValue: track.isLyricsVisible,
         onChanged: (value) {
-          track.isVisible = value!;
-         
+          track.isLyricsVisible= value!;
         },
-        builder: (visibilityField) {
-          return Opacity(
-            opacity: (visibilityField.value!) ? 1 : 0.4,
-            child: Column(
-              children: [
-                 kGap14,
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(width: 1),
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  padding: EdgeInsets.all(8),
-                  child: Stack(
-                    children: [
-                      Column(
-                        children: [
-                          Row(
+        builder: (lyricsVisibilityField) {
+        return FormBuilderField<bool>(
+            name: '_v${track.trackNumber}',
+            initialValue: track.isVisible,
+            onChanged: (value) {
+              track.isVisible = value!;
+            },
+            builder: (visibilityField) {
+              return Column(
+                children: [
+                  kGap14,
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(width: 1),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    padding: EdgeInsets.all(8),
+                    child: Stack(
+                      children: [
+                        Opacity(
+                          opacity: (visibilityField.value!) ? 1 : 0.4,
+                          child: Column(
                             children: [
-                              Expanded(
-                                flex: 5,
-                                child: FormBuilderTextField(
-                                  name: '_e${track.trackNumber}',
-                                  initialValue: track.name,
-                                  validator: FormBuilderValidators.compose([
-                                    FormBuilderValidators.required(),
-                                    FormBuilderValidators.minLength(1)
-                                  ]),
-                                  decoration: InputDecoration(
-                                    hintText: '',
-                                    label: Text('Track name'),
-                                    prefixIcon: IconButton(
-                                      onPressed: () {
-                                        visibilityField.didChange(!visibilityField.value!);
-                                      },
-                                      icon: Icon(
-                                        (visibilityField.value!) ? Icons.visibility : Icons.visibility_off,
+                              Row(
+                                children: [
+                                  Expanded(
+                                    flex: 5,
+                                    child: FormBuilderTextField(
+                                      name: '_e${track.trackNumber}',
+                                      initialValue: track.name,
+                                      validator: FormBuilderValidators.compose([
+                                        FormBuilderValidators.required(),
+                                        FormBuilderValidators.minLength(1)
+                                      ]),
+                                      decoration: InputDecoration(
+                                        hintText: '',
+                                        label: Text('Track name'),
                                       ),
+                                      onChanged: (value) {
+                                        track.name = value ?? '';
+                                      },
                                     ),
                                   ),
-                                  onChanged: (value) {
-                                    track.name = value ?? '';
-                                  },
-                                ),
+                                ],
                               ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: FormBuilderDropdown<MidiProgram>(
-                                  name: '_exclude${track.trackNumber}',
-                                  isDense: false,
-                                  initialValue: track.program,
-                                  validator: FormBuilderValidators.compose([
-                                    FormBuilderValidators.required(),
-                                  ]),
-                                  decoration: InputDecoration(
-                                    label: Text('Instrument'),
-                                    border: InputBorder.none,
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: FormBuilderDropdown<MidiProgram>(
+                                      name: '_exclude${track.trackNumber}',
+                                      isDense: false,
+                                      initialValue: track.program,
+                                      validator: FormBuilderValidators.compose([
+                                        FormBuilderValidators.required(),
+                                      ]),
+                                      decoration: InputDecoration(
+                                        label: Text('Instrument'),
+                                        border: InputBorder.none,
+                                      ),
+                                      onChanged: (value) {
+                                        if (value != null) {
+                                          track.program = value;
+                                        }
+                                      },
+                                      items: MidiProgram.values.map((sign) {
+                                        return DropdownMenuItem<MidiProgram>(
+                                            value: sign,
+                                            child: ListTile(
+                                              title: Text(sign.name),
+                                            ));
+                                      }).toList(),
+                                    ),
                                   ),
-                                  onChanged: (value) {
-                                    if (value != null) {
-                                      track.program = value;
-                                    }
-                                  },
-                                  items: MidiProgram.values.map((sign) {
-                                    return DropdownMenuItem<MidiProgram>(
-                                        value: sign,
-                                        child: ListTile(
-                                          title: Text(sign.name),
-                                        ));
-                                  }).toList(),
-                                ),
+                                ],
                               ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: FormBuilderSlider(
-                                  name: '_exclude2${track.trackNumber}',
-                                  initialValue: track.volume.toDouble(),
-                                  max: 100,
-                                  min: 0,
-                                  divisions: 100,
-                                  validator: FormBuilderValidators.compose([
-                                    FormBuilderValidators.required(),
-                                  ]),
-                                  decoration: InputDecoration(
-                                    label: Text('Volume'),
-                                    border: InputBorder.none,
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: FormBuilderSlider(
+                                      name: '_exclude2${track.trackNumber}',
+                                      initialValue: track.volume.toDouble(),
+                                      max: 100,
+                                      min: 0,
+                                      divisions: 100,
+                                      validator: FormBuilderValidators.compose([
+                                        FormBuilderValidators.required(),
+                                      ]),
+                                      decoration: InputDecoration(
+                                        label: Text('Volume'),
+                                        border: InputBorder.none,
+                                      ),
+                                      onChanged: (value) {
+                                        if (value != null) {
+                                          track.volume = value.toInt();
+                                        }
+                                      },
+                                    ),
                                   ),
-                                  onChanged: (value) {
-                                    if (value != null) {
-                                      track.volume = value.toInt();
-                                    }
-                                  },
-                                ),
+                                ],
                               ),
                             ],
                           ),
-                        ],
-                      ),
-                      Positioned(
-                        top: 0,
-                        right: 0,
-                        child: PopupMenuButton(
-                          child: Icon(Icons.more_vert),
-                          itemBuilder: (context) {
-                            return [
-                              PopupMenuItem(
-                                child: Text('Remove'),
-                                onTap: onDelete,
-                              ),
-                            ];
-                          },
                         ),
-                      ),
-                    ],
+                        Positioned(
+                          top: 0,
+                          right: 0,
+                          width: 50,
+                          height: 50,
+                          child: PopupMenuButton(
+                            child: Icon(Icons.more_vert),
+                            itemBuilder: (context) {
+                              return [
+                                PopupMenuItem(
+                                  child: ToolbarOption(
+                                    title: (visibilityField.value!) ? 'Hide Track' : 'Show Track',
+                                    trailing: Icon(
+                                      (visibilityField.value!) ? Icons.visibility : Icons.visibility_off,
+                                    ),
+                                  ),
+                                  onTap: () {
+                                    visibilityField.didChange(!visibilityField.value!);
+                                  },
+                                ),
+                                PopupMenuItem(
+                                  child: ToolbarOption(
+                                    title: (lyricsVisibilityField.value!) ? 'Hide Lyrics' : 'Show Lyrics',
+                                    trailing: Icon(
+                                      (lyricsVisibilityField.value!) ? Icons.visibility : Icons.visibility_off,
+                                    ),
+                                  ),
+                                  onTap: () {
+                                    lyricsVisibilityField.didChange(!lyricsVisibilityField.value!);
+                                  },
+                                ),
+                                PopupMenuItem(
+                                  child: Text('Remove'),
+                                  onTap: onDelete,
+                                ),
+                              ];
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-               
-              ],
-            ),
-          );
-        });
+                ],
+              );
+            });
+      }
+    );
   }
 }

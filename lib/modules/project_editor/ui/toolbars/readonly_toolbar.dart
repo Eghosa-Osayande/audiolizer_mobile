@@ -1,0 +1,87 @@
+import 'package:audiolizer/modules/common/widgets/toolbar_options.dart';
+import 'package:audiolizer/modules/project_editor/cubit/current_project/current_project.dart';
+import 'package:audiolizer/modules/project_editor/cubit/play_score/play_score_cubit.dart';
+import 'package:audiolizer/modules/project_editor/cubit/toggle_edit_play_mode/toggle_edit_play_mode_cubit.dart';
+import 'package:audiolizer/modules/project_editor/cubit/toggle_keyboard_visibility.dart/toggle_keyboard_visibility_cubit.dart';
+import 'package:audiolizer/modules/project_editor/cubit/toggle_metroneme/toggle_metroneme.dart';
+import 'package:audiolizer/modules/project_editor/ui/toolbars/primary_toolbar.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+class ReadOnlyToolbar extends StatelessWidget {
+  const ReadOnlyToolbar({
+    Key? key,
+   
+  }) : super(key: key);
+
+
+
+  @override
+  Widget build(BuildContext context) {
+     var project = BlocProvider.of<CurrentProjectCubit>(context).state;
+    return Row(
+      children: [
+        IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(Icons.arrow_back)),
+        Expanded(
+          child: Text(
+            project.title,
+            style: TextStyle(fontSize: 20),
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+        Spacer(),
+        IconButton(
+          onPressed: () {
+            BlocProvider.of<PlayScoreCubit>(context).play();
+          },
+          icon: BlocBuilder<ToggleEditPlayModeCubit, ToggleEditPlayModeState>(
+            builder: (context, state) {
+              switch (state) {
+                case ToggleEditPlayModeState.edit:
+                  return Icon(Icons.play_arrow);
+
+                case ToggleEditPlayModeState.playing:
+                  return Icon(Icons.pause);
+              }
+            },
+          ),
+        ),
+        PopupMenuButton(
+          itemBuilder: (context) {
+            return [
+              PopupMenuItem(
+                child: ToolbarOption(
+                  title: 'Metroneme',
+                  trailing: BlocProvider(
+                    create: (context) => ToggleMetronemeCubit(),
+                    child: Builder(builder: (context) {
+                      return BlocBuilder<ToggleMetronemeCubit, bool>(
+                        builder: (context, state) {
+                          return Checkbox(
+                              value: state,
+                              onChanged: (bool? value) {
+                                if (value != null) {
+                                  BlocProvider.of<ToggleMetronemeCubit>(context).toggle(value);
+                                }
+                                Navigator.pop(context);
+                              });
+                        },
+                      );
+                    }),
+                  ),
+                ),
+              ),
+            ];
+          },
+          icon: Icon(
+            Icons.more_vert,
+          ),
+        ),
+      ],
+    );
+  }
+}

@@ -3,13 +3,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:solpha/modules/models/bar/bar.dart';
-import 'package:solpha/modules/models/notes/enums/duration_markers.dart';
-import 'package:solpha/modules/models/notes/enums/solfege.dart';
-import 'package:solpha/modules/models/notes/note.dart';
-import 'package:solpha/modules/project_editor/cubit/edit_project/edit_project_cubit.dart';
-import 'package:solpha/modules/project_editor/cubit/focused_bar/focused_bar_cubit.dart';
-import 'package:solpha/modules/project_editor/cubit/keyboard_event/keyboard_event.dart';
+import 'package:audiolizer/modules/models/bar/bar.dart';
+import 'package:audiolizer/modules/models/notes/enums/duration_markers.dart';
+import 'package:audiolizer/modules/models/notes/enums/solfege.dart';
+import 'package:audiolizer/modules/models/notes/note.dart';
+import 'package:audiolizer/modules/project_editor/cubit/edit_project/edit_project_cubit.dart';
+import 'package:audiolizer/modules/project_editor/cubit/focused_bar/focused_bar_cubit.dart';
+import 'package:audiolizer/modules/project_editor/cubit/keyboard_event/keyboard_event.dart';
 
 class ButtonModel {
   const ButtonModel();
@@ -18,7 +18,7 @@ class ButtonModel {
     return '';
   }
 
-    bool get canLongPress=>false;
+  bool get canLongPress => false;
 
   Widget? icon() {}
 
@@ -89,8 +89,8 @@ class DurationNoteButton extends ButtonModel {
 class DeleteNoteButton extends ButtonModel {
   const DeleteNoteButton();
 
-   @override
-  final bool canLongPress=true;
+  @override
+  final bool canLongPress = true;
 
   @override
   String displayString() {
@@ -116,7 +116,7 @@ class DeleteNoteButton extends ButtonModel {
 
 class SpaceBarButton extends ButtonModel {
   const SpaceBarButton();
-  final bool canLongPress=true;
+  final bool canLongPress = true;
 
   @override
   String displayString() {
