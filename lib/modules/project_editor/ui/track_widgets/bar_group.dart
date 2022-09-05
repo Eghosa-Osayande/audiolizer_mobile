@@ -30,7 +30,7 @@ class BarGroupWidget extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('$barIndex'),
+          Text('${barIndex+1}'),
           SizedBox(width: 4,),
           Expanded(
             child: Column(

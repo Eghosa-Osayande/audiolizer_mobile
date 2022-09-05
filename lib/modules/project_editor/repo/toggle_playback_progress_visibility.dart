@@ -17,4 +17,8 @@ class TogglePlaybackProgressVisibilityRepo with ToggleBooleanRepoMixin {
 
   @override
   String get boxName => 'TogglePlaybackProgressVisibilityRepo';
+
+  @override
+  // TODO: implement defaultValue
+  bool get defaultValue => true;
 }

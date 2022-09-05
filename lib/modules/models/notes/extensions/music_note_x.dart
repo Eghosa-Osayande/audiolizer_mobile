@@ -50,7 +50,7 @@ extension MusicNoteX on MusicNote {
 
   @override
   String _displayStringX() {
-    String level = (octave > 0) ? "'" : ",";
+    String level = (octave > 0) ? "'" : "\u2097";
     return solfa.symbol + level * octave.abs();
   }
 }

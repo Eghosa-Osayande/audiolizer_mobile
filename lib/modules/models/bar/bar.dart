@@ -1,5 +1,6 @@
 import 'dart:collection';
 
+import 'package:audiolizer/modules/pdf/utils/pdf_font_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:midi_util/midi_util.dart';
@@ -7,6 +8,7 @@ import 'package:result_type/result_type.dart';
 import 'package:audiolizer/modules/models/notes/enums/solfege.dart';
 import 'package:audiolizer/modules/models/notes/note.dart';
 import 'package:audiolizer/modules/models/track/track.dart';
+import 'package:pdf/widgets.dart' as pw;
 
 part 'bar.freezed.dart';
 part 'bar.g.dart';
@@ -149,5 +151,36 @@ class Bar extends LinkedListEntry<Bar> with _$Bar, ChangeNotifier, ErrorObjectMi
     for (var note in notes) {
       await note.commit(track, midiFile, isMetroneme: isMetroneme);
     }
+  }
+
+  pw.Widget toPDF() {
+    var noteList = notes.map((note) => note.toPDF()).toList();
+    return pw.Column(
+      crossAxisAlignment: pw.CrossAxisAlignment.start,
+      children: [
+        pw.Row(
+          mainAxisSize: pw.MainAxisSize.min,
+          children: noteList.isEmpty
+              ? [
+                  pw.Opacity(
+                    opacity: 0,
+                    child: Note.music(octave: 0, solfa: Solfege.d, createdAt: DateTime.now()).toPDF(),
+                  ),
+                ]
+              : noteList,
+        ),
+        pw.Row(
+          mainAxisSize: pw.MainAxisSize.min,
+          children: [
+            lyrics.isEmpty
+                ? pw.Opacity(
+                    opacity: 0,
+                    child: pw.Text('lyrics',style: pw.TextStyle(font: PdfFontProvider.lyrics,)),
+                  )
+                : pw.Text(lyrics),
+          ],
+        ),
+      ],
+    );
   }
 }

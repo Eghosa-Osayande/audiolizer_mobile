@@ -1,23 +1,21 @@
 import 'dart:async';
 
+import 'package:audiolizer/modules/exceptions/exceptions.dart';
+import 'package:audiolizer/modules/models/notes/enums/duration_markers.dart';
+import 'package:audiolizer/modules/models/notes/enums/solfege.dart';
+import 'package:audiolizer/modules/models/track/track.dart';
+import 'package:audiolizer/modules/pdf/utils/pdf_font_provider.dart';
 import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:midi_util/midi_util.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:printing/printing.dart';
 import 'package:result_type/result_type.dart';
-import 'package:rxdart/rxdart.dart';
-import 'package:audiolizer/modules/exceptions/exceptions.dart';
-import 'package:audiolizer/modules/models/notes/config_notes_x.dart';
-import 'package:audiolizer/modules/models/notes/enums/duration_markers.dart';
-import 'package:audiolizer/modules/models/notes/enums/solfege.dart';
-import 'package:audiolizer/modules/models/score/enums/key_signature.dart';
-import 'package:audiolizer/modules/models/score/score.dart';
-import 'package:audiolizer/modules/models/score/enums/time_signature.dart';
-import 'package:audiolizer/modules/models/track/track.dart';
 
 part 'extensions/duration_note_x.dart';
 part 'extensions/music_note_x.dart';
 part 'extensions/white_space_note_x.dart';
-
 part 'note.freezed.dart';
 part 'note.g.dart';
 
@@ -100,6 +98,30 @@ abstract class Note with _$Note, EquatableMixin {
       whiteSpace: (whiteSpace) {
         return whiteSpace._displayStringX();
       },
+    );
+  }
+
+  pw.Widget toPDF() {
+    pw.Font font = map<pw.Font>(
+      music: (music) {
+        return PdfFontProvider.musicFont;
+      },
+      duration: (duration) {
+        return PdfFontProvider.durationFont;
+      },
+      whiteSpace: (whiteSpace) {
+        return PdfFontProvider.musicFont;
+      },
+    );
+    return pw.Text(
+      displayString(),
+      style: pw.TextStyle(
+        font: font,
+        fontSize: 12,
+        fontFallback: [
+          PdfFontProvider.fallback
+        ],
+      ),
     );
   }
 

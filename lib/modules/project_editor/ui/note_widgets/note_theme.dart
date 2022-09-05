@@ -6,7 +6,7 @@ import 'package:audiolizer/modules/models/notes/note.dart';
 class NoteTheme {
   final double fontSize;
 
-  NoteTheme([this.fontSize = 20]);
+  NoteTheme([this.fontSize = 14]);
 
   double get musicFontSize => fontSize - 2;
   double get musicDurationSize => fontSize - 2;

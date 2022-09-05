@@ -23,9 +23,9 @@ class _NoteBuilderState extends State<NoteBuilder> {
   @override
   void initState() {
     super.initState();
-    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-      NoteThemeProvider.of(context).notifyChildSize(context.size);
-    });
+    // SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+    //   NoteThemeProvider.of(context).notifyChildSize(context.size);
+    // });
   }
 
 

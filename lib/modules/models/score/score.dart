@@ -17,6 +17,7 @@ import 'package:audiolizer/modules/models/track/enums/midi_program.dart';
 import 'package:audiolizer/modules/models/track/track.dart';
 import 'dart:collection';
 
+
 part 'score.freezed.dart';
 // part 'score.g.dart';
 
@@ -68,12 +69,14 @@ class Score extends LinkedList<Track> with HiveObjectMixin, _$Score, ErrorObject
     return '${formatter.format(updatedAt)}';
   }
 
-  void ensureUniformTracksLength() {
+  int ensureUniformTracksLength() {
     List<int> trackLengths = this.map((track) => track.length).toList();
+
     var max = [
       1,
       ...trackLengths
     ].reduce(math.max);
+
     for (var track in this) {
       var trackLength = track.length;
       if (trackLength < max) {
@@ -88,6 +91,7 @@ class Score extends LinkedList<Track> with HiveObjectMixin, _$Score, ErrorObject
         );
       }
     }
+    return max;
   }
 
   void _resetMidiFile() {
@@ -172,4 +176,6 @@ class Score extends LinkedList<Track> with HiveObjectMixin, _$Score, ErrorObject
 
     return Success(outputFile);
   }
+
+  
 }

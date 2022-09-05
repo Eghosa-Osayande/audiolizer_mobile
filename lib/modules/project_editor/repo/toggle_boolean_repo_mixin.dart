@@ -7,7 +7,6 @@ import 'package:audiolizer/modules/models/project/project_model.dart';
 import 'package:audiolizer/modules/models/score/score.dart';
 
 class ToggleBooleanRepoMixin {
-
   String get boxName => '';
 
   Future<Box<bool>> _getBox() async => await Hive.openBox<bool>(boxName);
@@ -22,9 +21,11 @@ class ToggleBooleanRepoMixin {
   final BehaviorSubject<bool> _valueSubject = BehaviorSubject();
   Stream<bool> get watchValue => _valueSubject.stream;
 
+  bool get defaultValue => false;
+
   Future<bool> read() async {
     var box = await _getBox();
-    return box.get('key') ?? false;
+    return box.get('key') ?? defaultValue;
   }
 
   Future<void> put(bool value) async {

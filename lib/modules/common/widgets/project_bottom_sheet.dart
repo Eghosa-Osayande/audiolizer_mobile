@@ -1,4 +1,5 @@
 import 'package:audiolizer/modules/common/widgets/confirm_action_dialog.dart';
+import 'package:audiolizer/modules/pdf/ui/pdf_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:audiolizer/modules/models/project/project_model.dart';
 import 'package:audiolizer/modules/models/score/score.dart';
@@ -40,34 +41,27 @@ class ProjectBottomSheet extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: Icon(Icons.share),
-              title: Text('Share as Midi'),
+              leading: Icon(Icons.audio_file),
+              title: Text('Share as MIDI'),
               onTap: () {
                 //  ShareIntentService.instance.shareProject(project);
                 Navigator.pop(context);
               },
             ),
+           
             ListTile(
-              leading: Icon(Icons.share),
+              leading: Icon(Icons.picture_as_pdf),
               title: Text('Share as PDF'),
               onTap: () {
-                //  ShareIntentService.instance.shareProject(project);
                 Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.book),
-              title: Text('View PDF'),
-              onTap: () {
-                //  ShareIntentService.instance.shareProject(project);
-                Navigator.pop(context);
+                Navigator.push(context, ScorePdfPreview.route(project: project));
               },
             ),
             ListTile(
               leading: Icon(Icons.copy),
               title: Text('Duplicate'),
               onTap: () {
-                 ProjectRepo.instance.duplicate(project);
+                ProjectRepo.instance.duplicate(project);
                 Navigator.pop(context);
               },
             ),

@@ -1,8 +1,11 @@
+import 'package:audiolizer/modules/common/widgets/project_bottom_sheet.dart';
 import 'package:audiolizer/modules/common/widgets/toolbar_options.dart';
 import 'package:audiolizer/modules/models/project/project_model.dart';
 import 'package:audiolizer/modules/project_editor/cubit/toggle_playback_progress_visibility/toggle_playback_progress_visibility.dart';
 import 'package:audiolizer/modules/project_editor/ui/toolbars/primary_toolbar.dart';
+import 'package:audiolizer/modules/project_editor/ui/toolbars/readonly_toolbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:audiolizer/modules/models/score/score.dart';
@@ -93,6 +96,7 @@ class EditToolbar extends StatelessWidget {
         PopupMenuButton(
           itemBuilder: (context) {
             return [
+              ...popupItemsReadOnly,
               PopupMenuItem(
                 child: ToolbarOption(
                   title: 'Volume Navigation',
@@ -115,48 +119,19 @@ class EditToolbar extends StatelessWidget {
                   ),
                 ),
               ),
-              PopupMenuItem(
+             PopupMenuItem(
+                onTap: () {
+                  SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (context) {
+                        return ProjectBottomSheet(project: project);
+                      },
+                    );
+                  });
+                },
                 child: ToolbarOption(
-                  title: 'Metroneme',
-                  trailing: BlocProvider(
-                    create: (context) => ToggleMetronemeCubit(),
-                    child: Builder(builder: (context) {
-                      return BlocBuilder<ToggleMetronemeCubit, bool>(
-                        builder: (context, state) {
-                          return Checkbox(
-                              value: state,
-                              onChanged: (bool? value) {
-                                if (value != null) {
-                                  BlocProvider.of<ToggleMetronemeCubit>(context).toggle(value);
-                                }
-                                Navigator.pop(context);
-                              });
-                        },
-                      );
-                    }),
-                  ),
-                ),
-              ),
-              PopupMenuItem(
-                child: ToolbarOption(
-                  title: 'Show Progress',
-                  trailing: BlocProvider(
-                    create: (context) => TogglePlayBackProgressCubit(),
-                    child: Builder(builder: (context) {
-                      return BlocBuilder<TogglePlayBackProgressCubit, bool>(
-                        builder: (context, state) {
-                          return Checkbox(
-                              value: state,
-                              onChanged: (bool? value) {
-                                if (value != null) {
-                                  BlocProvider.of<TogglePlayBackProgressCubit>(context).toggle(value);
-                                }
-                                Navigator.pop(context);
-                              });
-                        },
-                      );
-                    }),
-                  ),
+                  title: 'More',
                 ),
               ),
             ];
