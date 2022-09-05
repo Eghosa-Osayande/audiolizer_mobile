@@ -20,8 +20,8 @@ class SolfaClipboardService {
   }
 
   List<Note>? getCopiedNotes() {
-    var copies = _notes;
-    // _notes = null;
+   
+   var copies= _notes?.map((e) => Note.fromJson(e.toJson())).toList();
     return copies;
   }
 }

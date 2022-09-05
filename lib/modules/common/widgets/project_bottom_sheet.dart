@@ -44,7 +44,7 @@ class ProjectBottomSheet extends StatelessWidget {
               leading: Icon(Icons.audio_file),
               title: Text('Share as MIDI'),
               onTap: () {
-                //  ShareIntentService.instance.shareProject(project);
+                 ShareProjectService.instance.shareProjectAsMidi(project);
                 Navigator.pop(context);
               },
             ),

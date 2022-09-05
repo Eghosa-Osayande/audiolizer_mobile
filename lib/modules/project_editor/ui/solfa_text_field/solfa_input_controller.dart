@@ -126,13 +126,10 @@ class SolfaEditingController extends TextEditingController {
   }
 
   void copySelectedNotes() {
-    var copies = notes
-        .sublist(
-          selection.start,
-          selection.end,
-        )
-        .map((e) => e.makeCopy())
-        .toList();
+    var copies = notes.sublist(
+      selection.start,
+      selection.end,
+    );
     SolfaClipboardService.instance.copyNotes(copies);
     selection = TextSelection.collapsed(offset: selection.end);
     notifyListeners();

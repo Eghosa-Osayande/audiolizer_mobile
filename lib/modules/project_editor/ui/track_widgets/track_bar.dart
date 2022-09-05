@@ -41,6 +41,12 @@ class TrackBarWidget extends StatelessWidget {
               if (position >= (bar.startAt!)) {
                 color = Colors.green;
               }
+            } else {
+              print([
+                'rrr',
+                position,
+                bar.startAt
+              ]);
             }
             // print('du=>${}<==>${note.convertBeatPositionToSeconds()}');
 

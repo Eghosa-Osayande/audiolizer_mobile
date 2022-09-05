@@ -70,6 +70,7 @@ class _ScorePdfPreview extends StatelessWidget {
         canDebug: false,
         allowPrinting: true,
         dynamicLayout: false,
+        pdfFileName: project.title+'_AUDIOLIZER',
         padding: EdgeInsets.zero,
         onPrinted: (context) {},
         onPrintError: (context, error) {},

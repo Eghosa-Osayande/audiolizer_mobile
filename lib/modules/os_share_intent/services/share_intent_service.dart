@@ -97,4 +97,22 @@ class ShareProjectService {
       result.path
     ]);
   }
+
+  Future<void> shareProjectAsMidi(Project project) async {
+    var result = await project.score.commit();
+    if (result?.isSuccess ?? false) {
+      String root = await PlatformPathService.instance.getExportRootDirectory();
+
+      File outputFile = File('$root/${project.title}_audiolizer.mid');
+      await outputFile.create(recursive: true);
+      var r = await outputFile.writeAsBytes(await (result!.success.readAsBytes()));
+      Share.shareFiles([
+        r.path
+      ]);
+    } else {
+      PlatformToastService.instance.showToast(
+        msg: 'Failed to create MIDI file because errors exist in this project',
+      );
+    }
+  }
 }
