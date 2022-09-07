@@ -63,8 +63,9 @@ class TopRow extends StatelessWidget {
       DurationNoteButton(marker: DurationMarker.full),
       DurationNoteButton(marker: DurationMarker.half),
       DurationNoteButton(marker: DurationMarker.quarter),
-      MusicNoteButton(octave: 0, solfa: Solfege.silent),
-      MusicNoteButton(octave: 0, solfa: Solfege.sustain),
+      // MusicNoteButton(octave: 0, solfa: Solfege.silent),
+      // MusicNoteButton(octave: 0, solfa: Solfege.sustain),
+      PlayPauseButton(),
     ];
     return Container(
       color: AppColors.instance.primary,

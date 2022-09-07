@@ -1,5 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:audiolizer/modules/project_editor/cubit/play_score/play_score_cubit.dart';
+import 'package:audiolizer/modules/project_editor/cubit/toggle_edit_play_mode/toggle_edit_play_mode_cubit.dart';
+import 'package:audiolizer/modules/project_editor/cubit/undo_redo/undo_redo_cubit.dart';
+import 'package:audiolizer/modules/themes/colors/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,7 +11,6 @@ import 'package:audiolizer/modules/models/bar/bar.dart';
 import 'package:audiolizer/modules/models/notes/enums/duration_markers.dart';
 import 'package:audiolizer/modules/models/notes/enums/solfege.dart';
 import 'package:audiolizer/modules/models/notes/note.dart';
-import 'package:audiolizer/modules/project_editor/cubit/edit_project/edit_project_cubit.dart';
 import 'package:audiolizer/modules/project_editor/cubit/focused_bar/focused_bar_cubit.dart';
 import 'package:audiolizer/modules/project_editor/cubit/keyboard_event/keyboard_event.dart';
 
@@ -20,10 +23,10 @@ class ButtonModel {
 
   bool get canLongPress => false;
 
-  Widget? icon() {}
+  Widget? icon(BuildContext context) {}
 
   void action(BuildContext context) {
-    BlocProvider.of<EditProjectCubit>(context).takeSnapShot();
+    BlocProvider.of<UndoRedoCubit>(context).takeSnapShot();
   }
 }
 
@@ -37,8 +40,8 @@ class MusicNoteButton extends ButtonModel {
 
   @override
   String displayString() {
-    String level = (octave > 0) ? "'" : ",";
-    return solfa.symbol + level * octave.abs();
+    return Note.music(solfa: solfa, octave: octave, createdAt: DateTime.now()).displayString();
+   
   }
 
   @override
@@ -55,7 +58,7 @@ class MusicNoteButton extends ButtonModel {
   }
 
   @override
-  Widget? icon() {}
+  Widget? icon(BuildContext context) {}
 }
 
 class DurationNoteButton extends ButtonModel {
@@ -83,7 +86,7 @@ class DurationNoteButton extends ButtonModel {
   }
 
   @override
-  Widget? icon() {}
+  Widget? icon(BuildContext context) {}
 }
 
 class DeleteNoteButton extends ButtonModel {
@@ -104,7 +107,7 @@ class DeleteNoteButton extends ButtonModel {
   }
 
   @override
-  Widget? icon() {
+  Widget? icon(BuildContext context) {
     return Center(
       child: Icon(
         Icons.backspace_outlined,
@@ -135,7 +138,7 @@ class SpaceBarButton extends ButtonModel {
   }
 
   @override
-  Widget? icon() {}
+  Widget? icon(BuildContext context) {}
 }
 
 class NewLineButton extends ButtonModel {
@@ -159,11 +162,52 @@ class NewLineButton extends ButtonModel {
   }
 
   @override
-  Widget? icon() {
+  Widget? icon(BuildContext context) {
     return Center(
       child: Icon(
         Icons.subdirectory_arrow_left_outlined,
         size: 16,
+      ),
+    );
+  }
+}
+
+class PlayPauseButton extends ButtonModel {
+  const PlayPauseButton();
+
+  @override
+  String displayString() {
+    return '';
+  }
+
+  @override
+  void action(BuildContext context) {
+    BlocProvider.of<PlayScoreCubit>(context).play();
+  }
+
+  @override
+  Widget? icon(BuildContext context) {
+    return BlocProvider(
+      create: (context) => ToggleEditPlayModeCubit(),
+      child: Center(
+        child: Builder(builder: (context) {
+          return BlocBuilder<ToggleEditPlayModeCubit, ToggleEditPlayModeState>(
+            builder: (context, state) {
+              switch (state) {
+                case ToggleEditPlayModeState.edit:
+                  return Icon(
+                    Icons.play_arrow,
+                  );
+
+                case ToggleEditPlayModeState.playing:
+                  return Icon(
+                    Icons.pause,
+                    color: AppColors.instance.primary,
+                  );
+              }
+            },
+          );
+        }),
       ),
     );
   }

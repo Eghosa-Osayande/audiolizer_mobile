@@ -12,8 +12,6 @@ _$Bard _$$BardFromJson(Map<String, dynamic> json) => _$Bard(
           .map((e) => Note.fromJson(e as Map<String, dynamic>))
           .toList(),
       lyrics: json['lyrics'] as String? ?? '',
-      startAt: (json['startAt'] as num?)?.toDouble(),
-      endAt: (json['endAt'] as num?)?.toDouble(),
       duration: (json['duration'] as num?)?.toDouble() ?? 0,
     )
       ..errorObj = json['errorObj'] == null
@@ -29,7 +27,5 @@ Map<String, dynamic> _$$BardToJson(_$Bard instance) => <String, dynamic>{
       'createdAt': instance.createdAt.toIso8601String(),
       'notes': instance.notes.map((e) => e.toJson()).toList(),
       'lyrics': instance.lyrics,
-      'startAt': instance.startAt,
-      'endAt': instance.endAt,
       'duration': instance.duration,
     };

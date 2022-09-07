@@ -53,7 +53,7 @@ enum Solfege {
 
   //other
   @JsonValue(18)
-  silent(12, 'X'),
+  silent(12, 'x'),
   @JsonValue(19)
   sustain(13, '-');
 

@@ -26,10 +26,6 @@ mixin _$Bar {
   set notes(List<Note> value) => throw _privateConstructorUsedError;
   String get lyrics => throw _privateConstructorUsedError;
   set lyrics(String value) => throw _privateConstructorUsedError;
-  double? get startAt => throw _privateConstructorUsedError;
-  set startAt(double? value) => throw _privateConstructorUsedError;
-  double? get endAt => throw _privateConstructorUsedError;
-  set endAt(double? value) => throw _privateConstructorUsedError;
   double get duration => throw _privateConstructorUsedError;
   set duration(double value) => throw _privateConstructorUsedError;
 
@@ -43,12 +39,7 @@ abstract class $BarCopyWith<$Res> {
   factory $BarCopyWith(Bar value, $Res Function(Bar) then) =
       _$BarCopyWithImpl<$Res>;
   $Res call(
-      {DateTime createdAt,
-      List<Note> notes,
-      String lyrics,
-      double? startAt,
-      double? endAt,
-      double duration});
+      {DateTime createdAt, List<Note> notes, String lyrics, double duration});
 }
 
 /// @nodoc
@@ -64,8 +55,6 @@ class _$BarCopyWithImpl<$Res> implements $BarCopyWith<$Res> {
     Object? createdAt = freezed,
     Object? notes = freezed,
     Object? lyrics = freezed,
-    Object? startAt = freezed,
-    Object? endAt = freezed,
     Object? duration = freezed,
   }) {
     return _then(_value.copyWith(
@@ -81,14 +70,6 @@ class _$BarCopyWithImpl<$Res> implements $BarCopyWith<$Res> {
           ? _value.lyrics
           : lyrics // ignore: cast_nullable_to_non_nullable
               as String,
-      startAt: startAt == freezed
-          ? _value.startAt
-          : startAt // ignore: cast_nullable_to_non_nullable
-              as double?,
-      endAt: endAt == freezed
-          ? _value.endAt
-          : endAt // ignore: cast_nullable_to_non_nullable
-              as double?,
       duration: duration == freezed
           ? _value.duration
           : duration // ignore: cast_nullable_to_non_nullable
@@ -103,12 +84,7 @@ abstract class _$$BardCopyWith<$Res> implements $BarCopyWith<$Res> {
       __$$BardCopyWithImpl<$Res>;
   @override
   $Res call(
-      {DateTime createdAt,
-      List<Note> notes,
-      String lyrics,
-      double? startAt,
-      double? endAt,
-      double duration});
+      {DateTime createdAt, List<Note> notes, String lyrics, double duration});
 }
 
 /// @nodoc
@@ -125,8 +101,6 @@ class __$$BardCopyWithImpl<$Res> extends _$BarCopyWithImpl<$Res>
     Object? createdAt = freezed,
     Object? notes = freezed,
     Object? lyrics = freezed,
-    Object? startAt = freezed,
-    Object? endAt = freezed,
     Object? duration = freezed,
   }) {
     return _then(_$Bard(
@@ -142,14 +116,6 @@ class __$$BardCopyWithImpl<$Res> extends _$BarCopyWithImpl<$Res>
           ? _value.lyrics
           : lyrics // ignore: cast_nullable_to_non_nullable
               as String,
-      startAt: startAt == freezed
-          ? _value.startAt
-          : startAt // ignore: cast_nullable_to_non_nullable
-              as double?,
-      endAt: endAt == freezed
-          ? _value.endAt
-          : endAt // ignore: cast_nullable_to_non_nullable
-              as double?,
       duration: duration == freezed
           ? _value.duration
           : duration // ignore: cast_nullable_to_non_nullable
@@ -166,8 +132,6 @@ class _$Bard extends Bard {
       {required this.createdAt,
       required this.notes,
       this.lyrics = '',
-      this.startAt,
-      this.endAt,
       this.duration = 0})
       : super._();
 
@@ -181,16 +145,12 @@ class _$Bard extends Bard {
   @JsonKey()
   String lyrics;
   @override
-  double? startAt;
-  @override
-  double? endAt;
-  @override
   @JsonKey()
   double duration;
 
   @override
   String toString() {
-    return 'Bar(createdAt: $createdAt, notes: $notes, lyrics: $lyrics, startAt: $startAt, endAt: $endAt, duration: $duration)';
+    return 'Bar(createdAt: $createdAt, notes: $notes, lyrics: $lyrics, duration: $duration)';
   }
 
   @JsonKey(ignore: true)
@@ -211,8 +171,6 @@ abstract class Bard extends Bar {
       {required DateTime createdAt,
       required List<Note> notes,
       String lyrics,
-      double? startAt,
-      double? endAt,
       double duration}) = _$Bard;
   Bard._() : super._();
 
@@ -227,12 +185,6 @@ abstract class Bard extends Bar {
   @override
   String get lyrics;
   set lyrics(String value);
-  @override
-  double? get startAt;
-  set startAt(double? value);
-  @override
-  double? get endAt;
-  set endAt(double? value);
   @override
   double get duration;
   set duration(double value);

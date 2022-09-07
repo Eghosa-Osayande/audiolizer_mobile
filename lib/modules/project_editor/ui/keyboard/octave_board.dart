@@ -17,7 +17,19 @@ class OctaveBoard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var noteKey = ButtonWidget();
+   
+    Widget silentKey = ButtonWidget(
+      buttonBGColor: Colors.white,
+      textColor: Colors.black,
+      height: kNoteHeight,
+      data: MusicNoteButton(octave: 0, solfa: Solfege.silent),
+    );
+    Widget sustainKey = ButtonWidget(
+      height: kNoteHeight,
+      buttonBGColor: Colors.white,
+      textColor: Colors.black,
+      data: MusicNoteButton(octave: 0, solfa: Solfege.sustain),
+    );
     var sharps = generateSharpOctave();
     var flat = generateFlatOctave();
     return Column(
@@ -35,8 +47,8 @@ class OctaveBoard extends StatelessWidget {
               return Expanded(
                 flex: 2,
                 child: Opacity(
-                  opacity: 0,
-                  child: noteKey,
+                  opacity: 1,
+                  child: silentKey,
                 ),
               );
             }
@@ -59,6 +71,8 @@ class OctaveBoard extends StatelessWidget {
                     child: ButtonWidget(
                       data: note,
                       height: kNoteHeight,
+                      buttonBGColor: Colors.white,
+                      textColor: Colors.black,
                     ));
               },
             ).toList(),
@@ -76,8 +90,8 @@ class OctaveBoard extends StatelessWidget {
               return Expanded(
                 flex: 2,
                 child: Opacity(
-                  opacity: 0,
-                  child: noteKey,
+                  opacity: 1,
+                  child: sustainKey,
                 ),
               );
             }

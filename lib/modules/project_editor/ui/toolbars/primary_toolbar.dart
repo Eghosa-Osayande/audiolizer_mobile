@@ -1,5 +1,5 @@
 import 'package:audiolizer/modules/project_editor/cubit/current_project/current_project.dart';
-import 'package:audiolizer/modules/project_editor/cubit/edit_project/edit_project_cubit.dart';
+
 import 'package:audiolizer/modules/project_editor/cubit/toggle_keyboard_visibility.dart/toggle_keyboard_visibility_cubit.dart';
 import 'package:audiolizer/modules/project_editor/cubit/view_mode/view_mode.dart';
 import 'package:audiolizer/modules/project_editor/ui/toolbars/edit_toolbar.dart';
@@ -12,10 +12,7 @@ class PrimaryToolbar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<EditProjectCubit, EditProjectCubitState>(
-      builder: (context, state) {
-       
-        return BlocBuilder<ViewModeCubit, ViewModeState>(
+    return  BlocBuilder<ViewModeCubit, ViewModeState>(
           builder: (context, viewMode) {
             if (viewMode == ViewModeState.readOnly) {
               return ReadOnlyToolbar();
@@ -24,8 +21,6 @@ class PrimaryToolbar extends StatelessWidget implements PreferredSizeWidget {
             return EditToolbar();
           },
         );
-      },
-    );
   }
 
   @override
@@ -33,8 +28,6 @@ class PrimaryToolbar extends StatelessWidget implements PreferredSizeWidget {
     return Size.fromHeight(kToolbarHeight);
   }
 }
-
-
 
 class KeyboardVisibilityToggler extends StatelessWidget {
   const KeyboardVisibilityToggler({

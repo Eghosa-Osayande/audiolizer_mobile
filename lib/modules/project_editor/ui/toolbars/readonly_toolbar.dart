@@ -12,28 +12,28 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 List<PopupMenuItem<dynamic>> popupItemsReadOnly = [
-  PopupMenuItem(
-    child: ToolbarOption(
-      title: 'Metroneme',
-      trailing: BlocProvider(
-        create: (context) => ToggleMetronemeCubit(),
-        child: Builder(builder: (context) {
-          return BlocBuilder<ToggleMetronemeCubit, bool>(
-            builder: (context, state) {
-              return Checkbox(
-                  value: state,
-                  onChanged: (bool? value) {
-                    if (value != null) {
-                      BlocProvider.of<ToggleMetronemeCubit>(context).toggle(value);
-                    }
-                    Navigator.pop(context);
-                  });
-            },
-          );
-        }),
-      ),
-    ),
-  ),
+  // PopupMenuItem(
+  //   child: ToolbarOption(
+  //     title: 'Metroneme',
+  //     trailing: BlocProvider(
+  //       create: (context) => ToggleMetronemeCubit(),
+  //       child: Builder(builder: (context) {
+  //         return BlocBuilder<ToggleMetronemeCubit, bool>(
+  //           builder: (context, state) {
+  //             return Checkbox(
+  //                 value: state,
+  //                 onChanged: (bool? value) {
+  //                   if (value != null) {
+  //                     BlocProvider.of<ToggleMetronemeCubit>(context).toggle(value);
+  //                   }
+  //                   Navigator.pop(context);
+  //                 });
+  //           },
+  //         );
+  //       }),
+  //     ),
+  //   ),
+  // ),
   PopupMenuItem(
     child: ToolbarOption(
       title: 'Show Progress',

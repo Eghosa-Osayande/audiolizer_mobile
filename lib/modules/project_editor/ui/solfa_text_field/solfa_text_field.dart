@@ -11,7 +11,6 @@ import 'package:audiolizer/modules/project_editor/cubit/toggle_keyboard_visibili
 import 'package:audiolizer/modules/project_editor/cubit/view_mode/view_mode.dart';
 import 'package:audiolizer/modules/project_editor/cubit/volume_navigation/volume_navigation_cubit.dart';
 import 'package:audiolizer/modules/project_editor/ui/note_widgets/note_theme.dart';
-import 'package:audiolizer/modules/project_editor/ui/solfa_text_field/auto_size_mixin.dart';
 import 'package:audiolizer/modules/project_editor/ui/solfa_text_field/solfa_input_controller.dart';
 import 'package:audiolizer/modules/project_editor/ui/solfa_text_field/solfa_text_controls.dart';
 
@@ -23,7 +22,7 @@ class SolfaTextField extends StatefulWidget {
   State<SolfaTextField> createState() => _SolfaTextFieldState();
 }
 
-class _SolfaTextFieldState extends State<SolfaTextField> with AutoSizeTextMixin {
+class _SolfaTextFieldState extends State<SolfaTextField> {
   late final FocusNode focus = FocusNode(
     onKey: volumeKeyOveride,
   );
@@ -84,9 +83,7 @@ class _SolfaTextFieldState extends State<SolfaTextField> with AutoSizeTextMixin 
 
   @override
   Widget build(BuildContext context) {
-    if (!(widget.bar.list as Track).isVisible) {
-      return SizedBox();
-    }
+   
     final textField = _buildTextField();
     // return buildAutoSizedText(context, textField, controller);
     return textField;
@@ -133,7 +130,7 @@ class _SolfaTextFieldState extends State<SolfaTextField> with AutoSizeTextMixin 
                 ),
                 () {
                   if (mounted) {
-                    Scrollable.ensureVisible(context,alignmentPolicy: ScrollPositionAlignmentPolicy.keepVisibleAtEnd);
+                    Scrollable.ensureVisible(context, alignmentPolicy: ScrollPositionAlignmentPolicy.keepVisibleAtEnd);
                   }
                 },
               );
@@ -172,9 +169,8 @@ class _SolfaTextFieldState extends State<SolfaTextField> with AutoSizeTextMixin 
                     });
                   },
                 ),
-                style: noteTheme.constantStyle,
+                style: noteTheme.style,
                 decoration: InputDecoration(
-                 
                   hintText: (widget.bar.list as Track).name + '...',
                 ),
               );

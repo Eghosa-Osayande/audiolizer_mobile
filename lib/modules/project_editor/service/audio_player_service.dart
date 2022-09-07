@@ -22,6 +22,7 @@ class AudioPlayerService {
   int playCount = 0;
 
   Future<void> setSourceBytes(Uint8List bytes) async {
+    _player.setVolume(1);
     await _player.setSourceBytes(bytes);
   }
 

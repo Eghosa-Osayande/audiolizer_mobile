@@ -32,8 +32,6 @@ class SolfaKeyBoardInputEventCubit extends Cubit<SolfaKeyBoardInputEvent?> {
       bar.insertAfter(
         Bar(
           createdAt: DateTime.now().toUtc(),
-           startAt: 0,
-endAt: bar.endAt,
           notes: [],
         ),
       );

@@ -4,7 +4,6 @@ import 'package:audiolizer/modules/models/track/track.dart';
 import 'package:audiolizer/modules/project_editor/ui/track_widgets/bar_group.dart';
 import 'package:flutter/material.dart';
 
-
 class TrackListView extends StatelessWidget {
   const TrackListView({
     Key? key,
@@ -29,6 +28,8 @@ class TrackListView extends StatelessWidget {
                   return bar;
                 },
               );
+              // var r = bars.map((e) => e.startAt).toList();
+              // print('starts=>$r');
               return BarGroupWidget(
                 barIndex: barIndex,
                 bars: bars,

@@ -58,7 +58,7 @@ class CompileErrorDialog extends StatelessWidget {
                           child: Text.rich(
                             TextSpan(
                               children: [
-                                TextSpan(text: 'Bar $errorTrackIndex ==> '),
+                                TextSpan(text: 'Bar ${errorTrackIndex!+1} ==> '),
                                 TextSpan(text: start),
                                 WidgetSpan(
                                   child: Container(

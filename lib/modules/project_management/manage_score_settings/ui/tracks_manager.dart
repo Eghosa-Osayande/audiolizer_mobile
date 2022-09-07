@@ -51,7 +51,6 @@ class _TracksManagerState extends State<TracksManager> {
                     key: ObjectKey(track),
                     track: track,
                     onDelete: () {
-                      
                       showConfirmDialog(context, 'Delete Track "${track.name}" ?').then(
                         (value) {
                           if (value == true) {
@@ -68,7 +67,7 @@ class _TracksManagerState extends State<TracksManager> {
               ),
               Row(
                 children: [
-                  if (tracks.length < 3)
+                  if (tracks.length < 8)
                     TextButton(
                       onPressed: () {
                         field.value!.add(
@@ -106,7 +105,7 @@ class _TracksManagerState extends State<TracksManager> {
   }
 }
 
-class TrackOptionsWidget extends StatelessWidget {
+class TrackOptionsWidget extends StatefulWidget {
   final Track track;
 
   final VoidCallback onDelete;
@@ -117,19 +116,36 @@ class TrackOptionsWidget extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<TrackOptionsWidget> createState() => _TrackOptionsWidgetState();
+}
+
+class _TrackOptionsWidgetState extends State<TrackOptionsWidget> {
+  int trackModeChangedCounter = 0;
+  @override
   Widget build(BuildContext context) {
-    return FormBuilderField<bool>(
-        name: '_vv${track.trackNumber}',
-        initialValue: track.isLyricsVisible,
+    switch (widget.track.trackMode) {
+      case TrackMode.music:
+        return buildMusicTrack();
+
+      case TrackMode.lyrics:
+        return buildLyricsTrack();
+    }
+  }
+
+  Widget buildLyricsTrack() {
+    return FormBuilderField<TrackMode>(
+        key: ValueKey('l$trackModeChangedCounter'),
+        name: '_vv${widget.track.trackNumber}',
+        initialValue: widget.track.trackMode,
         onChanged: (value) {
-          track.isLyricsVisible = value!;
+          widget.track.trackMode = value!;
         },
         builder: (lyricsVisibilityField) {
           return FormBuilderField<bool>(
-              name: '_v${track.trackNumber}',
-              initialValue: track.isVisible,
+              name: '_v${widget.track.trackNumber}',
+              initialValue: widget.track.isVisible,
               onChanged: (value) {
-                track.isVisible = value!;
+                widget.track.isVisible = value!;
               },
               builder: (visibilityField) {
                 return Column(
@@ -152,8 +168,80 @@ class TrackOptionsWidget extends StatelessWidget {
                                     Expanded(
                                       flex: 5,
                                       child: FormBuilderTextField(
-                                        name: '_e${track.trackNumber}',
-                                        initialValue: track.name,
+                                        name: '_e${widget.track.trackNumber}',
+                                        initialValue: widget.track.name,
+                                        validator: FormBuilderValidators.compose([
+                                          FormBuilderValidators.required(),
+                                          FormBuilderValidators.minLength(1)
+                                        ]),
+                                        decoration: InputDecoration(
+                                          hintText: '',
+                                          label: Text('Lyrics Track name'),
+                                        ),
+                                        onChanged: (value) {
+                                          widget.track.name = value ?? '';
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          Positioned(
+                            top: 0,
+                            right: 0,
+                            width: 50,
+                            height: 50,
+                            child: buildPopMenuButton(visibilityField, lyricsVisibilityField),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                );
+              });
+        });
+  }
+
+  Widget buildMusicTrack() {
+    return FormBuilderField<TrackMode>(
+        key: ValueKey('l$trackModeChangedCounter'),
+        name: '_vv${widget.track.trackNumber}',
+        initialValue: widget.track.trackMode,
+        onChanged: (value) {
+          widget.track.trackMode = value!;
+        },
+        builder: (lyricsVisibilityField) {
+          return FormBuilderField<bool>(
+              name: '_v${widget.track.trackNumber}',
+              initialValue: widget.track.isVisible,
+              onChanged: (value) {
+                widget.track.isVisible = value!;
+              },
+              builder: (visibilityField) {
+                return Column(
+                  children: [
+                    kGap14,
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(width: 1),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      padding: EdgeInsets.all(8),
+                      child: Stack(
+                        children: [
+                          Opacity(
+                            opacity: (visibilityField.value!) ? 1 : 0.4,
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      flex: 5,
+                                      child: FormBuilderTextField(
+                                        name: '_e${widget.track.trackNumber}',
+                                        initialValue: widget.track.name,
                                         validator: FormBuilderValidators.compose([
                                           FormBuilderValidators.required(),
                                           FormBuilderValidators.minLength(1)
@@ -163,7 +251,7 @@ class TrackOptionsWidget extends StatelessWidget {
                                           label: Text('Track name'),
                                         ),
                                         onChanged: (value) {
-                                          track.name = value ?? '';
+                                          widget.track.name = value ?? '';
                                         },
                                       ),
                                     ),
@@ -173,9 +261,9 @@ class TrackOptionsWidget extends StatelessWidget {
                                   children: [
                                     Expanded(
                                       child: FormBuilderDropdown<MidiProgram>(
-                                        name: '_exclude${track.trackNumber}',
+                                        name: '_exclude${widget.track.trackNumber}',
                                         isDense: false,
-                                        initialValue: track.program,
+                                        initialValue: widget.track.program,
                                         validator: FormBuilderValidators.compose([
                                           FormBuilderValidators.required(),
                                         ]),
@@ -185,7 +273,7 @@ class TrackOptionsWidget extends StatelessWidget {
                                         ),
                                         onChanged: (value) {
                                           if (value != null) {
-                                            track.program = value;
+                                            widget.track.program = value;
                                           }
                                         },
                                         items: MidiProgram.values.map((sign) {
@@ -203,11 +291,11 @@ class TrackOptionsWidget extends StatelessWidget {
                                   children: [
                                     Expanded(
                                       child: FormBuilderSlider(
-                                        name: '_exclude2${track.trackNumber}',
-                                        initialValue: track.volume.toDouble(),
-                                        max: 100,
+                                        name: '_exclude2${widget.track.trackNumber}',
+                                        initialValue: widget.track.volume.toDouble(),
+                                        max: 126,
                                         min: 0,
-                                        divisions: 100,
+                                        // divisions: ,
                                         validator: FormBuilderValidators.compose([
                                           FormBuilderValidators.required(),
                                         ]),
@@ -217,7 +305,7 @@ class TrackOptionsWidget extends StatelessWidget {
                                         ),
                                         onChanged: (value) {
                                           if (value != null) {
-                                            track.volume = value.toInt();
+                                            widget.track.volume = value.toInt();
                                           }
                                         },
                                       ),
@@ -232,46 +320,7 @@ class TrackOptionsWidget extends StatelessWidget {
                             right: 0,
                             width: 50,
                             height: 50,
-                            child: PopupMenuButton(
-                              child: Icon(Icons.more_vert),
-                              onSelected: (value) {
-                                switch (value) {
-                                  case 'remove':
-                                    onDelete.call();
-                                    break;
-                                }
-                              },
-                              itemBuilder: (context) {
-                                return [
-                                  PopupMenuItem(
-                                    child: ToolbarOption(
-                                      title: (visibilityField.value!) ? 'Hide Track' : 'Show Track',
-                                      trailing: Icon(
-                                        (visibilityField.value!) ? Icons.visibility : Icons.visibility_off,
-                                      ),
-                                    ),
-                                    onTap: () {
-                                      visibilityField.didChange(!visibilityField.value!);
-                                    },
-                                  ),
-                                  PopupMenuItem(
-                                    child: ToolbarOption(
-                                      title: (lyricsVisibilityField.value!) ? 'Hide Lyrics' : 'Show Lyrics',
-                                      trailing: Icon(
-                                        (lyricsVisibilityField.value!) ? Icons.visibility : Icons.visibility_off,
-                                      ),
-                                    ),
-                                    onTap: () {
-                                      lyricsVisibilityField.didChange(!lyricsVisibilityField.value!);
-                                    },
-                                  ),
-                                  PopupMenuItem(
-                                    child: Text('Remove'),
-                                    value: 'remove',
-                                  ),
-                                ];
-                              },
-                            ),
+                            child: buildPopMenuButton(visibilityField, lyricsVisibilityField),
                           ),
                         ],
                       ),
@@ -280,5 +329,67 @@ class TrackOptionsWidget extends StatelessWidget {
                 );
               });
         });
+  }
+
+  Widget buildPopMenuButton(
+    FormFieldState<bool> visibilityField,
+    FormFieldState<TrackMode> lyricsVisibilityField,
+  ) {
+    return PopupMenuButton(
+      child: Icon(Icons.more_vert),
+      onSelected: (value) {
+        switch (value) {
+          case 'remove':
+            widget.onDelete.call();
+            break;
+        }
+      },
+      itemBuilder: (context) {
+        return [
+          PopupMenuItem(
+            child: ToolbarOption(
+              title: (visibilityField.value!) ? 'Hide Track' : 'Show Track',
+              trailing: Icon(
+                (visibilityField.value!) ? Icons.visibility : Icons.visibility_off,
+              ),
+            ),
+            onTap: () {
+              visibilityField.didChange(!visibilityField.value!);
+            },
+          ),
+          PopupMenuItem(
+            child: ToolbarOption(
+              title: () {
+                switch (lyricsVisibilityField.value) {
+                  case TrackMode.music:
+                    return 'Use as Lyrics Track';
+                  case TrackMode.lyrics:
+                    return 'Use as Music Track';
+                  default:
+                    return 'Use as Lyrics Track';
+                }
+              }(),
+            ),
+            onTap: () {
+              switch (lyricsVisibilityField.value) {
+                case TrackMode.music:
+                  lyricsVisibilityField.didChange(TrackMode.lyrics);
+                  break;
+                case TrackMode.lyrics:
+                  lyricsVisibilityField.didChange(TrackMode.music);
+                  break;
+                default:
+                  lyricsVisibilityField.didChange(TrackMode.music);
+              }
+              setState(() {});
+            },
+          ),
+          PopupMenuItem(
+            child: Text('Remove'),
+            value: 'remove',
+          ),
+        ];
+      },
+    );
   }
 }

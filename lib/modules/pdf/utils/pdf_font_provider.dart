@@ -5,7 +5,7 @@ class PdfFontProvider {
   static pw.Font musicFont = pw.Font.helvetica();
   static pw.Font durationFont = pw.Font.helvetica();
   static pw.Font lyrics = pw.Font.helvetica();
-  static late pw.Font fallback;
+  static  pw.Font fallback= pw.Font.helvetica();
   static init() async {
     fallback = await PdfGoogleFonts.interRegular();
     musicFont = await PdfGoogleFonts.interBold();

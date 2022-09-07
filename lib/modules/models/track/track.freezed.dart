@@ -24,6 +24,8 @@ mixin _$Track {
   set program(MidiProgram value) => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   set name(String value) => throw _privateConstructorUsedError;
+  TrackMode get trackMode => throw _privateConstructorUsedError;
+  set trackMode(TrackMode value) => throw _privateConstructorUsedError;
   bool get isVisible => throw _privateConstructorUsedError;
   set isVisible(bool value) => throw _privateConstructorUsedError;
   bool get isLyricsVisible => throw _privateConstructorUsedError;
@@ -42,6 +44,7 @@ abstract class $TrackCopyWith<$Res> {
       int volume,
       MidiProgram program,
       String name,
+      TrackMode trackMode,
       bool isVisible,
       bool isLyricsVisible});
 }
@@ -60,6 +63,7 @@ class _$TrackCopyWithImpl<$Res> implements $TrackCopyWith<$Res> {
     Object? volume = freezed,
     Object? program = freezed,
     Object? name = freezed,
+    Object? trackMode = freezed,
     Object? isVisible = freezed,
     Object? isLyricsVisible = freezed,
   }) {
@@ -80,6 +84,10 @@ class _$TrackCopyWithImpl<$Res> implements $TrackCopyWith<$Res> {
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      trackMode: trackMode == freezed
+          ? _value.trackMode
+          : trackMode // ignore: cast_nullable_to_non_nullable
+              as TrackMode,
       isVisible: isVisible == freezed
           ? _value.isVisible
           : isVisible // ignore: cast_nullable_to_non_nullable
@@ -102,6 +110,7 @@ abstract class _$$_TrackCopyWith<$Res> implements $TrackCopyWith<$Res> {
       int volume,
       MidiProgram program,
       String name,
+      TrackMode trackMode,
       bool isVisible,
       bool isLyricsVisible});
 }
@@ -121,6 +130,7 @@ class __$$_TrackCopyWithImpl<$Res> extends _$TrackCopyWithImpl<$Res>
     Object? volume = freezed,
     Object? program = freezed,
     Object? name = freezed,
+    Object? trackMode = freezed,
     Object? isVisible = freezed,
     Object? isLyricsVisible = freezed,
   }) {
@@ -141,6 +151,10 @@ class __$$_TrackCopyWithImpl<$Res> extends _$TrackCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      trackMode: trackMode == freezed
+          ? _value.trackMode
+          : trackMode // ignore: cast_nullable_to_non_nullable
+              as TrackMode,
       isVisible: isVisible == freezed
           ? _value.isVisible
           : isVisible // ignore: cast_nullable_to_non_nullable
@@ -161,6 +175,7 @@ class _$_Track extends _Track {
       required this.volume,
       required this.program,
       required this.name,
+      this.trackMode = TrackMode.music,
       this.isVisible = true,
       this.isLyricsVisible = true})
       : super._();
@@ -173,6 +188,9 @@ class _$_Track extends _Track {
   MidiProgram program;
   @override
   String name;
+  @override
+  @JsonKey()
+  TrackMode trackMode;
   @override
   @JsonKey()
   bool isVisible;
@@ -192,6 +210,7 @@ abstract class _Track extends Track {
       required int volume,
       required MidiProgram program,
       required String name,
+      TrackMode trackMode,
       bool isVisible,
       bool isLyricsVisible}) = _$_Track;
   _Track._() : super._();
@@ -208,6 +227,9 @@ abstract class _Track extends Track {
   @override
   String get name;
   set name(String value);
+  @override
+  TrackMode get trackMode;
+  set trackMode(TrackMode value);
   @override
   bool get isVisible;
   set isVisible(bool value);

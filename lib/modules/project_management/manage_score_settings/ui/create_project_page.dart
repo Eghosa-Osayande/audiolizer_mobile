@@ -1,3 +1,4 @@
+import 'package:audiolizer/modules/common/widgets/confirm_action_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
@@ -43,129 +44,138 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          widget.project == null ? 'New Project' : widget.project!.title,
-        ),
-        actions: [
-          TextButton(
-            onPressed: onDone,
-            child: Text(
-              widget.project == null ? 'DONE' : 'SAVE CHANGES',
-            ),
+    return WillPopScope(
+      onWillPop: () async {
+        var r = await showConfirmDialog(
+          context,
+          'Continue without saving?',
+         
+        );
+        return r ?? false;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            widget.project == null ? 'New Project' : widget.project!.title,
           ),
-        ],
-      ),
-      body: FormBuilder(
-        key: formKey,
-        child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            children: [
-              kGap14,
-              FormBuilderTextField(
-                name: 'title',
-                initialValue: projectCopy?.title,
-                validator: FormBuilderValidators.compose([
-                  FormBuilderValidators.required(),
-                ]),
-                decoration: InputDecoration(label: Text('Title'), contentPadding: kNewProjectContentPadding, border: kNewProjectInputBorder),
-                style: GoogleFonts.inter(fontSize: 16),
-                keyboardType: TextInputType.name,
-                textInputAction: TextInputAction.next,
+          actions: [
+            TextButton(
+              onPressed: onDone,
+              child: Text(
+                widget.project == null ? 'DONE' : 'SAVE CHANGES',
               ),
-              kGap14,
-              FormBuilderTextField(
-                name: 'description',
-                initialValue: projectCopy?.description,
-                validator: FormBuilderValidators.compose([]),
-                maxLines: 4,
-                minLines: 1,
-maxLength: 280,
-                decoration: InputDecoration(
-                  
-                  label: Text(
-                    'Description (optional)',
-                  ),
-                  contentPadding: kNewProjectContentPadding,
-                  border: kNewProjectInputBorder,
+            ),
+          ],
+        ),
+        body: FormBuilder(
+          key: formKey,
+          child: SingleChildScrollView(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              children: [
+                kGap14,
+                FormBuilderTextField(
+                  name: 'title',
+                  initialValue: projectCopy?.title,
+                  validator: FormBuilderValidators.compose([
+                    FormBuilderValidators.required(),
+                  ]),
+                  decoration: InputDecoration(label: Text('Title'), contentPadding: kNewProjectContentPadding, border: kNewProjectInputBorder),
+                  style: GoogleFonts.inter(fontSize: 16),
+                  keyboardType: TextInputType.name,
+                  textInputAction: TextInputAction.next,
                 ),
-                style: GoogleFonts.inter(fontSize: 16),
-                keyboardType: TextInputType.name,
-                textInputAction: TextInputAction.newline,
-              ),
-              kGap14,
-              FormBuilderTextField(
-                name: 'bpm',
-                validator: FormBuilderValidators.compose<String>([
-                  FormBuilderValidators.required(),
-                  (String? value) {
-                    var result = int.tryParse(value ?? '');
-                    if (result == null) {
-                      return 'Invalid tempo';
+                kGap14,
+                FormBuilderTextField(
+                  name: 'description',
+                  initialValue: projectCopy?.description,
+                  validator: FormBuilderValidators.compose([]),
+                  maxLines: 4,
+                  minLines: 1,
+                  maxLength: 280,
+                  decoration: InputDecoration(
+                    label: Text(
+                      'Description (optional)',
+                    ),
+                    contentPadding: kNewProjectContentPadding,
+                    border: kNewProjectInputBorder,
+                  ),
+                  style: GoogleFonts.inter(fontSize: 16),
+                  keyboardType: TextInputType.name,
+                  textInputAction: TextInputAction.newline,
+                ),
+                kGap14,
+                FormBuilderTextField(
+                  name: 'bpm',
+                  validator: FormBuilderValidators.compose<String>([
+                    FormBuilderValidators.required(),
+                    (String? value) {
+                      var result = int.tryParse(value ?? '');
+                      if (result == null) {
+                        return 'Invalid tempo';
+                      }
                     }
-                  }
-                ]),
-                decoration: InputDecoration(hintText: 'eg. 120 BPM', label: Text('Tempo'), contentPadding: kNewProjectContentPadding, border: kNewProjectInputBorder),
-                initialValue: projectCopy?.score.bpm.toString(),
-                keyboardType: TextInputType.number,
-                textInputAction: TextInputAction.next,
-              ),
-              kGap14,
-              FormBuilderDropdown<KeySignature>(
-                name: 'key',
-                isDense: false,
-                initialValue: projectCopy?.score.keySignature,
-                validator: FormBuilderValidators.compose([
-                  FormBuilderValidators.required(),
-                ]),
-                decoration: InputDecoration(label: Text('Select Key Signature'), contentPadding: kNewProjectContentPadding, border: kNewProjectInputBorder),
-                items: KeySignature.values.map((sign) {
-                  return DropdownMenuItem<KeySignature>(
-                      value: sign,
-                      child: ListTile(
-                        title: Text(sign.displayString),
-                      ));
-                }).toList(),
-              ),
-              kGap14,
-              FormBuilderDropdown<int>(
-                name: 'pitch',
-                isDense: false,
-                initialValue: projectCopy?.score.tonicPitchNumber,
-                validator: FormBuilderValidators.compose([
-                  FormBuilderValidators.required(),
-                ]),
-                decoration: InputDecoration(hintText: 'eg. 3, doh is G3', label: Text('Tonic Pitch'), contentPadding: kNewProjectContentPadding, border: kNewProjectInputBorder),
-                items: List.generate(10, (index) {
-                  return DropdownMenuItem<int>(
-                      value: index,
-                      child: ListTile(
-                        title: Text('$index'),
-                      ));
-                }),
-              ),
-              kGap14,
-              FormBuilderDropdown<TimeSignature>(
-                name: 'time',
-                isDense: false,
-                initialValue: projectCopy?.score.timeSignature,
-                validator: FormBuilderValidators.compose([
-                  FormBuilderValidators.required(),
-                ]),
-                decoration: InputDecoration(label: Text('Select Time Signature'), contentPadding: kNewProjectContentPadding, border: kNewProjectInputBorder),
-                items: TimeSignature.values.map((sign) {
-                  return DropdownMenuItem<TimeSignature>(
-                      value: sign,
-                      child: ListTile(
-                        title: Text(sign.displayString),
-                      ));
-                }).toList(),
-              ),
-              kGap14,
-              TracksManager(score: projectCopy?.score),
-            ],
+                  ]),
+                  decoration: InputDecoration(hintText: 'eg. 120 BPM', label: Text('Tempo'), contentPadding: kNewProjectContentPadding, border: kNewProjectInputBorder),
+                  initialValue: projectCopy?.score.bpm.toString(),
+                  keyboardType: TextInputType.number,
+                  textInputAction: TextInputAction.next,
+                ),
+                kGap14,
+                FormBuilderDropdown<KeySignature>(
+                  name: 'key',
+                  isDense: false,
+                  initialValue: projectCopy?.score.keySignature,
+                  validator: FormBuilderValidators.compose([
+                    FormBuilderValidators.required(),
+                  ]),
+                  decoration: InputDecoration(label: Text('Select Key Signature'), contentPadding: kNewProjectContentPadding, border: kNewProjectInputBorder),
+                  items: KeySignature.values.map((sign) {
+                    return DropdownMenuItem<KeySignature>(
+                        value: sign,
+                        child: ListTile(
+                          title: Text(sign.displayString),
+                        ));
+                  }).toList(),
+                ),
+                kGap14,
+                FormBuilderDropdown<int>(
+                  name: 'pitch',
+                  isDense: false,
+                  initialValue: projectCopy?.score.tonicPitchNumber,
+                  validator: FormBuilderValidators.compose([
+                    FormBuilderValidators.required(),
+                  ]),
+                  decoration: InputDecoration(hintText: 'eg. 3, doh is G3', label: Text('Tonic Pitch'), contentPadding: kNewProjectContentPadding, border: kNewProjectInputBorder),
+                  items: List.generate(10, (index) {
+                    return DropdownMenuItem<int>(
+                        value: index,
+                        child: ListTile(
+                          title: Text('$index'),
+                        ));
+                  }),
+                ),
+                kGap14,
+                FormBuilderDropdown<TimeSignature>(
+                  name: 'time',
+                  isDense: false,
+                  initialValue: projectCopy?.score.timeSignature,
+                  validator: FormBuilderValidators.compose([
+                    FormBuilderValidators.required(),
+                  ]),
+                  decoration: InputDecoration(label: Text('Select Time Signature'), contentPadding: kNewProjectContentPadding, border: kNewProjectInputBorder),
+                  items: TimeSignature.values.map((sign) {
+                    return DropdownMenuItem<TimeSignature>(
+                        value: sign,
+                        child: ListTile(
+                          title: Text(sign.displayString),
+                        ));
+                  }).toList(),
+                ),
+                kGap14,
+                TracksManager(score: projectCopy?.score),
+              ],
+            ),
           ),
         ),
       ),
@@ -194,7 +204,7 @@ maxLength: 280,
 
     project
       ..title = value['title']
-      ..description = value['description']
+      ..description = value['description'] ?? ''
       ..updatedAt = DateTime.now().toUtc();
     var updatedScore = Score(
       bpm: int.parse(value['bpm']),
@@ -224,8 +234,6 @@ maxLength: 280,
       ..ensureUniformTracksLength();
 
     project.score = updatedScore;
-    project.scoreUndoVersions.add(oldScore);
-    project.scoreRedoVersions.clear();
 
     await project.save();
 
@@ -262,11 +270,9 @@ maxLength: 280,
 
     var newProject = Project(
       title: value['title'],
-      description: value['description'],
+      description: value['description'] ?? '',
       updatedAt: DateTime.now(),
       score: newlyCreatedScore,
-      scoreRedoVersions: [],
-      scoreUndoVersions: [],
     );
     await ProjectRepo.instance.put(newProject);
     Navigator.pop<Project>(context, newProject);

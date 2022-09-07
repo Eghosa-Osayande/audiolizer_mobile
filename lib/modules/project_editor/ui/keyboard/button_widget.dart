@@ -12,10 +12,15 @@ class ButtonWidget extends StatefulWidget {
 
   final double? height;
 
+  final Color buttonBGColor;
+  final Color textColor;
+
   const ButtonWidget({
     Key? key,
     this.data = const ButtonModel(),
     this.height,
+    this.buttonBGColor = Colors.black,
+    this.textColor = Colors.white,
   }) : super(key: key);
 
   @override
@@ -95,14 +100,17 @@ class _ButtonWidgetState extends State<ButtonWidget> {
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 2, vertical: 2),
         decoration: BoxDecoration(
-          color: Colors.black,
+          color: widget.buttonBGColor,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Center(
-          child: widget.data.icon() ??
+          child: widget.data.icon(context) ??
               Text(
                 widget.data.displayString(),
-                style: GoogleFonts.zillaSlab(fontSize: 16),
+                style: GoogleFonts.zillaSlab(
+                  fontSize: 16,
+                  color: widget.textColor,
+                ),
               ),
         ),
       ),

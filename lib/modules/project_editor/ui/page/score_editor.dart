@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:audiolizer/modules/models/project/project_model.dart';
 import 'package:audiolizer/modules/models/score/score.dart';
 import 'package:audiolizer/modules/project_editor/cubit/current_project/current_project.dart';
-import 'package:audiolizer/modules/project_editor/cubit/edit_project/edit_project_cubit.dart';
+
 import 'package:audiolizer/modules/project_editor/cubit/focused_bar/focused_bar_cubit.dart';
 import 'package:audiolizer/modules/project_editor/cubit/keyboard_event/keyboard_event.dart';
 import 'package:audiolizer/modules/project_editor/cubit/play_score/play_score_cubit.dart';
@@ -44,9 +44,6 @@ class ProjectEditorPage extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => PlayScoreCubit(project: project),
-        ),
-        BlocProvider(
-          create: (context) => EditProjectCubit(project: project),
         ),
         BlocProvider(
           create: (context) => UndoRedoCubit(project: project),

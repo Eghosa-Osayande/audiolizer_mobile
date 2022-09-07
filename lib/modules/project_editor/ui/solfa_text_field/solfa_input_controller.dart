@@ -29,7 +29,7 @@ class SolfaEditingController extends TextEditingController {
       children: notes.map(
         (Note note) {
           return WidgetSpan(
-            style: noteTheme.constantStyle,
+            style: noteTheme.style,
             child: AbsorbPointer(
               absorbing: true,
               child: NoteBuilder(
@@ -40,7 +40,7 @@ class SolfaEditingController extends TextEditingController {
           );
         },
       ).toList(),
-      style: noteTheme.constantStyle,
+      style: noteTheme.style,
     );
   }
 

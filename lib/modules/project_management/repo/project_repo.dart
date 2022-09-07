@@ -24,6 +24,7 @@ class ProjectRepo {
   _listenToDatabaseChanges() async {
     _projectsSubject.add((await readAll()));
     (await _getProjectsBox()).watch().listen((BoxEvent event) async {
+      print('ppp');
       if (!event.deleted) {
         _updatedProjectSink.add(event.value);
       }
@@ -58,7 +59,7 @@ class ProjectRepo {
   Future<void> duplicate(Project project) async {
     var box = await _getProjectsBox();
     var copy = Project.fromJson(project.toJson());
-    copy.title = copy.title +' (COPY)';
+    copy.title = copy.title + ' (COPY)';
     await put(copy);
   }
 }

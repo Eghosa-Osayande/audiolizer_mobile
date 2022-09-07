@@ -66,28 +66,21 @@ class ShareProjectService {
   }
 
   Future<void> _handleFile(File file) async {
-    if (file.path.endsWith('.solfa')) {
-      String scoreJson = await file.readAsString();
+    String scoreJson = await file.readAsString();
 
-      try {
-        Project importedScore = Project.fromJson(json.decode(scoreJson)).copyWith(
-          updatedAt: DateTime.now(),
-        );
-        await ProjectRepo.instance.put(importedScore);
-        _sharedSolphaFileEventStream.add(importedScore);
-      } on Exception catch (e) {
-        PlatformToastService.instance.showToast(msg: 'Loading file failed\nInvalidformat');
-      }
-    } else {
-      PlatformToastService.instance.showToast(msg: 'Invalid file format');
+    try {
+      Project importedScore = Project.fromJson(json.decode(scoreJson)).copyWith(
+        updatedAt: DateTime.now(),
+      );
+      await ProjectRepo.instance.put(importedScore);
+      _sharedSolphaFileEventStream.add(importedScore);
+    } on Exception catch (e) {
+      PlatformToastService.instance.showToast(msg: 'Loading file failed\nInvalidformat');
     }
   }
 
   Future<void> shareProject(Project project) async {
-    String shareData = json.encode(project.copyWith(
-      scoreUndoVersions: [],
-      scoreRedoVersions: [],
-    ).toJson());
+    String shareData = json.encode(project.toJson());
     String root = await PlatformPathService.instance.getExportRootDirectory();
 
     File outputFile = File('$root/${project.title}.solfa');

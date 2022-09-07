@@ -9,25 +9,38 @@ import 'package:intl/intl.dart';
 import 'package:audiolizer/modules/models/score/score.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:printing/printing.dart';
 
 part 'project_model.freezed.dart';
-part 'project_model.g.dart';
+// part 'project_model.g.dart';
 
 @unfreezed
 class Project with HiveObjectMixin, _$Project {
   Project._();
 
-  @JsonSerializable(explicitToJson: true)
+  // @JsonSerializable(explicitToJson: true)
   factory Project({
     required String title,
     required String description,
     required DateTime updatedAt,
     required Score score,
-    required List<Score> scoreUndoVersions,
-    required List<Score> scoreRedoVersions,
   }) = _Project;
 
-  factory Project.fromJson(Map<String, dynamic> json) => _$ProjectFromJson(json);
+  factory Project.fromJson(Map<String, dynamic> json) {
+    return Project(
+      title: json['title'] as String,
+      description: json['description'] as String,
+      updatedAt: DateTime.parse(json['updatedAt'] as String),
+      score: Score.fromJson(json['score'] as Map<String, dynamic>),
+    );
+  }
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'title': title,
+        'description': description,
+        'updatedAt': updatedAt.toIso8601String(),
+        'score': score.toJson(),
+      };
 
   String get updatedAtString {
     final DateFormat formatter = DateFormat.jm().add_yMd();
@@ -48,24 +61,25 @@ class Project with HiveObjectMixin, _$Project {
         barColumn.add(track.toList()[index].toPDF());
       }
       pdfBars.add(
-       pw.Stack(children: [
         pw.Container(
-           margin: pw.EdgeInsets.all(2),
-          child:pw.Text('${index + 1}'),
-        ),
-         pw.Container(
-            decoration: pw.BoxDecoration(
-              border: pw.Border.all(width: 1),
-            ),
-            padding: pw.EdgeInsets.fromLTRB(5,4,5,4),
-            child: pw.Column(
-              crossAxisAlignment: pw.CrossAxisAlignment.start,
-              children: barColumn,
-            ),
+          decoration: pw.BoxDecoration(
+            border: pw.Border.all(width: 1),
           ),
-       ])
+          padding: pw.EdgeInsets.fromLTRB(5, 4, 5, 4),
+          child: pw.Row(
+            mainAxisSize:pw.MainAxisSize.min,
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            children: [
+              
+              pw.Text('${index + 1}',style: pw.TextStyle(fontSize: 8)),
+              pw.Column(
+                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                children: barColumn,
+              ),
+            ],
+          ),
+        ),
       );
-
     });
 
     return [
@@ -99,13 +113,13 @@ class Project with HiveObjectMixin, _$Project {
   }
 
   Future<List<pw.Widget>> toPDFAsync() async {
-    var r = await compute<Map<String, dynamic>, List<pw.Widget>>(_computePDF, this.toJson());
-
+    // var r = await compute<Map<String, dynamic>, List<pw.Widget>>(_computePDF, this.toJson());
+    print('1');
+    var r = await _computePDF(toJson());
     return r;
   }
 }
 
 Future<List<pw.Widget>> _computePDF(Map<String, dynamic> project) async {
-  await PdfFontProvider.init();
   return Project.fromJson(project).toPDF();
 }

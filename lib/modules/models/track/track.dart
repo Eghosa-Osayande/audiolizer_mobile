@@ -14,6 +14,11 @@ import 'dart:collection';
 part 'track.freezed.dart';
 // part 'track.g.dart';
 
+enum TrackMode {
+  music,
+  lyrics;
+}
+
 @unfreezed
 class Track extends LinkedList<Bar> with _$Track, LinkedListEntry<Track>, EquatableMixin, ErrorObjectMixin<Bar> {
   Track._();
@@ -23,6 +28,7 @@ class Track extends LinkedList<Bar> with _$Track, LinkedListEntry<Track>, Equata
     required int volume,
     required MidiProgram program,
     required String name,
+    @Default(TrackMode.music) TrackMode trackMode,
     @Default(true) bool isVisible,
     @Default(true) bool isLyricsVisible,
   }) = _Track;
@@ -37,8 +43,11 @@ class Track extends LinkedList<Bar> with _$Track, LinkedListEntry<Track>, Equata
       name: json['name'] as String,
       isVisible: json['isVisible'] ?? true,
       isLyricsVisible: json['isLyricsVisible'] ?? true,
+      trackMode: TrackMode.values[(json['trackMode'] as int?) ?? TrackMode.music.index],
     );
-    List<Bar> bars = List.from((json['bars'] as List).map((e) => Bar.fromJson(e)).toList());
+    List<Bar> bars = List.from(
+      (json['bars'] as List).map((e) => Bar.fromJson(e)).toList(),
+    );
     track.addAll(bars);
     return track;
   }
@@ -51,6 +60,7 @@ class Track extends LinkedList<Bar> with _$Track, LinkedListEntry<Track>, Equata
         'bars': this.toList().map((bar) => bar.toJson()).toList(),
         'isVisible': isVisible,
         'isLyricsVisible': isLyricsVisible,
+        'trackMode': trackMode.index,
       };
 
   LinkedList<Bar> get bars => this;
@@ -101,6 +111,12 @@ class Track extends LinkedList<Bar> with _$Track, LinkedListEntry<Track>, Equata
   }
 
   Future<void> commit(MIDIFile midiFile, {bool isMetroneme = false}) async {
+    switch (trackMode) {
+      case TrackMode.lyrics:
+        return;
+      case TrackMode.music:
+        break;
+    }
     midiFile.addTempo(
       track: trackNumber,
       time: 0,

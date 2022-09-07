@@ -17,11 +17,11 @@ extension MusicNoteX on MusicNote {
     var note = this;
     int tonicMidiNumber = track.score.keySignature.midiNumber + ((track.score.tonicPitchNumber - 1) * 12);
     int pitch = tonicMidiNumber + note.solfa.offset + (note.octave * 12);
-    print([
-      solfa.symbol + '${octave}',
-      position,
-      duration
-    ]);
+    // print([
+    //   solfa.symbol + '${octave}',
+    //   position,
+    //   duration
+    // ]);
     if (isMetroneme) {
       midiFile.addNote(
         track: track.trackNumber,
@@ -38,7 +38,7 @@ extension MusicNoteX on MusicNote {
         pitch: isSilent ? 0 : pitch,
         time: position,
         duration: duration,
-        volume: isSilent ? 0 : track.volume-27,
+        volume: isSilent ? 0 : track.volume ,
       );
     }
   }
@@ -50,7 +50,11 @@ extension MusicNoteX on MusicNote {
 
   @override
   String _displayStringX() {
-    String level = (octave > 0) ? "'" : "\u2097";
-    return solfa.symbol + level * octave.abs();
+    String level = "'";
+    if (octave > 0) {
+      return solfa.symbol + level * octave.abs();
+    } else {
+      return level * octave.abs() + solfa.symbol;
+    }
   }
 }

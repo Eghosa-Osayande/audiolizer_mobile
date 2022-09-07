@@ -1,8 +1,10 @@
 import 'package:audiolizer/modules/models/track/track.dart';
 import 'package:audiolizer/modules/project_editor/cubit/edit_lyrics/edit_lyrics_cubit.dart';
+import 'package:audiolizer/modules/project_editor/cubit/focused_bar/focused_bar_cubit.dart';
 import 'package:audiolizer/modules/project_editor/cubit/toggle_keyboard_visibility.dart/toggle_keyboard_visibility_cubit.dart';
 import 'package:audiolizer/modules/project_editor/cubit/toggle_playback_progress_visibility/toggle_playback_progress_visibility.dart';
 import 'package:audiolizer/modules/project_editor/cubit/view_mode/view_mode.dart';
+import 'package:audiolizer/modules/project_editor/ui/playback_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +13,7 @@ import 'package:audiolizer/modules/project_editor/service/audio_player_service.d
 import 'package:audiolizer/modules/project_editor/ui/note_widgets/note_theme.dart';
 import 'package:audiolizer/modules/project_editor/ui/solfa_text_field/solfa_text_field.dart';
 import 'package:audiolizer/modules/themes/colors/app_colors.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class TrackBarWidget extends StatelessWidget {
   final int index;
@@ -24,52 +27,31 @@ class TrackBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var mode = (bar.list as Track).trackMode;
+     if (!(bar.list as Track).isVisible) {
+      return SizedBox();
+    }
     return MultiBlocProvider(
       providers: [
         BlocProvider(
           create: (context) => NoteThemeProvider(),
         ),
       ],
-      child: StreamBuilder<Duration>(
-          key: ValueKey(AudioPlayerService.instance.playCount),
-          stream: AudioPlayerService.instance.onPositionChanged,
-          builder: (context, snapshot) {
-            int? position = snapshot.data?.inSeconds;
-            Color color = Colors.transparent;
-
-            if (position != null && bar.startAt != null) {
-              if (position >= (bar.startAt!)) {
-                color = Colors.green;
-              }
-            } else {
-              print([
-                'rrr',
-                position,
-                bar.startAt
-              ]);
-            }
-            // print('du=>${}<==>${note.convertBeatPositionToSeconds()}');
-
-            return BlocBuilder<TogglePlayBackProgressCubit, bool>(
-              builder: (context, showPlayBack) {
-                return Container(
-                  decoration: BoxDecoration(
-                    color: showPlayBack ? color : Colors.transparent,
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: Column(
-                    children: [
-                      SolfaTextField(
-                        key: ObjectKey(bar),
-                        bar: bar,
-                      ),
-                      BarLyricsWidget(bar: bar)
-                    ],
-                  ),
-                );
-              },
-            );
-          }),
+      child: PlaybackProgressIndicator(
+        key: ObjectKey(bar),
+        bar: bar,
+        child: Column(
+          children: [
+            if (mode == TrackMode.music)
+              SolfaTextField(
+                key: ObjectKey(bar),
+                bar: bar,
+              )
+            else
+              BarLyricsWidget(bar: bar)
+          ],
+        ),
+      ),
     );
   }
 }
@@ -84,17 +66,20 @@ class BarLyricsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var isLyricsVisible = (bar.list as Track).isLyricsVisible;
-    if (!isLyricsVisible) {
-      return SizedBox();
-    }
-    return BlocBuilder<EditLyricsCubit, Bar?>(
-      builder: (context, editBar) {
-        if (editBar == bar) {
-          return LyricInputWidget();
-        } else {
-          return LyricsViewWidget(bar: bar);
-        }
+    return BlocBuilder<ViewModeCubit, ViewModeState>(
+      builder: (context, viewMode) {
+        return AbsorbPointer(
+          absorbing: !(viewMode == ViewModeState.edit),
+          child: BlocBuilder<EditLyricsCubit, Bar?>(
+            builder: (context, editBar) {
+              if (editBar == bar) {
+                return LyricInputWidget();
+              } else {
+                return LyricsViewWidget(bar: bar);
+              }
+            },
+          ),
+        );
       },
     );
   }
@@ -110,13 +95,30 @@ class LyricsViewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var lyrics = bar.lyrics;
+    var lyrics = bar.lyrics.trim();
 
-    if (lyrics.trim().isNotEmpty) {
-      return Align(alignment: Alignment.topLeft, child: Text(lyrics));
-    } else {
-      return SizedBox();
-    }
+    return InkWell(
+      onLongPress: () {
+        BlocProvider.of<EditLyricsCubit>(context).editBarLyrics(bar);
+        BlocProvider.of<ToggleSolfaKeyboardVisibilityCubit>(context).hide();
+      },
+      child: SizedBox(
+        child: Align(
+          alignment: Alignment.topLeft,
+          child: TextFormField(
+            enabled: false,
+            readOnly: true,
+            initialValue: lyrics,
+            style: GoogleFonts.inter(fontStyle: FontStyle.italic, fontSize: 14, height: 0.5),
+            decoration: InputDecoration(
+              hintText: "Press and hold to edit lyrics",
+              hintStyle: GoogleFonts.inter(fontStyle: FontStyle.italic, fontSize: 12),
+              contentPadding: EdgeInsets.fromLTRB(0, 2, 0, 2),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
 

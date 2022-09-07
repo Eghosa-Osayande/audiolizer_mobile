@@ -21,7 +21,12 @@ class PlatformPathService {
   }
 
   Future<String> getExportRootDirectory() async {
-    var directory = await getApplicationDocumentsDirectory();
+    var directory;
+    try {
+      directory = await getExternalStorageDirectory() ?? await getApplicationDocumentsDirectory();
+    } on Exception catch (e) {
+      directory = await getApplicationDocumentsDirectory();
+    }
     var path = directory.path + '/exports';
 
     return path;

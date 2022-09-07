@@ -6,19 +6,15 @@ import 'package:audiolizer/modules/models/notes/note.dart';
 class NoteTheme {
   final double fontSize;
 
-  NoteTheme([this.fontSize = 14]);
+  NoteTheme([this.fontSize = 18]);
 
   double get musicFontSize => fontSize - 2;
   double get musicDurationSize => fontSize - 2;
   double get musicWhiteSpaceSize => fontSize - 2;
 
-  TextStyle get constantStyle {
-    // return style;
-    return GoogleFonts.inter(fontSize: 20);
-  }
 
   TextStyle get style {
-    return GoogleFonts.inter(fontSize: fontSize);
+    return GoogleFonts.zillaSlab(fontSize: fontSize);
   }
 
   TextStyle getStyle(Note note) {
@@ -28,28 +24,6 @@ class NoteTheme {
 
 class NoteThemeProvider extends Cubit<NoteTheme> {
   NoteThemeProvider() : super(NoteTheme());
-
-  Size _size = Size(8, 24);
-
-  setFontSize(double fontSize) {
-    emit(NoteTheme(fontSize));
-  }
-
-  notifyChildSize(Size? size) {
-    if (size != null) {
-      double w = _size.width;
-      double h = _size.height;
-      if (size.width >= _size.width) {
-        w = size.width;
-      }
-      if (size.height >= _size.height) {
-        h = size.height;
-      }
-      _size = Size(w, h);
-    }
-  }
-
-  Size get size => _size;
 
   static NoteThemeProvider of(BuildContext context) {
     return BlocProvider.of<NoteThemeProvider>(context);

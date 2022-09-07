@@ -107,7 +107,7 @@ class Score extends LinkedList<Track> with HiveObjectMixin, _$Score, ErrorObject
 
   Future<void> addMetronemeTrack(int maxBeats) async {
     var metro = Track(
-      trackNumber: 7,
+      trackNumber: 9,
       program: MidiProgram.pizzicato,
       volume: 127,
       name: 'metroneme,',
@@ -165,7 +165,7 @@ class Score extends LinkedList<Track> with HiveObjectMixin, _$Score, ErrorObject
         return Failure(track);
       }
     }
-    await addMetronemeTrack(maxBeats);
+    // await addMetronemeTrack(maxBeats);
 
     for (var track in tracks) {
       await track.commit(midiFile!);

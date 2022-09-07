@@ -10,7 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:audiolizer/modules/models/score/score.dart';
 import 'package:audiolizer/modules/project_editor/cubit/current_project/current_project.dart';
-import 'package:audiolizer/modules/project_editor/cubit/edit_project/edit_project_cubit.dart';
+
 import 'package:audiolizer/modules/project_editor/cubit/play_score/play_score_cubit.dart';
 import 'package:audiolizer/modules/project_editor/cubit/toggle_edit_play_mode/toggle_edit_play_mode_cubit.dart';
 import 'package:audiolizer/modules/project_editor/cubit/toggle_keyboard_visibility.dart/toggle_keyboard_visibility_cubit.dart';
@@ -49,10 +49,10 @@ class EditToolbar extends StatelessWidget {
             Navigator.of(context).push(CreateProjectPage.route(project: project));
           },
         ),
-        BlocBuilder<UndoRedoCubit, UndoRedoState>(
-          builder: (context, state) {
+        Builder(
+          builder: (context) {
             return IconButton(
-              onPressed: project.scoreUndoVersions.isEmpty
+              onPressed: BlocProvider.of<UndoRedoCubit>(context, listen: true).projectUndoVersions.isEmpty
                   ? null
                   : () {
                       BlocProvider.of<UndoRedoCubit>(context).undo();
@@ -63,10 +63,10 @@ class EditToolbar extends StatelessWidget {
             );
           },
         ),
-        BlocBuilder<UndoRedoCubit, UndoRedoState>(
-          builder: (context, state) {
+        Builder(
+          builder: (context) {
             return IconButton(
-              onPressed: project.scoreRedoVersions.isEmpty
+              onPressed: BlocProvider.of<UndoRedoCubit>(context, listen: true).projectRedoVersions.isEmpty
                   ? null
                   : () {
                       BlocProvider.of<UndoRedoCubit>(context).redo();
@@ -119,7 +119,7 @@ class EditToolbar extends StatelessWidget {
                   ),
                 ),
               ),
-             PopupMenuItem(
+              PopupMenuItem(
                 onTap: () {
                   SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
                     showModalBottomSheet(

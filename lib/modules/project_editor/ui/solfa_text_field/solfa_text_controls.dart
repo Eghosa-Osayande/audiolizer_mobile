@@ -1,11 +1,12 @@
 import 'package:audiolizer/modules/project_editor/cubit/edit_lyrics/edit_lyrics_cubit.dart';
 import 'package:audiolizer/modules/project_editor/cubit/toggle_keyboard_visibility.dart/toggle_keyboard_visibility_cubit.dart';
+import 'package:audiolizer/modules/project_editor/cubit/undo_redo/undo_redo_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:audiolizer/modules/models/bar/bar.dart';
-import 'package:audiolizer/modules/project_editor/cubit/edit_project/edit_project_cubit.dart';
+
 import 'package:audiolizer/modules/project_editor/cubit/focused_bar/focused_bar_cubit.dart';
 import 'package:audiolizer/modules/project_editor/cubit/keyboard_event/keyboard_event.dart';
 
@@ -95,7 +96,7 @@ class SolfaTextFieldSelectionControls extends MaterialTextSelectionControls {
             onTap: () {
               var bar = BlocProvider.of<FocusedBarCubit>(cubitContext).state;
               if (bar != null) {
-                BlocProvider.of<EditProjectCubit>(cubitContext).takeSnapShot();
+                BlocProvider.of<UndoRedoCubit>(cubitContext).takeSnapShot();
                 BlocProvider.of<SolfaKeyBoardInputEventCubit>(cubitContext).deleteBars([
                   bar
                 ]);
@@ -105,18 +106,7 @@ class SolfaTextFieldSelectionControls extends MaterialTextSelectionControls {
             },
             child: Text('Delete Bar'),
           ),
-          ControlButton(
-            onTap: () {
-              var bar = BlocProvider.of<FocusedBarCubit>(cubitContext).state;
-              if (bar != null) {
-                BlocProvider.of<EditLyricsCubit>(cubitContext).editBarLyrics(bar);
-                BlocProvider.of<ToggleSolfaKeyboardVisibilityCubit>(cubitContext).hide();
-              }
-
-              delegate.hideToolbar();
-            },
-            child: Text('Edit Lyrics'),
-          ),
+          
         ],
       );
     });

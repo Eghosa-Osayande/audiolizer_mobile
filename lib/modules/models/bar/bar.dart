@@ -33,12 +33,19 @@ class Bar extends LinkedListEntry<Bar> with _$Bar, ChangeNotifier, ErrorObjectMi
     required DateTime createdAt,
     required List<Note> notes,
     @Default('') String lyrics,
-    double? startAt,
-    double? endAt,
     @Default(0) double duration,
   }) = Bard;
 
   factory Bar.fromJson(Map<String, dynamic> json) => _$BarFromJson(json);
+
+  double? startAtInSeconds() {
+    if (notes.isNotEmpty) {
+      var startAtInSeconds2 = notes.first.startAtInSeconds;
+      if (startAtInSeconds2 != null) {
+        return startAtInSeconds2 - .5;
+      }
+    }
+  }
 
   double get trackLengthInBeats {
     if (notes.isNotEmpty) {
@@ -56,7 +63,7 @@ class Bar extends LinkedListEntry<Bar> with _$Bar, ChangeNotifier, ErrorObjectMi
     MusicNote? previousNote, mid;
 
     clearErrors();
-    startAt = null;
+
     int index = 0;
     for (var note in notes) {
       errorIndex = index;
@@ -87,7 +94,7 @@ class Bar extends LinkedListEntry<Bar> with _$Bar, ChangeNotifier, ErrorObjectMi
             mid ??= MusicNote(solfa: Solfege.silent, octave: 0, createdAt: DateTime.now());
 
             //
-            startAt ??= start.startAtInSeconds;
+
             var result = start.beatsBetween(end);
             if (result.isSuccess) {
               double duration = result.success;
@@ -155,32 +162,39 @@ class Bar extends LinkedListEntry<Bar> with _$Bar, ChangeNotifier, ErrorObjectMi
 
   pw.Widget toPDF() {
     var noteList = notes.map((note) => note.toPDF()).toList();
-    return pw.Column(
-      crossAxisAlignment: pw.CrossAxisAlignment.start,
-      children: [
-        pw.Row(
+    switch ((this.list as Track).trackMode) {
+      case TrackMode.music:
+        return pw.Row(
           mainAxisSize: pw.MainAxisSize.min,
           children: noteList.isEmpty
               ? [
                   pw.Opacity(
                     opacity: 0,
-                    child: Note.music(octave: 0, solfa: Solfege.d, createdAt: DateTime.now()).toPDF(),
+                    child: Note.music(octave: 0, solfa: Solfege.silent, createdAt: DateTime.now()).toPDF(),
                   ),
                 ]
               : noteList,
-        ),
-        pw.Row(
-          mainAxisSize: pw.MainAxisSize.min,
-          children: [
-            lyrics.isEmpty
-                ? pw.Opacity(
-                    opacity: 0,
-                    child: pw.Text('lyrics',style: pw.TextStyle(font: PdfFontProvider.lyrics,)),
-                  )
-                : pw.Text(lyrics),
-          ],
-        ),
-      ],
-    );
+        );
+
+      case TrackMode.lyrics:
+        return pw.Container(
+         
+          child: pw.Row(
+            mainAxisSize: pw.MainAxisSize.min,
+            children: [
+              pw.SizedBox(width:10),
+              lyrics.isEmpty
+                  ? pw.Opacity(
+                      opacity: 0,
+                      child: pw.Text('lyrics',
+                          style: pw.TextStyle(
+                            font: PdfFontProvider.lyrics,
+                          )),
+                    )
+                  : pw.Text(lyrics),
+            ],
+          ),
+        );
+    }
   }
 }
