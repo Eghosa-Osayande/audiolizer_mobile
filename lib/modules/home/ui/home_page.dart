@@ -1,3 +1,4 @@
+import 'package:audiolizer/modules/common/widgets/no_projects_widget.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,7 +50,13 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         },
         child: Scaffold(
           appBar: AppBar(
-            title: Text('Audiolizer'),
+            automaticallyImplyLeading: false,
+            title: Text(
+              'Audiolizer',
+              style: TextStyle(
+                fontFamily: 'Logo',
+              ),
+            ),
           ),
           floatingActionButton: OpenProjectFAB(
             key: fabKey,
@@ -65,16 +72,20 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                     'My Projects',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  // trailing: TextButton(
-                  //     onPressed: () {
-                  //       Navigator.push(context, MyProjectsPage.route());
-                  //     },
-                  //     child: Text('View All')),
+                  trailing: TextButton(
+                      onPressed: () {
+                        Navigator.push(context, MyProjectsPage.route());
+                      },
+                      child: Text('View All')),
                 ),
               ),
               BlocBuilder<MyProjectsCubit, List<Project>?>(builder: (context, state) {
                 var pagingController = PagingController<int, Project>(firstPageKey: 0)
-                  ..itemList = state
+                  ..itemList = (state != null)
+                      ? state.length > 3
+                          ? state.sublist(0, 3)
+                          : state
+                      : null
                   ..nextPageKey = null;
 
                 return PagedSliverList(
@@ -82,41 +93,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                   shrinkWrapFirstPageIndicators: true,
                   builderDelegate: PagedChildBuilderDelegate<Project>(
                     noItemsFoundIndicatorBuilder: (context) {
-                      return Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.symmetric(vertical: 30),
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                "You have no projects yet",
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              ElevatedButton(
-                                onPressed: () {
-                                  Navigator.of(context).push(CreateProjectPage.route());
-                                },
-                                child: Text('New Project'),
-                              ),
-                              ElevatedButton(
-                                onPressed: () async {
-                                  var path = await PlatformFilePickerService.instance.pickFile();
-                                  if (path != null) {
-                                    ShareProjectService.instance.processFileFromPath(path);
-                                  }
-                                },
-                                child: Text('Open File'),
-                              ),
-                            ],
-                          )
-                        ],
-                      );
+                      return NoProjectsWidget();
                     },
                     itemBuilder: (context, project, index) {
                       return ProjectListTile(
@@ -137,3 +114,4 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     );
   }
 }
+

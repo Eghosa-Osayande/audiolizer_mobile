@@ -1,3 +1,4 @@
+import 'package:audiolizer/modules/splash/ui/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:form_builder_validators/localization/l10n.dart';
@@ -23,7 +24,19 @@ class _AudiolizerAppState extends State<AudiolizerApp> {
   @override
   void initState() {
     super.initState();
-    ShareProjectService.instance.handleAnyInitialSharedProject();
+    precacheImage(
+        AssetImage(
+          'assets/images/logo_colored.png',
+        ),
+        context);
+    Future.delayed(
+      Duration(milliseconds: 4000),
+      () {
+        navigatorKey.currentState?.push(HomePage.route());
+        ShareProjectService.instance.handleAnyInitialSharedProject();
+      },
+    );
+
     ShareProjectService.instance.sharedProjectEventStream.listen(onRecievedShareProjectEvent);
   }
 
@@ -57,7 +70,7 @@ class _AudiolizerAppState extends State<AudiolizerApp> {
             displayColor: AppColors.instance.defaultTextColor,
           ),
           brightness: Brightness.dark),
-      home: const HomePage(),
+      home: const SplashPage(),
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:audiolizer/modules/common/widgets/no_projects_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -56,6 +57,7 @@ class _MyProjectsPageState extends State<MyProjectsPage> with SingleTickerProvid
                 pagingController: pagingController,
                 shrinkWrapFirstPageIndicators: true,
                 builderDelegate: PagedChildBuilderDelegate<Project>(
+                  noItemsFoundIndicatorBuilder: (context) => NoProjectsWidget(),
                   itemBuilder: (context, project, index) {
                     return ProjectListTile(
                       key: ObjectKey(project),

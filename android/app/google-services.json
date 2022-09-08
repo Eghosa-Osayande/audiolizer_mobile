@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "223484387411",
+    "project_id": "audiolizer-solfa",
+    "storage_bucket": "audiolizer-solfa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:223484387411:android:a251ceb7611ef88127e6a6",
+        "android_client_info": {
+          "package_name": "com.audiolizer.mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "223484387411-8vjr4k6gqmeh2nqf24il9e8b4kj5fk10.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAvGi8-WWhCHqvshWXMVrpSRSoTS20me4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "223484387411-8vjr4k6gqmeh2nqf24il9e8b4kj5fk10.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "223484387411-0raoqqemqgtpk202r91aa7d52o6766ia.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.solpha"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
