@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "223484387411",
+    "firebase_url": "https://audiolizer-solfa-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "audiolizer-solfa",
     "storage_bucket": "audiolizer-solfa.appspot.com"
   },

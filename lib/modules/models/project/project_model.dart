@@ -2,6 +2,7 @@ import 'package:audiolizer/modules/common/extensions/list.dart';
 import 'package:audiolizer/modules/models/bar/bar.dart';
 import 'package:audiolizer/modules/models/track/track.dart';
 import 'package:audiolizer/modules/pdf/utils/pdf_font_provider.dart';
+import 'package:audiolizer/modules/themes/constants.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
@@ -47,6 +48,13 @@ class Project with HiveObjectMixin, _$Project {
     return '${formatter.format(updatedAt)}';
   }
 
+  saveVersion() {
+    this.updatedAt = DateTime.now();
+    this.save();
+  }
+
+ 
+
   String titleShort(int value, {String delimiter = ''}) {
     return (title.length > value ? title.substring(0, value) + delimiter : title);
   }
@@ -63,15 +71,17 @@ class Project with HiveObjectMixin, _$Project {
       pdfBars.add(
         pw.Container(
           decoration: pw.BoxDecoration(
-            border: pw.Border.all(width: 1),
+            border: pw.Border.all(
+              width: 0.5,
+              color: PdfColors.black.shade(0.4),
+            ),
           ),
           padding: pw.EdgeInsets.fromLTRB(5, 4, 5, 4),
           child: pw.Row(
-            mainAxisSize:pw.MainAxisSize.min,
+            mainAxisSize: pw.MainAxisSize.min,
             crossAxisAlignment: pw.CrossAxisAlignment.start,
             children: [
-              
-              pw.Text('${index + 1}',style: pw.TextStyle(fontSize: 8)),
+              pw.Text('${index + 1}', style: pw.TextStyle(fontSize: 8)),
               pw.Column(
                 crossAxisAlignment: pw.CrossAxisAlignment.start,
                 children: barColumn,
@@ -89,7 +99,19 @@ class Project with HiveObjectMixin, _$Project {
           children: [
             pw.Text('${title}', style: pw.TextStyle(fontWeight: pw.FontWeight.bold, fontSize: 20)),
             pw.Spacer(),
-            pw.Text('Generated with Audiolizer', style: pw.TextStyle(fontWeight: pw.FontWeight.bold, fontSize: 17))
+            pw.Row(
+              crossAxisAlignment: pw.CrossAxisAlignment.end,
+              children: [
+                pw.Text(
+                  'Generated with Audiolizer',
+                  style: pw.TextStyle(fontWeight: pw.FontWeight.bold, fontSize: 17),
+                ),
+                pw.SizedBox.square(
+                  dimension: 50,
+                  child: pw.SvgImage(svg: kLogoSvg),
+                ),
+              ],
+            )
           ],
         ),
         pw.Row(
@@ -114,7 +136,7 @@ class Project with HiveObjectMixin, _$Project {
 
   Future<List<pw.Widget>> toPDFAsync() async {
     // var r = await compute<Map<String, dynamic>, List<pw.Widget>>(_computePDF, this.toJson());
-    print('1');
+
     var r = await _computePDF(toJson());
     return r;
   }

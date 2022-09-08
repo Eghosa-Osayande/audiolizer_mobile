@@ -29,6 +29,7 @@ flutter pub global run rename --bundleId com.joovlin.test2 --appname "test2"
 
 
 adb shell setprop debug.firebase.analytics.app com.audiolizer.mobile
+adb shell setprop debug.firebase.analytics.app .none.
 adb logcat | grep 'InAppMessaging'
 
 flutter pub cache 

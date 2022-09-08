@@ -101,6 +101,20 @@ abstract class Note with _$Note, EquatableMixin {
     );
   }
 
+  String pdfString() {
+    return map<String>(
+      music: (music) {
+        return displayString();
+      },
+      duration: (duration) {
+        return displayString();
+      },
+      whiteSpace: (whiteSpace) {
+        return ' ';
+      },
+    );
+  }
+
   pw.Widget toPDF() {
     pw.Font font = map<pw.Font>(
       music: (music) {
@@ -113,15 +127,48 @@ abstract class Note with _$Note, EquatableMixin {
         return PdfFontProvider.musicFont;
       },
     );
-    return pw.Text(
-      displayString(),
+    var r = pw.Text(
+      pdfString(),
       style: pw.TextStyle(
         font: font,
-        fontSize: 12,
+        fontSize: map(
+          music: (music) {
+            return 12.0;
+          },
+          duration: (duration) {
+            return 13.0;
+          },
+          whiteSpace: (whiteSpace) {
+            return 12.0;
+          },
+        ),
+        fontWeight: map(
+          music: (music) {
+            return pw.FontWeight.normal;
+          },
+          duration: (duration) {
+            return pw.FontWeight.bold;
+          },
+          whiteSpace: (whiteSpace) {
+            return pw.FontWeight.normal;
+          },
+        ),
         fontFallback: [
           PdfFontProvider.fallback
         ],
       ),
+    );
+    return map(
+      music: (value) => r,
+      duration: (value) => pw.Container(
+        margin: pw.EdgeInsets.symmetric(
+          horizontal: 1,
+        ),
+        child: pw.Center(
+          child: r,
+        ),
+      ),
+      whiteSpace: (value) => pw.SizedBox(width: 10),
     );
   }
 

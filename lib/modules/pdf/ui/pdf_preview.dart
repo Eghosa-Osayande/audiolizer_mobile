@@ -1,6 +1,8 @@
 import 'package:audiolizer/modules/models/project/project_model.dart';
 import 'package:audiolizer/modules/themes/colors/app_colors.dart';
+import 'package:audiolizer/modules/themes/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 
@@ -70,16 +72,31 @@ class _ScorePdfPreview extends StatelessWidget {
         canDebug: false,
         allowPrinting: true,
         dynamicLayout: false,
-        pdfFileName: project.title+'_audiolizer.pdf',
+        pdfFileName: project.title + '_audiolizer.pdf',
         padding: EdgeInsets.zero,
         onPrinted: (context) {},
         onPrintError: (context, error) {},
         onShared: (context) {},
         scrollViewDecoration: BoxDecoration(color: AppColors.instance.black),
+        initialPageFormat: PdfPageFormat.a4,
+        canChangePageFormat: false,
         build: (format) {
           var pageTheme = pw.PageTheme(
             margin: pw.EdgeInsets.all(20),
             pageFormat: format,
+            buildBackground: (context) {
+              return pw.Opacity(
+                opacity: 0.05,
+                child: pw.Center(
+                  child: pw.SizedBox.square(
+                    dimension: 400,
+                    child: pw.SvgImage(
+                      svg: kLogoSvg,
+                    ),
+                  ),
+                ),
+              );
+            },
           );
 
           final pdf2Save = pw.Document();

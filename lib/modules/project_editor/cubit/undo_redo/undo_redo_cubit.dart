@@ -6,16 +6,16 @@ import 'package:audiolizer/modules/models/project/project_model.dart';
 class UndoRedoCubit extends Cubit<UndoRedoState> {
   final Project project;
   final List<Score> projectUndoVersions = [];
-  final List<Score>  projectRedoVersions = [];
+  final List<Score> projectRedoVersions = [];
 
   UndoRedoCubit({required this.project}) : super(UndoRedoState(project));
 
   void takeSnapShot() {
     print('snapshot taken');
+    
     var scoreCopy = Score.fromJson(project.score.toJson());
     projectUndoVersions.add(scoreCopy);
     projectRedoVersions.clear();
-
   }
 
   void undo() {

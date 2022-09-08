@@ -1,15 +1,23 @@
 import 'package:intl/intl.dart';
 
-class ConversationDateFormater {
+class CustomDateFormater {
+  static final DateFormat _formatter = DateFormat('yyyy/MM/dd');
+
+  static String getProjectUpdatedTime(DateTime date) {
+    return '${_getChatBubbleDate(date)} - ${_getDateBubbleDate(date)}';
+  }
+
   /// use for chat bubble
-  static String getChatBubbleDate(DateTime date) {
+  static String _getChatBubbleDate(DateTime date) {
+    date = date.toLocal();
     return DateFormat('jm').format(date);
   }
 
   /// use for conversation tile
-  static String getConversationDate(DateTime date) {
-    final now = DateTime.now();
-    final DateFormat formatter = DateFormat('yyyy/MM/dd');
+  static String _getConversationDate(DateTime date) {
+    date = date.toLocal();
+    final now = DateTime.now().toLocal();
+
     String getWeekDay() {
       switch (date.weekday) {
         case 1:
@@ -34,7 +42,7 @@ class ConversationDateFormater {
     final diff = now.day - date.day;
     switch (diff) {
       case 0:
-        return getChatBubbleDate(date);
+        return _getChatBubbleDate(date);
       case 1:
         return 'Yesterday';
       case 2:
@@ -50,14 +58,15 @@ class ConversationDateFormater {
       case 7:
         return '${getWeekDay()}';
       default:
-        return formatter.format(date);
+        return _formatter.format(date);
     }
   }
 
   /// use for date bubble
-  static String getDateBubbleDate(DateTime date) {
+  static String _getDateBubbleDate(DateTime date) {
+    date = date.toLocal();
+    // return getConversationDate(date);
     final now = DateTime.now();
-    final DateFormat formatter = DateFormat.EEEE();
     final nowUtc = DateTime.utc(now.year, now.month, now.day);
     final dateUtc = DateTime.utc(date.year, date.month, date.day);
     // To calculate the no. of days between two dates
@@ -70,7 +79,7 @@ class ConversationDateFormater {
       case 1:
         return 'Yesterday';
       default:
-        return formatter.format(date);
+        return _formatter.format(date);
     }
   }
 }

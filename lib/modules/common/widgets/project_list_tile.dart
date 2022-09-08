@@ -1,3 +1,4 @@
+import 'package:audiolizer/modules/common/formatters/date_formater.dart';
 import 'package:flutter/material.dart';
 import 'package:audiolizer/modules/common/formatters/string_formatter.dart';
 import 'package:audiolizer/modules/common/widgets/project_bottom_sheet.dart';
@@ -43,8 +44,8 @@ class ProjectListTile extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
           ),
           subtitle: Text(
-            '${project.updatedAtString}',
-          ),
+            'Last opened at ' + CustomDateFormater.getProjectUpdatedTime(project.updatedAt)
+          ,style: TextStyle(fontSize: 10),),
           trailing: IconButton(
             icon: Icon(
               Icons.more_vert,

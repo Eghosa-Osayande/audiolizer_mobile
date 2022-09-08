@@ -1,4 +1,6 @@
+import 'package:audiolizer/modules/common/widgets/list_tile_loader.dart';
 import 'package:audiolizer/modules/common/widgets/no_projects_widget.dart';
+import 'package:audiolizer/modules/home/home_feed/ui/home_feed_sliver_list.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -92,6 +94,13 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                   pagingController: pagingController,
                   shrinkWrapFirstPageIndicators: true,
                   builderDelegate: PagedChildBuilderDelegate<Project>(
+                     firstPageProgressIndicatorBuilder: (context) {
+          return Column(
+            children: List.generate(3, (index) {
+              return ListTileLoader();
+            }),
+          );
+        },
                     noItemsFoundIndicatorBuilder: (context) {
                       return NoProjectsWidget();
                     },
@@ -105,8 +114,26 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                 );
               }),
               SliverToBoxAdapter(
-                child: SizedBox(height: 200),
-              )
+                child: SizedBox(
+                  height: 16,
+                  child: Divider(),
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: ListTile(
+                  title: Text(
+                    'Feed',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+              HomeFeedList(),
+              SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 200,
+                  
+                ),
+              ),
             ],
           ),
         ),
@@ -114,4 +141,3 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     );
   }
 }
-

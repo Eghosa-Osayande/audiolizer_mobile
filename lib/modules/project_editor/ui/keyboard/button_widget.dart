@@ -33,8 +33,9 @@ class _ButtonWidgetState extends State<ButtonWidget> {
   double initialWidth = 30;
 
   Timer? timer;
+  Timer? startTimer;
 
-  Duration delay = const Duration(milliseconds: 100);
+  Duration delay = const Duration(milliseconds: 2000);
 
   void continuousWork() {
     widget.data.action(context);
@@ -43,18 +44,24 @@ class _ButtonWidgetState extends State<ButtonWidget> {
   void onJobEnd() {
     if (widget.data.canLongPress) {
       debugPrint("Job END");
+      startTimer?.cancel();
       timer?.cancel();
       timer = null;
     }
   }
 
-  void onJobStart() {
+  void onJobStart() async {
     if (widget.data.canLongPress) {
       if (timer != null) return;
-      debugPrint("Job started");
-      timer = Timer.periodic(delay, (timer) {
-        continuousWork();
-      });
+      startTimer ??= Timer(
+        Duration(milliseconds: 2000),
+        () {
+          debugPrint("Job started");
+          timer = Timer.periodic(delay, (timer) {
+            continuousWork();
+          });
+        },
+      );
     }
   }
 

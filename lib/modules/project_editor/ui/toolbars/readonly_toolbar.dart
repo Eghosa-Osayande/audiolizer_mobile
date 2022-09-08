@@ -6,7 +6,9 @@ import 'package:audiolizer/modules/project_editor/cubit/toggle_edit_play_mode/to
 import 'package:audiolizer/modules/project_editor/cubit/toggle_keyboard_visibility.dart/toggle_keyboard_visibility_cubit.dart';
 import 'package:audiolizer/modules/project_editor/cubit/toggle_metroneme/toggle_metroneme.dart';
 import 'package:audiolizer/modules/project_editor/cubit/toggle_playback_progress_visibility/toggle_playback_progress_visibility.dart';
+import 'package:audiolizer/modules/project_editor/cubit/view_mode/view_mode.dart';
 import 'package:audiolizer/modules/project_editor/ui/toolbars/primary_toolbar.dart';
+import 'package:audiolizer/modules/themes/colors/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -81,22 +83,20 @@ class ReadOnlyToolbar extends StatelessWidget {
           ),
         ),
         Spacer(),
-        IconButton(
-          onPressed: () {
-            BlocProvider.of<PlayScoreCubit>(context).play();
+        BlocBuilder<ViewModeCubit, ViewModeState>(
+          builder: (context, viewMode) {
+            if (viewMode == ViewModeState.readOnly) {
+              return IconButton(
+                icon: Icon(Icons.edit),
+                onPressed: () {
+                  BlocProvider.of<ViewModeCubit>(context).edit();
+                },
+              );
+            }
+            return SizedBox();
           },
-          icon: BlocBuilder<ToggleEditPlayModeCubit, ToggleEditPlayModeState>(
-            builder: (context, state) {
-              switch (state) {
-                case ToggleEditPlayModeState.edit:
-                  return Icon(Icons.play_arrow);
-
-                case ToggleEditPlayModeState.playing:
-                  return Icon(Icons.pause);
-              }
-            },
-          ),
         ),
+     
         PopupMenuButton(
           itemBuilder: (context) {
             return [

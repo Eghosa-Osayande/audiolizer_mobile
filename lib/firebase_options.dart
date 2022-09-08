@@ -57,6 +57,7 @@ class DefaultFirebaseOptions {
     appId: '1:223484387411:android:a251ceb7611ef88127e6a6',
     messagingSenderId: '223484387411',
     projectId: 'audiolizer-solfa',
+    databaseURL: 'https://audiolizer-solfa-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'audiolizer-solfa.appspot.com',
   );
 }

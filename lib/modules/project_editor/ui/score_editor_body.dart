@@ -1,6 +1,7 @@
 import 'package:audiolizer/modules/app/ui/app.dart';
 import 'package:audiolizer/modules/common/widgets/confirm_action_dialog.dart';
 import 'package:audiolizer/modules/models/bar/bar.dart';
+import 'package:audiolizer/modules/project_editor/cubit/current_project/current_project.dart';
 import 'package:audiolizer/modules/project_editor/cubit/focused_bar/focused_bar_cubit.dart';
 import 'package:audiolizer/modules/project_editor/cubit/play_score/play_score_cubit.dart';
 import 'package:audiolizer/modules/project_editor/cubit/view_mode/view_mode.dart';
@@ -64,6 +65,7 @@ class _ScoreEditorBodyState extends State<ScoreEditorBody> with RouteAware, Widg
       case AppLifecycleState.resumed:
         break;
       case AppLifecycleState.inactive:
+      BlocProvider.of<CurrentProjectCubit>(context).state.saveVersion();
         break;
       case AppLifecycleState.paused:
 
@@ -75,11 +77,13 @@ class _ScoreEditorBodyState extends State<ScoreEditorBody> with RouteAware, Widg
 
   @override
   void didPop() {
+    BlocProvider.of<CurrentProjectCubit>(context).state.saveVersion();
     AudioPlayerService.instance.stop();
   }
 
   @override
   void didPushNext() {
+    BlocProvider.of<CurrentProjectCubit>(context).state.saveVersion();
     AudioPlayerService.instance.stop();
   }
 
@@ -100,17 +104,18 @@ class _ScoreEditorBodyState extends State<ScoreEditorBody> with RouteAware, Widg
           case SolfaKeyboardVisibility.hidden:
             break;
         }
-        switch (BlocProvider.of<ViewModeCubit>(context).state) {
-          case ViewModeState.readOnly:
-            break;
-          case ViewModeState.edit:
-            var r = await showConfirmDialog(
-              context,
-              'Continue without saving?',
+        BlocProvider.of<CurrentProjectCubit>(context).state.saveVersion();
+        // switch (BlocProvider.of<ViewModeCubit>(context).state) {
+        //   case ViewModeState.readOnly:
+        //     break;
+        //   case ViewModeState.edit:
+        //     var r = await showConfirmDialog(
+        //       context,
+        //       'Continue without saving?',
 
-            );
-            return r ?? false;
-        }
+        //     );
+        //     return r ?? false;
+        // }
         return true;
       },
       child: BlocBuilder<ReloadProjectCubit, ReloadProjectCubitState>(

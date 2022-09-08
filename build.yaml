@@ -9,14 +9,20 @@ targets:
         generate_for:
           - lib/modules/models/**.dart
           - lib/modules/models/**/**.dart
+          - lib/modules/home/**.dart
+          - lib/modules/home/**/**.dart
       
       hive_generator:hive_generator:
         enabled: false
         generate_for:
           - lib/modules/models/**.dart
           - lib/modules/models/**/**.dart
+          - lib/modules/home/**.dart
+          - lib/modules/home/**/**.dart
       json_serializable:json_serializable:
         enabled: true
         generate_for:
           - lib/modules/models/**.dart
           - lib/modules/models/**/**.dart
+          - lib/modules/home/**.dart
+          - lib/modules/home/**/**.dart

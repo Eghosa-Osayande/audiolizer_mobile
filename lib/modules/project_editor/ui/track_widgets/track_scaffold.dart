@@ -1,6 +1,8 @@
 import 'package:audiolizer/modules/project_editor/cubit/current_project/current_project.dart';
 import 'package:audiolizer/modules/project_editor/cubit/focused_bar/focused_bar_cubit.dart';
 import 'package:audiolizer/modules/project_editor/cubit/keyboard_event/keyboard_event.dart';
+import 'package:audiolizer/modules/project_editor/cubit/play_score/play_score_cubit.dart';
+import 'package:audiolizer/modules/project_editor/cubit/toggle_edit_play_mode/toggle_edit_play_mode_cubit.dart';
 import 'package:audiolizer/modules/project_editor/cubit/toggle_keyboard_visibility.dart/toggle_keyboard_visibility_cubit.dart';
 import 'package:audiolizer/modules/project_editor/cubit/undo_redo/undo_redo_cubit.dart';
 import 'package:audiolizer/modules/project_editor/cubit/view_mode/view_mode.dart';
@@ -40,11 +42,22 @@ class _TrackScaffoldState extends State<TrackScaffold> {
             builder: (context, viewMode) {
               if (viewMode == ViewModeState.readOnly) {
                 return FloatingActionButton(
-                  child: Icon(Icons.edit),
                   backgroundColor: AppColors.instance.primary,
+                  foregroundColor: AppColors.instance.iconLight,
                   onPressed: () {
-                    BlocProvider.of<ViewModeCubit>(context).edit();
+                    BlocProvider.of<PlayScoreCubit>(context).play();
                   },
+                  child: BlocBuilder<ToggleEditPlayModeCubit, ToggleEditPlayModeState>(
+                    builder: (context, state) {
+                      switch (state) {
+                        case ToggleEditPlayModeState.edit:
+                          return Icon(Icons.play_arrow);
+
+                        case ToggleEditPlayModeState.playing:
+                          return Icon(Icons.pause);
+                      }
+                    },
+                  ),
                 );
               }
               return SizedBox();

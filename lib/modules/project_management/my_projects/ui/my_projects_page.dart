@@ -1,3 +1,4 @@
+import 'package:audiolizer/modules/common/widgets/list_tile_loader.dart';
 import 'package:audiolizer/modules/common/widgets/no_projects_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -57,6 +58,13 @@ class _MyProjectsPageState extends State<MyProjectsPage> with SingleTickerProvid
                 pagingController: pagingController,
                 shrinkWrapFirstPageIndicators: true,
                 builderDelegate: PagedChildBuilderDelegate<Project>(
+                  firstPageProgressIndicatorBuilder: (context) {
+                    return Column(
+                      children: List.generate(5, (index) {
+                        return ListTileLoader();
+                      }),
+                    );
+                  },
                   noItemsFoundIndicatorBuilder: (context) => NoProjectsWidget(),
                   itemBuilder: (context, project, index) {
                     return ProjectListTile(
@@ -67,6 +75,12 @@ class _MyProjectsPageState extends State<MyProjectsPage> with SingleTickerProvid
                 ),
               );
             }),
+             SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 200,
+                  
+                ),
+              ),
           ],
         ),
       ),

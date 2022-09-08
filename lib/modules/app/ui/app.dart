@@ -1,3 +1,5 @@
+import 'package:audiolizer/modules/firebase/firebase_service.dart';
+import 'package:audiolizer/modules/hive_db/util/hive_initializer.dart';
 import 'package:audiolizer/modules/splash/ui/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -21,14 +23,19 @@ class AudiolizerApp extends StatefulWidget {
 
 class _AudiolizerAppState extends State<AudiolizerApp> {
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
   @override
   void initState() {
     super.initState();
-    precacheImage(
-        AssetImage(
-          'assets/images/logo_colored.png',
-        ),
-        context);
+
+    init();
+  }
+
+  Future<void> init() async {
+    await HiveInitializer.init();
+    await FirebaseService.init();
+
+    ShareProjectService.instance.sharedProjectEventStream.listen(onRecievedShareProjectEvent);
     Future.delayed(
       Duration(milliseconds: 4000),
       () {
@@ -36,8 +43,6 @@ class _AudiolizerAppState extends State<AudiolizerApp> {
         ShareProjectService.instance.handleAnyInitialSharedProject();
       },
     );
-
-    ShareProjectService.instance.sharedProjectEventStream.listen(onRecievedShareProjectEvent);
   }
 
   void onRecievedShareProjectEvent(Project project) {

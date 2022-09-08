@@ -83,6 +83,9 @@ dependencies:
   cloud_firestore: ^3.4.6
   flutter_inappwebview: ^5.4.3+7
   flutter_animate: ^1.0.0
+  skeletons: ^0.0.3
+  firebase_database: ^9.1.4
+  cached_network_image: ^3.2.1
   
   
 

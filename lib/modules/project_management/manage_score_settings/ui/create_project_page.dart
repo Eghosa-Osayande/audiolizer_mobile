@@ -5,7 +5,6 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:midi_util/midi_util.dart';
 import 'package:audiolizer/modules/models/bar/bar.dart';
-import 'package:audiolizer/modules/models/notes/config_notes_x.dart';
 import 'package:audiolizer/modules/models/notes/note.dart';
 import 'package:audiolizer/modules/models/project/project_model.dart';
 import 'package:audiolizer/modules/models/score/enums/key_signature.dart';
@@ -235,7 +234,7 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
 
     project.score = updatedScore;
 
-    await project.save();
+    await project.saveVersion();
 
     Navigator.pop<Project>(context, project);
   }
