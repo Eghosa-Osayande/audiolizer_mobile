@@ -26,7 +26,6 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
     'Instrumentalist',
     'Choir director',
     'Chorister',
-    'Chorister Master',
     'Music student',
     'Hobbyist musician',
     'Professional musician',
@@ -34,6 +33,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
     'New to tonic solfa',
     'I want to improve my sight singing',
     'I want to improve my relative pitch',
+    'Music tutor'
   ];
   late List<bool> isSelected = options.map((e) => false).toList();
 
