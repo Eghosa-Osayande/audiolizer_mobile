@@ -1,5 +1,8 @@
+import 'package:audiolizer/modules/app_update/app_update_service.dart';
 import 'package:audiolizer/modules/firebase/firebase_service.dart';
 import 'package:audiolizer/modules/hive_db/util/hive_initializer.dart';
+import 'package:audiolizer/modules/onboarding/repo/onboarding_repo.dart';
+import 'package:audiolizer/modules/onboarding/ui/onboarding_page.dart';
 import 'package:audiolizer/modules/splash/ui/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -15,6 +18,7 @@ import 'package:audiolizer/modules/themes/theme_utils.dart';
 
 class AudiolizerApp extends StatefulWidget {
   static final RouteObserver routeObserver = RouteObserver();
+  static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   const AudiolizerApp({Key? key}) : super(key: key);
 
   @override
@@ -22,8 +26,6 @@ class AudiolizerApp extends StatefulWidget {
 }
 
 class _AudiolizerAppState extends State<AudiolizerApp> {
-  static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-
   @override
   void initState() {
     super.initState();
@@ -35,18 +37,22 @@ class _AudiolizerAppState extends State<AudiolizerApp> {
     await HiveInitializer.init();
     await FirebaseService.init();
 
-    ShareProjectService.instance.sharedProjectEventStream.listen(onRecievedShareProjectEvent);
     Future.delayed(
       Duration(milliseconds: 4000),
-      () {
-        navigatorKey.currentState?.push(HomePage.route());
+      () async {
+        if (await OnBoardingRepo.instance.shouldDoOnBoarding()) {
+          await AudiolizerApp.navigatorKey.currentState?.push(OnBoardingPage.route());
+        }
+        AppUpdateService.instance.checkUpdate();
+        AudiolizerApp.navigatorKey.currentState?.pushReplacement(HomePage.route());
         ShareProjectService.instance.handleAnyInitialSharedProject();
+        ShareProjectService.instance.sharedProjectEventStream.listen(onRecievedShareProjectEvent);
       },
     );
   }
 
   void onRecievedShareProjectEvent(Project project) {
-    navigatorKey.currentState?.push(ProjectEditorPage.route(project));
+    AudiolizerApp.navigatorKey.currentState?.push(ProjectEditorPage.route(project));
   }
 
   @override
@@ -57,7 +63,7 @@ class _AudiolizerAppState extends State<AudiolizerApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      navigatorKey: navigatorKey,
+      navigatorKey: AudiolizerApp.navigatorKey,
       title: 'Audiolizer',
       debugShowCheckedModeBanner: false,
       localizationsDelegates: const [

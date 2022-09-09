@@ -16,5 +16,5 @@ abstract class HomeFeedRepo {
 
   static HomeFeedRepo get instance => HomeFeedRepo._create();
 
-  Future<Result<List<HomeFeedModel>, String>> readAll();
+  Future<Result<List<HomeFeedModel>, String>> getHomeFeed();
 }

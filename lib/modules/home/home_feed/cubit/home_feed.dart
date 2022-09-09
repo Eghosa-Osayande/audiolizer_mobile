@@ -4,11 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:result_type/result_type.dart';
 
 class HomeFeedCubit extends Cubit<Result<List<HomeFeedModel>, String>?> {
-
   HomeFeedCubit() : super(null);
 
   Future<void> loadFeed() async {
-    var result = await HomeFeedRepo.instance.readAll();
+    var result = await HomeFeedRepo.instance.getHomeFeed();
     emit(result);
   }
 }
