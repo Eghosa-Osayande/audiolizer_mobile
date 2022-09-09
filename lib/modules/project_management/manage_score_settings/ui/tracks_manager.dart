@@ -280,7 +280,7 @@ class _TrackOptionsWidgetState extends State<TrackOptionsWidget> {
                                           return DropdownMenuItem<MidiProgram>(
                                               value: sign,
                                               child: ListTile(
-                                                title: Text(sign.name),
+                                                title: Text(sign.displayString),
                                               ));
                                         }).toList(),
                                       ),
