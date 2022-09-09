@@ -27,22 +27,13 @@ class AppUpdateService {
     var updatedAt = await box.get(
       'updateAt',
     );
-    // if (update != null && updatedAt != null) {
-    //   var now = DateTime.now();
-    //   var then = DateTime.fromMicrosecondsSinceEpoch(updatedAt);
-    //   var diff = then.difference(now);
-    //   if (diff.inHours.abs() < 24) {
-    //     var cacheUpdate = AppRemoteConfig.fromJson(
-    //       Map<String, dynamic>.from(update),
-    //     );
-    //     await _onUpdate(cacheUpdate);
-    //     return true;
-    //   }
-    // }
-    var cacheUpdate = AppRemoteConfig.fromJson(
-      Map<String, dynamic>.from(update),
-    );
-    await _onUpdate(cacheUpdate);
+
+    if (update != null && updatedAt != null) {
+      var cacheUpdate = AppRemoteConfig.fromJson(
+        Map<String, dynamic>.from(update),
+      );
+      await _onUpdate(cacheUpdate);
+    }
 
     var r = await FirebaseService.instance.getAppUpdate();
 
