@@ -64,61 +64,70 @@ class _ScorePdfPreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('PDF - ${project.title}'),
-      ),
-      body: PdfPreview(
-        canDebug: false,
-        allowPrinting: true,
-        dynamicLayout: false,
-        pdfFileName: project.title + '_audiolizer.pdf',
-        padding: EdgeInsets.zero,
-        onPrinted: (context) {},
-        onPrintError: (context, error) {},
-        onShared: (context) {},
-        scrollViewDecoration: BoxDecoration(color: AppColors.instance.black),
-        initialPageFormat: PdfPageFormat.a4,
-        canChangePageFormat: false,
-        build: (format) {
-          var pageTheme = pw.PageTheme(
-            margin: pw.EdgeInsets.all(20),
-            pageFormat: format,
-            buildBackground: (context) {
-              return pw.Opacity(
-                opacity: 0.05,
-                child: pw.Center(
-                  child: pw.SizedBox.square(
-                    dimension: 400,
-                    child: pw.SvgImage(
-                      svg: kLogoSvg,
+    return Focus(
+      autofocus: true,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('PDF - ${project.title}'),
+        ),
+        body: PdfPreview(
+          canDebug: false,
+          allowPrinting: true,
+          dynamicLayout: true,
+          pdfFileName: project.title + '_audiolizer.pdf',
+          padding: EdgeInsets.zero,
+          onPrinted: (context) {},
+          onPrintError: (context, error) {},
+          onShared: (context) {},
+          scrollViewDecoration: BoxDecoration(color: AppColors.instance.black),
+          initialPageFormat: PdfPageFormat.a4,
+          canChangeOrientation: true,
+          pageFormats: {
+            'A4': PdfPageFormat.a4,
+            'A3': PdfPageFormat.a3,
+            'Letter': PdfPageFormat.letter,
+            'Legal': PdfPageFormat.legal,
+          },
+          build: (format) {
+            var pageTheme = pw.PageTheme(
+              margin: pw.EdgeInsets.all(20),
+              pageFormat: format,
+              buildBackground: (context) {
+                return pw.Opacity(
+                  opacity: 0.05,
+                  child: pw.Center(
+                    child: pw.SizedBox.square(
+                      dimension: 400,
+                      child: pw.SvgImage(
+                        svg: kLogoSvg,
+                      ),
                     ),
                   ),
-                ),
-              );
-            },
-          );
-
-          final pdf2Save = pw.Document();
-
-          pdf2Save.addPage(
-            pw.MultiPage(
-              pageTheme: pageTheme,
-              build: (context) {
-                var wrap = pw.Wrap(
-                  runAlignment: pw.WrapAlignment.center,
-                  crossAxisAlignment: pw.WrapCrossAlignment.center,
-                  children: children,
                 );
-                return [
-                  wrap
-                ];
               },
-            ),
-          );
+            );
 
-          return pdf2Save.save();
-        },
+            final pdf2Save = pw.Document();
+
+            pdf2Save.addPage(
+              pw.MultiPage(
+                pageTheme: pageTheme,
+                build: (context) {
+                  var wrap = pw.Wrap(
+                    runAlignment: pw.WrapAlignment.center,
+                    crossAxisAlignment: pw.WrapCrossAlignment.center,
+                    children: children,
+                  );
+                  return [
+                    wrap
+                  ];
+                },
+              ),
+            );
+
+            return pdf2Save.save();
+          },
+        ),
       ),
     );
   }

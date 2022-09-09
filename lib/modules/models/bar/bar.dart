@@ -40,7 +40,15 @@ class Bar extends LinkedListEntry<Bar> with _$Bar, ChangeNotifier, ErrorObjectMi
 
   double? startAtInSeconds() {
     if (notes.isNotEmpty) {
-      var startAtInSeconds2 = notes.first.startAtInSeconds;
+      var startAtInSeconds2 = notes
+          .firstWhere(
+            (element) => element.maybeMap(
+              orElse: () => true,
+              whiteSpace: (value) => false,
+            ),
+            orElse: () => notes.first,
+          )
+          .startAtInSeconds;
       if (startAtInSeconds2 != null) {
         return startAtInSeconds2 - .5;
       }
@@ -170,7 +178,7 @@ class Bar extends LinkedListEntry<Bar> with _$Bar, ChangeNotifier, ErrorObjectMi
               ? [
                   pw.Opacity(
                     opacity: 0,
-                    child: Note.music(octave: 0, solfa: Solfege.silent, createdAt: DateTime.now()).toPDF(),
+                   child: Note.music(octave: 0, solfa: Solfege.silent, createdAt: DateTime.now()).toPDF(),
                   ),
                 ]
               : noteList,
@@ -178,20 +186,19 @@ class Bar extends LinkedListEntry<Bar> with _$Bar, ChangeNotifier, ErrorObjectMi
 
       case TrackMode.lyrics:
         return pw.Container(
-         
           child: pw.Row(
             mainAxisSize: pw.MainAxisSize.min,
             children: [
-              pw.SizedBox(width:10),
-              lyrics.isEmpty
+              // pw.SizedBox(width: 10),
+              lyrics.trim().isEmpty
                   ? pw.Opacity(
                       opacity: 0,
-                      child: pw.Text('lyrics',
+                      child: pw.Text('o',
                           style: pw.TextStyle(
                             font: PdfFontProvider.lyrics,
                           )),
                     )
-                  : pw.Text(lyrics),
+                  : pw.Text(lyrics,style: pw.TextStyle(fontSize: 10)),
             ],
           ),
         );

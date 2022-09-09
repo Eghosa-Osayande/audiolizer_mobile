@@ -13,8 +13,8 @@ class TogglePlayBackProgressCubit extends Cubit<bool> {
     emit(event);
   }
 
-  void toggle(bool value) {
-    TogglePlaybackProgressVisibilityRepo.instance.put(value);
+  void toggle() {
+    TogglePlaybackProgressVisibilityRepo.instance.put(!state);
   }
 
   @override

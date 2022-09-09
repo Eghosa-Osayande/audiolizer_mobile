@@ -13,8 +13,8 @@ class VolumeNavigationCubit extends Cubit<bool> {
     emit(event);
   }
 
-  void toggle(bool value) {
-    VolumeNavigationRepo.instance.put(value);
+  void toggle() {
+    VolumeNavigationRepo.instance.put(!state);
   }
 
   @override

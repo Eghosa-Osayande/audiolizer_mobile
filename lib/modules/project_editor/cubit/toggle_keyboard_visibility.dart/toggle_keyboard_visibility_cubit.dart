@@ -13,8 +13,6 @@ class ToggleSolfaKeyboardVisibilityCubit extends Cubit<SolfaKeyboardVisibility> 
         emit(SolfaKeyboardVisibility.hidden);
         break;
       case SolfaKeyboardVisibility.hidden:
-
-     
         emit(SolfaKeyboardVisibility.visible);
         break;
     }
@@ -29,6 +27,4 @@ class ToggleSolfaKeyboardVisibilityCubit extends Cubit<SolfaKeyboardVisibility> 
     SystemChannels.textInput.invokeMethod('TextInput.hide');
     emit(SolfaKeyboardVisibility.hidden);
   }
-
-
 }

@@ -53,8 +53,6 @@ class Project with HiveObjectMixin, _$Project {
     this.save();
   }
 
- 
-
   String titleShort(int value, {String delimiter = ''}) {
     return (title.length > value ? title.substring(0, value) + delimiter : title);
   }
@@ -76,14 +74,14 @@ class Project with HiveObjectMixin, _$Project {
               color: PdfColors.black.shade(0.4),
             ),
           ),
-          padding: pw.EdgeInsets.fromLTRB(5, 4, 5, 4),
-          child: pw.Row(
+          padding: pw.EdgeInsets.fromLTRB(5, 1, 5, 4),
+          child: pw.Column(
             mainAxisSize: pw.MainAxisSize.min,
             crossAxisAlignment: pw.CrossAxisAlignment.start,
             children: [
               pw.Text('${index + 1}', style: pw.TextStyle(fontSize: 8)),
               pw.Column(
-                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                crossAxisAlignment: pw.CrossAxisAlignment.center,
                 children: barColumn,
               ),
             ],

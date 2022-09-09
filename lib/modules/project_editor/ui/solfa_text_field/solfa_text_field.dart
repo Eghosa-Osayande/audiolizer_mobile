@@ -23,9 +23,7 @@ class SolfaTextField extends StatefulWidget {
 }
 
 class _SolfaTextFieldState extends State<SolfaTextField> {
-  late final FocusNode focus = FocusNode(
-    onKey: volumeKeyOveride,
-  );
+  final FocusNode focus = FocusNode();
 
   late SolfaEditingController controller = SolfaEditingController(widget.bar.notes);
 
@@ -56,6 +54,7 @@ class _SolfaTextFieldState extends State<SolfaTextField> {
       }
     });
     focus.addListener(focusListener);
+    focus.onKey = volumeKeyOveride;
   }
 
   void focusListener() {
@@ -83,7 +82,6 @@ class _SolfaTextFieldState extends State<SolfaTextField> {
 
   @override
   Widget build(BuildContext context) {
-   
     final textField = _buildTextField();
     // return buildAutoSizedText(context, textField, controller);
     return textField;

@@ -1,5 +1,6 @@
 import 'package:audiolizer/modules/common/widgets/project_bottom_sheet.dart';
 import 'package:audiolizer/modules/common/widgets/toolbar_options.dart';
+import 'package:audiolizer/modules/pdf/ui/pdf_preview.dart';
 import 'package:audiolizer/modules/project_editor/cubit/current_project/current_project.dart';
 import 'package:audiolizer/modules/project_editor/cubit/play_score/play_score_cubit.dart';
 import 'package:audiolizer/modules/project_editor/cubit/toggle_edit_play_mode/toggle_edit_play_mode_cubit.dart';
@@ -13,52 +14,66 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-List<PopupMenuItem<dynamic>> popupItemsReadOnly = [
-  // PopupMenuItem(
-  //   child: ToolbarOption(
-  //     title: 'Metroneme',
-  //     trailing: BlocProvider(
-  //       create: (context) => ToggleMetronemeCubit(),
-  //       child: Builder(builder: (context) {
-  //         return BlocBuilder<ToggleMetronemeCubit, bool>(
-  //           builder: (context, state) {
-  //             return Checkbox(
-  //                 value: state,
-  //                 onChanged: (bool? value) {
-  //                   if (value != null) {
-  //                     BlocProvider.of<ToggleMetronemeCubit>(context).toggle(value);
-  //                   }
-  //                   Navigator.pop(context);
-  //                 });
-  //           },
-  //         );
-  //       }),
-  //     ),
-  //   ),
-  // ),
-  PopupMenuItem(
-    child: ToolbarOption(
-      title: 'Show Progress',
-      trailing: BlocProvider(
-        create: (context) => TogglePlayBackProgressCubit(),
+Function(dynamic)? getSelectedFuction(BuildContext context) {
+  return (dynamic value) {
+    switch (value) {
+      case 'pdf':
+        var project = BlocProvider.of<CurrentProjectCubit>(context).state;
+        Navigator.push(context, ScorePdfPreview.route(project: project));
+    }
+  };
+}
+
+List<PopupMenuItem<dynamic>> popupItemsReadOnly(BuildContext cubitContext) => [
+      // PopupMenuItem(
+      //   child: ToolbarOption(
+      //     title: 'Metroneme',
+      //     trailing: BlocProvider(
+      //       create: (context) => ToggleMetronemeCubit(),
+      //       child: Builder(builder: (context) {
+      //         return BlocBuilder<ToggleMetronemeCubit, bool>(
+      //           builder: (context, state) {
+      //             return Checkbox(
+      //                 value: state,
+      //                 onChanged: (bool? value) {
+      //                   if (value != null) {
+      //                     BlocProvider.of<ToggleMetronemeCubit>(context).toggle(value);
+      //                   }
+      //                   Navigator.pop(context);
+      //                 });
+      //           },
+      //         );
+      //       }),
+      //     ),
+      //   ),
+      // ),
+
+      PopupMenuItem(
+        value: 'pdf',
         child: Builder(builder: (context) {
-          return BlocBuilder<TogglePlayBackProgressCubit, bool>(
-            builder: (context, state) {
-              return Checkbox(
-                  value: state,
-                  onChanged: (bool? value) {
-                    if (value != null) {
-                      BlocProvider.of<TogglePlayBackProgressCubit>(context).toggle(value);
-                    }
-                    Navigator.pop(context);
-                  });
-            },
+          return ToolbarOption(
+            title: 'Share as PDF',
+            trailing: Icon(Icons.picture_as_pdf),
           );
         }),
       ),
-    ),
-  ),
-];
+      PopupMenuItem(
+        onTap: () {
+          BlocProvider.of<TogglePlayBackProgressCubit>(cubitContext).toggle();
+        },
+        child: Builder(builder: (context) {
+          return ToolbarOption(
+            title: 'Show Progress',
+            trailing: Checkbox(
+                value: BlocProvider.of<TogglePlayBackProgressCubit>(cubitContext).state,
+                onChanged: (bool? value) {
+                  BlocProvider.of<TogglePlayBackProgressCubit>(cubitContext).toggle();
+                  Navigator.pop(context);
+                }),
+          );
+        }),
+      ),
+    ];
 
 class ReadOnlyToolbar extends StatelessWidget {
   const ReadOnlyToolbar({
@@ -96,11 +111,11 @@ class ReadOnlyToolbar extends StatelessWidget {
             return SizedBox();
           },
         ),
-     
         PopupMenuButton(
+           onSelected: getSelectedFuction(context),
           itemBuilder: (context) {
             return [
-              ...popupItemsReadOnly,
+              ...popupItemsReadOnly(context),
               PopupMenuItem(
                 onTap: () {
                   SchedulerBinding.instance.addPostFrameCallback((timeStamp) {

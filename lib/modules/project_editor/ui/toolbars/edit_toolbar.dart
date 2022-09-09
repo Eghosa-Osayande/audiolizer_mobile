@@ -94,29 +94,27 @@ class EditToolbar extends StatelessWidget {
           ),
         ),
         PopupMenuButton(
+          onSelected: getSelectedFuction(context),
           itemBuilder: (context) {
             return [
-              ...popupItemsReadOnly,
+              ...popupItemsReadOnly(context),
               PopupMenuItem(
-                child: ToolbarOption(
-                  title: 'Volume Navigation',
-                  trailing: BlocProvider(
-                    create: (context) => VolumeNavigationCubit(),
-                    child: Builder(builder: (context) {
-                      return BlocBuilder<VolumeNavigationCubit, bool>(
-                        builder: (context, state) {
-                          return Checkbox(
-                              value: state,
-                              onChanged: (bool? value) {
-                                if (value != null) {
-                                  BlocProvider.of<VolumeNavigationCubit>(context).toggle(value);
-                                }
-                                Navigator.pop(context);
-                              });
-                        },
-                      );
-                    }),
-                  ),
+                onTap: () {
+                  BlocProvider.of<VolumeNavigationCubit>(context).toggle();
+                 
+                },
+                child: Builder(
+                  builder: (_) {
+                    return ToolbarOption(
+                      title: 'Volume Navigation',
+                      trailing: Checkbox(
+                          value: BlocProvider.of<VolumeNavigationCubit>(context).state,
+                          onChanged: (bool? value) {
+                            BlocProvider.of<VolumeNavigationCubit>(context).toggle();
+                            Navigator.pop(_);
+                          }),
+                    );
+                  }
                 ),
               ),
               PopupMenuItem(
