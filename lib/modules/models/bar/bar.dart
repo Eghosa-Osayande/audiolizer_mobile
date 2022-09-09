@@ -55,6 +55,23 @@ class Bar extends LinkedListEntry<Bar> with _$Bar, ChangeNotifier, ErrorObjectMi
     }
   }
 
+  double? endAtInSeconds() {
+    if (notes.isNotEmpty) {
+      var endAtInSeconds2 = notes
+          .lastWhere(
+            (element) => element.maybeMap(
+              orElse: () => true,
+              whiteSpace: (value) => false,
+            ),
+            orElse: () => notes.first,
+          )
+          .startAtInSeconds;
+      if (endAtInSeconds2 != null) {
+        return endAtInSeconds2 - .5;
+      }
+    }
+  }
+
   double get trackLengthInBeats {
     if (notes.isNotEmpty) {
       return notes.last.endAt ?? 0;
@@ -178,7 +195,7 @@ class Bar extends LinkedListEntry<Bar> with _$Bar, ChangeNotifier, ErrorObjectMi
               ? [
                   pw.Opacity(
                     opacity: 0,
-                   child: Note.music(octave: 0, solfa: Solfege.silent, createdAt: DateTime.now()).toPDF(),
+                    child: Note.music(octave: 0, solfa: Solfege.silent, createdAt: DateTime.now()).toPDF(),
                   ),
                 ]
               : noteList,
@@ -198,7 +215,7 @@ class Bar extends LinkedListEntry<Bar> with _$Bar, ChangeNotifier, ErrorObjectMi
                             font: PdfFontProvider.lyrics,
                           )),
                     )
-                  : pw.Text(lyrics,style: pw.TextStyle(fontSize: 10)),
+                  : pw.Text(lyrics, style: pw.TextStyle(fontSize: 10)),
             ],
           ),
         );

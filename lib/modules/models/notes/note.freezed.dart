@@ -41,6 +41,8 @@ mixin _$Note {
   set duration(double value) => throw _privateConstructorUsedError;
   double? get startAtInSeconds => throw _privateConstructorUsedError;
   set startAtInSeconds(double? value) => throw _privateConstructorUsedError;
+  double? get endAtInSeconds => throw _privateConstructorUsedError;
+  set endAtInSeconds(double? value) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
@@ -50,7 +52,8 @@ mixin _$Note {
             double? startAt,
             double? endAt,
             double duration,
-            double? startAtInSeconds)
+            double? startAtInSeconds,
+            double? endAtInSeconds)
         music,
     required TResult Function(
             DurationMarker marker,
@@ -58,10 +61,16 @@ mixin _$Note {
             double? startAt,
             double? endAt,
             double duration,
-            double? startAtInSeconds)
+            double? startAtInSeconds,
+            double? endAtInSeconds)
         duration,
-    required TResult Function(DateTime createdAt, double? startAt,
-            double? endAt, double duration, double? startAtInSeconds)
+    required TResult Function(
+            DateTime createdAt,
+            double? startAt,
+            double? endAt,
+            double duration,
+            double? startAtInSeconds,
+            double? endAtInSeconds)
         whiteSpace,
   }) =>
       throw _privateConstructorUsedError;
@@ -74,13 +83,20 @@ mixin _$Note {
             double? startAt,
             double? endAt,
             double duration,
-            double? startAtInSeconds)?
+            double? startAtInSeconds,
+            double? endAtInSeconds)?
         music,
-    TResult Function(DurationMarker marker, DateTime createdAt, double? startAt,
-            double? endAt, double duration, double? startAtInSeconds)?
+    TResult Function(
+            DurationMarker marker,
+            DateTime createdAt,
+            double? startAt,
+            double? endAt,
+            double duration,
+            double? startAtInSeconds,
+            double? endAtInSeconds)?
         duration,
     TResult Function(DateTime createdAt, double? startAt, double? endAt,
-            double duration, double? startAtInSeconds)?
+            double duration, double? startAtInSeconds, double? endAtInSeconds)?
         whiteSpace,
   }) =>
       throw _privateConstructorUsedError;
@@ -93,13 +109,20 @@ mixin _$Note {
             double? startAt,
             double? endAt,
             double duration,
-            double? startAtInSeconds)?
+            double? startAtInSeconds,
+            double? endAtInSeconds)?
         music,
-    TResult Function(DurationMarker marker, DateTime createdAt, double? startAt,
-            double? endAt, double duration, double? startAtInSeconds)?
+    TResult Function(
+            DurationMarker marker,
+            DateTime createdAt,
+            double? startAt,
+            double? endAt,
+            double duration,
+            double? startAtInSeconds,
+            double? endAtInSeconds)?
         duration,
     TResult Function(DateTime createdAt, double? startAt, double? endAt,
-            double duration, double? startAtInSeconds)?
+            double duration, double? startAtInSeconds, double? endAtInSeconds)?
         whiteSpace,
     required TResult orElse(),
   }) =>
@@ -140,7 +163,8 @@ abstract class $NoteCopyWith<$Res> {
       double? startAt,
       double? endAt,
       double duration,
-      double? startAtInSeconds});
+      double? startAtInSeconds,
+      double? endAtInSeconds});
 }
 
 /// @nodoc
@@ -158,6 +182,7 @@ class _$NoteCopyWithImpl<$Res> implements $NoteCopyWith<$Res> {
     Object? endAt = freezed,
     Object? duration = freezed,
     Object? startAtInSeconds = freezed,
+    Object? endAtInSeconds = freezed,
   }) {
     return _then(_value.copyWith(
       createdAt: createdAt == freezed
@@ -180,6 +205,10 @@ class _$NoteCopyWithImpl<$Res> implements $NoteCopyWith<$Res> {
           ? _value.startAtInSeconds
           : startAtInSeconds // ignore: cast_nullable_to_non_nullable
               as double?,
+      endAtInSeconds: endAtInSeconds == freezed
+          ? _value.endAtInSeconds
+          : endAtInSeconds // ignore: cast_nullable_to_non_nullable
+              as double?,
     ));
   }
 }
@@ -197,7 +226,8 @@ abstract class _$$MusicNoteCopyWith<$Res> implements $NoteCopyWith<$Res> {
       double? startAt,
       double? endAt,
       double duration,
-      double? startAtInSeconds});
+      double? startAtInSeconds,
+      double? endAtInSeconds});
 }
 
 /// @nodoc
@@ -219,6 +249,7 @@ class __$$MusicNoteCopyWithImpl<$Res> extends _$NoteCopyWithImpl<$Res>
     Object? endAt = freezed,
     Object? duration = freezed,
     Object? startAtInSeconds = freezed,
+    Object? endAtInSeconds = freezed,
   }) {
     return _then(_$MusicNote(
       solfa: solfa == freezed
@@ -249,6 +280,10 @@ class __$$MusicNoteCopyWithImpl<$Res> extends _$NoteCopyWithImpl<$Res>
           ? _value.startAtInSeconds
           : startAtInSeconds // ignore: cast_nullable_to_non_nullable
               as double?,
+      endAtInSeconds: endAtInSeconds == freezed
+          ? _value.endAtInSeconds
+          : endAtInSeconds // ignore: cast_nullable_to_non_nullable
+              as double?,
     ));
   }
 }
@@ -265,6 +300,7 @@ class _$MusicNote extends MusicNote {
       this.endAt,
       this.duration = 0,
       this.startAtInSeconds,
+      this.endAtInSeconds,
       final String? $type})
       : $type = $type ?? 'music',
         super._();
@@ -287,6 +323,8 @@ class _$MusicNote extends MusicNote {
   double duration;
   @override
   double? startAtInSeconds;
+  @override
+  double? endAtInSeconds;
 
   @JsonKey(name: 'runtimeType')
   final String $type;
@@ -306,7 +344,8 @@ class _$MusicNote extends MusicNote {
             double? startAt,
             double? endAt,
             double duration,
-            double? startAtInSeconds)
+            double? startAtInSeconds,
+            double? endAtInSeconds)
         music,
     required TResult Function(
             DurationMarker marker,
@@ -314,14 +353,20 @@ class _$MusicNote extends MusicNote {
             double? startAt,
             double? endAt,
             double duration,
-            double? startAtInSeconds)
+            double? startAtInSeconds,
+            double? endAtInSeconds)
         duration,
-    required TResult Function(DateTime createdAt, double? startAt,
-            double? endAt, double duration, double? startAtInSeconds)
+    required TResult Function(
+            DateTime createdAt,
+            double? startAt,
+            double? endAt,
+            double duration,
+            double? startAtInSeconds,
+            double? endAtInSeconds)
         whiteSpace,
   }) {
     return music(solfa, octave, createdAt, startAt, endAt, this.duration,
-        startAtInSeconds);
+        startAtInSeconds, endAtInSeconds);
   }
 
   @override
@@ -334,17 +379,24 @@ class _$MusicNote extends MusicNote {
             double? startAt,
             double? endAt,
             double duration,
-            double? startAtInSeconds)?
+            double? startAtInSeconds,
+            double? endAtInSeconds)?
         music,
-    TResult Function(DurationMarker marker, DateTime createdAt, double? startAt,
-            double? endAt, double duration, double? startAtInSeconds)?
+    TResult Function(
+            DurationMarker marker,
+            DateTime createdAt,
+            double? startAt,
+            double? endAt,
+            double duration,
+            double? startAtInSeconds,
+            double? endAtInSeconds)?
         duration,
     TResult Function(DateTime createdAt, double? startAt, double? endAt,
-            double duration, double? startAtInSeconds)?
+            double duration, double? startAtInSeconds, double? endAtInSeconds)?
         whiteSpace,
   }) {
     return music?.call(solfa, octave, createdAt, startAt, endAt, this.duration,
-        startAtInSeconds);
+        startAtInSeconds, endAtInSeconds);
   }
 
   @override
@@ -357,19 +409,26 @@ class _$MusicNote extends MusicNote {
             double? startAt,
             double? endAt,
             double duration,
-            double? startAtInSeconds)?
+            double? startAtInSeconds,
+            double? endAtInSeconds)?
         music,
-    TResult Function(DurationMarker marker, DateTime createdAt, double? startAt,
-            double? endAt, double duration, double? startAtInSeconds)?
+    TResult Function(
+            DurationMarker marker,
+            DateTime createdAt,
+            double? startAt,
+            double? endAt,
+            double duration,
+            double? startAtInSeconds,
+            double? endAtInSeconds)?
         duration,
     TResult Function(DateTime createdAt, double? startAt, double? endAt,
-            double duration, double? startAtInSeconds)?
+            double duration, double? startAtInSeconds, double? endAtInSeconds)?
         whiteSpace,
     required TResult orElse(),
   }) {
     if (music != null) {
       return music(solfa, octave, createdAt, startAt, endAt, this.duration,
-          startAtInSeconds);
+          startAtInSeconds, endAtInSeconds);
     }
     return orElse();
   }
@@ -424,7 +483,8 @@ abstract class MusicNote extends Note {
       double? startAt,
       double? endAt,
       double duration,
-      double? startAtInSeconds}) = _$MusicNote;
+      double? startAtInSeconds,
+      double? endAtInSeconds}) = _$MusicNote;
   MusicNote._() : super._();
 
   factory MusicNote.fromJson(Map<String, dynamic> json) = _$MusicNote.fromJson;
@@ -449,6 +509,9 @@ abstract class MusicNote extends Note {
   double? get startAtInSeconds;
   set startAtInSeconds(double? value);
   @override
+  double? get endAtInSeconds;
+  set endAtInSeconds(double? value);
+  @override
   @JsonKey(ignore: true)
   _$$MusicNoteCopyWith<_$MusicNote> get copyWith =>
       throw _privateConstructorUsedError;
@@ -466,7 +529,8 @@ abstract class _$$DurationNoteCopyWith<$Res> implements $NoteCopyWith<$Res> {
       double? startAt,
       double? endAt,
       double duration,
-      double? startAtInSeconds});
+      double? startAtInSeconds,
+      double? endAtInSeconds});
 }
 
 /// @nodoc
@@ -487,6 +551,7 @@ class __$$DurationNoteCopyWithImpl<$Res> extends _$NoteCopyWithImpl<$Res>
     Object? endAt = freezed,
     Object? duration = freezed,
     Object? startAtInSeconds = freezed,
+    Object? endAtInSeconds = freezed,
   }) {
     return _then(_$DurationNote(
       marker: marker == freezed
@@ -513,6 +578,10 @@ class __$$DurationNoteCopyWithImpl<$Res> extends _$NoteCopyWithImpl<$Res>
           ? _value.startAtInSeconds
           : startAtInSeconds // ignore: cast_nullable_to_non_nullable
               as double?,
+      endAtInSeconds: endAtInSeconds == freezed
+          ? _value.endAtInSeconds
+          : endAtInSeconds // ignore: cast_nullable_to_non_nullable
+              as double?,
     ));
   }
 }
@@ -528,6 +597,7 @@ class _$DurationNote extends DurationNote {
       this.endAt,
       this.duration = 0,
       this.startAtInSeconds,
+      this.endAtInSeconds,
       final String? $type})
       : $type = $type ?? 'duration',
         super._();
@@ -548,6 +618,8 @@ class _$DurationNote extends DurationNote {
   double duration;
   @override
   double? startAtInSeconds;
+  @override
+  double? endAtInSeconds;
 
   @JsonKey(name: 'runtimeType')
   final String $type;
@@ -567,7 +639,8 @@ class _$DurationNote extends DurationNote {
             double? startAt,
             double? endAt,
             double duration,
-            double? startAtInSeconds)
+            double? startAtInSeconds,
+            double? endAtInSeconds)
         music,
     required TResult Function(
             DurationMarker marker,
@@ -575,14 +648,20 @@ class _$DurationNote extends DurationNote {
             double? startAt,
             double? endAt,
             double duration,
-            double? startAtInSeconds)
+            double? startAtInSeconds,
+            double? endAtInSeconds)
         duration,
-    required TResult Function(DateTime createdAt, double? startAt,
-            double? endAt, double duration, double? startAtInSeconds)
+    required TResult Function(
+            DateTime createdAt,
+            double? startAt,
+            double? endAt,
+            double duration,
+            double? startAtInSeconds,
+            double? endAtInSeconds)
         whiteSpace,
   }) {
-    return duration(
-        marker, createdAt, startAt, endAt, this.duration, startAtInSeconds);
+    return duration(marker, createdAt, startAt, endAt, this.duration,
+        startAtInSeconds, endAtInSeconds);
   }
 
   @override
@@ -595,17 +674,24 @@ class _$DurationNote extends DurationNote {
             double? startAt,
             double? endAt,
             double duration,
-            double? startAtInSeconds)?
+            double? startAtInSeconds,
+            double? endAtInSeconds)?
         music,
-    TResult Function(DurationMarker marker, DateTime createdAt, double? startAt,
-            double? endAt, double duration, double? startAtInSeconds)?
+    TResult Function(
+            DurationMarker marker,
+            DateTime createdAt,
+            double? startAt,
+            double? endAt,
+            double duration,
+            double? startAtInSeconds,
+            double? endAtInSeconds)?
         duration,
     TResult Function(DateTime createdAt, double? startAt, double? endAt,
-            double duration, double? startAtInSeconds)?
+            double duration, double? startAtInSeconds, double? endAtInSeconds)?
         whiteSpace,
   }) {
-    return duration?.call(
-        marker, createdAt, startAt, endAt, this.duration, startAtInSeconds);
+    return duration?.call(marker, createdAt, startAt, endAt, this.duration,
+        startAtInSeconds, endAtInSeconds);
   }
 
   @override
@@ -618,19 +704,26 @@ class _$DurationNote extends DurationNote {
             double? startAt,
             double? endAt,
             double duration,
-            double? startAtInSeconds)?
+            double? startAtInSeconds,
+            double? endAtInSeconds)?
         music,
-    TResult Function(DurationMarker marker, DateTime createdAt, double? startAt,
-            double? endAt, double duration, double? startAtInSeconds)?
+    TResult Function(
+            DurationMarker marker,
+            DateTime createdAt,
+            double? startAt,
+            double? endAt,
+            double duration,
+            double? startAtInSeconds,
+            double? endAtInSeconds)?
         duration,
     TResult Function(DateTime createdAt, double? startAt, double? endAt,
-            double duration, double? startAtInSeconds)?
+            double duration, double? startAtInSeconds, double? endAtInSeconds)?
         whiteSpace,
     required TResult orElse(),
   }) {
     if (duration != null) {
-      return duration(
-          marker, createdAt, startAt, endAt, this.duration, startAtInSeconds);
+      return duration(marker, createdAt, startAt, endAt, this.duration,
+          startAtInSeconds, endAtInSeconds);
     }
     return orElse();
   }
@@ -684,7 +777,8 @@ abstract class DurationNote extends Note {
       double? startAt,
       double? endAt,
       double duration,
-      double? startAtInSeconds}) = _$DurationNote;
+      double? startAtInSeconds,
+      double? endAtInSeconds}) = _$DurationNote;
   DurationNote._() : super._();
 
   factory DurationNote.fromJson(Map<String, dynamic> json) =
@@ -708,6 +802,9 @@ abstract class DurationNote extends Note {
   double? get startAtInSeconds;
   set startAtInSeconds(double? value);
   @override
+  double? get endAtInSeconds;
+  set endAtInSeconds(double? value);
+  @override
   @JsonKey(ignore: true)
   _$$DurationNoteCopyWith<_$DurationNote> get copyWith =>
       throw _privateConstructorUsedError;
@@ -724,7 +821,8 @@ abstract class _$$WhiteSpaceNoteCopyWith<$Res> implements $NoteCopyWith<$Res> {
       double? startAt,
       double? endAt,
       double duration,
-      double? startAtInSeconds});
+      double? startAtInSeconds,
+      double? endAtInSeconds});
 }
 
 /// @nodoc
@@ -744,6 +842,7 @@ class __$$WhiteSpaceNoteCopyWithImpl<$Res> extends _$NoteCopyWithImpl<$Res>
     Object? endAt = freezed,
     Object? duration = freezed,
     Object? startAtInSeconds = freezed,
+    Object? endAtInSeconds = freezed,
   }) {
     return _then(_$WhiteSpaceNote(
       createdAt: createdAt == freezed
@@ -766,6 +865,10 @@ class __$$WhiteSpaceNoteCopyWithImpl<$Res> extends _$NoteCopyWithImpl<$Res>
           ? _value.startAtInSeconds
           : startAtInSeconds // ignore: cast_nullable_to_non_nullable
               as double?,
+      endAtInSeconds: endAtInSeconds == freezed
+          ? _value.endAtInSeconds
+          : endAtInSeconds // ignore: cast_nullable_to_non_nullable
+              as double?,
     ));
   }
 }
@@ -780,6 +883,7 @@ class _$WhiteSpaceNote extends WhiteSpaceNote {
       this.endAt,
       this.duration = 0,
       this.startAtInSeconds,
+      this.endAtInSeconds,
       final String? $type})
       : $type = $type ?? 'whiteSpace',
         super._();
@@ -798,6 +902,8 @@ class _$WhiteSpaceNote extends WhiteSpaceNote {
   double duration;
   @override
   double? startAtInSeconds;
+  @override
+  double? endAtInSeconds;
 
   @JsonKey(name: 'runtimeType')
   final String $type;
@@ -817,7 +923,8 @@ class _$WhiteSpaceNote extends WhiteSpaceNote {
             double? startAt,
             double? endAt,
             double duration,
-            double? startAtInSeconds)
+            double? startAtInSeconds,
+            double? endAtInSeconds)
         music,
     required TResult Function(
             DurationMarker marker,
@@ -825,14 +932,20 @@ class _$WhiteSpaceNote extends WhiteSpaceNote {
             double? startAt,
             double? endAt,
             double duration,
-            double? startAtInSeconds)
+            double? startAtInSeconds,
+            double? endAtInSeconds)
         duration,
-    required TResult Function(DateTime createdAt, double? startAt,
-            double? endAt, double duration, double? startAtInSeconds)
+    required TResult Function(
+            DateTime createdAt,
+            double? startAt,
+            double? endAt,
+            double duration,
+            double? startAtInSeconds,
+            double? endAtInSeconds)
         whiteSpace,
   }) {
-    return whiteSpace(
-        createdAt, startAt, endAt, this.duration, startAtInSeconds);
+    return whiteSpace(createdAt, startAt, endAt, this.duration,
+        startAtInSeconds, endAtInSeconds);
   }
 
   @override
@@ -845,17 +958,24 @@ class _$WhiteSpaceNote extends WhiteSpaceNote {
             double? startAt,
             double? endAt,
             double duration,
-            double? startAtInSeconds)?
+            double? startAtInSeconds,
+            double? endAtInSeconds)?
         music,
-    TResult Function(DurationMarker marker, DateTime createdAt, double? startAt,
-            double? endAt, double duration, double? startAtInSeconds)?
+    TResult Function(
+            DurationMarker marker,
+            DateTime createdAt,
+            double? startAt,
+            double? endAt,
+            double duration,
+            double? startAtInSeconds,
+            double? endAtInSeconds)?
         duration,
     TResult Function(DateTime createdAt, double? startAt, double? endAt,
-            double duration, double? startAtInSeconds)?
+            double duration, double? startAtInSeconds, double? endAtInSeconds)?
         whiteSpace,
   }) {
-    return whiteSpace?.call(
-        createdAt, startAt, endAt, this.duration, startAtInSeconds);
+    return whiteSpace?.call(createdAt, startAt, endAt, this.duration,
+        startAtInSeconds, endAtInSeconds);
   }
 
   @override
@@ -868,19 +988,26 @@ class _$WhiteSpaceNote extends WhiteSpaceNote {
             double? startAt,
             double? endAt,
             double duration,
-            double? startAtInSeconds)?
+            double? startAtInSeconds,
+            double? endAtInSeconds)?
         music,
-    TResult Function(DurationMarker marker, DateTime createdAt, double? startAt,
-            double? endAt, double duration, double? startAtInSeconds)?
+    TResult Function(
+            DurationMarker marker,
+            DateTime createdAt,
+            double? startAt,
+            double? endAt,
+            double duration,
+            double? startAtInSeconds,
+            double? endAtInSeconds)?
         duration,
     TResult Function(DateTime createdAt, double? startAt, double? endAt,
-            double duration, double? startAtInSeconds)?
+            double duration, double? startAtInSeconds, double? endAtInSeconds)?
         whiteSpace,
     required TResult orElse(),
   }) {
     if (whiteSpace != null) {
-      return whiteSpace(
-          createdAt, startAt, endAt, this.duration, startAtInSeconds);
+      return whiteSpace(createdAt, startAt, endAt, this.duration,
+          startAtInSeconds, endAtInSeconds);
     }
     return orElse();
   }
@@ -933,7 +1060,8 @@ abstract class WhiteSpaceNote extends Note {
       double? startAt,
       double? endAt,
       double duration,
-      double? startAtInSeconds}) = _$WhiteSpaceNote;
+      double? startAtInSeconds,
+      double? endAtInSeconds}) = _$WhiteSpaceNote;
   WhiteSpaceNote._() : super._();
 
   factory WhiteSpaceNote.fromJson(Map<String, dynamic> json) =
@@ -954,6 +1082,9 @@ abstract class WhiteSpaceNote extends Note {
   @override
   double? get startAtInSeconds;
   set startAtInSeconds(double? value);
+  @override
+  double? get endAtInSeconds;
+  set endAtInSeconds(double? value);
   @override
   @JsonKey(ignore: true)
   _$$WhiteSpaceNoteCopyWith<_$WhiteSpaceNote> get copyWith =>

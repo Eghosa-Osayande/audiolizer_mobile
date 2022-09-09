@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 enum DurationMarker {
   @JsonValue(1)
-  seperator(0.5, '|'),
+  seperator(0.5, '||'),
   @JsonValue(2)
   full(0.5, ':'),
   @JsonValue(3)

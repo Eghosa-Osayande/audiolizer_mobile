@@ -14,6 +14,7 @@ _$MusicNote _$$MusicNoteFromJson(Map<String, dynamic> json) => _$MusicNote(
       endAt: (json['endAt'] as num?)?.toDouble(),
       duration: (json['duration'] as num?)?.toDouble() ?? 0,
       startAtInSeconds: (json['startAtInSeconds'] as num?)?.toDouble(),
+      endAtInSeconds: (json['endAtInSeconds'] as num?)?.toDouble(),
       $type: json['runtimeType'] as String?,
     );
 
@@ -26,6 +27,7 @@ Map<String, dynamic> _$$MusicNoteToJson(_$MusicNote instance) =>
       'endAt': instance.endAt,
       'duration': instance.duration,
       'startAtInSeconds': instance.startAtInSeconds,
+      'endAtInSeconds': instance.endAtInSeconds,
       'runtimeType': instance.$type,
     };
 
@@ -59,6 +61,7 @@ _$DurationNote _$$DurationNoteFromJson(Map<String, dynamic> json) =>
       endAt: (json['endAt'] as num?)?.toDouble(),
       duration: (json['duration'] as num?)?.toDouble() ?? 0,
       startAtInSeconds: (json['startAtInSeconds'] as num?)?.toDouble(),
+      endAtInSeconds: (json['endAtInSeconds'] as num?)?.toDouble(),
       $type: json['runtimeType'] as String?,
     );
 
@@ -70,6 +73,7 @@ Map<String, dynamic> _$$DurationNoteToJson(_$DurationNote instance) =>
       'endAt': instance.endAt,
       'duration': instance.duration,
       'startAtInSeconds': instance.startAtInSeconds,
+      'endAtInSeconds': instance.endAtInSeconds,
       'runtimeType': instance.$type,
     };
 
@@ -87,6 +91,7 @@ _$WhiteSpaceNote _$$WhiteSpaceNoteFromJson(Map<String, dynamic> json) =>
       endAt: (json['endAt'] as num?)?.toDouble(),
       duration: (json['duration'] as num?)?.toDouble() ?? 0,
       startAtInSeconds: (json['startAtInSeconds'] as num?)?.toDouble(),
+      endAtInSeconds: (json['endAtInSeconds'] as num?)?.toDouble(),
       $type: json['runtimeType'] as String?,
     );
 
@@ -97,5 +102,6 @@ Map<String, dynamic> _$$WhiteSpaceNoteToJson(_$WhiteSpaceNote instance) =>
       'endAt': instance.endAt,
       'duration': instance.duration,
       'startAtInSeconds': instance.startAtInSeconds,
+      'endAtInSeconds': instance.endAtInSeconds,
       'runtimeType': instance.$type,
     };

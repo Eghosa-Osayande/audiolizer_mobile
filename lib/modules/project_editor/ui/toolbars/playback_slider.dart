@@ -58,35 +58,76 @@ class _ToolbarPlaybackProgressState extends State<ToolbarPlaybackProgress> {
     super.dispose();
   }
 
+  String formatDuration(Duration d) {
+    
+     var seconds = d.inSeconds;
+    final days = seconds~/Duration.secondsPerDay;
+    seconds -= days*Duration.secondsPerDay;
+    final hours = seconds~/Duration.secondsPerHour;
+    seconds -= hours*Duration.secondsPerHour;
+    final minutes = seconds~/Duration.secondsPerMinute;
+    seconds -= minutes*Duration.secondsPerMinute;
+
+    final List<String> tokens = [];
+    if (days != 0) {
+      tokens.add('${days}d');
+    }
+    if (tokens.isNotEmpty || hours != 0){
+      tokens.add('${hours}h');
+    }
+    if (tokens.isNotEmpty || minutes != 0) {
+      tokens.add('${minutes}m');
+    }
+    tokens.add('${seconds}s');
+
+    return tokens.join(':');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.black,
       child: SizedBox(
         height: 29,
-        child: Center(
-          child: Slider(
-            value: value,
-            onChangeStart: (_value) {
-              AudioPlayerService.instance.seek(Duration(seconds: value.toInt()));
-              setState(() {
-                value = _value;
-              });
-            },
-            onChangeEnd: (_value) {
-              AudioPlayerService.instance.seek(Duration(seconds: value.toInt()));
-              setState(() {
-                value = _value;
-              });
-            },
-            onChanged: (_value) {
-              AudioPlayerService.instance.seek(Duration(seconds: value.toInt()));
-              setState(() {
-                value = _value;
-              });
-            },
-            max: max,
-          ),
+        child: Row(
+          children: [
+            Container(
+              margin: EdgeInsets.only(left: 8),
+              child: StreamBuilder<Duration>(
+                  stream: AudioPlayerService.instance.onPositionChanged,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      var d = snapshot.data!;
+                      return Text(formatDuration(d));
+                    }
+                    return Text('00:00');
+                  }),
+            ),
+            Expanded(
+              child: Slider(
+                value: value,
+                onChangeStart: (_value) {
+                  AudioPlayerService.instance.seek(Duration(seconds: value.toInt()));
+                  setState(() {
+                    value = _value;
+                  });
+                },
+                onChangeEnd: (_value) {
+                  AudioPlayerService.instance.seek(Duration(seconds: value.toInt()));
+                  setState(() {
+                    value = _value;
+                  });
+                },
+                onChanged: (_value) {
+                  AudioPlayerService.instance.seek(Duration(seconds: value.toInt()));
+                  setState(() {
+                    value = _value;
+                  });
+                },
+                max: max,
+              ),
+            ),
+          ],
         ),
       ),
     );

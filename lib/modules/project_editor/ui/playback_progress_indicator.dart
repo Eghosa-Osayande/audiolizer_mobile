@@ -23,13 +23,15 @@ class PlaybackProgressIndicator extends StatelessWidget {
           int? position = snapshot.data?.inSeconds;
           Color color = Colors.transparent;
 
-          if (position != null && bar.startAtInSeconds() != null) {
-            if (position >= (bar.startAtInSeconds()!)) {
-              color = Colors.green;
+          if (position != null) {
+            var start = bar.startAtInSeconds();
+            var end = bar.endAtInSeconds();
+            if (start != null && end != null) {
+              if (position >= start && position <= end) {
+                color = Colors.green;
+              }
             }
-          } else {
-            
-          }
+          } else {}
           // print('du=>${}<==>${note.convertBeatPositionToSeconds()}');
 
           return BlocBuilder<TogglePlayBackProgressCubit, bool>(

@@ -33,6 +33,7 @@ abstract class Note with _$Note, EquatableMixin {
     double? endAt,
     @Default(0) double duration,
     double? startAtInSeconds,
+    double? endAtInSeconds,
   }) = MusicNote;
 
   @JsonSerializable(explicitToJson: true)
@@ -43,6 +44,7 @@ abstract class Note with _$Note, EquatableMixin {
     double? endAt,
     @Default(0) double duration,
     double? startAtInSeconds,
+    double? endAtInSeconds,
   }) = DurationNote;
 
   @JsonSerializable(explicitToJson: true)
@@ -52,6 +54,7 @@ abstract class Note with _$Note, EquatableMixin {
     double? endAt,
     @Default(0) double duration,
     double? startAtInSeconds,
+    double? endAtInSeconds,
   }) = WhiteSpaceNote;
 
   factory Note.fromJson(Map<String, dynamic> json) => _$NoteFromJson(json);
@@ -70,6 +73,9 @@ abstract class Note with _$Note, EquatableMixin {
     num bpm = track.score.bpm;
     if (startAt != null) {
       startAtInSeconds = ((60 / bpm) * (startAt!));
+    }
+    if(endAt!=null){
+      endAtInSeconds = ((60 / bpm) * (endAt!));
     }
   }
 
