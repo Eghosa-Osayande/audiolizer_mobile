@@ -109,6 +109,7 @@ class LyricsViewWidget extends StatelessWidget {
             enabled: false,
             readOnly: true,
             initialValue: lyrics,
+            textAlign: TextAlign.center,
             style: GoogleFonts.inter(fontStyle: FontStyle.italic, fontSize: 14, height: 0.5),
             decoration: InputDecoration(
               hintText: "Press and hold to edit lyrics",
@@ -161,6 +162,7 @@ class _LyricInputWidgetState extends State<LyricInputWidget> {
         return TextFormField(
           enabled: (viewMode == ViewModeState.edit),
           focusNode: focus,
+          textAlign: TextAlign.center,
           initialValue: BlocProvider.of<EditLyricsCubit>(context).state?.lyrics,
           onTap: () {
             BlocProvider.of<ToggleSolfaKeyboardVisibilityCubit>(context).hide();

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:audiolizer/modules/firebase/firebase_service.dart';
 import 'package:file/memory.dart';
 import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 import 'package:share_plus/share_plus.dart';
@@ -80,6 +81,7 @@ class ShareProjectService {
   }
 
   Future<void> shareProject(Project project) async {
+    FirebaseService.instance.logEvent(name: 'share_project');
     String shareData = json.encode(project.toJson());
     String root = await PlatformPathService.instance.getExportRootDirectory();
 
@@ -94,6 +96,7 @@ class ShareProjectService {
   Future<void> shareProjectAsMidi(Project project) async {
     var result = await project.score.commit();
     if (result?.isSuccess ?? false) {
+      FirebaseService.instance.logEvent(name: 'share_midi');
       String root = await PlatformPathService.instance.getExportRootDirectory();
 
       File outputFile = File('$root/${project.title}_audiolizer.mid');

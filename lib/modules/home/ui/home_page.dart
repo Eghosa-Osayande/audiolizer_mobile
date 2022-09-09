@@ -84,8 +84,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
               BlocBuilder<MyProjectsCubit, List<Project>?>(builder: (context, state) {
                 var pagingController = PagingController<int, Project>(firstPageKey: 0)
                   ..itemList = (state != null)
-                      ? state.length > 3
-                          ? state.sublist(0, 3)
+                      ? state.length > 2
+                          ? state.sublist(0, 2)
                           : state
                       : null
                   ..nextPageKey = null;

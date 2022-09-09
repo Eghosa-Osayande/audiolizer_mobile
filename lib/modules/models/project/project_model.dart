@@ -97,19 +97,19 @@ class Project with HiveObjectMixin, _$Project {
           children: [
             pw.Text('${title}', style: pw.TextStyle(fontWeight: pw.FontWeight.bold, fontSize: 20)),
             pw.Spacer(),
-            pw.Row(
-              crossAxisAlignment: pw.CrossAxisAlignment.end,
-              children: [
-                pw.Text(
-                  'Generated with Audiolizer',
-                  style: pw.TextStyle(fontWeight: pw.FontWeight.bold, fontSize: 17),
-                ),
-                pw.SizedBox.square(
-                  dimension: 50,
-                  child: pw.SvgImage(svg: kLogoSvg),
-                ),
-              ],
-            )
+            // pw.Row(
+            //   crossAxisAlignment: pw.CrossAxisAlignment.end,
+            //   children: [
+            //     pw.Text(
+            //       'Generated with Audiolizer',
+            //       style: pw.TextStyle(fontWeight: pw.FontWeight.bold, fontSize: 17),
+            //     ),
+            //     pw.SizedBox.square(
+            //       dimension: 50,
+            //       child: pw.SvgImage(svg: kLogoSvg),
+            //     ),
+            //   ],
+            // )
           ],
         ),
         pw.Row(

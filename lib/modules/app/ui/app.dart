@@ -35,7 +35,6 @@ class _AudiolizerAppState extends State<AudiolizerApp> {
 
   Future<void> init() async {
     await HiveInitializer.init();
-    await FirebaseService.init();
 
     Future.delayed(
       Duration(milliseconds: 4000),
@@ -71,6 +70,7 @@ class _AudiolizerAppState extends State<AudiolizerApp> {
       ],
       navigatorObservers: [
         AudiolizerApp.routeObserver,
+        FirebaseService.instance.getAnalyticsObserver(),
       ],
       theme: ThemeData(
           primarySwatch: generateMaterialColor(AppColors.instance.primary),

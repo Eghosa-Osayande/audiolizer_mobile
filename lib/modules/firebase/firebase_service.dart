@@ -5,6 +5,7 @@ import 'package:audiolizer/modules/home/home_feed/models/home_feed_model.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/material.dart';
 import 'package:result_type/result_type.dart';
 
 class FirebaseService {
@@ -56,6 +57,11 @@ class FirebaseService {
       name: name,
       parameters: parameters,
     );
+  }
+
+  RouteObserver getAnalyticsObserver()  {
+    return FirebaseAnalyticsObserver(analytics: _analytics);
+    
   }
 
   Future<Result<AppRemoteConfig, String>> getAppUpdate() async {

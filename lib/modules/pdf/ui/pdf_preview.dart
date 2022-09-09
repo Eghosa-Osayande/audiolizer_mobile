@@ -1,3 +1,4 @@
+import 'package:audiolizer/modules/firebase/firebase_service.dart';
 import 'package:audiolizer/modules/models/project/project_model.dart';
 import 'package:audiolizer/modules/themes/colors/app_colors.dart';
 import 'package:audiolizer/modules/themes/constants.dart';
@@ -76,9 +77,13 @@ class _ScorePdfPreview extends StatelessWidget {
           dynamicLayout: true,
           pdfFileName: project.title + '_audiolizer.pdf',
           padding: EdgeInsets.zero,
-          onPrinted: (context) {},
+          onPrinted: (context) {
+            FirebaseService.instance.logEvent(name: 'pdf_printed');
+          },
           onPrintError: (context, error) {},
-          onShared: (context) {},
+          onShared: (context) {
+            FirebaseService.instance.logEvent(name: 'share_pdf');
+          },
           scrollViewDecoration: BoxDecoration(color: AppColors.instance.black),
           initialPageFormat: PdfPageFormat.a4,
           canChangeOrientation: true,
@@ -94,7 +99,7 @@ class _ScorePdfPreview extends StatelessWidget {
               pageFormat: format,
               buildBackground: (context) {
                 return pw.Opacity(
-                  opacity: 0.05,
+                  opacity: 0.1,
                   child: pw.Center(
                     child: pw.SizedBox.square(
                       dimension: 400,
@@ -112,6 +117,22 @@ class _ScorePdfPreview extends StatelessWidget {
             pdf2Save.addPage(
               pw.MultiPage(
                 pageTheme: pageTheme,
+                footer: (context) {
+                  return pw.Row(
+                    crossAxisAlignment: pw.CrossAxisAlignment.end,
+                    mainAxisAlignment: pw.MainAxisAlignment.end,
+                    children: [
+                      pw.Text(
+                        'Generated with Audiolizer',
+                        style: pw.TextStyle(fontWeight: pw.FontWeight.bold, fontSize: 17),
+                      ),
+                      pw.SizedBox.square(
+                        dimension: 30,
+                        child: pw.SvgImage(svg: kLogoSvg),
+                      ),
+                    ],
+                  );
+                },
                 build: (context) {
                   var wrap = pw.Wrap(
                     runAlignment: pw.WrapAlignment.center,

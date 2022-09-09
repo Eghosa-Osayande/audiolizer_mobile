@@ -29,116 +29,119 @@ class EditToolbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var project = BlocProvider.of<CurrentProjectCubit>(context).state;
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        WillPopScope(
-          onWillPop: () async {
-            BlocProvider.of<ViewModeCubit>(context).readonly();
-            return false;
-          },
-          child: IconButton(
-              onPressed: () {
-                BlocProvider.of<ViewModeCubit>(context).readonly();
-              },
-              icon: Icon(Icons.check)),
-        ),
-        IconButton(
-          icon: Icon(Icons.settings),
-          onPressed: () {
-            Navigator.of(context).push(CreateProjectPage.route(project: project));
-          },
-        ),
-        Builder(
-          builder: (context) {
-            return IconButton(
-              onPressed: BlocProvider.of<UndoRedoCubit>(context, listen: true).projectUndoVersions.isEmpty
-                  ? null
-                  : () {
-                      BlocProvider.of<UndoRedoCubit>(context).undo();
-                    },
-              icon: Icon(
-                Icons.undo,
-              ),
-            );
-          },
-        ),
-        Builder(
-          builder: (context) {
-            return IconButton(
-              onPressed: BlocProvider.of<UndoRedoCubit>(context, listen: true).projectRedoVersions.isEmpty
-                  ? null
-                  : () {
-                      BlocProvider.of<UndoRedoCubit>(context).redo();
-                    },
-              icon: Icon(
-                Icons.redo,
-              ),
-            );
-          },
-        ),
-        IconButton(
-          onPressed: () {
-            BlocProvider.of<PlayScoreCubit>(context).play();
-          },
-          icon: BlocBuilder<ToggleEditPlayModeCubit, ToggleEditPlayModeState>(
-            builder: (context, state) {
-              switch (state) {
-                case ToggleEditPlayModeState.edit:
-                  return Icon(Icons.play_arrow);
-
-                case ToggleEditPlayModeState.playing:
-                  return Icon(Icons.pause);
-              }
+    return Container(
+      decoration: BoxDecoration(color: AppColors.instance.black),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          WillPopScope(
+            onWillPop: () async {
+              BlocProvider.of<ViewModeCubit>(context).readonly();
+              return false;
+            },
+            child: IconButton(
+                onPressed: () {
+                  BlocProvider.of<ViewModeCubit>(context).readonly();
+                },
+                icon: Icon(Icons.check)),
+          ),
+          IconButton(
+            icon: Icon(Icons.settings),
+            onPressed: () {
+              Navigator.of(context).push(CreateProjectPage.route(project: project));
             },
           ),
-        ),
-        PopupMenuButton(
-          onSelected: getSelectedFuction(context),
-          itemBuilder: (context) {
-            return [
-              ...popupItemsReadOnly(context),
-              PopupMenuItem(
-                onTap: () {
-                  BlocProvider.of<VolumeNavigationCubit>(context).toggle();
-                 
-                },
-                child: Builder(
-                  builder: (_) {
-                    return ToolbarOption(
-                      title: 'Volume Navigation',
-                      trailing: Checkbox(
-                          value: BlocProvider.of<VolumeNavigationCubit>(context).state,
-                          onChanged: (bool? value) {
-                            BlocProvider.of<VolumeNavigationCubit>(context).toggle();
-                            Navigator.pop(_);
-                          }),
-                    );
-                  }
-                ),
-              ),
-              PopupMenuItem(
-                onTap: () {
-                  SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-                    showModalBottomSheet(
-                      context: context,
-                      builder: (context) {
-                        return ProjectBottomSheet(project: project);
+          Builder(
+            builder: (context) {
+              return IconButton(
+                onPressed: BlocProvider.of<UndoRedoCubit>(context, listen: true).projectUndoVersions.isEmpty
+                    ? null
+                    : () {
+                        BlocProvider.of<UndoRedoCubit>(context).undo();
                       },
-                    );
-                  });
-                },
-                child: ToolbarOption(
-                  title: 'More',
+                icon: Icon(
+                  Icons.undo,
                 ),
-              ),
-            ];
-          },
-          icon: Icon(
-            Icons.more_vert,
+              );
+            },
           ),
-        ),
-      ],
+          Builder(
+            builder: (context) {
+              return IconButton(
+                onPressed: BlocProvider.of<UndoRedoCubit>(context, listen: true).projectRedoVersions.isEmpty
+                    ? null
+                    : () {
+                        BlocProvider.of<UndoRedoCubit>(context).redo();
+                      },
+                icon: Icon(
+                  Icons.redo,
+                ),
+              );
+            },
+          ),
+          IconButton(
+            onPressed: () {
+              BlocProvider.of<PlayScoreCubit>(context).play();
+            },
+            icon: BlocBuilder<ToggleEditPlayModeCubit, ToggleEditPlayModeState>(
+              builder: (context, state) {
+                switch (state) {
+                  case ToggleEditPlayModeState.edit:
+                    return Icon(Icons.play_arrow);
+
+                  case ToggleEditPlayModeState.playing:
+                    return Icon(Icons.pause);
+                }
+              },
+            ),
+          ),
+          PopupMenuButton(
+            onSelected: getSelectedFuction(context),
+            itemBuilder: (context) {
+              return [
+                ...popupItemsReadOnly(context),
+                PopupMenuItem(
+                  onTap: () {
+                    BlocProvider.of<VolumeNavigationCubit>(context).toggle();
+                   
+                  },
+                  child: Builder(
+                    builder: (_) {
+                      return ToolbarOption(
+                        title: 'Volume Navigation',
+                        trailing: Checkbox(
+                            value: BlocProvider.of<VolumeNavigationCubit>(context).state,
+                            onChanged: (bool? value) {
+                              BlocProvider.of<VolumeNavigationCubit>(context).toggle();
+                              Navigator.pop(_);
+                            }),
+                      );
+                    }
+                  ),
+                ),
+                PopupMenuItem(
+                  onTap: () {
+                    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+                      showModalBottomSheet(
+                        context: context,
+                        builder: (context) {
+                          return ProjectBottomSheet(project: project);
+                        },
+                      );
+                    });
+                  },
+                  child: ToolbarOption(
+                    title: 'More',
+                  ),
+                ),
+              ];
+            },
+            icon: Icon(
+              Icons.more_vert,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

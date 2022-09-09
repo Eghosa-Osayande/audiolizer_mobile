@@ -128,7 +128,7 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
                   validator: FormBuilderValidators.compose([
                     FormBuilderValidators.required(),
                   ]),
-                  decoration: InputDecoration(label: Text('Select Key Signature'), contentPadding: kNewProjectContentPadding, border: kNewProjectInputBorder),
+                  decoration: InputDecoration(label: Text('Select Tonic Key'), contentPadding: kNewProjectContentPadding, border: kNewProjectInputBorder),
                   items: KeySignature.values.map((sign) {
                     return DropdownMenuItem<KeySignature>(
                         value: sign,
@@ -146,11 +146,11 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
                     FormBuilderValidators.required(),
                   ]),
                   decoration: InputDecoration(hintText: 'eg. 3, doh is G3', label: Text('Tonic Pitch'), contentPadding: kNewProjectContentPadding, border: kNewProjectInputBorder),
-                  items: List.generate(10, (index) {
+                  items: List.generate(8, (index) {
                     return DropdownMenuItem<int>(
-                        value: index,
+                        value: index+1,
                         child: ListTile(
-                          title: Text('$index'),
+                          title: Text('${index+1}'),
                         ));
                   }),
                 ),

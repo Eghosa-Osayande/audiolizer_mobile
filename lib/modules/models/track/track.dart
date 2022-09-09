@@ -129,13 +129,14 @@ class Track extends LinkedList<Bar> with _$Track, LinkedListEntry<Track>, Equata
       denominator: score.timeSignature.denominator,
       clocks_per_tick: 24,
     );
-    midiFile.addKeySignature(
-      track: trackNumber,
-      time: 0,
-      no_of_accidentals: score.keySignature.accidentalCount,
-      accidental_mode: score.keySignature.accidentalMode,
-      accidental_type: score.keySignature.accidentalType,
-    );
+    // TODO: actual implementation of keys Signature
+    // midiFile.addKeySignature(
+    //   track: trackNumber,
+    //   time: 0,
+    //   no_of_accidentals: score.keySignature.accidentalCount,
+    //   accidental_mode: score.keySignature.accidentalMode,
+    //   accidental_type: score.keySignature.accidentalType,
+    // );
     if (isMetroneme) {
       midiFile.addProgramChange(
         tracknum: trackNumber,

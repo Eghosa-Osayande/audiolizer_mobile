@@ -168,6 +168,7 @@ class _SolfaTextFieldState extends State<SolfaTextField> {
                   },
                 ),
                 style: noteTheme.style,
+                textAlign: TextAlign.center,
                 decoration: InputDecoration(
                   hintText: (widget.bar.list as Track).name + '...',
                 ),
