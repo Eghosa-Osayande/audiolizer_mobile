@@ -16,9 +16,9 @@ class PlayScoreCubit extends Cubit<PlayScoreCubitState> {
     if (AudioPlayerService.instance.isPlaying) {
       AudioPlayerService.instance.pause();
     } else {
-      // emit(PlayScoreCubitState(project.score));
-      // var useMetro = await ToggleMetronemeRepo.instance.read();
-      var result = await project.score.commit(useMetroneme: false);
+      emit(PlayScoreCubitState(project.score));
+      var useMetro = await ToggleMetronemeRepo.instance.read();
+      var result = await project.score.commit(useMetroneme: useMetro);
 
       if (result != null) {
         if (result.isSuccess) {

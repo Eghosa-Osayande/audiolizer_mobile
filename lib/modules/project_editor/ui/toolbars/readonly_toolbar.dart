@@ -25,29 +25,6 @@ Function(dynamic)? getSelectedFuction(BuildContext context) {
 }
 
 List<PopupMenuItem<dynamic>> popupItemsReadOnly(BuildContext cubitContext) => [
-      // PopupMenuItem(
-      //   child: ToolbarOption(
-      //     title: 'Metroneme',
-      //     trailing: BlocProvider(
-      //       create: (context) => ToggleMetronemeCubit(),
-      //       child: Builder(builder: (context) {
-      //         return BlocBuilder<ToggleMetronemeCubit, bool>(
-      //           builder: (context, state) {
-      //             return Checkbox(
-      //                 value: state,
-      //                 onChanged: (bool? value) {
-      //                   if (value != null) {
-      //                     BlocProvider.of<ToggleMetronemeCubit>(context).toggle(value);
-      //                   }
-      //                   Navigator.pop(context);
-      //                 });
-      //           },
-      //         );
-      //       }),
-      //     ),
-      //   ),
-      // ),
-
       PopupMenuItem(
         value: 'pdf',
         child: Builder(builder: (context) {
@@ -56,6 +33,29 @@ List<PopupMenuItem<dynamic>> popupItemsReadOnly(BuildContext cubitContext) => [
             trailing: Icon(Icons.picture_as_pdf),
           );
         }),
+      ),
+      PopupMenuItem(
+        onTap: () {
+          BlocProvider.of<ToggleMetronemeCubit>(cubitContext).toggle();
+        },
+        child: BlocProvider.value(
+          value: BlocProvider.of<ToggleMetronemeCubit>(cubitContext),
+          child: Builder(builder: (context) {
+            return ToolbarOption(
+              title: 'Metroneme',
+              trailing: BlocBuilder<ToggleMetronemeCubit, bool>(
+                builder: (context, state) {
+                  return Checkbox(
+                      value: state,
+                      onChanged: (bool? value) {
+                        BlocProvider.of<ToggleMetronemeCubit>(cubitContext).toggle();
+                        Navigator.pop(context);
+                      });
+                },
+              ),
+            );
+          }),
+        ),
       ),
       PopupMenuItem(
         onTap: () {
@@ -112,7 +112,7 @@ class ReadOnlyToolbar extends StatelessWidget {
           },
         ),
         PopupMenuButton(
-           onSelected: getSelectedFuction(context),
+          onSelected: getSelectedFuction(context),
           itemBuilder: (context) {
             return [
               ...popupItemsReadOnly(context),

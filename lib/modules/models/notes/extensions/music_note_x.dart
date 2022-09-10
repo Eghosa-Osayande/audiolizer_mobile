@@ -22,11 +22,13 @@ extension MusicNoteX on MusicNote {
     //   position,
     //   duration
     // ]);
+   
     if (isMetroneme) {
+      int metronemePitch= track.score.keySignature.midiNumber+(12*3);
       midiFile.addNote(
         track: track.trackNumber,
         channel: track.trackNumber,
-        pitch: pitch,
+        pitch:metronemePitch,
         time: position,
         duration: duration,
         volume: 127,

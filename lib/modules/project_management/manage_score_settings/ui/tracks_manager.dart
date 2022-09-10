@@ -276,7 +276,7 @@ class _TrackOptionsWidgetState extends State<TrackOptionsWidget> {
                                             widget.track.program = value;
                                           }
                                         },
-                                        items: MidiProgram.values.map((sign) {
+                                        items: MidiProgram.programMap.values.map((sign) {
                                           return DropdownMenuItem<MidiProgram>(
                                               value: sign,
                                               child: ListTile(

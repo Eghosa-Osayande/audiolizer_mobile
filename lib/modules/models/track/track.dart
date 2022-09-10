@@ -39,7 +39,7 @@ class Track extends LinkedList<Bar> with _$Track, LinkedListEntry<Track>, Equata
     var track = Track(
       trackNumber: json['trackNumber'] as int,
       volume: json['volume'] as int,
-      program: MidiProgram.values[json['program'] as int],
+      program: MidiProgram.getProgram(json['program'] as int),
       name: json['name'] as String,
       isVisible: json['isVisible'] ?? true,
       isLyricsVisible: json['isLyricsVisible'] ?? true,
@@ -56,7 +56,7 @@ class Track extends LinkedList<Bar> with _$Track, LinkedListEntry<Track>, Equata
         'name': name,
         'trackNumber': trackNumber,
         'volume': volume,
-        'program': program.index,
+        'program': program.value,
         'bars': this.toList().map((bar) => bar.toJson()).toList(),
         'isVisible': isVisible,
         'isLyricsVisible': isLyricsVisible,
@@ -142,7 +142,7 @@ class Track extends LinkedList<Bar> with _$Track, LinkedListEntry<Track>, Equata
         tracknum: trackNumber,
         channel: trackNumber,
         time: 0,
-        program: 115,
+        program: 45,
       );
     } else {
       midiFile.addProgramChange(

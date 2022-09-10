@@ -95,7 +95,7 @@ class Score extends LinkedList<Track> with HiveObjectMixin, _$Score, ErrorObject
   }
 
   void _resetMidiFile() {
-    midiFile = MIDIFile(numTracks: 10);
+    midiFile = MIDIFile(numTracks: 11);
   }
 
   int get trackBarCount {
@@ -107,10 +107,10 @@ class Score extends LinkedList<Track> with HiveObjectMixin, _$Score, ErrorObject
 
   Future<void> addMetronemeTrack(int maxBeats) async {
     var metro = Track(
-      trackNumber: 9,
+      trackNumber: 10,
       program: MidiProgram.pizzicato,
       volume: 127,
-      name: 'metroneme,',
+      name: 'metroneme',
     );
 
     List.generate(maxBeats, (index) {
@@ -165,7 +165,7 @@ class Score extends LinkedList<Track> with HiveObjectMixin, _$Score, ErrorObject
         return Failure(track);
       }
     }
-    // await addMetronemeTrack(maxBeats);
+    await addMetronemeTrack(maxBeats);
 
     for (var track in tracks) {
       await track.commit(midiFile!);

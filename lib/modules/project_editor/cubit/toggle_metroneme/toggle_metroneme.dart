@@ -13,8 +13,8 @@ class ToggleMetronemeCubit extends Cubit<bool> {
     emit(event);
   }
 
-  void toggle(bool value) {
-    ToggleMetronemeRepo.instance.put(value);
+  void toggle() {
+    ToggleMetronemeRepo.instance.put(!state);
   }
 
   @override
