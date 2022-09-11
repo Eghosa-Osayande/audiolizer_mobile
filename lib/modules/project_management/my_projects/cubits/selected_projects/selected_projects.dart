@@ -17,7 +17,7 @@ class SelectedProjectsCubit extends Cubit<SelectedProjects?> {
 
   void selectAll(List<Project> allProjects) {
     var r = SelectedProjects(allProjects.toList());
-    print(r.selectedProjects.length);
+   
     emit(r);
   }
 

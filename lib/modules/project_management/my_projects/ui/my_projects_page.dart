@@ -52,52 +52,56 @@ class _MyProjectsPageState extends State<MyProjectsPage> with SingleTickerProvid
                 preferredSize: Size.fromHeight(kToolbarHeight),
                 child: BlocBuilder<SelectedProjectsCubit, SelectedProjects?>(
                   builder: (context, selectedProjects) {
-                    print(selectedProjects);
                     if (selectedProjects != null) {
-                      return AppBar(
-                        leading: InkWell(
-                          child: Icon(
-                            Icons.cancel,
-                          ),
-                          onTap: () {
-                            BlocProvider.of<SelectedProjectsCubit>(context).endSelection();
-                          },
-                        ),
-                        title: Text(
-                          '${selectedProjects.selectedProjects.length} selected',
-                        ),
-                        actions: [
-                          PopupMenuButton(
-                            child: Container(
-                              child: Icon(Icons.more_vert),
-                              padding: const EdgeInsets.all(12.0),
-                              decoration: BoxDecoration(shape: BoxShape.circle),
+                      return WillPopScope(
+                        onWillPop: () async {
+                          BlocProvider.of<SelectedProjectsCubit>(context).endSelection();
+                          return false;
+                        },
+                        child: AppBar(
+                          leading: InkWell(
+                            child: Icon(
+                              Icons.cancel,
                             ),
-                            onSelected: (value) {
-                              switch (value) {
-                                case 'select_all':
-                                  print(allProjects?.projects.length);
-                                  BlocProvider.of<SelectedProjectsCubit>(context).selectAll(allProjects?.projects ?? []);
-                                  break;
-                                case 'export_all':
-                                  ShareProjectService.instance.shareProjects(selectedProjects.selectedProjects);
-                                  break;
-                                default:
-                              }
+                            onTap: () {
+                              BlocProvider.of<SelectedProjectsCubit>(context).endSelection();
                             },
-                            itemBuilder: (_) => [
-                              if (selectedProjects.selectedProjects.isNotEmpty)
-                                PopupMenuItem(
-                                  child: Text('Export Selected'),
-                                  value: 'export_all',
-                                ),
-                              PopupMenuItem(
-                                child: Text('Select All'),
-                                value: 'select_all',
-                              ),
-                            ],
                           ),
-                        ],
+                          title: Text(
+                            '${selectedProjects.selectedProjects.length} selected',
+                          ),
+                          actions: [
+                            PopupMenuButton(
+                              child: Container(
+                                child: Icon(Icons.more_vert),
+                                padding: const EdgeInsets.all(12.0),
+                                decoration: BoxDecoration(shape: BoxShape.circle),
+                              ),
+                              onSelected: (value) {
+                                switch (value) {
+                                  case 'select_all':
+                                    BlocProvider.of<SelectedProjectsCubit>(context).selectAll(allProjects?.projects ?? []);
+                                    break;
+                                  case 'export_all':
+                                    ShareProjectService.instance.shareProjects(selectedProjects.selectedProjects);
+                                    break;
+                                  default:
+                                }
+                              },
+                              itemBuilder: (_) => [
+                                if (selectedProjects.selectedProjects.isNotEmpty)
+                                  PopupMenuItem(
+                                    child: Text('Export Selected'),
+                                    value: 'export_all',
+                                  ),
+                                PopupMenuItem(
+                                  child: Text('Select All'),
+                                  value: 'select_all',
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       );
                     }
                     return AppBar(
