@@ -1,5 +1,6 @@
 import 'package:audiolizer/modules/os_file_picker/platform_file_picker.dart';
 import 'package:audiolizer/modules/os_share_intent/services/share_intent_service.dart';
+import 'package:audiolizer/modules/project_editor/ui/page/score_editor.dart';
 import 'package:audiolizer/modules/project_management/manage_score_settings/ui/create_project_page.dart';
 import 'package:flutter/material.dart';
 
@@ -27,8 +28,11 @@ class NoProjectsWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).push(CreateProjectPage.route());
+              onPressed: () async {
+                var project = await Navigator.of(context).push(CreateProjectPage.route());
+                if (project != null) {
+                  Navigator.of(context).push(ProjectEditorPage.route(project));
+                }
               },
               child: Text('New Project'),
             ),

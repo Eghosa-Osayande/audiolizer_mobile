@@ -1,3 +1,4 @@
+import 'package:audiolizer/modules/project_editor/ui/page/score_editor.dart';
 import 'package:floating_action_bubble/floating_action_bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:audiolizer/modules/os_file_picker/platform_file_picker.dart';
@@ -73,9 +74,12 @@ class OpenProjectFABState extends State<OpenProjectFAB> with TickerProviderState
               fontSize: 16,
               color: AppColors.instance.iconLight,
             ),
-            onPress: () {
-              Navigator.of(context).push(CreateProjectPage.route());
+            onPress: () async {
               _animationController.reverse();
+              var project = await Navigator.of(context).push(CreateProjectPage.route());
+              if (project != null) {
+                Navigator.of(context).push(ProjectEditorPage.route(project));
+              }
             },
           ),
         ],

@@ -25,8 +25,8 @@ class CreateProjectPage extends StatefulWidget {
 
   static String path = '/createScore';
 
-  static Route<Project> route({Project? project}) {
-    return MaterialPageRoute<Project>(
+  static Route route({Project? project}) {
+    return MaterialPageRoute(
       settings: RouteSettings(name: path),
       builder: (_) => CreateProjectPage(project: project),
     );
@@ -236,7 +236,7 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
 
     await project.saveVersion();
 
-    Navigator.pop<Project>(context, project);
+    Navigator.pop(context);
   }
 
   Future<void> createProject(Map<String, dynamic> value) async {
@@ -274,6 +274,6 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
       score: newlyCreatedScore,
     );
     await ProjectRepo.instance.put(newProject);
-    Navigator.pop<Project>(context, newProject);
+    Navigator.pop(context, newProject);
   }
 }

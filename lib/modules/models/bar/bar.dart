@@ -50,7 +50,7 @@ class Bar extends LinkedListEntry<Bar> with _$Bar, ChangeNotifier, ErrorObjectMi
           )
           .startAtInSeconds;
       if (startAtInSeconds2 != null) {
-        return startAtInSeconds2 - .5;
+        return startAtInSeconds2 - 1;
       }
     }
   }
@@ -67,7 +67,7 @@ class Bar extends LinkedListEntry<Bar> with _$Bar, ChangeNotifier, ErrorObjectMi
           )
           .startAtInSeconds;
       if (endAtInSeconds2 != null) {
-        return endAtInSeconds2 - .5;
+        return endAtInSeconds2 -1;
       }
     }
   }
