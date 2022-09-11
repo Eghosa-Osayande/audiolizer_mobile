@@ -1,4 +1,5 @@
 import 'package:audiolizer/modules/project_editor/cubit/edit_lyrics/edit_lyrics_cubit.dart';
+import 'package:audiolizer/modules/project_editor/cubit/toggle_auto_scroll/toggle_auto_scroll.dart';
 import 'package:audiolizer/modules/project_editor/cubit/toggle_playback_progress_visibility/toggle_playback_progress_visibility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -68,6 +69,9 @@ class ProjectEditorPage extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => TogglePlayBackProgressCubit(),
+        ),
+        BlocProvider(
+          create: (context) => ToggleAutoScrollCubit(),
         ),
         BlocProvider(
           create: (context) => ViewModeCubit(),

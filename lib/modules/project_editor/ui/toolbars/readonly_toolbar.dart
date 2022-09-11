@@ -3,6 +3,7 @@ import 'package:audiolizer/modules/common/widgets/toolbar_options.dart';
 import 'package:audiolizer/modules/pdf/ui/pdf_preview.dart';
 import 'package:audiolizer/modules/project_editor/cubit/current_project/current_project.dart';
 import 'package:audiolizer/modules/project_editor/cubit/play_score/play_score_cubit.dart';
+import 'package:audiolizer/modules/project_editor/cubit/toggle_auto_scroll/toggle_auto_scroll.dart';
 import 'package:audiolizer/modules/project_editor/cubit/toggle_edit_play_mode/toggle_edit_play_mode_cubit.dart';
 import 'package:audiolizer/modules/project_editor/cubit/toggle_keyboard_visibility.dart/toggle_keyboard_visibility_cubit.dart';
 import 'package:audiolizer/modules/project_editor/cubit/toggle_metroneme/toggle_metroneme.dart';
@@ -68,6 +69,22 @@ List<PopupMenuItem<dynamic>> popupItemsReadOnly(BuildContext cubitContext) => [
                 value: BlocProvider.of<TogglePlayBackProgressCubit>(cubitContext).state,
                 onChanged: (bool? value) {
                   BlocProvider.of<TogglePlayBackProgressCubit>(cubitContext).toggle();
+                  Navigator.pop(context);
+                }),
+          );
+        }),
+      ),
+      PopupMenuItem(
+        onTap: () {
+          BlocProvider.of<ToggleAutoScrollCubit>(cubitContext).toggle();
+        },
+        child: Builder(builder: (context) {
+          return ToolbarOption(
+            title: 'Auto Scroll',
+            trailing: Checkbox(
+                value: BlocProvider.of<ToggleAutoScrollCubit>(cubitContext).state,
+                onChanged: (bool? value) {
+                  BlocProvider.of<ToggleAutoScrollCubit>(cubitContext).toggle();
                   Navigator.pop(context);
                 }),
           );

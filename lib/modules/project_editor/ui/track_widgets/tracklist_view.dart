@@ -1,8 +1,11 @@
 import 'dart:collection';
 
 import 'package:audiolizer/modules/models/track/track.dart';
+import 'package:audiolizer/modules/project_editor/cubit/toggle_auto_scroll/toggle_auto_scroll.dart';
 import 'package:audiolizer/modules/project_editor/ui/track_widgets/bar_group.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class TrackListView extends StatelessWidget {
   const TrackListView({
@@ -16,25 +19,21 @@ class TrackListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
+    var itemScrollController = BlocProvider.of<ToggleAutoScrollCubit>(context).itemScrollController;
+    var postionedScroll = ScrollablePositionedList.builder(
+      itemCount: trackBarCount2,
+      itemBuilder: barGroupBuilder,
+      itemScrollController: itemScrollController,
+      padding: EdgeInsets.only(
+        bottom: 100,
+      ),
+    );
+
+    var customScroll = CustomScrollView(
       slivers: [
         SliverList(
           delegate: SliverChildBuilderDelegate(
-            (context, barIndex) {
-              var bars = List.generate(
-                tracks.length,
-                (trackIndex) {
-                  var bar = tracks.toList()[trackIndex].bars.toList()[barIndex];
-                  return bar;
-                },
-              );
-              // var r = bars.map((e) => e.startAt).toList();
-              // print('starts=>$r');
-              return BarGroupWidget(
-                barIndex: barIndex,
-                bars: bars,
-              );
-            },
+            barGroupBuilder,
             childCount: trackBarCount2,
           ),
         ),
@@ -42,6 +41,21 @@ class TrackListView extends StatelessWidget {
           child: SizedBox(height: 100),
         ),
       ],
+    );
+   return (1 == 1) ? postionedScroll : customScroll;
+  }
+
+  Widget barGroupBuilder(BuildContext context, barIndex) {
+    var bars = List.generate(
+      tracks.length,
+      (trackIndex) {
+        var bar = tracks.toList()[trackIndex].bars.toList()[barIndex];
+        return bar;
+      },
+    );
+    return BarGroupWidget(
+      barIndex: barIndex,
+      bars: bars,
     );
   }
 }
