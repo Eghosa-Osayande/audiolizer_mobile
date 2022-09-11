@@ -41,9 +41,9 @@ class PlaybackProgressIndicator extends StatelessWidget {
                   );
                     ItemScrollController controller = BlocProvider.of<ToggleAutoScrollCubit>(context).itemScrollController;
                     int barGroupIndex = BlocProvider.of<CurrentBarGroupIndexCubit>(context).state;
-                    controller.scrollTo(
+                    controller.jumpTo(
                       index: barGroupIndex,
-                      duration: d,
+                      // duration: d,
                     );
                   }
                 });
