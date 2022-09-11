@@ -135,8 +135,9 @@ class _ScorePdfPreview extends StatelessWidget {
                 },
                 build: (context) {
                   var wrap = pw.Wrap(
-                    runAlignment: pw.WrapAlignment.center,
-                    crossAxisAlignment: pw.WrapCrossAlignment.center,
+                    runAlignment: pw.WrapAlignment.start,
+                    crossAxisAlignment: pw.WrapCrossAlignment.start,
+                    runSpacing:  2,
                     children: children,
                   );
                   return [
