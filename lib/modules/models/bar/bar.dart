@@ -78,12 +78,7 @@ class Bar extends LinkedListEntry<Bar> with _$Bar, ChangeNotifier, ErrorObjectMi
     }
   }
 
-  double get trackLengthInBeats {
-    if (notes.isNotEmpty) {
-      return notes.last.endAt ?? 0;
-    }
-    return 0;
-  }
+
 
   Result<double, Note> computeNotes({
     required double accumulatedTime,

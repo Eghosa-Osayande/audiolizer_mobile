@@ -17,7 +17,6 @@ import 'package:audiolizer/modules/models/track/enums/midi_program.dart';
 import 'package:audiolizer/modules/models/track/track.dart';
 import 'dart:collection';
 
-
 part 'score.freezed.dart';
 // part 'score.g.dart';
 
@@ -94,6 +93,20 @@ class Score extends LinkedList<Track> with HiveObjectMixin, _$Score, ErrorObject
     return max;
   }
 
+  List<List<Bar>> getBarGroups() {
+    var tracksLength = ensureUniformTracksLength();
+    var trackList = tracks.toList();
+    var barGroups = List.generate(
+      tracksLength,
+      (barIndex) {
+        List<Bar> barGroup = trackList.map((track) => track.bars.toList()[barIndex]).toList();
+
+        return barGroup;
+      },
+    );
+    return barGroups;
+  }
+
   void _resetMidiFile() {
     midiFile = MIDIFile(numTracks: 11);
   }
@@ -149,6 +162,51 @@ class Score extends LinkedList<Track> with HiveObjectMixin, _$Score, ErrorObject
     int maxBeats = 0;
 
     errorObj = null;
+
+    // var barGroups = getBarGroups();
+
+    // double overalAccumulatedTime = 0;
+    // double barGroupAccumulatedTime = 0;
+    // int aCount = 0;
+    // Result<double, Bar>? result;
+
+    // for (var group in barGroups) {
+      
+    //   for (var bar in group) {
+    //     Track? currentBarTrack;
+    //     currentBarTrack = (bar.list as Track);
+    //     result = currentBarTrack.computeBar(bar, accumulatedTime: overalAccumulatedTime, barGroupIndex: aCount);
+    //     if (result.isFailure) {
+    //       errorObj = currentBarTrack;
+    //       return Failure(currentBarTrack);
+    //     } else {
+    //       barGroupAccumulatedTime = (barGroupAccumulatedTime > result.success) ? barGroupAccumulatedTime : result.success;
+    //     }
+    //     if (useMetroneme) {
+    //       var ceil = currentBarTrack.trackLengthInBeats.ceil();
+    //       print(ceil);
+    //       maxBeats = (ceil > maxBeats) ? ceil : maxBeats;
+    //     }
+    //   }
+      
+    //   for (var bar in group) {
+    //     if (bar.notes.isNotEmpty) {
+    //       var len = bar.notes.last.endAt!;
+    //       if (len < barGroupAccumulatedTime) {
+    //         bar.notes.add(
+    //           MusicNote(
+    //             solfa: Solfege.silent,
+    //             octave: 0,
+    //             createdAt: DateTime.now(),
+    //           )..duration = (len - barGroupAccumulatedTime).abs(),
+    //         );
+    //       }
+    //     }
+    //   }
+    //   overalAccumulatedTime = barGroupAccumulatedTime + overalAccumulatedTime;
+    //   aCount++;
+    // }
+
     for (var track in tracks) {
       var result = track.computeNotes();
 
@@ -165,6 +223,7 @@ class Score extends LinkedList<Track> with HiveObjectMixin, _$Score, ErrorObject
         return Failure(track);
       }
     }
+
     await addMetronemeTrack(maxBeats);
 
     for (var track in tracks) {
@@ -176,6 +235,4 @@ class Score extends LinkedList<Track> with HiveObjectMixin, _$Score, ErrorObject
 
     return Success(outputFile);
   }
-
-  
 }

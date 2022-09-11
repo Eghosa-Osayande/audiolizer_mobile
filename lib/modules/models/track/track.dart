@@ -110,6 +110,28 @@ class Track extends LinkedList<Bar> with _$Track, LinkedListEntry<Track>, Equata
     return Success(true);
   }
 
+  Result<double, Bar> computeBar(
+    Bar bar, {
+    required double accumulatedTime,
+    required int barGroupIndex,
+  }) {
+    errorObj = null;
+    errorIndex = null;
+
+    errorIndex = barGroupIndex;
+
+    var result = bar.computeNotes(
+      accumulatedTime: accumulatedTime,
+    );
+    if (result.isFailure) {
+      errorObj = bar;
+      return Failure(bar);
+    } else {
+      accumulatedTime = result.success;
+      return Success(accumulatedTime);
+    }
+  }
+
   Future<void> commit(MIDIFile midiFile, {bool isMetroneme = false}) async {
     switch (trackMode) {
       case TrackMode.lyrics:
