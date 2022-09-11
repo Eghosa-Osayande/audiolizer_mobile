@@ -14,7 +14,7 @@ class BottomRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColors.instance.primary,
+      // color: AppColors.instance.primary,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -75,7 +75,7 @@ class TopRow extends StatelessWidget {
       PlayPauseButton(),
     ];
     return Container(
-      color: AppColors.instance.primary,
+      // color: AppColors.instance.primary,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: markers

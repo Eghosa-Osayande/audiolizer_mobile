@@ -167,7 +167,6 @@ class _LyricInputWidgetState extends State<LyricInputWidget> {
               child: TextFormField(
                 enabled: (viewMode == ViewModeState.edit),
                 focusNode: focus,
-                textAlign: TextAlign.center,
                 initialValue: BlocProvider.of<EditLyricsCubit>(context).state?.lyrics,
                 textInputAction: TextInputAction.newline,
                 maxLines: null,

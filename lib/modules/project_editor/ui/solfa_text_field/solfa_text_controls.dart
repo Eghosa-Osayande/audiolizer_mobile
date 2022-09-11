@@ -60,7 +60,7 @@ class SolfaTextFieldSelectionControls extends MaterialTextSelectionControls {
       globalEditableRegion.top + endTextSelectionPoint.point.dy + _kToolbarContentDistanceBelow,
     );
     return Builder(builder: (context) {
-      return CupertinoTextSelectionToolbar(
+      return TextSelectionToolbar(
         anchorAbove: anchorAbove,
         anchorBelow: anchorBelow,
         children: [
@@ -106,7 +106,20 @@ class SolfaTextFieldSelectionControls extends MaterialTextSelectionControls {
             },
             child: Text('Delete Bars'),
           ),
-          
+          ControlButton(
+            onTap: () {
+              var bar = BlocProvider.of<FocusedBarCubit>(cubitContext).state;
+              if (bar != null) {
+                BlocProvider.of<UndoRedoCubit>(cubitContext).takeSnapShot();
+                BlocProvider.of<SolfaKeyBoardInputEventCubit>(cubitContext).duplicateBars([
+                  bar
+                ]);
+              }
+
+              delegate.hideToolbar();
+            },
+            child: Text('Duplicate Bars'),
+          ),
         ],
       );
     });

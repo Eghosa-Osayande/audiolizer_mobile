@@ -61,6 +61,24 @@ class SolfaKeyBoardInputEventCubit extends Cubit<SolfaKeyBoardInputEvent?> {
     return bar.previous!;
   }
 
+  void duplicateBars(List<Bar> bars) {
+    int? index;
+    Bar? prev;
+    project.score.ensureUniformTracksLength();
+    for (var bar in bars) {
+      index ??= bar.list!.toList().indexOf(bar);
+    }
+    for (Track track in project.score) {
+      var target = track.toList()[index!];
+      var entry = Bar.fromJson(target.toJson())..createdAt = DateTime.now();
+     
+      target.insertAfter(entry);
+       prev ??= entry;
+    }
+
+    emit(SolfaKeyBoardInputEvent(SolfaKeyBoardInputEventName.deleteBar, [], barToFocus: prev));
+  }
+
   void addBarWhenEmpty() {
     // var index = track.toList().indexOf(bar);
 

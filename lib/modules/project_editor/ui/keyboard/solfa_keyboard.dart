@@ -27,7 +27,7 @@ class SolfaKeyboard extends StatelessWidget {
           return Stack(
             children: [
               Container(
-                decoration: BoxDecoration(color: Colors.black54),
+                decoration: BoxDecoration(color: Colors.white30),
                 child: SizedBox(
                   height: 220,
                   child: Column(
