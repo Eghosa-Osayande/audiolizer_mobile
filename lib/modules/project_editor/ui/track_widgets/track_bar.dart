@@ -28,7 +28,7 @@ class TrackBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var mode = (bar.list as Track).trackMode;
-     if (!(bar.list as Track).isVisible) {
+    if (!(bar.list as Track).isVisible) {
       return SizedBox();
     }
     return MultiBlocProvider(
@@ -109,10 +109,12 @@ class LyricsViewWidget extends StatelessWidget {
             enabled: false,
             readOnly: true,
             initialValue: lyrics,
+            minLines: 1,
+            maxLines: null,
             textAlign: TextAlign.center,
-            style: GoogleFonts.inter(fontStyle: FontStyle.italic, fontSize: 14, height: 0.5),
+            style: GoogleFonts.inter(fontStyle: FontStyle.italic, fontSize: 14, height: 1.2),
             decoration: InputDecoration(
-              hintText: "Press and hold to edit lyrics",
+              hintText: "Press and hold to edit ${(bar.list as Track).name} lyrics",
               hintStyle: GoogleFonts.inter(fontStyle: FontStyle.italic, fontSize: 12),
               contentPadding: EdgeInsets.fromLTRB(0, 2, 0, 2),
             ),
@@ -159,17 +161,30 @@ class _LyricInputWidgetState extends State<LyricInputWidget> {
   Widget build(BuildContext context) {
     return BlocBuilder<ViewModeCubit, ViewModeState>(
       builder: (context, viewMode) {
-        return TextFormField(
-          enabled: (viewMode == ViewModeState.edit),
-          focusNode: focus,
-          textAlign: TextAlign.center,
-          initialValue: BlocProvider.of<EditLyricsCubit>(context).state?.lyrics,
-          onTap: () {
-            BlocProvider.of<ToggleSolfaKeyboardVisibilityCubit>(context).hide();
-          },
-          onChanged: (value) {
-            BlocProvider.of<EditLyricsCubit>(context).setLyrics(value);
-          },
+        return Row(
+          children: [
+            Expanded(
+              child: TextFormField(
+                enabled: (viewMode == ViewModeState.edit),
+                focusNode: focus,
+                textAlign: TextAlign.center,
+                initialValue: BlocProvider.of<EditLyricsCubit>(context).state?.lyrics,
+                textInputAction: TextInputAction.newline,
+                maxLines: null,
+                minLines: 1,
+                onTap: () {
+                  BlocProvider.of<ToggleSolfaKeyboardVisibilityCubit>(context).hide();
+                },
+                onChanged: (value) {
+                  BlocProvider.of<EditLyricsCubit>(context).setLyrics(value);
+                },
+              ),
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: Icon(Icons.check),
+            ),
+          ],
         );
       },
     );
