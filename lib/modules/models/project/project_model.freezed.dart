@@ -24,6 +24,8 @@ mixin _$Project {
   set updatedAt(DateTime value) => throw _privateConstructorUsedError;
   Score get score => throw _privateConstructorUsedError;
   set score(Score value) => throw _privateConstructorUsedError;
+  int get versionNumber => throw _privateConstructorUsedError;
+  set versionNumber(int value) => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ProjectCopyWith<Project> get copyWith => throw _privateConstructorUsedError;
@@ -34,7 +36,11 @@ abstract class $ProjectCopyWith<$Res> {
   factory $ProjectCopyWith(Project value, $Res Function(Project) then) =
       _$ProjectCopyWithImpl<$Res>;
   $Res call(
-      {String title, String description, DateTime updatedAt, Score score});
+      {String title,
+      String description,
+      DateTime updatedAt,
+      Score score,
+      int versionNumber});
 
   $ScoreCopyWith<$Res> get score;
 }
@@ -53,6 +59,7 @@ class _$ProjectCopyWithImpl<$Res> implements $ProjectCopyWith<$Res> {
     Object? description = freezed,
     Object? updatedAt = freezed,
     Object? score = freezed,
+    Object? versionNumber = freezed,
   }) {
     return _then(_value.copyWith(
       title: title == freezed
@@ -71,6 +78,10 @@ class _$ProjectCopyWithImpl<$Res> implements $ProjectCopyWith<$Res> {
           ? _value.score
           : score // ignore: cast_nullable_to_non_nullable
               as Score,
+      versionNumber: versionNumber == freezed
+          ? _value.versionNumber
+          : versionNumber // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 
@@ -89,7 +100,11 @@ abstract class _$$_ProjectCopyWith<$Res> implements $ProjectCopyWith<$Res> {
       __$$_ProjectCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String title, String description, DateTime updatedAt, Score score});
+      {String title,
+      String description,
+      DateTime updatedAt,
+      Score score,
+      int versionNumber});
 
   @override
   $ScoreCopyWith<$Res> get score;
@@ -110,6 +125,7 @@ class __$$_ProjectCopyWithImpl<$Res> extends _$ProjectCopyWithImpl<$Res>
     Object? description = freezed,
     Object? updatedAt = freezed,
     Object? score = freezed,
+    Object? versionNumber = freezed,
   }) {
     return _then(_$_Project(
       title: title == freezed
@@ -128,6 +144,10 @@ class __$$_ProjectCopyWithImpl<$Res> extends _$ProjectCopyWithImpl<$Res>
           ? _value.score
           : score // ignore: cast_nullable_to_non_nullable
               as Score,
+      versionNumber: versionNumber == freezed
+          ? _value.versionNumber
+          : versionNumber // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -139,7 +159,8 @@ class _$_Project extends _Project with DiagnosticableTreeMixin {
       {required this.title,
       required this.description,
       required this.updatedAt,
-      required this.score})
+      required this.score,
+      this.versionNumber = 1})
       : super._();
 
   @override
@@ -150,10 +171,13 @@ class _$_Project extends _Project with DiagnosticableTreeMixin {
   DateTime updatedAt;
   @override
   Score score;
+  @override
+  @JsonKey()
+  int versionNumber;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Project(title: $title, description: $description, updatedAt: $updatedAt, score: $score)';
+    return 'Project(title: $title, description: $description, updatedAt: $updatedAt, score: $score, versionNumber: $versionNumber)';
   }
 
   @override
@@ -164,7 +188,8 @@ class _$_Project extends _Project with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('title', title))
       ..add(DiagnosticsProperty('description', description))
       ..add(DiagnosticsProperty('updatedAt', updatedAt))
-      ..add(DiagnosticsProperty('score', score));
+      ..add(DiagnosticsProperty('score', score))
+      ..add(DiagnosticsProperty('versionNumber', versionNumber));
   }
 
   @JsonKey(ignore: true)
@@ -178,7 +203,8 @@ abstract class _Project extends Project {
       {required String title,
       required String description,
       required DateTime updatedAt,
-      required Score score}) = _$_Project;
+      required Score score,
+      int versionNumber}) = _$_Project;
   _Project._() : super._();
 
   @override
@@ -193,6 +219,9 @@ abstract class _Project extends Project {
   @override
   Score get score;
   set score(Score value);
+  @override
+  int get versionNumber;
+  set versionNumber(int value);
   @override
   @JsonKey(ignore: true)
   _$$_ProjectCopyWith<_$_Project> get copyWith =>

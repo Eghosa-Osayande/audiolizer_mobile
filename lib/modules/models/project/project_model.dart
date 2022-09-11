@@ -25,6 +25,7 @@ class Project with HiveObjectMixin, _$Project {
     required String description,
     required DateTime updatedAt,
     required Score score,
+    @Default(1) int versionNumber,
   }) = _Project;
 
   factory Project.fromJson(Map<String, dynamic> json) {
@@ -33,6 +34,7 @@ class Project with HiveObjectMixin, _$Project {
       description: json['description'] as String,
       updatedAt: DateTime.parse(json['updatedAt'] as String),
       score: Score.fromJson(json['score'] as Map<String, dynamic>),
+      versionNumber: json['versionNumber'] ?? 1,
     );
   }
 
@@ -41,6 +43,7 @@ class Project with HiveObjectMixin, _$Project {
         'description': description,
         'updatedAt': updatedAt.toIso8601String(),
         'score': score.toJson(),
+        'versionNumber': versionNumber,
       };
 
   String get updatedAtString {
