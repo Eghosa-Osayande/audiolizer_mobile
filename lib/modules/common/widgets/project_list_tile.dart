@@ -11,9 +11,10 @@ import 'package:audiolizer/modules/project_management/repo/project_repo.dart';
 
 class ProjectListTile extends StatelessWidget {
   final Project project;
+  final VoidCallback? onLongPress;
   const ProjectListTile({
     Key? key,
-    required this.project,
+    required this.project, this.onLongPress,
   }) : super(key: key);
 
   @override
@@ -22,6 +23,7 @@ class ProjectListTile extends StatelessWidget {
       onTap: () {
         Navigator.of(context).push(ProjectEditorPage.route(project));
       },
+      onLongPress: onLongPress,
       child: Container(
         child: ListTile(
           leading: Container(
@@ -44,8 +46,9 @@ class ProjectListTile extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
           ),
           subtitle: Text(
-            'Last opened at ' + CustomDateFormater.getProjectUpdatedTime(project.updatedAt)
-          ,style: TextStyle(fontSize: 10),),
+            'Last opened at ' + CustomDateFormater.getProjectUpdatedTime(project.updatedAt),
+            style: TextStyle(fontSize: 10),
+          ),
           trailing: IconButton(
             icon: Icon(
               Icons.more_vert,

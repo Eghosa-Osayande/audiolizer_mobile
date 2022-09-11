@@ -114,11 +114,9 @@ class _TrackScaffoldState extends State<TrackScaffold> {
                               break;
 
                             case ToggleEditPlayModeState.playing:
-                              BlocProvider.of<ToggleAutoScrollCubit>(context).itemScrollController.scrollTo(
+                              BlocProvider.of<ToggleAutoScrollCubit>(context).itemScrollController.jumpTo(
                                   index: 0,
-                                  duration: Duration(
-                                    milliseconds: 500,
-                                  ));
+                                  );
                               break;
                           }
                         },

@@ -93,6 +93,22 @@ class ShareProjectService {
     ]);
   }
 
+  Future<void> shareProjects(List<Project> projects) async {
+    List<String> paths = [];
+    for (var project in projects) {
+      FirebaseService.instance.logEvent(name: 'share_project');
+      String shareData = json.encode(project.toJson());
+      String root = await PlatformPathService.instance.getExportRootDirectory();
+
+      File outputFile = File('$root/${project.title}.solfa');
+      await outputFile.create(recursive: true);
+      var result = await outputFile.writeAsString(shareData);
+      paths.add(result.path);
+    }
+
+    Share.shareFiles(paths);
+  }
+
   Future<void> shareProjectAsMidi(Project project) async {
     var result = await project.score.commit();
     if (result?.isSuccess ?? false) {
