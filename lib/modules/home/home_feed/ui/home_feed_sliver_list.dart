@@ -63,7 +63,7 @@ class _HomeFeedListState extends State<HomeFeedList> {
             builderDelegate: PagedChildBuilderDelegate<HomeFeedModel>(
               firstPageProgressIndicatorBuilder: (context) {
                 return Column(
-                  children: List.generate(3, (index) {
+                  children: List.generate(2, (index) {
                     return InkWell(
                         onTap: () {
                           onRequestPage(0);
