@@ -104,7 +104,7 @@ class SolfaTextFieldSelectionControls extends MaterialTextSelectionControls {
 
               delegate.hideToolbar();
             },
-            child: Text('Delete Bar'),
+            child: Text('Delete Bars'),
           ),
           
         ],
