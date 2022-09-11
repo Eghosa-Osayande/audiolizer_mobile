@@ -32,21 +32,21 @@ class PlaybackProgressIndicator extends StatelessWidget {
             var end = bar.endAtInSeconds();
             if (start != null && end != null) {
               if (position >= start && position <= end) {
-                SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-                
+                // SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
                   bool canScroll = BlocProvider.of<ToggleAutoScrollCubit>(context).state;
                   if (canScroll) {
-                      var d = Duration(
-                    milliseconds: (((end - start).abs()) * 1000).toInt() + 1000,
-                  );
+                    var int2 = (((end - start).abs()) * 1000).toInt();
+                    var d = Duration(
+                      milliseconds: int2 < 500 ? int2 : 500,
+                    );
                     ItemScrollController controller = BlocProvider.of<ToggleAutoScrollCubit>(context).itemScrollController;
                     int barGroupIndex = BlocProvider.of<CurrentBarGroupIndexCubit>(context).state;
-                    controller.jumpTo(
+                    controller.scrollTo(
                       index: barGroupIndex,
-                      // duration: d,
+                      duration: d,
                     );
                   }
-                });
+                // });
                 color = Colors.green;
               }
             }

@@ -1,5 +1,6 @@
 import 'dart:collection';
 
+import 'package:audiolizer/modules/models/notes/enums/duration_markers.dart';
 import 'package:audiolizer/modules/pdf/utils/pdf_font_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -53,7 +54,7 @@ class Bar extends LinkedListEntry<Bar> with _$Bar, ChangeNotifier, ErrorObjectMi
         // if (startAtInSeconds2 > 1) {
         //   return startAtInSeconds2 - 1;
         // }
-        return startAtInSeconds2-1;
+        return startAtInSeconds2 - 1;
       }
     }
   }
@@ -71,14 +72,12 @@ class Bar extends LinkedListEntry<Bar> with _$Bar, ChangeNotifier, ErrorObjectMi
           .startAtInSeconds;
       if (endAtInSeconds2 != null) {
         if (endAtInSeconds2 > 1) {
-          return endAtInSeconds2 ;
+          return endAtInSeconds2;
         }
-        return endAtInSeconds2 ;
+        return endAtInSeconds2;
       }
     }
   }
-
-
 
   Result<double, Note> computeNotes({
     required double accumulatedTime,
@@ -95,13 +94,26 @@ class Bar extends LinkedListEntry<Bar> with _$Bar, ChangeNotifier, ErrorObjectMi
       errorIndex = index;
       index++;
       if ((note.isDuration) || (note.isMusic)) {
+        if (note.isDuration) {
+          if ((note as DurationNote).marker == DurationMarker.seperator) {
+            // if (end == null) {
+            //   errorObj = note;
+            //   errorMessage = "${note.displayString()} should come after a duration marker such as : , .";
+            //   break;
+            // }
+            start = null;
+            end = null;
+            mid = null;
+            continue;
+          }
+        }
         if (start == null) {
           if (note.isDuration) {
             start = note as DurationNote;
             continue;
           } else {
             errorObj = note;
-            errorMessage = "${note.displayString()} should come after a duration marker such as : , . |";
+            errorMessage = "${note.displayString()} should come after a duration marker such as : , .";
             break;
           }
         } else if (mid == null) {
@@ -161,7 +173,7 @@ class Bar extends LinkedListEntry<Bar> with _$Bar, ChangeNotifier, ErrorObjectMi
               break;
             }
           } else {
-            errorMessage = "${note.displayString()} should come after a duration marker such as : , . |";
+            errorMessage = "${note.displayString()} should come after a duration marker such as : , . ";
             errorObj = note;
             break;
           }
