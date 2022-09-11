@@ -83,6 +83,7 @@ class EditToolbar extends StatelessWidget {
             onPressed: () {
               BlocProvider.of<PlayScoreCubit>(context).play();
             },
+            
             icon: BlocBuilder<ToggleEditPlayModeCubit, ToggleEditPlayModeState>(
               builder: (context, state) {
                 switch (state) {
