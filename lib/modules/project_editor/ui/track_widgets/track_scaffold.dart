@@ -7,6 +7,7 @@ import 'package:audiolizer/modules/project_editor/cubit/toggle_edit_play_mode/to
 import 'package:audiolizer/modules/project_editor/cubit/toggle_keyboard_visibility.dart/toggle_keyboard_visibility_cubit.dart';
 import 'package:audiolizer/modules/project_editor/cubit/undo_redo/undo_redo_cubit.dart';
 import 'package:audiolizer/modules/project_editor/cubit/view_mode/view_mode.dart';
+import 'package:audiolizer/modules/project_editor/repo/toggle_auto_scroll.dart';
 import 'package:audiolizer/modules/project_editor/ui/keyboard/solfa_keyboard.dart';
 import 'package:audiolizer/modules/project_editor/ui/toolbars/playback_slider.dart';
 import 'package:audiolizer/modules/project_editor/ui/toolbars/primary_toolbar.dart';
@@ -108,15 +109,18 @@ class _TrackScaffoldState extends State<TrackScaffold> {
                         },
                       ),
                       BlocListener<ToggleEditPlayModeCubit, ToggleEditPlayModeState>(
-                        listener: (context, state) {
+                        listener: (context, state) async {
                           switch (state) {
                             case ToggleEditPlayModeState.edit:
                               break;
 
                             case ToggleEditPlayModeState.playing:
-                              BlocProvider.of<ToggleAutoScrollCubit>(context).itemScrollController.jumpTo(
-                                  index: 0,
-                                  );
+                              if (await ToggleAutoScrollRepo.instance.read()) {
+                                BlocProvider.of<ToggleAutoScrollCubit>(context).itemScrollController.jumpTo(
+                                      index: 0,
+                                    );
+                              }
+
                               break;
                           }
                         },
