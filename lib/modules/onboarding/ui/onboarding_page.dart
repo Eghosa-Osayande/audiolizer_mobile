@@ -41,17 +41,22 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black38,
-      floatingActionButton: Builder(
-        builder: (context) {
-          bool isEnabled = (isSelected.any((element) => element == true));
-          return Opacity(
-            opacity: isEnabled ? 1 : 0.7,
-            child: ElevatedButton(
-              onPressed: isEnabled ? () => onContinue(context) : null,
-              child: Text("Continue"),
-            ),
-          );
-        },
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        actions: [
+          Builder(
+            builder: (context) {
+              bool isEnabled = (isSelected.any((element) => element == true));
+              return Opacity(
+                opacity: isEnabled ? 1 : 0.7,
+                child: TextButton(
+                  onPressed: isEnabled ? () => onContinue(context) : null,
+                  child: Text("Continue"),
+                ),
+              );
+            },
+          ),
+        ],
       ),
       body: Stack(
         alignment: AlignmentDirectional.center,
@@ -69,7 +74,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
           ),
           Positioned.fill(
             child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 16, vertical: 34),
+              margin: EdgeInsets.fromLTRB(16, 4, 16, 4),
               child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
