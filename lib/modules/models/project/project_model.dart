@@ -64,7 +64,9 @@ class Project with HiveObjectMixin, _$Project {
     List.generate(noOfBars, (index) {
       List<pw.Widget> barColumn = [];
       for (Track track in score) {
-        barColumn.add(track.toList()[index].toPDF());
+        if (track.isVisible) {
+          barColumn.add(track.toList()[index].toPDF());
+        }
       }
       pdfBars.add(
         pw.Container(
