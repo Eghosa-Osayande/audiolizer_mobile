@@ -40,6 +40,27 @@ class SolfaKeyBoardInputEventCubit extends Cubit<SolfaKeyBoardInputEvent?> {
     return bar.next!;
   }
 
+  Bar addBarUp(Bar bar) {
+    var track = (bar.list as Track);
+    var index = track.toList().indexOf(bar);
+
+    for (var track in project.score.tracks) {
+      Bar bar = track.last;
+      if (!index.isNegative) {
+        bar = track.toList()[index];
+      }
+
+      bar.insertBefore(
+        Bar(
+          createdAt: DateTime.now().toUtc(),
+          notes: [],
+        ),
+      );
+    }
+    emit(SolfaKeyBoardInputEvent(SolfaKeyBoardInputEventName.addBar, []));
+    return bar.previous!;
+  }
+
   void addBarWhenEmpty() {
     // var index = track.toList().indexOf(bar);
 

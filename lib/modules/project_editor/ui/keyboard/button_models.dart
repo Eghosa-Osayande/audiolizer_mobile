@@ -41,7 +41,6 @@ class MusicNoteButton extends ButtonModel {
   @override
   String displayString() {
     return Note.music(solfa: solfa, octave: octave, createdAt: DateTime.now()).displayString();
-   
   }
 
   @override
@@ -165,7 +164,38 @@ class NewLineButton extends ButtonModel {
   Widget? icon(BuildContext context) {
     return Center(
       child: Icon(
-        Icons.subdirectory_arrow_left_outlined,
+        Icons.arrow_downward,
+        size: 16,
+      ),
+    );
+  }
+}
+
+class NewLineUpButton extends ButtonModel {
+  const NewLineUpButton();
+
+  @override
+  String displayString() {
+    return '↵';
+  }
+
+  @override
+  void action(BuildContext context) {
+    super.action(context);
+    Bar? focusedBar = BlocProvider.of<FocusedBarCubit>(context).state;
+    if (focusedBar != null) {
+      var newBar = BlocProvider.of<SolfaKeyBoardInputEventCubit>(context).addBarUp(focusedBar);
+      SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+        BlocProvider.of<FocusedBarCubit>(context).focusBar(newBar);
+      });
+    }
+  }
+
+  @override
+  Widget? icon(BuildContext context) {
+    return Center(
+      child: Icon(
+        Icons.arrow_upward,
         size: 16,
       ),
     );

@@ -25,6 +25,13 @@ class BottomRow extends StatelessWidget {
               height: 40,
             ),
           ),
+          Expanded(
+            flex: 1,
+            child: ButtonWidget(
+              data: NewLineUpButton(),
+              height: 40,
+            ),
+          ),
           // Expanded(
           //     flex: 1,
           //     child: ButtonWidget(
@@ -41,7 +48,7 @@ class BottomRow extends StatelessWidget {
           //       data: MusicNoteButton(octave: 0, solfa: Solfege.sustain),
           //     )),
           Expanded(
-            flex: 1,
+            flex: 2,
             child: ButtonWidget(
               data: DeleteNoteButton(),
               height: 40,
