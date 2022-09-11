@@ -96,7 +96,7 @@ class LyricsViewWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var lyrics = bar.lyrics.trim();
-
+   
     return InkWell(
       onLongPress: () {
         BlocProvider.of<EditLyricsCubit>(context).editBarLyrics(bar);
@@ -181,7 +181,9 @@ class _LyricInputWidgetState extends State<LyricInputWidget> {
               ),
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                focus.unfocus();
+              },
               icon: Icon(Icons.check),
             ),
           ],
