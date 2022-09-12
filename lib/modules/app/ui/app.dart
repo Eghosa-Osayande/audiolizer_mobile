@@ -4,6 +4,7 @@ import 'package:audiolizer/modules/hive_db/util/hive_initializer.dart';
 import 'package:audiolizer/modules/onboarding/repo/onboarding_repo.dart';
 import 'package:audiolizer/modules/onboarding/ui/onboarding_page.dart';
 import 'package:audiolizer/modules/splash/ui/splash_page.dart';
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:form_builder_validators/localization/l10n.dart';
@@ -82,6 +83,9 @@ class _AudiolizerAppState extends State<AudiolizerApp> {
           ),
           brightness: Brightness.dark),
       home: const SplashPage(),
+      // useInheritedMediaQuery: true,
+      // locale: DevicePreview.locale(context),
+      // builder: DevicePreview.appBuilder,
     );
   }
 }

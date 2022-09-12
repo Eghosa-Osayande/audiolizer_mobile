@@ -87,6 +87,7 @@ dependencies:
   firebase_database: ^9.1.4
   cached_network_image: ^3.2.1
   scrollable_positioned_list: ^0.3.4
+  device_preview: ^1.1.0
   
   
 

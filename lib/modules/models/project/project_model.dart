@@ -120,7 +120,7 @@ class Project with HiveObjectMixin, _$Project {
         pw.Row(
           mainAxisSize: pw.MainAxisSize.max,
           children: [
-            pw.Text('\nDoh is ${score.keySignature.displayString}, ${score.timeSignature.numerator}/${score.timeSignature.denominator}, ${score.bpm} BPM\n\n')
+            pw.Text('\nDoh is ${score.keySignature.displayString}, ${score.timeSignature.displayString}, ${score.bpm} BPM\n\n')
           ],
         ),
         pw.Row(
