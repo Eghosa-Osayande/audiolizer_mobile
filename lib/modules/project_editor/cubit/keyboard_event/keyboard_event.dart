@@ -123,6 +123,10 @@ class SolfaKeyBoardInputEventCubit extends Cubit<SolfaKeyBoardInputEvent?> {
   void selectAll() {
     emit(SolfaKeyBoardInputEvent(SolfaKeyBoardInputEventName.selectAll, []));
   }
+
+  void muteNotes() {
+    emit(SolfaKeyBoardInputEvent(SolfaKeyBoardInputEventName.muteNotes, []));
+  }
 }
 
 class SolfaKeyBoardInputEvent extends Equatable {
@@ -147,5 +151,5 @@ enum SolfaKeyBoardInputEventName {
   deleteBar,
   selectAll,
   octaveUp,
-  octaveDown;
+  octaveDown,muteNotes;
 }

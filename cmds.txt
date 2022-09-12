@@ -2,15 +2,16 @@ adb shell am force-stop com.audiolizer.mobile && adb shell am start -a android.i
 
 adb -s 192.168.43.1:5555 -d shell am force-stop com.audiolizer.mobile && adb -s 192.168.43.1:5555 -d shell am start -a android.intent.action.RUN -f 0x20000000 --ez enable-background-compilation true --ez    enable-dart-profiling true --ez enable-checked-mode true --ez verify-entry-points true com.audiolizer.mobile/com.audiolizer.mobile.MainActivity && flutter attach -v
 
-flutter install && adb shell am force-stop com.audiolizer.mobile && adb shell am start -a android.intent.action.RUN -f 0x20000000 --ez enable-background-compilation true --ez    enable-dart-profiling true --ez enable-checked-mode true --ez verify-entry-points true com.audiolizer.mobile/com.audiolizer.mobile.MainActivity && flutter attach -v
+flutter install && adb shell am force-stop com.audiolize
+r.mobile && adb shell am start -a android.intent.action.RUN -f 0x20000000 --ez enable-background-compilation true --ez    enable-dart-profiling true --ez enable-checked-mode true --ez verify-entry-points true com.audiolizer.mobile/com.audiolizer.mobile.MainActivity && flutter attach -v
 
 keytool -list -v -alias androiddebugkey -keystore %USERPROFILE%\.android\debug.keystore
 
-"/c/Program Files/Android/Android Studio1/jre/bin/keytool" -list -v -alias ytv -keystore android//ytv.keystore
+"/Program Files/Android/Android Studio/jre/bin/keytool" -list -v -alias audiolizer -keystore android//audiolizer.keystore
 
-"/c/Program Files/Android/Android Studio1/jre/bin/keytool"
+"/c/Program Files/Android/Android Studio/jre/bin/keytool"
 
-"/c/Program Files/Android/Android Studio1/jre/bin/keytool" -genkey -v -keystore ytv.keystore -alias ytv -keyalg RSA -keysize 2048 -validity 9999999999
+"/Program Files/Android/Android Studio/jre/bin/keytool"  -genkey -v -keystore audiolizer.keystore -alias audiolizer -keyalg RSA -keysize 2048 -validity 99999
 
 
 adb install -t -r C:\\Users\\user\\Desktop\\YandeCode\\segi\\build\\app\\outputs\\flutter-apk\\app-debug.apk

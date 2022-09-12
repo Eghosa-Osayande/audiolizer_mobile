@@ -19,6 +19,7 @@ class CompileErrorDialog extends StatelessWidget {
       child: child,
       listener: (context, state) {
         if (state?.score.errorObj != null) {
+          
           var errorTrack = state?.score.errorObj;
           showDialog(
             context: context,

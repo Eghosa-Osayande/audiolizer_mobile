@@ -182,10 +182,11 @@ class SolfaEditingController extends TextEditingController {
       note.maybeMap(
         orElse: () {},
         music: (value) {
-          var currentOctave = value.octave;
-          if (currentOctave < 3) {
-            value.octave = currentOctave + 1;
+          if (value.isSilent || value.isSustained) {
+            return;
           }
+          var currentOctave = value.octave;
+          value.octave = currentOctave + 1;
         },
       );
     }
@@ -201,10 +202,28 @@ class SolfaEditingController extends TextEditingController {
       note.maybeMap(
         orElse: () {},
         music: (value) {
-          var currentOctave = value.octave;
-          if (currentOctave < 3) {
-            value.octave = currentOctave - 1;
+          if (value.isSilent || value.isSustained) {
+            return;
           }
+          var currentOctave = value.octave;
+
+          value.octave = currentOctave - 1;
+        },
+      );
+    }
+    notifyListeners();
+  }
+
+  void muteNotes() {
+    var copies = notes.sublist(
+      selection.start,
+      selection.end,
+    );
+    for (var note in copies) {
+      note.maybeMap(
+        orElse: () {},
+        music: (value) {
+          value.solfa = Solfege.silent;
         },
       );
     }

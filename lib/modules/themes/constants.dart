@@ -7,9 +7,10 @@ final kNewProjectInputBorder = OutlineInputBorder(borderRadius: BorderRadius.cir
 final kNewProjectContentPadding = EdgeInsets.symmetric(horizontal: 10, vertical: 10);
 
 final kLogoSvg = '''
-<svg xmlns="http://www.w3.org/2000/svg" width="330" height="388" fill="none" viewBox="0 0 330 388">
-  <path fill="#000" stroke="#fff" stroke-width="9" d="M152 249H67.5l-60 132.5H92l12-24h138l12 24.5 70-31.5-21-45.5H127l25-56Z"/>
-  <path fill="#ED0000" d="M89.5 227 194 .5 323.5 283H162l10.5-24h55L194 186l-20 41H89.5Z"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="415" height="422" fill="none" viewBox="0 0 415 422">
+  <path fill="#000" stroke="#fff" stroke-width="9" d="M164.924 271.585h-92.35L7 416.393h92.35l13.114-26.229h191.804l11.475 26.229 91.257.547-38.251-84.153H137.601l27.323-61.202Z"/>
+  <path fill="#ED0000" d="M96.618 247.541 210.825 0l141.53 308.743H175.852l11.476-26.229h60.109l-36.612-79.782-21.858 44.809h-92.35Z"/>
 </svg>
+
 
 ''';

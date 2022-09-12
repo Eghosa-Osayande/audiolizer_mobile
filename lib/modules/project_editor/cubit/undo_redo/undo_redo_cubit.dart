@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:audiolizer/modules/models/score/score.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,15 +9,19 @@ class UndoRedoCubit extends Cubit<UndoRedoState> {
   final Project project;
   final List<Score> projectUndoVersions = [];
   final List<Score> projectRedoVersions = [];
+  final StreamController<UndoRedoState> _iconBuildTrigger = StreamController.broadcast();
+
+  Stream<UndoRedoState> get iconBuildTriggerStream => _iconBuildTrigger.stream;
 
   UndoRedoCubit({required this.project}) : super(UndoRedoState(project));
 
   void takeSnapShot() {
     print('snapshot taken');
-    
+
     var scoreCopy = Score.fromJson(project.score.toJson());
     projectUndoVersions.add(scoreCopy);
     projectRedoVersions.clear();
+     _iconBuildTrigger.add(state);
   }
 
   void undo() {
@@ -27,7 +33,6 @@ class UndoRedoCubit extends Cubit<UndoRedoState> {
       ]);
       projectRedoVersions.add(project.score);
       project.score = score;
-
       emit(UndoRedoState(project));
     }
   }

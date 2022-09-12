@@ -1,6 +1,11 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 enum TimeSignature {
+  dynamic(
+    numerator: 4,
+    denominator: 4,
+    displayString: 'Free Style',
+  ),
   t_4_4(
     numerator: 4,
     denominator: 4,

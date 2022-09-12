@@ -117,6 +117,9 @@ class _SolfaTextFieldState extends State<SolfaTextField> {
                   controller.shiftOctaveDown();
 
                   break;
+                case SolfaKeyBoardInputEventName.muteNotes:
+                  controller.muteNotes();
+                  break;
               }
             }
           },

@@ -51,8 +51,9 @@ class EditToolbar extends StatelessWidget {
               Navigator.of(context).push(CreateProjectPage.route(project: project));
             },
           ),
-          Builder(
-            builder: (context) {
+          StreamBuilder(
+            stream:BlocProvider.of<UndoRedoCubit>(context).iconBuildTriggerStream,
+            builder: (context, snap) {
               return IconButton(
                 onPressed: BlocProvider.of<UndoRedoCubit>(context, listen: true).projectUndoVersions.isEmpty
                     ? null
@@ -65,8 +66,9 @@ class EditToolbar extends StatelessWidget {
               );
             },
           ),
-          Builder(
-            builder: (context) {
+          StreamBuilder(
+            stream:BlocProvider.of<UndoRedoCubit>(context).iconBuildTriggerStream,
+            builder: (context, snap) {
               return IconButton(
                 onPressed: BlocProvider.of<UndoRedoCubit>(context, listen: true).projectRedoVersions.isEmpty
                     ? null

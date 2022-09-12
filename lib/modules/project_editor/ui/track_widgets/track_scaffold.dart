@@ -98,6 +98,9 @@ class _TrackScaffoldState extends State<TrackScaffold> {
                               case SolfaKeyBoardInputEventName.octaveDown:
                                 // TODO: Handle this case.
                                 break;
+                              case SolfaKeyBoardInputEventName.muteNotes:
+                                // TODO: Handle this case.
+                                break;
                             }
                           }
                         },

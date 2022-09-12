@@ -108,7 +108,11 @@ class _MyProjectsPageState extends State<MyProjectsPage> with SingleTickerProvid
                       title: Text('My Projects'),
                       actions: [
                         PopupMenuButton(
-                          child: Icon(Icons.more_vert),
+                          child: Container(
+                                child: Icon(Icons.more_vert),
+                                padding: const EdgeInsets.all(12.0),
+                                decoration: BoxDecoration(shape: BoxShape.circle),
+                              ),
                           onSelected: (value) {
                             switch (value) {
                               case 'select':
