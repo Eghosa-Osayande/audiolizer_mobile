@@ -172,4 +172,42 @@ class SolfaEditingController extends TextEditingController {
     selection = TextSelection(baseOffset: 0, extentOffset: text.length);
     notifyListeners();
   }
+
+  void shiftOctaveUp() {
+    var copies = notes.sublist(
+      selection.start,
+      selection.end,
+    );
+    for (var note in copies) {
+      note.maybeMap(
+        orElse: () {},
+        music: (value) {
+          var currentOctave = value.octave;
+          if (currentOctave < 3) {
+            value.octave = currentOctave + 1;
+          }
+        },
+      );
+    }
+    notifyListeners();
+  }
+
+  void shiftOctaveDown() {
+    var copies = notes.sublist(
+      selection.start,
+      selection.end,
+    );
+    for (var note in copies) {
+      note.maybeMap(
+        orElse: () {},
+        music: (value) {
+          var currentOctave = value.octave;
+          if (currentOctave < 3) {
+            value.octave = currentOctave - 1;
+          }
+        },
+      );
+    }
+    notifyListeners();
+  }
 }

@@ -120,6 +120,30 @@ class SolfaTextFieldSelectionControls extends MaterialTextSelectionControls {
             },
             child: Text('Duplicate Bars'),
           ),
+          ControlButton(
+            onTap: () {
+              var bar = BlocProvider.of<FocusedBarCubit>(cubitContext).state;
+              if (bar != null) {
+                BlocProvider.of<UndoRedoCubit>(cubitContext).takeSnapShot();
+                BlocProvider.of<SolfaKeyBoardInputEventCubit>(cubitContext).shiftOctaveDown();
+              }
+
+              delegate.hideToolbar();
+            },
+            child: Text('Octave -'),
+          ),
+          ControlButton(
+            onTap: () {
+              var bar = BlocProvider.of<FocusedBarCubit>(cubitContext).state;
+              if (bar != null) {
+                BlocProvider.of<UndoRedoCubit>(cubitContext).takeSnapShot();
+                BlocProvider.of<SolfaKeyBoardInputEventCubit>(cubitContext).shiftOctaveUp();
+              }
+
+              delegate.hideToolbar();
+            },
+            child: Text('Octave +'),
+          ),
         ],
       );
     });

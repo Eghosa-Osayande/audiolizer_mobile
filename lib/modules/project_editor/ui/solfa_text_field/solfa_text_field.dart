@@ -110,6 +110,13 @@ class _SolfaTextFieldState extends State<SolfaTextField> {
                 case SolfaKeyBoardInputEventName.selectAll:
                   controller.selectAll();
                   break;
+                case SolfaKeyBoardInputEventName.octaveUp:
+                  controller.shiftOctaveUp();
+                  break;
+                case SolfaKeyBoardInputEventName.octaveDown:
+                  controller.shiftOctaveDown();
+
+                  break;
               }
             }
           },

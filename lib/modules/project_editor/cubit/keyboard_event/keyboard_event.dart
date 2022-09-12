@@ -19,6 +19,14 @@ class SolfaKeyBoardInputEventCubit extends Cubit<SolfaKeyBoardInputEvent?> {
     emit(SolfaKeyBoardInputEvent(SolfaKeyBoardInputEventName.delete, []));
   }
 
+  void shiftOctaveUp() {
+    emit(SolfaKeyBoardInputEvent(SolfaKeyBoardInputEventName.octaveUp, []));
+  }
+
+  void shiftOctaveDown() {
+    emit(SolfaKeyBoardInputEvent(SolfaKeyBoardInputEventName.octaveDown, []));
+  }
+
   Bar addBar(Bar bar) {
     var track = (bar.list as Track);
     var index = track.toList().indexOf(bar);
@@ -71,9 +79,9 @@ class SolfaKeyBoardInputEventCubit extends Cubit<SolfaKeyBoardInputEvent?> {
     for (Track track in project.score) {
       var target = track.toList()[index!];
       var entry = Bar.fromJson(target.toJson())..createdAt = DateTime.now();
-     
+
       target.insertAfter(entry);
-       prev ??= entry;
+      prev ??= entry;
     }
 
     emit(SolfaKeyBoardInputEvent(SolfaKeyBoardInputEventName.deleteBar, [], barToFocus: prev));
@@ -137,5 +145,7 @@ enum SolfaKeyBoardInputEventName {
   delete,
   addBar,
   deleteBar,
-  selectAll;
+  selectAll,
+  octaveUp,
+  octaveDown;
 }
