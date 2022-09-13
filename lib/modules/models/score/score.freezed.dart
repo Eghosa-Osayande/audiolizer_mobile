@@ -28,6 +28,9 @@ mixin _$Score {
   set scoreTitle(String value) => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
   set updatedAt(DateTime value) => throw _privateConstructorUsedError;
+  Map<int, int>? get timeBarIndexMap => throw _privateConstructorUsedError;
+  set timeBarIndexMap(Map<int, int>? value) =>
+      throw _privateConstructorUsedError;
   MIDIFile? get midiFile => throw _privateConstructorUsedError;
   set midiFile(MIDIFile? value) => throw _privateConstructorUsedError;
 
@@ -46,6 +49,7 @@ abstract class $ScoreCopyWith<$Res> {
       int tonicPitchNumber,
       String scoreTitle,
       DateTime updatedAt,
+      Map<int, int>? timeBarIndexMap,
       MIDIFile? midiFile});
 }
 
@@ -65,6 +69,7 @@ class _$ScoreCopyWithImpl<$Res> implements $ScoreCopyWith<$Res> {
     Object? tonicPitchNumber = freezed,
     Object? scoreTitle = freezed,
     Object? updatedAt = freezed,
+    Object? timeBarIndexMap = freezed,
     Object? midiFile = freezed,
   }) {
     return _then(_value.copyWith(
@@ -92,6 +97,10 @@ class _$ScoreCopyWithImpl<$Res> implements $ScoreCopyWith<$Res> {
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      timeBarIndexMap: timeBarIndexMap == freezed
+          ? _value.timeBarIndexMap
+          : timeBarIndexMap // ignore: cast_nullable_to_non_nullable
+              as Map<int, int>?,
       midiFile: midiFile == freezed
           ? _value.midiFile
           : midiFile // ignore: cast_nullable_to_non_nullable
@@ -112,6 +121,7 @@ abstract class _$$_ScoreCopyWith<$Res> implements $ScoreCopyWith<$Res> {
       int tonicPitchNumber,
       String scoreTitle,
       DateTime updatedAt,
+      Map<int, int>? timeBarIndexMap,
       MIDIFile? midiFile});
 }
 
@@ -132,6 +142,7 @@ class __$$_ScoreCopyWithImpl<$Res> extends _$ScoreCopyWithImpl<$Res>
     Object? tonicPitchNumber = freezed,
     Object? scoreTitle = freezed,
     Object? updatedAt = freezed,
+    Object? timeBarIndexMap = freezed,
     Object? midiFile = freezed,
   }) {
     return _then(_$_Score(
@@ -159,6 +170,10 @@ class __$$_ScoreCopyWithImpl<$Res> extends _$ScoreCopyWithImpl<$Res>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      timeBarIndexMap: timeBarIndexMap == freezed
+          ? _value.timeBarIndexMap
+          : timeBarIndexMap // ignore: cast_nullable_to_non_nullable
+              as Map<int, int>?,
       midiFile: midiFile == freezed
           ? _value.midiFile
           : midiFile // ignore: cast_nullable_to_non_nullable
@@ -177,6 +192,7 @@ class _$_Score extends _Score {
       required this.tonicPitchNumber,
       required this.scoreTitle,
       required this.updatedAt,
+      this.timeBarIndexMap,
       this.midiFile})
       : super._();
 
@@ -192,6 +208,8 @@ class _$_Score extends _Score {
   String scoreTitle;
   @override
   DateTime updatedAt;
+  @override
+  Map<int, int>? timeBarIndexMap;
   @override
   MIDIFile? midiFile;
 
@@ -209,6 +227,7 @@ abstract class _Score extends Score {
       required int tonicPitchNumber,
       required String scoreTitle,
       required DateTime updatedAt,
+      Map<int, int>? timeBarIndexMap,
       MIDIFile? midiFile}) = _$_Score;
   _Score._() : super._();
 
@@ -230,6 +249,9 @@ abstract class _Score extends Score {
   @override
   DateTime get updatedAt;
   set updatedAt(DateTime value);
+  @override
+  Map<int, int>? get timeBarIndexMap;
+  set timeBarIndexMap(Map<int, int>? value);
   @override
   MIDIFile? get midiFile;
   set midiFile(MIDIFile? value);

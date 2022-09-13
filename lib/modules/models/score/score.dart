@@ -31,6 +31,7 @@ class Score extends LinkedList<Track> with HiveObjectMixin, _$Score, ErrorObject
     required int tonicPitchNumber,
     required String scoreTitle,
     required DateTime updatedAt,
+    Map<int, int>? timeBarIndexMap,
     MIDIFile? midiFile,
   }) = _Score;
 
@@ -192,51 +193,25 @@ class Score extends LinkedList<Track> with HiveObjectMixin, _$Score, ErrorObject
     return Success(outputFile);
   }
 
-
-  Future<Result<File, Track>?> commitSingleBar(
+  Future<Result<CommitSingleBarSuccess, Track>?> commitSingleBar(
     Bar bar,
     int barGroupIndex, {
     bool useMetroneme = false,
   }) async {
-    _resetMidiFile();
-
-    for (var track in tracks) {
-      track.resetAllNotes();
-    }
-
-    int maxBeats = 0;
-
-    errorObj = null;
-
-    Track track = (bar.list as Track);
-
-    var result = track.computeBar(
-      bar,
-      accumulatedTime: 0,
-      barGroupIndex: barGroupIndex,
-    );
-
-    if (result.isSuccess) {
-      if (useMetroneme) {
-        var ceil = track.trackLengthInBeats.ceil();
-        // print(ceil);
-        maxBeats = (ceil > maxBeats) ? ceil : maxBeats;
+    var file = await commit(useMetroneme: useMetroneme);
+    if (file?.isSuccess ?? false) {
+      if (tracks.isNotEmpty) {
+        double startAtInSeconds = tracks.first.bars.toList()[barGroupIndex].notes.first.startAtInSeconds!;
+        return Success(CommitSingleBarSuccess(file!.success, startAtInSeconds));
       }
-    } else {
-      errorObj = track;
-      return Failure(track);
     }
 
-    await addMetronemeTrack(maxBeats);
-
-    await track.commitBar(
-      midiFile!,
-      bar,
-    );
-
-    File outputFile = MemoryFileSystem().file('${DateTime.now().toUtc()}.mid');
-    await midiFile!.writeFile(outputFile);
-
-    return Success(outputFile);
+    return file != null ? Failure(file.failure) : null;
   }
+}
+
+class CommitSingleBarSuccess {
+  final double startAt;
+  final File file;
+  const CommitSingleBarSuccess(this.file, this.startAt);
 }

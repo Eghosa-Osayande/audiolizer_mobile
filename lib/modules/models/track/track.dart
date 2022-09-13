@@ -28,6 +28,7 @@ class Track extends LinkedList<Bar> with _$Track, LinkedListEntry<Track>, Equata
     required int volume,
     required MidiProgram program,
     required String name,
+    MusicNote? previousNote,
     @Default(TrackMode.music) TrackMode trackMode,
     @Default(true) bool isVisible,
     @Default(true) bool isLyricsVisible,
@@ -84,12 +85,15 @@ class Track extends LinkedList<Bar> with _$Track, LinkedListEntry<Track>, Equata
     return 0;
   }
 
+  
+
   Result<bool, Bar> computeNotes() {
     int count = 0;
     double accumulatedTime = 0;
 
     errorObj = null;
     errorIndex = null;
+    previousNote = null;
 
     int index = 0;
 

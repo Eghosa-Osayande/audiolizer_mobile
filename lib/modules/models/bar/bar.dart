@@ -85,7 +85,7 @@ class Bar extends LinkedListEntry<Bar> with _$Bar, ChangeNotifier, ErrorObjectMi
     // intialScoreConfigNote = intialScoreConfigNoteX;
 
     DurationNote? start, end;
-    MusicNote? previousNote, mid;
+    MusicNote? mid;
 
     clearErrors();
 
@@ -145,6 +145,7 @@ class Bar extends LinkedListEntry<Bar> with _$Bar, ChangeNotifier, ErrorObjectMi
               end.endAt = accumulatedTime;
 
               if (mid.isSustained) {
+                MusicNote? previousNote = (this.list as Track).previousNote;
                 if (previousNote == null) {
                   errorObj = mid;
                   errorMessage = "No previous note found to sustain";
@@ -161,7 +162,7 @@ class Bar extends LinkedListEntry<Bar> with _$Bar, ChangeNotifier, ErrorObjectMi
                 }
               } else {
                 mid.duration = duration;
-                previousNote = mid;
+                (this.list as Track).previousNote = mid;
               }
 
               mid = null;

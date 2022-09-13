@@ -12,6 +12,7 @@ targets:
           - lib/modules/home/**.dart
           - lib/modules/home/**/**.dart
           - lib/modules/firebase/models/**.dart
+          - lib/modules/app_update/models/**.dart
       
       hive_generator:hive_generator:
         enabled: false
@@ -21,6 +22,7 @@ targets:
           - lib/modules/home/**.dart
           - lib/modules/home/**/**.dart
           - lib/modules/firebase/models/**.dart
+          - lib/modules/app_update/models/**.dart
       json_serializable:json_serializable:
         enabled: true
         generate_for:
@@ -29,3 +31,4 @@ targets:
           - lib/modules/home/**.dart
           - lib/modules/home/**/**.dart
           - lib/modules/firebase/models/**.dart
+          - lib/modules/app_update/models/**.dart

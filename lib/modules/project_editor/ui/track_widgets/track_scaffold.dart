@@ -125,9 +125,16 @@ class _TrackScaffoldState extends State<TrackScaffold> {
 
                             case ToggleEditPlayModeState.playing:
                               if (await ToggleAutoScrollRepo.instance.read()) {
-                                BlocProvider.of<ToggleAutoScrollCubit>(context).itemScrollController.jumpTo(
-                                      index: 0,
-                                    );
+                                var playState = BlocProvider.of<PlayScoreCubit>(context).state;
+                                
+
+                                if (playState.barGroupIndex != null) {
+                                  var index = playState.barGroupIndex!;
+                                } else {
+                                  BlocProvider.of<ToggleAutoScrollCubit>(context).itemScrollController.jumpTo(
+                                        index: 0,
+                                      );
+                                }
                               }
 
                               break;

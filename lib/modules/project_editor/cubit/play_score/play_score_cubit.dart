@@ -58,19 +58,28 @@ class PlayScoreCubit extends Cubit<PlayScoreCubitState> {
       if (result != null) {
         if (result.isSuccess) {
           await project.save();
-          await AudioPlayerService.instance.setSourceBytes(await result.success.readAsBytes());
-          await AudioPlayerService.instance.seek(Duration(seconds: 0));
+          await AudioPlayerService.instance.setSourceBytes(await result.success.file.readAsBytes());
+          await AudioPlayerService.instance.seek(Duration(seconds: result.success.startAt.toInt()));
           AudioPlayerService.instance.resume();
-          emit(PlayScoreCubitState(project.score));
+          emit(PlayScoreCubitState(
+            project.score,
+            barGroupIndex: barGroupIndex,
+          ));
           return;
         } else {
-          emit(PlayScoreCubitState(project.score));
+          emit(PlayScoreCubitState(
+            project.score,
+            barGroupIndex: barGroupIndex,
+          ));
           return;
         }
       }
       AudioPlayerService.instance.resume();
 
-      emit(PlayScoreCubitState(project.score));
+      emit(PlayScoreCubitState(
+        project.score,
+        barGroupIndex: barGroupIndex,
+      ));
     }
   }
 

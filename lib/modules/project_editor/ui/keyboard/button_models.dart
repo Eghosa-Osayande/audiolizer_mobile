@@ -216,7 +216,7 @@ class PlayPauseButton extends ButtonModel {
   void action(BuildContext context) async {
     var bar = BlocProvider.of<FocusedBarCubit>(context).state;
     var barGroupIndex = await BlocProvider.of<FocusedBarCubit>(context).barGroupIndexStream.first;
-     BlocProvider.of<ToggleAutoScrollCubit>(context).turnOff();
+   
     if (bar != null) {
       BlocProvider.of<PlayScoreCubit>(context).playSingleBar(bar, barGroupIndex);
     }
