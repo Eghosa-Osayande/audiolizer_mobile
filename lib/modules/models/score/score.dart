@@ -163,50 +163,6 @@ class Score extends LinkedList<Track> with HiveObjectMixin, _$Score, ErrorObject
 
     errorObj = null;
 
-    // var barGroups = getBarGroups();
-
-    // double overalAccumulatedTime = 0;
-    // double barGroupAccumulatedTime = 0;
-    // int aCount = 0;
-    // Result<double, Bar>? result;
-
-    // for (var group in barGroups) {
-      
-    //   for (var bar in group) {
-    //     Track? currentBarTrack;
-    //     currentBarTrack = (bar.list as Track);
-    //     result = currentBarTrack.computeBar(bar, accumulatedTime: overalAccumulatedTime, barGroupIndex: aCount);
-    //     if (result.isFailure) {
-    //       errorObj = currentBarTrack;
-    //       return Failure(currentBarTrack);
-    //     } else {
-    //       barGroupAccumulatedTime = (barGroupAccumulatedTime > result.success) ? barGroupAccumulatedTime : result.success;
-    //     }
-    //     if (useMetroneme) {
-    //       var ceil = currentBarTrack.trackLengthInBeats.ceil();
-    //       print(ceil);
-    //       maxBeats = (ceil > maxBeats) ? ceil : maxBeats;
-    //     }
-    //   }
-      
-    //   for (var bar in group) {
-    //     if (bar.notes.isNotEmpty) {
-    //       var len = bar.notes.last.endAt!;
-    //       if (len < barGroupAccumulatedTime) {
-    //         bar.notes.add(
-    //           MusicNote(
-    //             solfa: Solfege.silent,
-    //             octave: 0,
-    //             createdAt: DateTime.now(),
-    //           )..duration = (len - barGroupAccumulatedTime).abs(),
-    //         );
-    //       }
-    //     }
-    //   }
-    //   overalAccumulatedTime = barGroupAccumulatedTime + overalAccumulatedTime;
-    //   aCount++;
-    // }
-
     for (var track in tracks) {
       var result = track.computeNotes();
 
@@ -229,6 +185,54 @@ class Score extends LinkedList<Track> with HiveObjectMixin, _$Score, ErrorObject
     for (var track in tracks) {
       await track.commit(midiFile!);
     }
+
+    File outputFile = MemoryFileSystem().file('${DateTime.now().toUtc()}.mid');
+    await midiFile!.writeFile(outputFile);
+
+    return Success(outputFile);
+  }
+
+
+  Future<Result<File, Track>?> commitSingleBar(
+    Bar bar,
+    int barGroupIndex, {
+    bool useMetroneme = false,
+  }) async {
+    _resetMidiFile();
+
+    for (var track in tracks) {
+      track.resetAllNotes();
+    }
+
+    int maxBeats = 0;
+
+    errorObj = null;
+
+    Track track = (bar.list as Track);
+
+    var result = track.computeBar(
+      bar,
+      accumulatedTime: 0,
+      barGroupIndex: barGroupIndex,
+    );
+
+    if (result.isSuccess) {
+      if (useMetroneme) {
+        var ceil = track.trackLengthInBeats.ceil();
+        // print(ceil);
+        maxBeats = (ceil > maxBeats) ? ceil : maxBeats;
+      }
+    } else {
+      errorObj = track;
+      return Failure(track);
+    }
+
+    await addMetronemeTrack(maxBeats);
+
+    await track.commitBar(
+      midiFile!,
+      bar,
+    );
 
     File outputFile = MemoryFileSystem().file('${DateTime.now().toUtc()}.mid');
     await midiFile!.writeFile(outputFile);

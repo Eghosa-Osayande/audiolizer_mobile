@@ -22,6 +22,10 @@ class ToggleAutoScrollCubit extends Cubit<bool> {
     ToggleAutoScrollRepo.instance.put(!state);
   }
 
+  void turnOff() {
+    ToggleAutoScrollRepo.instance.put(false);
+  }
+
   @override
   Future<void> close() {
     sub?.cancel();

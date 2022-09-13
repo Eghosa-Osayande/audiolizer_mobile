@@ -1,3 +1,4 @@
+import 'package:audiolizer/modules/project_editor/cubit/current_bar_group_index/current_bar_group_index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -60,6 +61,8 @@ class _SolfaTextFieldState extends State<SolfaTextField> {
   void focusListener() {
     if (focus.hasPrimaryFocus) {
       BlocProvider.of<FocusedBarCubit>(context).focusBar(widget.bar);
+      var barGroupIndex = BlocProvider.of<CurrentBarGroupIndexCubit>(context).state;
+      BlocProvider.of<FocusedBarCubit>(context).setBarGroupIndex(barGroupIndex);
     }
   }
 

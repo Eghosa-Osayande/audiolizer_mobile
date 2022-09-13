@@ -2,8 +2,7 @@ adb shell am force-stop com.audiolizer.mobile && adb shell am start -a android.i
 
 adb -s 192.168.43.1:5555 -d shell am force-stop com.audiolizer.mobile && adb -s 192.168.43.1:5555 -d shell am start -a android.intent.action.RUN -f 0x20000000 --ez enable-background-compilation true --ez    enable-dart-profiling true --ez enable-checked-mode true --ez verify-entry-points true com.audiolizer.mobile/com.audiolizer.mobile.MainActivity && flutter attach -v
 
-flutter install && adb shell am force-stop com.audiolize
-r.mobile && adb shell am start -a android.intent.action.RUN -f 0x20000000 --ez enable-background-compilation true --ez    enable-dart-profiling true --ez enable-checked-mode true --ez verify-entry-points true com.audiolizer.mobile/com.audiolizer.mobile.MainActivity && flutter attach -v
+flutter install && adb shell am force-stop com.audiolizer.mobile && adb shell am start -a android.intent.action.RUN -f 0x20000000 --ez enable-background-compilation true --ez    enable-dart-profiling true --ez enable-checked-mode true --ez verify-entry-points true com.audiolizer.mobile/com.audiolizer.mobile.MainActivity && flutter attach -v
 
 keytool -list -v -alias androiddebugkey -keystore %USERPROFILE%\.android\debug.keystore
 

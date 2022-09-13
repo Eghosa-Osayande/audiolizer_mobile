@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:audiolizer/modules/project_editor/cubit/current_bar_group_index/current_bar_group_index.dart';
 import 'package:audiolizer/modules/project_editor/cubit/play_score/play_score_cubit.dart';
+import 'package:audiolizer/modules/project_editor/cubit/toggle_auto_scroll/toggle_auto_scroll.dart';
 import 'package:audiolizer/modules/project_editor/cubit/toggle_edit_play_mode/toggle_edit_play_mode_cubit.dart';
 import 'package:audiolizer/modules/project_editor/cubit/undo_redo/undo_redo_cubit.dart';
 import 'package:audiolizer/modules/themes/colors/app_colors.dart';
@@ -211,8 +213,13 @@ class PlayPauseButton extends ButtonModel {
   }
 
   @override
-  void action(BuildContext context) {
-    BlocProvider.of<PlayScoreCubit>(context).play();
+  void action(BuildContext context) async {
+    var bar = BlocProvider.of<FocusedBarCubit>(context).state;
+    var barGroupIndex = await BlocProvider.of<FocusedBarCubit>(context).barGroupIndexStream.first;
+     BlocProvider.of<ToggleAutoScrollCubit>(context).turnOff();
+    if (bar != null) {
+      BlocProvider.of<PlayScoreCubit>(context).playSingleBar(bar, barGroupIndex);
+    }
   }
 
   @override

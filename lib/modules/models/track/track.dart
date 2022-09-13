@@ -110,6 +110,14 @@ class Track extends LinkedList<Bar> with _$Track, LinkedListEntry<Track>, Equata
     return Success(true);
   }
 
+  resetAllNotes() {
+    for (var bar in bars) {
+      for (var note in bar.notes) {
+        note.startAt = note.endAt = note.endAtInSeconds = note.startAtInSeconds = null;
+      }
+    }
+  }
+
   Result<double, Bar> computeBar(
     Bar bar, {
     required double accumulatedTime,
@@ -178,6 +186,52 @@ class Track extends LinkedList<Bar> with _$Track, LinkedListEntry<Track>, Equata
     for (var bar in bars) {
       await bar.commit(this, midiFile, isMetroneme: isMetroneme);
     }
+  }
+
+  Future<void> commitBar(MIDIFile midiFile, Bar bar, {bool isMetroneme = false}) async {
+    switch (trackMode) {
+      case TrackMode.lyrics:
+        return;
+      case TrackMode.music:
+        break;
+    }
+    midiFile.addTempo(
+      track: trackNumber,
+      time: 0,
+      tempo: score.bpm,
+    );
+    midiFile.addTimeSignature(
+      track: trackNumber,
+      time: 0,
+      numerator: score.timeSignature.numerator,
+      denominator: score.timeSignature.denominator,
+      clocks_per_tick: 24,
+    );
+    // TODO: actual implementation of keys Signature
+    // midiFile.addKeySignature(
+    //   track: trackNumber,
+    //   time: 0,
+    //   no_of_accidentals: score.keySignature.accidentalCount,
+    //   accidental_mode: score.keySignature.accidentalMode,
+    //   accidental_type: score.keySignature.accidentalType,
+    // );
+    if (isMetroneme) {
+      midiFile.addProgramChange(
+        tracknum: trackNumber,
+        channel: trackNumber,
+        time: 0,
+        program: 45,
+      );
+    } else {
+      midiFile.addProgramChange(
+        tracknum: trackNumber,
+        channel: trackNumber,
+        time: 0,
+        program: program.value,
+      );
+    }
+
+    await bar.commit(this, midiFile, isMetroneme: isMetroneme);
   }
 
   @override
