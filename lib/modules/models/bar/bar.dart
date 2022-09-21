@@ -90,23 +90,11 @@ class Bar extends LinkedListEntry<Bar> with _$Bar, ChangeNotifier, ErrorObjectMi
     clearErrors();
 
     int index = 0;
+
     for (var note in notes) {
       errorIndex = index;
       index++;
       if ((note.isDuration) || (note.isMusic)) {
-        if (note.isDuration) {
-          if ((note as DurationNote).marker == DurationMarker.seperator) {
-            // if (end == null) {
-            //   errorObj = note;
-            //   errorMessage = "${note.displayString()} should come after a duration marker such as : , .";
-            //   break;
-            // }
-            start = null;
-            end = null;
-            mid = null;
-            continue;
-          }
-        }
         if (start == null) {
           if (note.isDuration) {
             start = note as DurationNote;
@@ -127,6 +115,14 @@ class Bar extends LinkedListEntry<Bar> with _$Bar, ChangeNotifier, ErrorObjectMi
         }
         if (end == null) {
           if (note.isDuration) {
+            if ((note as DurationNote).marker == DurationMarker.seperator) {
+              if (mid == null) {
+                start = note;
+                end = null;
+                continue;
+              }
+            }
+
             end = note as DurationNote;
 
             mid ??= MusicNote(solfa: Solfege.silent, octave: 0, createdAt: DateTime.now());
