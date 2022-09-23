@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -51,6 +48,17 @@ class DefaultFirebaseOptions {
         );
     }
   }
+
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyAQOFnByj1bftajK2XTrf65PWowqj8lwfE',
+    appId: '1:223484387411:web:0f0604949bb0feff27e6a6',
+    messagingSenderId: '223484387411',
+    projectId: 'audiolizer-solfa',
+    authDomain: 'audiolizer-solfa.firebaseapp.com',
+    databaseURL: 'https://audiolizer-solfa-default-rtdb.europe-west1.firebasedatabase.app',
+    storageBucket: 'audiolizer-solfa.appspot.com',
+    measurementId: 'G-C77CQPZ1LN',
+  );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCAvGi8-WWhCHqvshWXMVrpSRSoTS20me4',
