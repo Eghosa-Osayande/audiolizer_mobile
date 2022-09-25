@@ -1,27 +1,14 @@
 import 'dart:async';
 import 'dart:typed_data';
 
+import 'package:audiolizer/modules/project_editor/service/audio_player_service.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/foundation.dart';
 
-import 'package:audiolizer/modules/project_editor/service/audio_player_service_mobile.dart' if (dart.library.html) 'package:audiolizer/modules/project_editor/service/audio_player_service_web.dart' as AudioPlayerServiceImpl;
-
-class AudioPlayerService {
-  static AudioPlayerService? _instance;
-
-  AudioPlayerService.visibleForWebImpl();
-  factory AudioPlayerService.__() {
-    if (kIsWeb) {
-      _instance = AudioPlayerServiceImpl.AudioPlayerServiceImpl.visibleForWebImpl();
-    } else {
-      _instance ??= AudioPlayerServiceImpl.AudioPlayerServiceImpl.visibleForWebImpl();
-    }
-    return _instance!;
-  }
-
-  static AudioPlayerService get instance => AudioPlayerService.__();
-
+class AudioPlayerServiceImpl extends AudioPlayerService {
   final _player = AudioPlayer();
+
+  AudioPlayerServiceImpl.visibleForWebImpl() : super.visibleForWebImpl();
 
   AudioPlayer get __player => _player;
 
@@ -86,9 +73,4 @@ class AudioPlayerService {
   Stream<void> get onPlayerComplete => __player.onPlayerComplete;
   Stream<Duration> get onPositionChanged => __player.onPositionChanged;
   Stream<Duration> get onDurationChanged => __player.onDurationChanged;
-}
-
-enum AudioPlayerState {
-  playing,
-  notPlaying;
 }

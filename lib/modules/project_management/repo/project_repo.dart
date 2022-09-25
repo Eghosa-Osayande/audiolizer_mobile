@@ -26,7 +26,6 @@ class ProjectRepo {
   _listenToDatabaseChanges() async {
     _projectsSubject.add((await readAll()));
     (await _getProjectsBox()).watch().listen((BoxEvent event) async {
-      print('ppp');
       if (!event.deleted) {
         _updatedProjectSink.add(event.value);
       }
