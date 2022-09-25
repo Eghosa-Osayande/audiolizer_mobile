@@ -1,0 +1,32 @@
+{
+  "config": {
+    "allow": [
+      1
+    ],
+    "body": "This version has expired, continue to get the latest updates",
+    "noAllow": [
+      0
+    ],
+    "semiAllow": [
+      0
+    ],
+    "title": "App update available",
+    "url": "https://play.google.com/store/apps/details?id=com.maroieqrwlk.unpin&hl=en&gl=US",
+    "version": 1
+  },
+  "feed": [
+    {
+      "avatar": "https://github.com/Eghosa-Osayande/Audiolizer/raw/setup/logo_black.png",
+      "description": "New to Audiolizer? Read our Get Started Guide",
+      "title": "Introducing Audiolizer",
+      "url": "https://github.com/The-Audiolizer/blog/wiki",
+      "user": "  "
+    },{
+      "avatar": "",
+      "description": "Click to download the solfa project for Nightingale by Yanni",
+      "title": "Get Started Project",
+      "url": "https://firebasestorage.googleapis.com/v0/b/audiolizer-solfa.appspot.com/o/yanni%2Fnightingale.solfa?alt=media&token=a7abc255-8e35-4c65-b8ae-468546699631",
+      "user": "  "
+    }
+  ]
+}
