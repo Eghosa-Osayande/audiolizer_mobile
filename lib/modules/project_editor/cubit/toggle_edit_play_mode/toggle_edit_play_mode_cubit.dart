@@ -7,7 +7,7 @@ import 'package:audiolizer/modules/project_editor/service/audio_player_service.d
 part 'toggle_edit_play_mode_state.dart';
 
 class ToggleEditPlayModeCubit extends Cubit<ToggleEditPlayModeState> {
-  StreamSubscription<PlayerState>? sub;
+  StreamSubscription<AudioPlayerState>? sub;
 
   StreamSubscription<void>? sub2;
 
@@ -29,9 +29,9 @@ class ToggleEditPlayModeCubit extends Cubit<ToggleEditPlayModeState> {
     edit();
   }
 
-  void onPlayerStateChangedListener(PlayerState event) {
+  void onPlayerStateChangedListener(AudioPlayerState event) {
     switch (event) {
-      case PlayerState.playing:
+      case AudioPlayerState.playing:
         play();
         break;
       default:

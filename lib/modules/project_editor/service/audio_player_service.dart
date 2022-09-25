@@ -69,8 +69,20 @@ class AudioPlayerService {
     return _player.getDuration();
   }
 
-  Stream<PlayerState> get onPlayerStateChanged => __player.onPlayerStateChanged;
+  Stream<AudioPlayerState> get onPlayerStateChanged => __player.onPlayerStateChanged.map<AudioPlayerState>((event) {
+        switch (event) {
+          case PlayerState.playing:
+            return AudioPlayerState.playing;
+          default:
+            return AudioPlayerState.notPlaying;
+        }
+      });
   Stream<void> get onPlayerComplete => __player.onPlayerComplete;
   Stream<Duration> get onPositionChanged => __player.onPositionChanged;
   Stream<Duration> get onDurationChanged => __player.onDurationChanged;
+}
+
+enum AudioPlayerState {
+  playing,
+  notPlaying;
 }
