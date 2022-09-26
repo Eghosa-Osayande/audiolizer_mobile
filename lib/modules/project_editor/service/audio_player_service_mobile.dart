@@ -5,10 +5,12 @@ import 'package:audiolizer/modules/project_editor/service/audio_player_service.d
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/foundation.dart';
 
-class AudioPlayerServiceImpl extends AudioPlayerService {
+AudioPlayerService getAudioPlayerService() => AudioPlayerServiceMobile.visibleForWebImpl();
+
+class AudioPlayerServiceMobile extends AudioPlayerService {
   final _player = AudioPlayer();
 
-  AudioPlayerServiceImpl.visibleForWebImpl() : super.visibleForWebImpl();
+  AudioPlayerServiceMobile.visibleForWebImpl() : super.visibleForWebImpl();
 
   AudioPlayer get __player => _player;
 

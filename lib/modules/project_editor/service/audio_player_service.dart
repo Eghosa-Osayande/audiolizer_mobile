@@ -4,7 +4,7 @@ import 'dart:typed_data';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/foundation.dart';
 
-import 'package:audiolizer/modules/project_editor/service/audio_player_service_mobile.dart' if (dart.library.html) 'package:audiolizer/modules/project_editor/service/audio_player_service_web.dart' as AudioPlayerServiceImpl;
+import 'package:audiolizer/modules/project_editor/service/audio_player_service_stub.dart' if (dart.library.io) 'package:audiolizer/modules/project_editor/service/audio_player_service_mobile.dart' if (dart.library.html) 'package:audiolizer/modules/project_editor/service/audio_player_service_web.dart' as AudioPlayerServiceImpl;
 
 class AudioPlayerService {
   static AudioPlayerService? _instance;
@@ -12,9 +12,9 @@ class AudioPlayerService {
   AudioPlayerService.visibleForWebImpl();
   factory AudioPlayerService.__() {
     if (kIsWeb) {
-      _instance = AudioPlayerServiceImpl.AudioPlayerServiceImpl.visibleForWebImpl();
+      _instance = AudioPlayerServiceImpl.getAudioPlayerService();
     } else {
-      _instance ??= AudioPlayerServiceImpl.AudioPlayerServiceImpl.visibleForWebImpl();
+      _instance ??= AudioPlayerServiceImpl.getAudioPlayerService();
     }
     return _instance!;
   }

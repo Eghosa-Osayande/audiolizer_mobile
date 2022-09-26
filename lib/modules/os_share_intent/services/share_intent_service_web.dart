@@ -20,8 +20,10 @@ void _downloadFile(File file, String FileName) {
     ..click();
 }
 
-class ShareProjectServiceImpl extends ShareProjectService {
-  ShareProjectServiceImpl.visibleForImpl() : super.visibleForImpl();
+ShareProjectService getShareProjectService() => ShareProjectServiceWeb.visibleForImpl();
+
+class ShareProjectServiceWeb extends ShareProjectService {
+  ShareProjectServiceWeb.visibleForImpl() : super.visibleForImpl();
 
   _startListeningForIncomingShareIntent() {}
 

@@ -13,7 +13,7 @@ import 'package:flutter/foundation.dart';
 import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 import 'package:share_plus/share_plus.dart';
 
-import 'package:audiolizer/modules/os_share_intent/services/share_intent_service_mobile.dart' if (dart.library.html) 'package:audiolizer/modules/os_share_intent/services/share_intent_service_web.dart' as ShareProjectServiceImpl;
+import 'package:audiolizer/modules/os_share_intent/services/share_intent_service_stub.dart' if (dart.library.io) 'package:audiolizer/modules/os_share_intent/services/share_intent_service_mobile.dart' if (dart.library.html) 'package:audiolizer/modules/os_share_intent/services/share_intent_service_web.dart' as ShareProjectServiceStub;
 
 class ShareProjectService {
   static ShareProjectService? _instance;
@@ -22,10 +22,10 @@ class ShareProjectService {
 
   factory ShareProjectService._create() {
     if (kIsWeb) {
-      _instance ??= ShareProjectServiceImpl.ShareProjectServiceImpl.visibleForImpl();
+      _instance ??= ShareProjectServiceStub.getShareProjectService();
       _instance?._startListeningForIncomingShareIntent();
     } else if (_instance == null) {
-      _instance ??= ShareProjectServiceImpl.ShareProjectServiceImpl.visibleForImpl();
+      _instance ??= ShareProjectServiceStub.getShareProjectService();
       _instance?._startListeningForIncomingShareIntent();
     }
 

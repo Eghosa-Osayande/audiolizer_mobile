@@ -1,9 +1,7 @@
 import 'dart:typed_data';
 
-import 'package:file/file.dart';
-import 'package:file_picker/file_picker.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:audiolizer/modules/app_services_controller/services_config.dart';
+import 'package:file_picker/file_picker.dart';
 
 class PlatformFilePickerService {
   static PlatformFilePickerService? _instance;

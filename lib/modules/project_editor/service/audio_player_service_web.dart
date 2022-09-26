@@ -8,8 +8,10 @@ import 'package:audiolizer/modules/app_services_controller/services_config.dart'
 import 'dart:js' as js;
 import 'package:js/js.dart' as jsx;
 
-class AudioPlayerServiceImpl extends AudioPlayerService {
-  AudioPlayerServiceImpl.visibleForWebImpl() : super.visibleForWebImpl() {
+AudioPlayerService getAudioPlayerService() => AudioPlayerServiceWeb.visibleForWebImpl();
+
+class AudioPlayerServiceWeb extends AudioPlayerService {
+  AudioPlayerServiceWeb.visibleForWebImpl() : super.visibleForWebImpl() {
     jsSetPlayerState = jsx.allowInterop(_setPlayerState);
     jsSetPostionChanged = jsx.allowInterop(_setPostionChanged);
     jsSetPlayerComplete = jsx.allowInterop(_setPlayerComplete);

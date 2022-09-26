@@ -15,10 +15,12 @@ import 'package:audiolizer/modules/os_permission/services/permission/platform_pe
 import 'package:audiolizer/modules/os_toast/services/platform_toast_service.dart';
 import 'package:audiolizer/modules/project_management/repo/project_repo.dart';
 
-class ShareProjectServiceImpl extends ShareProjectService {
+ShareProjectService getShareProjectService() => ShareProjectServiceMobile.visibleForImpl();
+
+class ShareProjectServiceMobile extends ShareProjectService {
   final StreamController<Project> _sharedSolphaFileEventStream = StreamController.broadcast();
 
-  ShareProjectServiceImpl.visibleForImpl() : super.visibleForImpl();
+  ShareProjectServiceMobile.visibleForImpl() : super.visibleForImpl();
 
   Stream<Project> get sharedProjectEventStream => _sharedSolphaFileEventStream.stream;
 
