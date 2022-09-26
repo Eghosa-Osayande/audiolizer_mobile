@@ -71,17 +71,19 @@ class ShareProjectService {
   }
 
   Future<void> handleFile(File file) async {
-    String scoreJson = await file.readAsString();
-
-    try {
-      Project importedScore = Project.fromJson(json.decode(scoreJson)).copyWith(
-        updatedAt: DateTime.now(),
-      );
-      await ProjectRepo.instance.put(importedScore);
-      _sharedSolphaFileEventStream.add(importedScore);
-    } on Exception catch (e) {
+    file.readAsString().then((scoreJson) async {
+      try {
+        Project importedScore = Project.fromJson(json.decode(scoreJson)).copyWith(
+          updatedAt: DateTime.now(),
+        );
+        await ProjectRepo.instance.put(importedScore);
+        _sharedSolphaFileEventStream.add(importedScore);
+      } on Exception catch (e) {
+        PlatformToastService.instance.showToast(msg: 'Loading file failed\nInvalidformat');
+      }
+    }).catchError((_) {
       PlatformToastService.instance.showToast(msg: 'Loading file failed\nInvalidformat');
-    }
+    });
   }
 
   Future<void> shareProject(Project project) async {
