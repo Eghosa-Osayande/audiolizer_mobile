@@ -4,7 +4,8 @@ const midiNotesCallbackObject = {
     run: function (n) {        
         currentTime=n.startTime;
         setPostionChanged(currentTime);
-        if(n.endTime===currentNS.totalTime){
+        
+        if(currentNS.notes.indexOf(n)===(currentNS.notes.length-1)){
             setPlayerComplete(); 
             currentTime=n.endTime;
             setPostionChanged(currentTime);
