@@ -7,8 +7,8 @@ const midiNotesCallbackObject = {
         
         if(currentNS.notes.indexOf(n)===(currentNS.notes.length-1)){
             setPlayerComplete(); 
-            currentTime=n.endTime;
-            setPostionChanged(currentTime);
+            currentTime=currentNS.totalTime;
+            setPostionChanged(currentNS.totalTime);
         }
         console.log(n.startTime);
     },
@@ -21,6 +21,7 @@ let currentTime=0;
 let currentNS=core.midiToSequenceProto();
 
 const soundFont = 'https://storage.googleapis.com/magentadata/js/soundfonts/sgm_plus';
+// const soundFont = 'https://archive.org/download/free-soundfonts-sf2-2019-04/MuseScore_General%28v0.1.3%29.sf2';
 
 const player = new core.SoundFontPlayer(soundFont, undefined, undefined, undefined, midiNotesCallbackObject);
 
