@@ -3,38 +3,22 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:audiolizer/modules/firebase/firebase_service.dart';
-import 'package:audiolizer/modules/models/project/project_model.dart';
-import 'package:audiolizer/modules/os_path/services/path/platform_path_service.dart';
-import 'package:audiolizer/modules/os_permission/services/permission/platform_permission_service.dart';
-
-import 'package:audiolizer/modules/os_toast/services/platform_toast_service.dart';
-import 'package:audiolizer/modules/project_management/repo/project_repo.dart';
-import 'package:flutter/foundation.dart';
+import 'package:audiolizer/modules/os_share_intent/services/share_intent_service.dart';
+import 'package:file/memory.dart';
 import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:audiolizer/modules/app_services_controller/services_config.dart';
+import 'package:audiolizer/modules/models/project/project_model.dart';
+import 'package:audiolizer/modules/models/score/score.dart';
+import 'package:audiolizer/modules/os_path/services/path/platform_path_service.dart';
+import 'package:audiolizer/modules/os_permission/services/permission/platform_permission_service.dart';
+import 'package:audiolizer/modules/os_toast/services/platform_toast_service.dart';
+import 'package:audiolizer/modules/project_management/repo/project_repo.dart';
 
-import 'package:audiolizer/modules/os_share_intent/services/share_intent_service_mobile.dart' if (dart.library.html) 'package:audiolizer/modules/os_share_intent/services/share_intent_service_web.dart' as ShareProjectServiceImpl;
-
-class ShareProjectService {
-  static ShareProjectService? _instance;
-
-  ShareProjectService.visibleForImpl();
-
-  factory ShareProjectService._create() {
-    if (kIsWeb) {
-      _instance ??= ShareProjectServiceImpl.ShareProjectServiceImpl.visibleForImpl();
-      _instance?._startListeningForIncomingShareIntent();
-    } else if (_instance == null) {
-      _instance ??= ShareProjectServiceImpl.ShareProjectServiceImpl.visibleForImpl();
-      _instance?._startListeningForIncomingShareIntent();
-    }
-
-    return _instance!;
-  }
-
-  static ShareProjectService get instance => ShareProjectService._create();
-
+class ShareProjectServiceImpl extends ShareProjectService {
   final StreamController<Project> _sharedSolphaFileEventStream = StreamController.broadcast();
+
+  ShareProjectServiceImpl.visibleForImpl() : super.visibleForImpl();
 
   Stream<Project> get sharedProjectEventStream => _sharedSolphaFileEventStream.stream;
 
@@ -58,7 +42,7 @@ class ShareProjectService {
     try {
       print(filePath);
 
-      await handleFile(File(filePath));
+      await _handleFile(File(filePath));
     } on FileSystemException catch (e) {
       print('storage permission required');
       bool hasPermission = await PlatformPermissionService.instance.handleStoragePermission();
@@ -70,7 +54,7 @@ class ShareProjectService {
     }
   }
 
-  Future<void> handleFile(File file) async {
+  Future<void> _handleFile(File file) async {
     String scoreJson = await file.readAsString();
 
     try {
