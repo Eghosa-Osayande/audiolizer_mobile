@@ -25,10 +25,11 @@ class ScorePdfPreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    late final pdfAsync = project.toPDFAsync();
     return SafeArea(
       child: Scaffold(
         body: FutureBuilder<List<pw.Widget>>(
-            future: project.toPDFAsync(),
+            future: pdfAsync,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 var data = snapshot.data!;
@@ -147,7 +148,8 @@ class _ScorePdfPreview extends StatelessWidget {
               ),
             );
 
-            return pdf2Save.save();
+            var save = pdf2Save.save();
+            return save;
           },
         ),
       ),
