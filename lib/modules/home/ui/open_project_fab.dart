@@ -1,5 +1,7 @@
 import 'package:audiolizer/modules/project_editor/ui/page/score_editor.dart';
+import 'package:file/memory.dart';
 import 'package:floating_action_bubble/floating_action_bubble.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:audiolizer/modules/os_file_picker/platform_file_picker.dart';
 import 'package:audiolizer/modules/os_share_intent/services/share_intent_service.dart';
@@ -58,10 +60,7 @@ class OpenProjectFABState extends State<OpenProjectFAB> with TickerProviderState
               color: AppColors.instance.iconLight,
             ),
             onPress: () async {
-              var path = await PlatformFilePickerService.instance.pickFile();
-              if (path != null) {
-                ShareProjectService.instance.processFileFromPath(path);
-              }
+              await pickFile();
               _animationController.reverse();
             },
           ),
@@ -92,5 +91,19 @@ class OpenProjectFABState extends State<OpenProjectFAB> with TickerProviderState
         backGroundColor: AppColors.instance.primary,
       ),
     );
+  }
+
+  Future<void> pickFile() async {
+    if (kIsWeb) {
+      var bytes = await PlatformFilePickerService.instance.pickFileWeb();
+      if (bytes != null) {
+        ShareProjectService.instance.handleFile(await MemoryFileSystem().file('path').writeAsBytes(bytes));
+      }
+    } else {
+      var path = await PlatformFilePickerService.instance.pickFile();
+      if (path != null) {
+        ShareProjectService.instance.processFileFromPath(path);
+      }
+    }
   }
 }
