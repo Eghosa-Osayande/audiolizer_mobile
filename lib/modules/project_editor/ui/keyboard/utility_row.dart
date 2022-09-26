@@ -13,48 +13,50 @@ class BottomRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      // color: AppColors.instance.primary,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Expanded(
-            flex: 1,
-            child: ButtonWidget(
-              data: NewLineButton(),
-              height: 40,
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: ButtonWidget(
-              data: NewLineUpButton(),
-              height: 40,
-            ),
-          ),
-          // Expanded(
-          //     flex: 1,
-          //     child: ButtonWidget(
-          //       data: MusicNoteButton(octave: 0, solfa: Solfege.silent),
-          //     )),
-          Expanded(
-              flex: 3,
+    return TextFieldTapRegion(
+      child: Container(
+        // color: AppColors.instance.primary,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Expanded(
+              flex: 1,
               child: ButtonWidget(
-                data: SpaceBarButton(),
-              )),
-          // Expanded(
-          //     flex: 1,
-          //     child: ButtonWidget(
-          //       data: MusicNoteButton(octave: 0, solfa: Solfege.sustain),
-          //     )),
-          Expanded(
-            flex: 2,
-            child: ButtonWidget(
-              data: DeleteNoteButton(),
-              height: 40,
+                data: NewLineButton(),
+                height: 40,
+              ),
             ),
-          ),
-        ],
+            Expanded(
+              flex: 1,
+              child: ButtonWidget(
+                data: NewLineUpButton(),
+                height: 40,
+              ),
+            ),
+            // Expanded(
+            //     flex: 1,
+            //     child: ButtonWidget(
+            //       data: MusicNoteButton(octave: 0, solfa: Solfege.silent),
+            //     )),
+            Expanded(
+                flex: 3,
+                child: ButtonWidget(
+                  data: SpaceBarButton(),
+                )),
+            // Expanded(
+            //     flex: 1,
+            //     child: ButtonWidget(
+            //       data: MusicNoteButton(octave: 0, solfa: Solfege.sustain),
+            //     )),
+            Expanded(
+              flex: 2,
+              child: ButtonWidget(
+                data: DeleteNoteButton(),
+                height: 40,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -74,17 +76,19 @@ class TopRow extends StatelessWidget {
       // MusicNoteButton(octave: 0, solfa: Solfege.sustain),
       PlayPauseButton(),
     ];
-    return Container(
-      // color: AppColors.instance.primary,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: markers
-            .map((e) => Expanded(
-                    child: ButtonWidget(
-                  data: e,
-                  height: 40,
-                )))
-            .toList(),
+    return TextFieldTapRegion(
+      child: Container(
+        // color: AppColors.instance.primary,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: markers
+              .map((e) => Expanded(
+                      child: ButtonWidget(
+                    data: e,
+                    height: 40,
+                  )))
+              .toList(),
+        ),
       ),
     );
   }

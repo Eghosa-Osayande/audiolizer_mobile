@@ -81,20 +81,22 @@ class _ButtonWidgetState extends State<ButtonWidget> {
           continuousWork();
           onJobEnd();
         },
-        child: Tooltip(
-          key: tooltipKey,
-          triggerMode: TooltipTriggerMode.manual,
-          preferBelow: false,
-          padding: EdgeInsets.zero,
-          margin: EdgeInsets.zero,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: Colors.white, width: 1),
-          ),
-          richMessage: WidgetSpan(
+        child: TextFieldTapRegion(
+          child: Tooltip(
+            key: tooltipKey,
+            triggerMode: TooltipTriggerMode.manual,
+            preferBelow: false,
+            padding: EdgeInsets.zero,
+            margin: EdgeInsets.zero,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: Colors.white, width: 1),
+            ),
+            richMessage: WidgetSpan(
+              child: buildBody(),
+            ),
             child: buildBody(),
           ),
-          child: buildBody(),
         ),
       ),
     );

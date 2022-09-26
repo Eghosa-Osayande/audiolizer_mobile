@@ -32,79 +32,81 @@ class OctaveBoard extends StatelessWidget {
     );
     var sharps = generateSharpOctave();
     var flat = generateFlatOctave();
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: List.generate(sharps.length, (index) {
-            if (index == 0 || index == 7) {
-              return Spacer(
-                flex: 1,
-              );
-            }
-            if (index == 3) {
+    return TextFieldTapRegion (
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: List.generate(sharps.length, (index) {
+              if (index == 0 || index == 7) {
+                return Spacer(
+                  flex: 1,
+                );
+              }
+              if (index == 3) {
+                return Expanded(
+                  flex: 2,
+                  child: Opacity(
+                    opacity: 1,
+                    child: silentKey,
+                  ),
+                );
+              }
+    
               return Expanded(
-                flex: 2,
-                child: Opacity(
-                  opacity: 1,
-                  child: silentKey,
-                ),
-              );
-            }
-
-            return Expanded(
+                  flex: 2,
+                  child: ButtonWidget(
+                    data: sharps[index],
+                    height: kNoteHeight,
+                  ));
+            }),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: List.from(
+              generateMainOctave().map(
+                (note) {
+                  return Expanded(
+                      flex: 2,
+                      child: ButtonWidget(
+                        data: note,
+                        height: kNoteHeight,
+                        buttonBGColor: Colors.white,
+                        textColor: Colors.black,
+                      ));
+                },
+              ).toList(),
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: List.generate(flat.length, (index) {
+              if (index == 0 || index == 7) {
+                return Spacer(
+                  flex: 1,
+                );
+              }
+              if (index == 3) {
+                return Expanded(
+                  flex: 2,
+                  child: Opacity(
+                    opacity: 1,
+                    child: sustainKey,
+                  ),
+                );
+              }
+              return Expanded(
                 flex: 2,
                 child: ButtonWidget(
-                  data: sharps[index],
+                  data: flat[index],
                   height: kNoteHeight,
-                ));
-          }),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: List.from(
-            generateMainOctave().map(
-              (note) {
-                return Expanded(
-                    flex: 2,
-                    child: ButtonWidget(
-                      data: note,
-                      height: kNoteHeight,
-                      buttonBGColor: Colors.white,
-                      textColor: Colors.black,
-                    ));
-              },
-            ).toList(),
-          ),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: List.generate(flat.length, (index) {
-            if (index == 0 || index == 7) {
-              return Spacer(
-                flex: 1,
-              );
-            }
-            if (index == 3) {
-              return Expanded(
-                flex: 2,
-                child: Opacity(
-                  opacity: 1,
-                  child: sustainKey,
                 ),
               );
-            }
-            return Expanded(
-              flex: 2,
-              child: ButtonWidget(
-                data: flat[index],
-                height: kNoteHeight,
-              ),
-            );
-          }),
-        ),
-      ],
+            }),
+          ),
+        ],
+      ),
     );
   }
 
